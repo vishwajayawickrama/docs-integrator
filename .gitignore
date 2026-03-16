@@ -16,6 +16,7 @@
 *.nar
 *.ear
 *.zip
+
 *.tar.gz
 *.rar
 
@@ -24,3 +25,15 @@ hs_err_pid*
 replay_pid*
 docusaurus
 .claude
+
+# Mac system files
+*.DS_Store
+
+# IDE config files
+*.idea
+
+# Node modules directory
+node_modules
+
+# Generated docs
+en/site

@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/aws.sqs` connector supports event-driven message consumption through a built-in polling Listener. The Listener periodically retrieves messages from an SQS queue and dispatches them to your service callbacks, eliminating the need for manual polling loops.
@@ -29,14 +32,14 @@ The listener supports the following connection strategies:
 | `ConnectionConfig` | AWS connection configuration for authenticating with SQS. |
 | `PollingConfig` | Controls how the Listener polls the SQS queue for messages. |
 
-**`ConnectionConfig` fields:**
+`ConnectionConfig` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `region` | `Region` | Required | AWS region where the SQS queue is located. |
 | `auth` | `StaticAuthConfig\|ProfileAuthConfig\|DEFAULT_CREDENTIALS` | Required | Authentication configuration — static credentials, AWS profile, or default credential chain. |
 
-**`PollingConfig` fields:**
+`PollingConfig` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -44,7 +47,7 @@ The listener supports the following connection strategies:
 | `waitTime` | `int` | `20` | Long poll wait time in seconds (0–20). |
 | `visibilityTimeout` | `int` | `30` | Visibility timeout in seconds for received messages. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Using static credentials:**
 
@@ -96,7 +99,7 @@ listener sqs:Listener sqsListener = new (
 An `sqs:Service` is a Ballerina service attached to an `sqs:Listener`. It is annotated with `@sqs:ServiceConfig` to specify the queue URL and optional settings, and implements callback functions for message processing and error handling.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -107,7 +110,7 @@ An `sqs:Service` is a Ballerina service attached to an `sqs:Listener`. It is ann
 The `sqs:Caller` parameter in `onMessage` is optional. If `autoDelete` is set to `true` (default) in `@sqs:ServiceConfig`, messages are automatically deleted after `onMessage` returns successfully.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -151,7 +154,7 @@ You can set `autoDelete: false` in `@sqs:ServiceConfig` to manually control mess
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `Message`
 

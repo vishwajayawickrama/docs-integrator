@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -22,7 +23,7 @@ Converts Ballerina records to COBOL copybook-formatted byte arrays and deseriali
 |-------|------|---------|-------------|
 | `schemaFilePath` | `string` | Required | The file path to the COBOL copybook definition file (`.cpy`) that describes the data structure. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/copybook;
@@ -42,7 +43,7 @@ copybook:Converter converter = check new ("resources/copybook.cpy");
 Converts a Ballerina `record {}` or `map<json>` value into a COBOL copybook-formatted byte array. The output byte layout is determined by the PIC clauses in the copybook schema. Optionally specify the target record name when the schema defines multiple top-level types, and the desired output encoding (ASCII or EBCDIC).
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -50,9 +51,9 @@ Converts a Ballerina `record {}` or `map<json>` value into a COBOL copybook-form
 | `targetRecordName` | `string?` | No | The name of the copybook record definition to use. Required only when the schema file contains more than one top-level record definition. |
 | `encoding` | `copybook:Encoding` | No | The output byte encoding. Use `copybook:ASCII` (default) or `copybook:EBCDIC` for IBM mainframe compatibility. |
 
-**Returns:** `byte[]|copybook:Error`
+Returns: `byte[]|copybook:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerinax/copybook;
@@ -72,7 +73,7 @@ record {} employee = {
 byte[] asciiBytes = check converter.toBytes(employee);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [69, 77, 80, 49, 74, 111, 104, 110, 32, 32, 32, 32, 32, 32, 68, 111, 101, 32, 32, 32, 32, 32, 32, 32, 48, 48, 55, 53, 48, 48, 48, 46, 48, 48, 65]
@@ -82,7 +83,7 @@ byte[] asciiBytes = check converter.toBytes(employee);
 
 </details>
 
-#### fromBytes
+#### FromBytes
 
 <details>
 <summary>fromBytes</summary>
@@ -92,7 +93,7 @@ byte[] asciiBytes = check converter.toBytes(employee);
 Deserializes a COBOL copybook-formatted byte array into a Ballerina `map<json>` value. The field mapping and value extraction are driven by the PIC clauses in the copybook schema. Optionally specify the target record name when the schema defines multiple top-level types, and the encoding of the incoming bytes.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -100,9 +101,9 @@ Deserializes a COBOL copybook-formatted byte array into a Ballerina `map<json>` 
 | `targetRecordName` | `string?` | No | The name of the copybook record definition to use. Required only when the schema file contains more than one top-level record definition. |
 | `encoding` | `copybook:Encoding` | No | The encoding of the input bytes. Use `copybook:ASCII` (default) or `copybook:EBCDIC` for IBM mainframe byte streams. |
 
-**Returns:** `map<json>|copybook:Error`
+Returns: `map<json>|copybook:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerinax/copybook;
@@ -113,7 +114,7 @@ copybook:Converter converter = check new ("resources/copybook.cpy");
 map<json> result = check converter.fromBytes(asciiBytes);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

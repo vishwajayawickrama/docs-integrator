@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a Solace PubSub+ broker and obtaining the connection details required to use the Solace connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up a Solace PubSub+ broker and obtaining th
 
 - A Solace PubSub+ broker instance. You can use [Solace Cloud](https://console.solace.cloud/) (free tier available) or run a self-hosted broker via [Docker](https://solace.com/products/event-broker/software/getting-started/).
 
-## Step 1: Set Up a Solace PubSub+ Broker
+## Step 1: Set up a Solace pubSub+ broker
 
 **Option A — Solace Cloud (managed service):**
 1. Sign up at [console.solace.cloud](https://console.solace.cloud/).
@@ -30,7 +33,7 @@ This guide walks you through setting up a Solace PubSub+ broker and obtaining th
 The Docker image exposes port 55555 for SMF (plain text) and 55443 for SMF over TLS.
 :::
 
-## Step 2: Create a Message VPN
+## Step 2: Create a message VPN
 
 1. Log in to the Solace management console (PubSub+ Manager).
 2. Navigate to **Message VPNs** and click **+ Create Message VPN**.
@@ -42,7 +45,7 @@ The Docker image exposes port 55555 for SMF (plain text) and 55443 for SMF over 
 The default VPN named `default` is pre-configured and ready to use for development. You can skip this step if using the default VPN.
 :::
 
-## Step 3: Create a Client Username
+## Step 3: Create a client username
 
 1. In PubSub+ Manager, navigate to your Message VPN.
 2. Go to **Access Control** > **Client Usernames**.
@@ -50,7 +53,7 @@ The default VPN named `default` is pre-configured and ready to use for developme
 4. Set a password for the client username.
 5. Enable the client username and click **Apply**.
 
-## Step 4: Create Queues and Topics
+## Step 4: Create queues and topics
 
 1. In PubSub+ Manager, navigate to your Message VPN.
 2. Go to **Queues** and click **+ Queue** to create a new queue.
@@ -62,7 +65,7 @@ The default VPN named `default` is pre-configured and ready to use for developme
 For topic-based publish/subscribe without queues, no queue creation is needed — topics are created dynamically when a subscriber connects.
 :::
 
-## Step 5: Obtain Connection Details
+## Step 5: Obtain connection details
 
 Gather the following details for your Ballerina connector configuration:
 

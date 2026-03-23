@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Provides access to all Stripe REST API V1 resources including customers, payment
 | `secureSocket` | `ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `proxy` | `ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/stripe;
@@ -44,7 +45,7 @@ stripe:Client stripe = check new ({
 
 ### Operations
 
-#### Customer Management
+#### Customer management
 
 <details>
 <summary>List all customers</summary>
@@ -53,7 +54,7 @@ stripe:Client stripe = check new ({
 
 Returns a list of customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -61,15 +62,15 @@ Returns a list of customers. The customers are returned sorted by creation date,
 | `limit` | `int?` | No | Maximum number of customers to return (1–100). Default is 10. |
 | `starting_after` | `string?` | No | Cursor for pagination. Provide a customer ID to list customers created after this customer. |
 
-**Returns:** `stripe:CustomerResourceCustomerList|error`
+Returns: `stripe:CustomerResourceCustomerList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:CustomerResourceCustomerList customers = check stripe->/customers;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -99,15 +100,15 @@ stripe:CustomerResourceCustomerList customers = check stripe->/customers;
 
 Creates a new customer object with the provided details.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `stripe:customers_body` | Yes | Customer creation payload containing name, email, address, and other details. |
 
-**Returns:** `stripe:Customer|error`
+Returns: `stripe:Customer|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Customer customer = check stripe->/customers.post({
@@ -120,7 +121,7 @@ stripe:Customer customer = check stripe->/customers.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -148,21 +149,21 @@ stripe:Customer customer = check stripe->/customers.post({
 
 Retrieves the details of an existing customer by their ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `customer` | `string` | Yes | The ID of the customer to retrieve. |
 
-**Returns:** `stripe:Customer|error`
+Returns: `stripe:Customer|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Customer customer = check stripe->/customers/["cus_PxN1234abcdef"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -185,16 +186,16 @@ stripe:Customer customer = check stripe->/customers/["cus_PxN1234abcdef"];
 
 Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `customer` | `string` | Yes | The ID of the customer to update. |
 | `payload` | `stripe:customers_customer_body` | Yes | Customer update payload. |
 
-**Returns:** `stripe:Customer|error`
+Returns: `stripe:Customer|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Customer updated = check stripe->/customers/["cus_PxN1234abcdef"].post({
@@ -203,7 +204,7 @@ stripe:Customer updated = check stripe->/customers/["cus_PxN1234abcdef"].post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -226,21 +227,21 @@ stripe:Customer updated = check stripe->/customers/["cus_PxN1234abcdef"].post({
 
 Permanently deletes a customer. It cannot be undone. Any active subscriptions on the customer will also be cancelled.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `customer` | `string` | Yes | The ID of the customer to delete. |
 
-**Returns:** `stripe:Deleted_customer|error`
+Returns: `stripe:Deleted_customer|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Deleted_customer deleted = check stripe->/customers/["cus_PxN1234abcdef"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -254,7 +255,7 @@ stripe:Deleted_customer deleted = check stripe->/customers/["cus_PxN1234abcdef"]
 
 </details>
 
-#### Payment Intents
+#### Payment intents
 
 <details>
 <summary>Create a payment intent</summary>
@@ -263,15 +264,15 @@ stripe:Deleted_customer deleted = check stripe->/customers/["cus_PxN1234abcdef"]
 
 Creates a PaymentIntent object. After creation, attach a payment method and confirm to continue the payment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `stripe:payment_intents_body` | Yes | Payment intent creation payload including amount, currency, and optional parameters. |
 
-**Returns:** `stripe:Payment_intent|error`
+Returns: `stripe:Payment_intent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Payment_intent paymentIntent = check stripe->/payment_intents.post({
@@ -281,7 +282,7 @@ stripe:Payment_intent paymentIntent = check stripe->/payment_intents.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -305,21 +306,21 @@ stripe:Payment_intent paymentIntent = check stripe->/payment_intents.post({
 
 Retrieves the details of a PaymentIntent that was previously created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `intent` | `string` | Yes | The ID of the PaymentIntent to retrieve. |
 
-**Returns:** `stripe:Payment_intent|error`
+Returns: `stripe:Payment_intent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Payment_intent intent = check stripe->/payment_intents/["pi_3MtwBwLkdIwHu7ix28a3tqPa"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -342,22 +343,22 @@ stripe:Payment_intent intent = check stripe->/payment_intents/["pi_3MtwBwLkdIwHu
 
 Returns a list of PaymentIntents.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `customer` | `string?` | No | Filter by customer ID. |
 | `limit` | `int?` | No | Maximum number of results to return (1–100). |
 
-**Returns:** `stripe:PaymentFlowsPaymentIntentResourcePaymentIntentList|error`
+Returns: `stripe:PaymentFlowsPaymentIntentResourcePaymentIntentList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:PaymentFlowsPaymentIntentResourcePaymentIntentList intents = check stripe->/payment_intents;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -386,16 +387,16 @@ stripe:PaymentFlowsPaymentIntentResourcePaymentIntentList intents = check stripe
 
 Confirms a PaymentIntent, transitioning it to a state where it can process a payment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `intent` | `string` | Yes | The ID of the PaymentIntent to confirm. |
 | `payload` | `stripe:intent_confirm_body` | No | Confirmation payload with optional payment method and return URL. |
 
-**Returns:** `stripe:Payment_intent|error`
+Returns: `stripe:Payment_intent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Payment_intent confirmed = check stripe->/payment_intents/["pi_3MtwBwLkdIwHu7ix28a3tqPa"]/confirm.post({
@@ -403,7 +404,7 @@ stripe:Payment_intent confirmed = check stripe->/payment_intents/["pi_3MtwBwLkdI
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -426,21 +427,21 @@ stripe:Payment_intent confirmed = check stripe->/payment_intents/["pi_3MtwBwLkdI
 
 Cancels a PaymentIntent. After cancellation, no additional charges are made.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `intent` | `string` | Yes | The ID of the PaymentIntent to cancel. |
 
-**Returns:** `stripe:Payment_intent|error`
+Returns: `stripe:Payment_intent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Payment_intent cancelled = check stripe->/payment_intents/["pi_3MtwBwLkdIwHu7ix28a3tqPa"]/cancel.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -465,15 +466,15 @@ stripe:Payment_intent cancelled = check stripe->/payment_intents/["pi_3MtwBwLkdI
 
 Creates a new charge. Use the Payment Intents API for new integrations; this endpoint is for legacy compatibility.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `stripe:charges_body` | Yes | Charge creation payload including amount, currency, and source or customer. |
 
-**Returns:** `stripe:Charge|error`
+Returns: `stripe:Charge|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Charge charge = check stripe->/charges.post({
@@ -483,7 +484,7 @@ stripe:Charge charge = check stripe->/charges.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -507,21 +508,21 @@ stripe:Charge charge = check stripe->/charges.post({
 
 Retrieves the details of a charge that has previously been created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `charge` | `string` | Yes | The ID of the charge to retrieve. |
 
-**Returns:** `stripe:Charge|error`
+Returns: `stripe:Charge|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Charge charge = check stripe->/charges/["ch_3MmlLrLkdIwHu7ix0snN0B15"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -544,22 +545,22 @@ stripe:Charge charge = check stripe->/charges/["ch_3MmlLrLkdIwHu7ix0snN0B15"];
 
 Returns a list of charges you have previously created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `customer` | `string?` | No | Filter by customer ID. |
 | `limit` | `int?` | No | Maximum number of results to return. |
 
-**Returns:** `stripe:ChargeList|error`
+Returns: `stripe:ChargeList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:ChargeList charges = check stripe->/charges;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -580,7 +581,7 @@ stripe:ChargeList charges = check stripe->/charges;
 
 </details>
 
-#### Products & Prices
+#### Products & prices
 
 <details>
 <summary>Create a product</summary>
@@ -589,15 +590,15 @@ stripe:ChargeList charges = check stripe->/charges;
 
 Creates a new product object.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `stripe:products_body` | Yes | Product creation payload with name and optional details. |
 
-**Returns:** `stripe:Product|error`
+Returns: `stripe:Product|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Product product = check stripe->/products.post({
@@ -606,7 +607,7 @@ stripe:Product product = check stripe->/products.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -630,22 +631,22 @@ stripe:Product product = check stripe->/products.post({
 
 Returns a list of your products.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `active` | `boolean?` | No | Filter by active status. |
 | `limit` | `int?` | No | Maximum number of results to return. |
 
-**Returns:** `stripe:ProductList|error`
+Returns: `stripe:ProductList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:ProductList products = check stripe->/products;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -673,15 +674,15 @@ stripe:ProductList products = check stripe->/products;
 
 Creates a new price for an existing product.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `stripe:prices_body` | Yes | Price creation payload with currency, unit_amount, and product reference. |
 
-**Returns:** `stripe:Price|error`
+Returns: `stripe:Price|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Price price = check stripe->/prices.post({
@@ -694,7 +695,7 @@ stripe:Price price = check stripe->/prices.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -721,22 +722,22 @@ stripe:Price price = check stripe->/prices.post({
 
 Returns a list of your prices.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `product` | `string?` | No | Filter by product ID. |
 | `active` | `boolean?` | No | Filter by active status. |
 
-**Returns:** `stripe:PriceList|error`
+Returns: `stripe:PriceList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:PriceList prices = check stripe->/prices(product = "prod_OkIaGzRTh1gQqH");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -766,15 +767,15 @@ stripe:PriceList prices = check stripe->/prices(product = "prod_OkIaGzRTh1gQqH")
 
 Creates a draft invoice for a given customer. The draft invoice pulls in all pending invoice items on that customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `stripe:invoices_body` | Yes | Invoice creation payload with customer and optional details. |
 
-**Returns:** `stripe:Invoice|error`
+Returns: `stripe:Invoice|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Invoice invoice = check stripe->/invoices.post({
@@ -784,7 +785,7 @@ stripe:Invoice invoice = check stripe->/invoices.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -809,21 +810,21 @@ stripe:Invoice invoice = check stripe->/invoices.post({
 
 Retrieves the invoice with the given ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `invoice` | `string` | Yes | The ID of the invoice to retrieve. |
 
-**Returns:** `stripe:Invoice|error`
+Returns: `stripe:Invoice|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Invoice invoice = check stripe->/invoices/["in_1MtHbELkdIwHu7ixl4OzzPMv"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -846,21 +847,21 @@ stripe:Invoice invoice = check stripe->/invoices/["in_1MtHbELkdIwHu7ixl4OzzPMv"]
 
 Finalizes a draft invoice, transitioning its status from draft to open. A finalized invoice can no longer be deleted or have its monetary values changed.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `invoice` | `string` | Yes | The ID of the invoice to finalize. |
 
-**Returns:** `stripe:Invoice|error`
+Returns: `stripe:Invoice|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Invoice finalized = check stripe->/invoices/["in_1MtHbELkdIwHu7ixl4OzzPMv"]/finalize.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -883,22 +884,22 @@ stripe:Invoice finalized = check stripe->/invoices/["in_1MtHbELkdIwHu7ixl4OzzPMv
 
 Returns a list of invoices. The invoices are returned sorted by creation date, with the most recent ones appearing first.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `customer` | `string?` | No | Filter by customer ID. |
 | `status` | `string?` | No | Filter by invoice status: `draft`, `open`, `paid`, `uncollectible`, or `void`. |
 
-**Returns:** `stripe:InvoicesList|error`
+Returns: `stripe:InvoicesList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:InvoicesList invoices = check stripe->/invoices(customer = "cus_PxN1234abcdef");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -928,15 +929,15 @@ stripe:InvoicesList invoices = check stripe->/invoices(customer = "cus_PxN1234ab
 
 Creates a new subscription on an existing customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `stripe:subscriptions_body` | Yes | Subscription creation payload with customer, items, and optional parameters. |
 
-**Returns:** `stripe:Subscription|error`
+Returns: `stripe:Subscription|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Subscription subscription = check stripe->/subscriptions.post({
@@ -947,7 +948,7 @@ stripe:Subscription subscription = check stripe->/subscriptions.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -979,21 +980,21 @@ stripe:Subscription subscription = check stripe->/subscriptions.post({
 
 Retrieves the subscription with the given ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `subscription_exposed_id` | `string` | Yes | The ID of the subscription to retrieve. |
 
-**Returns:** `stripe:Subscription|error`
+Returns: `stripe:Subscription|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Subscription sub = check stripe->/subscriptions/["sub_1MowQVLkdIwHu7ixeRlqHVzs"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1016,21 +1017,21 @@ stripe:Subscription sub = check stripe->/subscriptions/["sub_1MowQVLkdIwHu7ixeRl
 
 Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `subscription_exposed_id` | `string` | Yes | The ID of the subscription to cancel. |
 
-**Returns:** `stripe:Subscription|error`
+Returns: `stripe:Subscription|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Subscription cancelled = check stripe->/subscriptions/["sub_1MowQVLkdIwHu7ixeRlqHVzs"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1052,22 +1053,22 @@ stripe:Subscription cancelled = check stripe->/subscriptions/["sub_1MowQVLkdIwHu
 
 Returns a list of your active subscriptions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `customer` | `string?` | No | Filter by customer ID. |
 | `status` | `string?` | No | Filter by status: `active`, `past_due`, `canceled`, etc. |
 
-**Returns:** `stripe:SubscriptionList|error`
+Returns: `stripe:SubscriptionList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:SubscriptionList subs = check stripe->/subscriptions(customer = "cus_PxN1234abcdef");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1096,15 +1097,15 @@ stripe:SubscriptionList subs = check stripe->/subscriptions(customer = "cus_PxN1
 
 Creates a refund for a charge or a payment intent.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `stripe:refunds_body` | Yes | Refund creation payload with charge or payment_intent and optional amount. |
 
-**Returns:** `stripe:Refund|error`
+Returns: `stripe:Refund|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Refund refund = check stripe->/refunds.post({
@@ -1113,7 +1114,7 @@ stripe:Refund refund = check stripe->/refunds.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1137,21 +1138,21 @@ stripe:Refund refund = check stripe->/refunds.post({
 
 Retrieves the details of an existing refund.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `refund` | `string` | Yes | The ID of the refund to retrieve. |
 
-**Returns:** `stripe:Refund|error`
+Returns: `stripe:Refund|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Refund refund = check stripe->/refunds/["re_3MtwBwLkdIwHu7ix0snN0B15"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1177,15 +1178,15 @@ stripe:Refund refund = check stripe->/refunds/["re_3MtwBwLkdIwHu7ix0snN0B15"];
 Retrieves the current account balance, based on the authentication that was used to make the request.
 
 
-**Returns:** `stripe:Balance|error`
+Returns: `stripe:Balance|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Balance balance = check stripe->/balance;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1220,22 +1221,22 @@ stripe:Balance balance = check stripe->/balance;
 
 Returns a list of transactions that have contributed to the Stripe account balance.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `limit` | `int?` | No | Maximum number of results to return. |
 | `type` | `string?` | No | Filter by transaction type (e.g., `charge`, `refund`, `payout`). |
 
-**Returns:** `stripe:BalanceTransactionsList|error`
+Returns: `stripe:BalanceTransactionsList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:BalanceTransactionsList txns = check stripe->/balance_transactions(limit = 5);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1268,15 +1269,15 @@ stripe:BalanceTransactionsList txns = check stripe->/balance_transactions(limit 
 
 Sends funds to your own bank account. The Stripe account balance must cover the payout amount.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `stripe:payouts_body` | Yes | Payout creation payload with amount and currency. |
 
-**Returns:** `stripe:Payout|error`
+Returns: `stripe:Payout|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:Payout payout = check stripe->/payouts.post({
@@ -1285,7 +1286,7 @@ stripe:Payout payout = check stripe->/payouts.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1309,22 +1310,22 @@ stripe:Payout payout = check stripe->/payouts.post({
 
 Returns a list of existing payouts.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `status` | `string?` | No | Filter by payout status. |
 | `limit` | `int?` | No | Maximum number of results to return. |
 
-**Returns:** `stripe:PayoutList|error`
+Returns: `stripe:PayoutList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stripe:PayoutList payouts = check stripe->/payouts;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

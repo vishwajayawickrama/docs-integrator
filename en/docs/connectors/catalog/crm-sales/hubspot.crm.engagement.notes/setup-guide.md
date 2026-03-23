@@ -12,14 +12,14 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 
 - A HubSpot account with CRM access. If you do not have one, [sign up for a free account](https://app.hubspot.com/signup-hubspot/crm).
 
-## Create a HubSpot Developer Account
+## Create a HubSpot developer account
 
 1. Go to the [HubSpot Developer Portal](https://developers.hubspot.com/).
 2. Click **Create a developer account** if you don't already have one.
 3. Complete the registration form and verify your email address.
 
 
-## Create a Developer App
+## Create a developer app
 
 1. In the HubSpot Developer Portal, navigate to **Apps** in the top navigation.
 2. Click **Create app**.
@@ -38,7 +38,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 The required scopes may vary depending on which CRM objects you want to associate notes with.
 :::
 
-## Get the Client ID and Client Secret
+## Get the client ID and client secret
 
 1. After creating the app, go to the **Auth** tab of your app.
 2. Copy the **Client ID** — this is your `clientId`.
@@ -51,7 +51,7 @@ Use Ballerina's `configurable` feature and a `Config.toml` file to supply them a
 
 :::
 
-## Authorize and Get a Refresh Token
+## Authorize and get a refresh token
 
 Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 
@@ -84,6 +84,6 @@ Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange in step 5.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

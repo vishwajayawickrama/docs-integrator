@@ -1,9 +1,12 @@
+---
+title: PayPal Orders Connector Overview
+---
 # PayPal Orders Connector Overview
 
 PayPal Orders API enables you to create, update, retrieve, authorize, and capture payment orders between parties. The Ballerina `ballerinax/paypal.orders` connector (v2.0.1) provides programmatic access to the PayPal Orders v2 API, allowing you to manage the full order lifecycle — from creation through payment capture — and track shipments within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Create orders with CAPTURE or AUTHORIZE payment intent and detailed purchase unit breakdowns
 - Retrieve order details by ID with optional payment source filtering
@@ -25,14 +28,14 @@ Actions are operations you invoke on PayPal from your integration — creating o
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## PayPal Orders Connector Documentation
+## PayPal orders connector documentation
 
 * **[PayPal Orders Connector Setup Guide](setup-guide.md)**: This guide walks you through creating a PayPal REST API application and obtaining the OAuth 2.0 client credentials required to use the PayPal Orders connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

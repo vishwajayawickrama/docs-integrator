@@ -1,9 +1,12 @@
+---
+title: Anthropic LLM Connector Overview
+---
 # Anthropic LLM Connector Overview
 
 Anthropic is an AI safety company that builds reliable, steerable AI systems. The Ballerina `ballerinax/ai.anthropic` connector (v1.3.1) provides a model provider interface for interacting with Anthropic's Claude family of large language models, enabling chat completions and structured data generation from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Chat completion using Anthropic's Claude LLM models via the Messages API
 - Structured data generation with type-safe `generate` method that returns Ballerina typed values from natural language prompts
@@ -24,14 +27,14 @@ Actions are operations you invoke on the Anthropic model provider from your inte
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## Anthropic LLM Connector Documentation
+## Anthropic LLM connector documentation
 
 * **[Anthropic LLM Connector Setup Guide](setup-guide.md)**: This guide walks you through creating an Anthropic account and obtaining the API key required to use the Anthropic LLM connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

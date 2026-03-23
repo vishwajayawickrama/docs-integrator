@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -27,7 +28,7 @@ Comprehensive client for the full OpenAI REST API — chat, images, audio, embed
 | `secureSocket` | `http:ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/openai;
@@ -41,7 +42,7 @@ openai:Client openaiClient = check new ({
 
 ### Operations
 
-#### Chat Completions
+#### Chat completions
 
 <details>
 <summary>Create chat completion</summary>
@@ -50,15 +51,15 @@ openai:Client openaiClient = check new ({
 
 Creates a model response for the given chat conversation. Supports text, function calling, and structured outputs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateChatCompletionRequest` | Yes | Chat completion request containing model, messages, and optional parameters. |
 
-**Returns:** `CreateChatCompletionResponse|error`
+Returns: `CreateChatCompletionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:CreateChatCompletionResponse response = check openaiClient->/chat/completions.post({
@@ -70,7 +71,7 @@ openai:CreateChatCompletionResponse response = check openaiClient->/chat/complet
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -103,21 +104,21 @@ openai:CreateChatCompletionResponse response = check openaiClient->/chat/complet
 
 Lists stored chat completions. Only chat completions created with the `store` parameter set to `true` are returned.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetChatCompletionsQueries` | No | Query parameters including `model`, `after`, `limit`, and `order`. |
 
-**Returns:** `ChatCompletionList|error`
+Returns: `ChatCompletionList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ChatCompletionList completions = check openaiClient->/chat/completions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -140,21 +141,21 @@ openai:ChatCompletionList completions = check openaiClient->/chat/completions();
 
 Retrieves a stored chat completion by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `completionId` | `string` | Yes | The ID of the chat completion to retrieve. |
 
-**Returns:** `CreateChatCompletionResponse|error`
+Returns: `CreateChatCompletionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:CreateChatCompletionResponse completion = check openaiClient->/chat/completions/["chatcmpl-abc123"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -178,21 +179,21 @@ openai:CreateChatCompletionResponse completion = check openaiClient->/chat/compl
 
 Deletes a stored chat completion. Only completions created with the `store` parameter set to `true` can be deleted.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `completionId` | `string` | Yes | The ID of the chat completion to delete. |
 
-**Returns:** `ChatCompletionDeleted|error`
+Returns: `ChatCompletionDeleted|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ChatCompletionDeleted result = check openaiClient->/chat/completions/["chatcmpl-abc123"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "chatcmpl-abc123", "object": "chat.completion.deleted", "deleted": true}
@@ -211,15 +212,15 @@ openai:ChatCompletionDeleted result = check openaiClient->/chat/completions/["ch
 
 Creates an image given a prompt using DALL·E models.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateImageRequest` | Yes | Image generation request containing prompt, model, size, and quality options. |
 
-**Returns:** `ImagesResponse|error`
+Returns: `ImagesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ImagesResponse images = check openaiClient->/images/generations.post({
@@ -230,7 +231,7 @@ openai:ImagesResponse images = check openaiClient->/images/generations.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -252,15 +253,15 @@ openai:ImagesResponse images = check openaiClient->/images/generations.post({
 
 Creates an edited or extended image given an original image and a prompt.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateImageEditRequest` | Yes | Image edit request containing the image, mask, prompt, and options. |
 
-**Returns:** `ImagesResponse|error`
+Returns: `ImagesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ImagesResponse editedImages = check openaiClient->/images/edits.post({
@@ -271,7 +272,7 @@ openai:ImagesResponse editedImages = check openaiClient->/images/edits.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -295,15 +296,15 @@ openai:ImagesResponse editedImages = check openaiClient->/images/edits.post({
 
 Generates audio from the input text using a TTS model.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateSpeechRequest` | Yes | Speech request containing model, input text, and voice. |
 
-**Returns:** `byte[]|error`
+Returns: `byte[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] audioBytes = check openaiClient->/audio/speech.post({
@@ -324,15 +325,15 @@ byte[] audioBytes = check openaiClient->/audio/speech.post({
 
 Transcribes audio into text in the input language.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateTranscriptionRequest` | Yes | Transcription request containing the audio file and model. |
 
-**Returns:** `InlineResponse200|error`
+Returns: `InlineResponse200|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:InlineResponse200 transcription = check openaiClient->/audio/transcriptions.post({
@@ -341,7 +342,7 @@ openai:InlineResponse200 transcription = check openaiClient->/audio/transcriptio
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"text": "Hello, this is a test transcription of the audio file."}
@@ -360,15 +361,15 @@ openai:InlineResponse200 transcription = check openaiClient->/audio/transcriptio
 
 Creates an embedding vector representing the input text.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateEmbeddingRequest` | Yes | Embedding request containing the input text and model. |
 
-**Returns:** `CreateEmbeddingResponse|error`
+Returns: `CreateEmbeddingResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:CreateEmbeddingResponse embeddings = check openaiClient->/embeddings.post({
@@ -377,7 +378,7 @@ openai:CreateEmbeddingResponse embeddings = check openaiClient->/embeddings.post
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -403,15 +404,15 @@ openai:CreateEmbeddingResponse embeddings = check openaiClient->/embeddings.post
 
 Creates an assistant with a model and instructions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateAssistantRequest` | Yes | Assistant creation request containing model, name, instructions, and tools. |
 
-**Returns:** `AssistantObject|error`
+Returns: `AssistantObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:AssistantObject assistant = check openaiClient->/assistants.post({
@@ -421,7 +422,7 @@ openai:AssistantObject assistant = check openaiClient->/assistants.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -446,21 +447,21 @@ openai:AssistantObject assistant = check openaiClient->/assistants.post({
 
 Returns a list of assistants.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListAssistantsQueries` | No | Query parameters including `limit`, `order`, `after`, and `before`. |
 
-**Returns:** `ListAssistantsResponse|error`
+Returns: `ListAssistantsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ListAssistantsResponse assistants = check openaiClient->/assistants();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -483,21 +484,21 @@ openai:ListAssistantsResponse assistants = check openaiClient->/assistants();
 
 Deletes an assistant.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `assistantId` | `string` | Yes | The ID of the assistant to delete. |
 
-**Returns:** `DeleteAssistantResponse|error`
+Returns: `DeleteAssistantResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:DeleteAssistantResponse result = check openaiClient->/assistants/["asst_abc123"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "asst_abc123", "object": "assistant.deleted", "deleted": true}
@@ -507,7 +508,7 @@ openai:DeleteAssistantResponse result = check openaiClient->/assistants/["asst_a
 
 </details>
 
-#### Threads & Messages
+#### Threads & messages
 
 <details>
 <summary>Create thread</summary>
@@ -516,21 +517,21 @@ openai:DeleteAssistantResponse result = check openaiClient->/assistants/["asst_a
 
 Creates a thread for an assistant conversation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateThreadRequest` | Yes | Thread creation request, optionally containing initial messages. |
 
-**Returns:** `ThreadObject|error`
+Returns: `ThreadObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ThreadObject thread = check openaiClient->/threads.post({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -552,16 +553,16 @@ openai:ThreadObject thread = check openaiClient->/threads.post({});
 
 Creates a message within a thread.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `threadId` | `string` | Yes | The ID of the thread to create the message in. |
 | `request` | `CreateMessageRequest` | Yes | Message request containing the role and content. |
 
-**Returns:** `MessageObject|error`
+Returns: `MessageObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:MessageObject message = check openaiClient->/threads/[thread.id]/messages.post({
@@ -570,7 +571,7 @@ openai:MessageObject message = check openaiClient->/threads/[thread.id]/messages
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -594,22 +595,22 @@ openai:MessageObject message = check openaiClient->/threads/[thread.id]/messages
 
 Returns a list of messages for a given thread.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `threadId` | `string` | Yes | The ID of the thread. |
 | `queries` | `ListMessagesQueries` | No | Query parameters including `limit`, `order`, `after`, and `before`. |
 
-**Returns:** `ListMessagesResponse|error`
+Returns: `ListMessagesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ListMessagesResponse messages = check openaiClient->/threads/[thread.id]/messages();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -634,16 +635,16 @@ openai:ListMessagesResponse messages = check openaiClient->/threads/[thread.id]/
 
 Creates a run for a thread with a specified assistant.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `threadId` | `string` | Yes | The ID of the thread to run. |
 | `request` | `CreateRunRequest` | Yes | Run request containing the assistant ID and optional parameters. |
 
-**Returns:** `RunObject|error`
+Returns: `RunObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:RunObject run = check openaiClient->/threads/[thread.id]/runs.post({
@@ -651,7 +652,7 @@ openai:RunObject run = check openaiClient->/threads/[thread.id]/runs.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -675,22 +676,22 @@ openai:RunObject run = check openaiClient->/threads/[thread.id]/runs.post({
 
 Retrieves a run to check its status and results.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `threadId` | `string` | Yes | The ID of the thread. |
 | `runId` | `string` | Yes | The ID of the run to retrieve. |
 
-**Returns:** `RunObject|error`
+Returns: `RunObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:RunObject runStatus = check openaiClient->/threads/[thread.id]/runs/[run.id]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -713,22 +714,22 @@ openai:RunObject runStatus = check openaiClient->/threads/[thread.id]/runs/[run.
 
 Cancels an in-progress run.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `threadId` | `string` | Yes | The ID of the thread. |
 | `runId` | `string` | Yes | The ID of the run to cancel. |
 
-**Returns:** `RunObject|error`
+Returns: `RunObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:RunObject cancelledRun = check openaiClient->/threads/[thread.id]/runs/[run.id]/cancel.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -752,21 +753,21 @@ openai:RunObject cancelledRun = check openaiClient->/threads/[thread.id]/runs/[r
 
 Returns a list of files that belong to the user's organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListFilesQueries` | No | Query parameters including `purpose`, `limit`, `order`, and `after`. |
 
-**Returns:** `ListFilesResponse|error`
+Returns: `ListFilesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ListFilesResponse files = check openaiClient->/files();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -789,15 +790,15 @@ openai:ListFilesResponse files = check openaiClient->/files();
 
 Uploads a file that can be used across various endpoints such as fine-tuning, assistants, and batches.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateFileRequest` | Yes | File upload request containing the file and its purpose. |
 
-**Returns:** `OpenAIFile|error`
+Returns: `OpenAIFile|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:OpenAIFile file = check openaiClient->/files.post({
@@ -806,7 +807,7 @@ openai:OpenAIFile file = check openaiClient->/files.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -830,21 +831,21 @@ openai:OpenAIFile file = check openaiClient->/files.post({
 
 Deletes a file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fileId` | `string` | Yes | The ID of the file to delete. |
 
-**Returns:** `DeleteFileResponse|error`
+Returns: `DeleteFileResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:DeleteFileResponse result = check openaiClient->/files/["file-abc123"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "file-abc123", "object": "file", "deleted": true}
@@ -863,15 +864,15 @@ openai:DeleteFileResponse result = check openaiClient->/files/["file-abc123"].de
 
 Creates a fine-tuning job to customize a model with your training data.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateFineTuningJobRequest` | Yes | Fine-tuning request containing model, training file ID, and hyperparameters. |
 
-**Returns:** `FineTuningJob|error`
+Returns: `FineTuningJob|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:FineTuningJob job = check openaiClient->/fine_tuning/jobs.post({
@@ -880,7 +881,7 @@ openai:FineTuningJob job = check openaiClient->/fine_tuning/jobs.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -904,21 +905,21 @@ openai:FineTuningJob job = check openaiClient->/fine_tuning/jobs.post({
 
 Lists your organization's fine-tuning jobs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListPaginatedFineTuningJobsQueries` | No | Query parameters including `after` and `limit`. |
 
-**Returns:** `ListPaginatedFineTuningJobsResponse|error`
+Returns: `ListPaginatedFineTuningJobsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ListPaginatedFineTuningJobsResponse jobs = check openaiClient->/fine_tuning/jobs();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -941,21 +942,21 @@ openai:ListPaginatedFineTuningJobsResponse jobs = check openaiClient->/fine_tuni
 
 Immediately cancels a fine-tuning job.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fineTuningJobId` | `string` | Yes | The ID of the fine-tuning job to cancel. |
 
-**Returns:** `FineTuningJob|error`
+Returns: `FineTuningJob|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:FineTuningJob cancelledJob = check openaiClient->/fine_tuning/jobs/["ftjob-abc123"]/cancel.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -969,7 +970,7 @@ openai:FineTuningJob cancelledJob = check openaiClient->/fine_tuning/jobs/["ftjo
 
 </details>
 
-#### Vector Stores
+#### Vector stores
 
 <details>
 <summary>Create vector store</summary>
@@ -978,15 +979,15 @@ openai:FineTuningJob cancelledJob = check openaiClient->/fine_tuning/jobs/["ftjo
 
 Creates a vector store for use with the file search tool in assistants.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateVectorStoreRequest` | Yes | Vector store creation request containing name and optional file IDs. |
 
-**Returns:** `VectorStoreObject|error`
+Returns: `VectorStoreObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:VectorStoreObject vectorStore = check openaiClient->/vector_stores.post({
@@ -994,7 +995,7 @@ openai:VectorStoreObject vectorStore = check openaiClient->/vector_stores.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1018,21 +1019,21 @@ openai:VectorStoreObject vectorStore = check openaiClient->/vector_stores.post({
 
 Returns a list of vector stores.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListVectorStoresQueries` | No | Query parameters including `limit`, `order`, `after`, and `before`. |
 
-**Returns:** `ListVectorStoresResponse|error`
+Returns: `ListVectorStoresResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ListVectorStoresResponse stores = check openaiClient->/vector_stores();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1055,21 +1056,21 @@ openai:ListVectorStoresResponse stores = check openaiClient->/vector_stores();
 
 Deletes a vector store.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `vectorStoreId` | `string` | Yes | The ID of the vector store to delete. |
 
-**Returns:** `DeleteVectorStoreResponse|error`
+Returns: `DeleteVectorStoreResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:DeleteVectorStoreResponse result = check openaiClient->/vector_stores/["vs_abc123"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "vs_abc123", "object": "vector_store.deleted", "deleted": true}
@@ -1089,15 +1090,15 @@ openai:DeleteVectorStoreResponse result = check openaiClient->/vector_stores/["v
 Lists the currently available models and provides basic information about each.
 
 
-**Returns:** `ListModelsResponse|error`
+Returns: `ListModelsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:ListModelsResponse models = check openaiClient->/models();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1120,21 +1121,21 @@ openai:ListModelsResponse models = check openaiClient->/models();
 
 Retrieves a model instance, providing basic information about the model.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `model` | `string` | Yes | The ID of the model to retrieve (e.g., `"gpt-4o"`). |
 
-**Returns:** `Model|error`
+Returns: `Model|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:Model model = check openaiClient->/models/["gpt-4o"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "gpt-4o", "object": "model", "owned_by": "openai", "created": 1710000000}
@@ -1151,21 +1152,21 @@ openai:Model model = check openaiClient->/models/["gpt-4o"]();
 
 Deletes a fine-tuned model. You must have the Owner role in your organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `model` | `string` | Yes | The model ID to delete (e.g., `"ft:gpt-4o-mini:my-org:custom:abc123"`). |
 
-**Returns:** `DeleteModelResponse|error`
+Returns: `DeleteModelResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:DeleteModelResponse result = check openaiClient->/models/["ft:gpt-4o-mini:my-org:custom:abc123"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "ft:gpt-4o-mini:my-org:custom:abc123", "object": "model", "deleted": true}
@@ -1184,15 +1185,15 @@ openai:DeleteModelResponse result = check openaiClient->/models/["ft:gpt-4o-mini
 
 Classifies if text and/or images are potentially harmful across several categories.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateModerationRequest` | Yes | Moderation request containing the input text or images to classify. |
 
-**Returns:** `CreateModerationResponse|error`
+Returns: `CreateModerationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:CreateModerationResponse moderation = check openaiClient->/moderations.post({
@@ -1200,7 +1201,7 @@ openai:CreateModerationResponse moderation = check openaiClient->/moderations.po
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1229,15 +1230,15 @@ openai:CreateModerationResponse moderation = check openaiClient->/moderations.po
 
 Creates and executes a batch of API requests from an uploaded file of requests.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateBatchRequest` | Yes | Batch request containing the input file ID, endpoint, and completion window. |
 
-**Returns:** `Batch|error`
+Returns: `Batch|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:Batch batch = check openaiClient->/batches.post({
@@ -1247,7 +1248,7 @@ openai:Batch batch = check openaiClient->/batches.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1272,21 +1273,21 @@ openai:Batch batch = check openaiClient->/batches.post({
 
 Retrieves a batch to check its status and results.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `batchId` | `string` | Yes | The ID of the batch to retrieve. |
 
-**Returns:** `Batch|error`
+Returns: `Batch|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:Batch batchStatus = check openaiClient->/batches/["batch_abc123"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1311,15 +1312,15 @@ openai:Batch batchStatus = check openaiClient->/batches/["batch_abc123"]();
 
 Creates a model response. Provides a unified interface supporting text generation, tool use, and structured outputs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateResponseRequest` | Yes | Response request containing model, input, and optional instructions. |
 
-**Returns:** `Response|error`
+Returns: `Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 openai:Response response = check openaiClient->/responses.post({
@@ -1328,7 +1329,7 @@ openai:Response response = check openaiClient->/responses.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1353,15 +1354,15 @@ openai:Response response = check openaiClient->/responses.post({
 
 Deletes a model response with the given ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `responseId` | `string` | Yes | The ID of the response to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check openaiClient->/responses/["resp_abc123"].delete();

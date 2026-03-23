@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manage HubSpot task engagement records — CRUD, batch operations, and search.
 | `compression` | <code>http:Compression</code> | `COMPRESSION_AUTO` | HTTP compression configuration. |
 | `validation` | <code>boolean</code> | `true` | Enable or disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.engagements.tasks;
@@ -58,27 +59,27 @@ tasks:Client tasksClient = check new ({
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieves a page of task engagement records with optional filtering by properties, associations, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetCrmV3ObjectsTasksGetPageQueries</code> | No | Query parameters including `limit`, `after`, `properties`, `associations`, and `archived`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 tasks:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
     check tasksClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -114,20 +115,20 @@ tasks:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new task engagement record with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | Task properties and optional associations. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 tasks:SimplePublicObject response = check tasksClient->/.post({
@@ -155,7 +156,7 @@ tasks:SimplePublicObject response = check tasksClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -186,11 +187,11 @@ tasks:SimplePublicObject response = check tasksClient->/.post({
 
 <div>
 
-**Signature:** `get /[string taskId]`
+Signature: `get /[string taskId]`
 
 Retrieves a single task engagement record by its ID, with optional property and association details.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -198,16 +199,16 @@ Retrieves a single task engagement record by its ID, with optional property and 
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetCrmV3ObjectsTasksTaskIdGetByIdQueries</code> | No | Query parameters including `properties`, `associations`, and `archived`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 tasks:SimplePublicObjectWithAssociations response =
     check tasksClient->/["78901234567"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -238,11 +239,11 @@ tasks:SimplePublicObjectWithAssociations response =
 
 <div>
 
-**Signature:** `patch /[string taskId]`
+Signature: `patch /[string taskId]`
 
 Updates the properties of an existing task engagement record.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -251,9 +252,9 @@ Updates the properties of an existing task engagement record.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>PatchCrmV3ObjectsTasksTaskIdUpdateQueries</code> | No | Query parameters including `idProperty`. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 tasks:SimplePublicObject response = check tasksClient->/["78901234567"].patch({
@@ -264,7 +265,7 @@ tasks:SimplePublicObject response = check tasksClient->/["78901234567"].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -291,20 +292,20 @@ tasks:SimplePublicObject response = check tasksClient->/["78901234567"].patch({
 
 <div>
 
-**Signature:** `delete /[string taskId]`
+Signature: `delete /[string taskId]`
 
 Archives (soft-deletes) a task engagement record by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `taskId` | <code>string</code> | Yes | The ID of the task to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check tasksClient->/["78901234567"].delete();
@@ -314,27 +315,27 @@ check tasksClient->/["78901234567"].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of tasks</summary>
 
 <div>
 
-**Signature:** `post /batch/create`
+Signature: `post /batch/create`
 
 Creates multiple task engagement records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | Batch of task inputs with properties and optional associations. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 tasks:BatchResponseSimplePublicObject|tasks:BatchResponseSimplePublicObjectWithErrors response =
@@ -364,7 +365,7 @@ tasks:BatchResponseSimplePublicObject|tasks:BatchResponseSimplePublicObjectWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -411,11 +412,11 @@ tasks:BatchResponseSimplePublicObject|tasks:BatchResponseSimplePublicObjectWithE
 
 <div>
 
-**Signature:** `post /batch/read`
+Signature: `post /batch/read`
 
 Retrieves multiple task engagement records by their IDs in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -423,9 +424,9 @@ Retrieves multiple task engagement records by their IDs in a single request.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>PostCrmV3ObjectsTasksBatchReadReadQueries</code> | No | Query parameters including `archived`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 tasks:BatchResponseSimplePublicObject|tasks:BatchResponseSimplePublicObjectWithErrors response =
@@ -439,7 +440,7 @@ tasks:BatchResponseSimplePublicObject|tasks:BatchResponseSimplePublicObjectWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -482,20 +483,20 @@ tasks:BatchResponseSimplePublicObject|tasks:BatchResponseSimplePublicObjectWithE
 
 <div>
 
-**Signature:** `post /batch/update`
+Signature: `post /batch/update`
 
 Updates properties on multiple task engagement records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | Batch of task IDs with updated properties. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 tasks:BatchResponseSimplePublicObject|tasks:BatchResponseSimplePublicObjectWithErrors response =
@@ -519,7 +520,7 @@ tasks:BatchResponseSimplePublicObject|tasks:BatchResponseSimplePublicObjectWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -562,20 +563,20 @@ tasks:BatchResponseSimplePublicObject|tasks:BatchResponseSimplePublicObjectWithE
 
 <div>
 
-**Signature:** `post /batch/archive`
+Signature: `post /batch/archive`
 
 Archives (soft-deletes) multiple task engagement records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | Batch of task IDs to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check tasksClient->/batch/archive.post({
@@ -595,20 +596,20 @@ check tasksClient->/batch/archive.post({
 
 <div>
 
-**Signature:** `post /batch/upsert`
+Signature: `post /batch/upsert`
 
 Creates or updates multiple task records in a single request, matching by a unique property value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | Batch of task inputs with an `idProperty` for matching and properties to set. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 tasks:BatchResponseSimplePublicUpsertObject|tasks:BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -626,7 +627,7 @@ tasks:BatchResponseSimplePublicUpsertObject|tasks:BatchResponseSimplePublicUpser
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -660,20 +661,20 @@ tasks:BatchResponseSimplePublicUpsertObject|tasks:BatchResponseSimplePublicUpser
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for task engagement records using filters, property conditions, and sorting criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search request with filter groups, sorting, properties to return, and pagination. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 tasks:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -695,7 +696,7 @@ tasks:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

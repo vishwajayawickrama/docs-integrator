@@ -7,18 +7,18 @@ description: Package and publish your custom connector to Ballerina Central.
 
 Share your custom connector with the community by publishing it to Ballerina Central.
 
-## Packaging Your Connector
+## Packaging your connector
 
 <!-- TODO: Ballerina.toml metadata, documentation -->
 
-## Publishing Process
+## Publishing process
 
 <!-- TODO: bal push workflow -->
 
-## Versioning and Maintenance
+## Versioning and maintenance
 
 <!-- TODO: Semantic versioning, updates, deprecation -->
 
-## What's Next
+## What's next
 
 - [Custom Connector Development](custom-development.md) — Build more connectors

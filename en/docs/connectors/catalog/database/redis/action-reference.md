@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -25,7 +26,7 @@ Provides operations to interact with a Redis server or cluster for data storage 
 | `isClusterConnection` | `boolean` | `false` | Whether this is a Redis cluster connection. |
 | `secureSocket` | `SecureSocket` | `()` | SSL/TLS configuration for encrypted connections. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/redis;
@@ -47,7 +48,7 @@ redis:Client redis = check new ({
 
 ### Operations
 
-#### String Operations
+#### String operations
 
 <details>
 <summary>set</summary>
@@ -56,22 +57,22 @@ redis:Client redis = check new ({
 
 Set the string value of a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to set. |
 | `value` | `string` | Yes | The value to set. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string result = check redis->set("name", "John");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "OK"
@@ -88,21 +89,21 @@ string result = check redis->set("name", "John");
 
 Get the value of a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to retrieve. |
 
-**Returns:** `string|error?`
+Returns: `string|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string? value = check redis->get("name");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "John"
@@ -119,22 +120,22 @@ string? value = check redis->get("name");
 
 Append a value to a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to append to. |
 | `value` | `string` | Yes | The value to append. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int length = check redis->append("greeting", " World");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 11
@@ -151,21 +152,21 @@ int length = check redis->append("greeting", " World");
 
 Increment the integer value of a key by one.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to increment. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int newValue = check redis->incr("counter");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -182,22 +183,22 @@ int newValue = check redis->incr("counter");
 
 Increment the integer value of a key by the given amount.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to increment. |
 | `value` | `int` | Yes | The increment amount. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int newValue = check redis->incrBy("counter", 5);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 6
@@ -214,22 +215,22 @@ int newValue = check redis->incrBy("counter", 5);
 
 Increment the float value of a key by the given amount.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to increment. |
 | `value` | `float` | Yes | The float increment amount. |
 
-**Returns:** `float|error`
+Returns: `float|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 float newValue = check redis->incrByFloat("price", 2.5);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 12.5
@@ -246,21 +247,21 @@ float newValue = check redis->incrByFloat("price", 2.5);
 
 Decrement the integer value of a key by one.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to decrement. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int newValue = check redis->decr("counter");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 4
@@ -277,22 +278,22 @@ int newValue = check redis->decr("counter");
 
 Decrement the integer value of a key by the given number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to decrement. |
 | `value` | `int` | Yes | The decrement amount. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int newValue = check redis->decrBy("counter", 3);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -309,15 +310,15 @@ int newValue = check redis->decrBy("counter", 3);
 
 Set multiple keys to multiple values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `keyValueMap` | `map<any>` | Yes | A map of key-value pairs to set. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string result = check redis->mSet({
@@ -327,7 +328,7 @@ string result = check redis->mSet({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "OK"
@@ -344,21 +345,21 @@ string result = check redis->mSet({
 
 Get the values of all the given keys.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `keys` | `string[]` | Yes | Array of keys to retrieve. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] values = check redis->mGet(["key1", "key2", "key3"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["value1", "value2", "value3"]
@@ -375,21 +376,21 @@ string[] values = check redis->mGet(["key1", "key2", "key3"]);
 
 Set multiple keys to multiple values, only if none of the keys exist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `keyValueMap` | `map<any>` | Yes | A map of key-value pairs to set. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean result = check redis->mSetNx({"nx1": "val1", "nx2": "val2"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -406,7 +407,7 @@ true
 
 Set the value and expiration (in seconds) of a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -414,15 +415,15 @@ Set the value and expiration (in seconds) of a key.
 | `value` | `string` | Yes | The value to set. |
 | `expirationTime` | `int` | Yes | Expiration time in seconds. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string result = check redis->setEx("session:abc123", "user_data", 3600);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "OK"
@@ -439,7 +440,7 @@ string result = check redis->setEx("session:abc123", "user_data", 3600);
 
 Set value and expiration in milliseconds of a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -447,15 +448,15 @@ Set value and expiration in milliseconds of a key.
 | `value` | `string` | Yes | The value to set. |
 | `expirationTime` | `int` | Yes | Expiration time in milliseconds. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string result = check redis->pSetEx("temp:data", "ephemeral", 5000);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "OK"
@@ -472,22 +473,22 @@ string result = check redis->pSetEx("temp:data", "ephemeral", 5000);
 
 Set the value of a key, only if the key does not exist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to set. |
 | `value` | `string` | Yes | The value to set. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean wasSet = check redis->setNx("lock:resource1", "locked");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -504,22 +505,22 @@ true
 
 Set the string value of a key and return its old value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to set. |
 | `value` | `string` | Yes | The new value. |
 
-**Returns:** `string|error?`
+Returns: `string|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string? oldValue = check redis->getSet("status", "active");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "inactive"
@@ -536,7 +537,7 @@ string? oldValue = check redis->getSet("status", "active");
 
 Get a substring of the string stored at a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -544,15 +545,15 @@ Get a substring of the string stored at a key.
 | `startPos` | `int` | Yes | Start offset (inclusive). |
 | `end` | `int` | Yes | End offset (inclusive). |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string substring = check redis->getRange("greeting", 0, 4);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "Hello"
@@ -569,7 +570,7 @@ string substring = check redis->getRange("greeting", 0, 4);
 
 Overwrite part of a string at key starting at the specified offset.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -577,15 +578,15 @@ Overwrite part of a string at key starting at the specified offset.
 | `offset` | `int` | Yes | The byte offset to start overwriting at. |
 | `value` | `string` | Yes | The value to write. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int newLen = check redis->setRange("greeting", 6, "Redis");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 11
@@ -602,21 +603,21 @@ int newLen = check redis->setRange("greeting", 6, "Redis");
 
 Get the length of the value stored in a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int length = check redis->strLen("name");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 4
@@ -633,21 +634,21 @@ int length = check redis->strLen("name");
 
 Count the number of set bits (population counting) in a string.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int bits = check redis->bitCount("mybitfield");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 6
@@ -664,7 +665,7 @@ int bits = check redis->bitCount("mybitfield");
 
 Sets or clears the bit at offset in the string value stored at key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -672,15 +673,15 @@ Sets or clears the bit at offset in the string value stored at key.
 | `value` | `int` | Yes | The bit value (0 or 1). |
 | `offset` | `int` | Yes | The bit offset. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int originalBit = check redis->setBit("mybitfield", 1, 7);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 0
@@ -697,22 +698,22 @@ int originalBit = check redis->setBit("mybitfield", 1, 7);
 
 Returns the bit value at offset in the string value stored at key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key. |
 | `offset` | `int` | Yes | The bit offset. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int bit = check redis->getBit("mybitfield", 7);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -729,22 +730,22 @@ int bit = check redis->getBit("mybitfield", 7);
 
 Perform a bitwise AND operation between multiple strings and store the result.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `string` | Yes | The destination key. |
 | `keys` | `string[]` | Yes | The source keys. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int resultLen = check redis->bitOpAnd("result", ["key1", "key2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -761,22 +762,22 @@ int resultLen = check redis->bitOpAnd("result", ["key1", "key2"]);
 
 Perform a bitwise OR operation between multiple strings and store the result.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `string` | Yes | The destination key. |
 | `keys` | `string[]` | Yes | The source keys. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int resultLen = check redis->bitOpOr("result", ["key1", "key2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -793,22 +794,22 @@ int resultLen = check redis->bitOpOr("result", ["key1", "key2"]);
 
 Perform a bitwise NOT operation on a string and store the result.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `string` | Yes | The destination key. |
 | `key` | `string` | Yes | The source key. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int resultLen = check redis->bitOpNot("result", "source");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -825,22 +826,22 @@ int resultLen = check redis->bitOpNot("result", "source");
 
 Perform a bitwise XOR operation between multiple strings and store the result.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `string` | Yes | The destination key. |
 | `keys` | `string[]` | Yes | The source keys. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int resultLen = check redis->bitOpXor("result", ["key1", "key2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -850,7 +851,7 @@ int resultLen = check redis->bitOpXor("result", ["key1", "key2"]);
 
 </details>
 
-#### List Operations
+#### List operations
 
 <details>
 <summary>lPush</summary>
@@ -859,22 +860,22 @@ int resultLen = check redis->bitOpXor("result", ["key1", "key2"]);
 
 Prepend one or multiple values to a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The list key. |
 | `values` | `string[]` | Yes | The values to prepend. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int listLen = check redis->lPush("tasks", ["task1", "task2", "task3"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -891,22 +892,22 @@ int listLen = check redis->lPush("tasks", ["task1", "task2", "task3"]);
 
 Append one or multiple values to a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The list key. |
 | `values` | `string[]` | Yes | The values to append. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int listLen = check redis->rPush("queue", ["item1", "item2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 2
@@ -923,21 +924,21 @@ int listLen = check redis->rPush("queue", ["item1", "item2"]);
 
 Remove and get the first element in a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The list key. |
 
-**Returns:** `string|error?`
+Returns: `string|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string? first = check redis->lPop("tasks");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "task3"
@@ -954,21 +955,21 @@ string? first = check redis->lPop("tasks");
 
 Remove and get the last element in a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The list key. |
 
-**Returns:** `string|error?`
+Returns: `string|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string? last = check redis->rPop("tasks");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "task1"
@@ -985,22 +986,22 @@ string? last = check redis->rPop("tasks");
 
 Prepend values to a list, only if the list exists.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The list key. |
 | `values` | `string[]` | Yes | The values to prepend. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int listLen = check redis->lPushX("tasks", ["urgent_task"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 4
@@ -1017,22 +1018,22 @@ int listLen = check redis->lPushX("tasks", ["urgent_task"]);
 
 Append values to a list, only if the list exists.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The list key. |
 | `values` | `string[]` | Yes | The values to append. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int listLen = check redis->rPushX("queue", ["late_item"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -1049,22 +1050,22 @@ int listLen = check redis->rPushX("queue", ["late_item"]);
 
 Remove and get the first element in a list, or block until one is available.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `timeOut` | `int` | Yes | Timeout in seconds (0 to block indefinitely). |
 | `keys` | `string[]` | Yes | The list keys to pop from. |
 
-**Returns:** `map<any>|error`
+Returns: `map<any>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 map<any> result = check redis->bLPop(30, ["queue"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"queue": "item1"}
@@ -1081,22 +1082,22 @@ map<any> result = check redis->bLPop(30, ["queue"]);
 
 Remove and get the last element in a list, or block until one is available.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `timeout` | `int` | Yes | Timeout in seconds (0 to block indefinitely). |
 | `keys` | `string[]` | Yes | The list keys to pop from. |
 
-**Returns:** `map<any>|error`
+Returns: `map<any>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 map<any> result = check redis->bRPop(30, ["queue"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"queue": "item2"}
@@ -1113,22 +1114,22 @@ map<any> result = check redis->bRPop(30, ["queue"]);
 
 Get an element from a list by its index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The list key. |
 | `index` | `int` | Yes | Zero-based index (negative indices count from the end). |
 
-**Returns:** `string|error?`
+Returns: `string|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string? element = check redis->lIndex("tasks", 0);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "task1"
@@ -1145,7 +1146,7 @@ string? element = check redis->lIndex("tasks", 0);
 
 Insert an element before or after another element in a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1154,15 +1155,15 @@ Insert an element before or after another element in a list.
 | `pivot` | `string` | Yes | The reference element. |
 | `value` | `string` | Yes | The value to insert. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int listLen = check redis->lInsert("tasks", true, "task2", "task1.5");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 4
@@ -1179,21 +1180,21 @@ int listLen = check redis->lInsert("tasks", true, "task2", "task1.5");
 
 Get the length of a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The list key. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int length = check redis->lLen("tasks");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -1210,7 +1211,7 @@ int length = check redis->lLen("tasks");
 
 Get a range of elements from a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1218,15 +1219,15 @@ Get a range of elements from a list.
 | `startPos` | `int` | Yes | Start index (inclusive). |
 | `stopPos` | `int` | Yes | Stop index (inclusive). |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] elements = check redis->lRange("tasks", 0, -1);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["task1", "task2", "task3"]
@@ -1243,7 +1244,7 @@ string[] elements = check redis->lRange("tasks", 0, -1);
 
 Remove elements from a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1251,15 +1252,15 @@ Remove elements from a list.
 | `count` | `int` | Yes | Number of occurrences to remove (0 = all, positive = from head, negative = from tail). |
 | `value` | `string` | Yes | The value to remove. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int removed = check redis->lRem("tasks", 1, "task2");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -1276,7 +1277,7 @@ int removed = check redis->lRem("tasks", 1, "task2");
 
 Set the value of an element in a list by its index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1284,15 +1285,15 @@ Set the value of an element in a list by its index.
 | `index` | `int` | Yes | The index of the element. |
 | `value` | `string` | Yes | The new value. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string result = check redis->lSet("tasks", 0, "updated_task");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "OK"
@@ -1309,7 +1310,7 @@ string result = check redis->lSet("tasks", 0, "updated_task");
 
 Trim a list to the specified range.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1317,15 +1318,15 @@ Trim a list to the specified range.
 | `startPos` | `int` | Yes | Start index (inclusive). |
 | `stopPos` | `int` | Yes | Stop index (inclusive). |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string result = check redis->lTrim("tasks", 0, 9);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "OK"
@@ -1342,22 +1343,22 @@ string result = check redis->lTrim("tasks", 0, 9);
 
 Remove the last element in a list, prepend it to another list, and return it.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `src` | `string` | Yes | The source list key. |
 | `destination` | `string` | Yes | The destination list key. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string moved = check redis->rPopLPush("processing", "completed");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "task1"
@@ -1367,7 +1368,7 @@ string moved = check redis->rPopLPush("processing", "completed");
 
 </details>
 
-#### Set Operations
+#### Set operations
 
 <details>
 <summary>sAdd</summary>
@@ -1376,22 +1377,22 @@ string moved = check redis->rPopLPush("processing", "completed");
 
 Add one or more members to a set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The set key. |
 | `values` | `string[]` | Yes | The members to add. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int added = check redis->sAdd("tags", ["ballerina", "redis", "integration"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -1408,21 +1409,21 @@ int added = check redis->sAdd("tags", ["ballerina", "redis", "integration"]);
 
 Get all the members in a set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The set key. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] members = check redis->sMembers("tags");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["ballerina", "redis", "integration"]
@@ -1439,21 +1440,21 @@ string[] members = check redis->sMembers("tags");
 
 Get the number of members in a set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The set key. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->sCard("tags");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -1470,22 +1471,22 @@ int count = check redis->sCard("tags");
 
 Determine if a given value is a member of a set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The set key. |
 | `value` | `string` | Yes | The value to check. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean isMember = check redis->sIsMember("tags", "redis");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -1502,22 +1503,22 @@ true
 
 Remove one or more members from a set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The set key. |
 | `members` | `string[]` | Yes | The members to remove. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int removed = check redis->sRem("tags", ["integration"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -1534,22 +1535,22 @@ int removed = check redis->sRem("tags", ["integration"]);
 
 Remove and return one or more random members from a set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The set key. |
 | `count` | `int` | Yes | Number of members to pop. |
 
-**Returns:** `string[]|error?`
+Returns: `string[]|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[]? popped = check redis->sPop("tags", 1);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["redis"]
@@ -1566,22 +1567,22 @@ string[]? popped = check redis->sPop("tags", 1);
 
 Get one or multiple random members from a set without removing them.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The set key. |
 | `count` | `int` | Yes | Number of random members to return. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] randomMembers = check redis->sRandMember("tags", 2);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["ballerina", "redis"]
@@ -1598,7 +1599,7 @@ string[] randomMembers = check redis->sRandMember("tags", 2);
 
 Move a member from one set to another.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1606,15 +1607,15 @@ Move a member from one set to another.
 | `destination` | `string` | Yes | The destination set key. |
 | `member` | `string` | Yes | The member to move. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean moved = check redis->sMove("active_tags", "archived_tags", "old_tag");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -1631,21 +1632,21 @@ true
 
 Return the set resulting from the difference between the first set and all successive sets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `keys` | `string[]` | Yes | The set keys. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] diff = check redis->sDiff(["set1", "set2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["unique_to_set1"]
@@ -1662,22 +1663,22 @@ string[] diff = check redis->sDiff(["set1", "set2"]);
 
 Store the difference between the first set and all successive sets at a destination key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `string` | Yes | The destination key. |
 | `keys` | `string[]` | Yes | The set keys. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->sDiffStore("diff_result", ["set1", "set2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -1694,21 +1695,21 @@ int count = check redis->sDiffStore("diff_result", ["set1", "set2"]);
 
 Return the set resulting from the intersection of all provided sets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `keys` | `string[]` | Yes | The set keys. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] common = check redis->sInter(["set1", "set2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["common_member"]
@@ -1725,22 +1726,22 @@ string[] common = check redis->sInter(["set1", "set2"]);
 
 Store the intersection of all provided sets at a destination key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `string` | Yes | The destination key. |
 | `keys` | `string[]` | Yes | The set keys. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->sInterStore("inter_result", ["set1", "set2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -1757,21 +1758,21 @@ int count = check redis->sInterStore("inter_result", ["set1", "set2"]);
 
 Return the set resulting from the union of all provided sets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `keys` | `string[]` | Yes | The set keys. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] all = check redis->sUnion(["set1", "set2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["member1", "member2", "member3"]
@@ -1788,22 +1789,22 @@ string[] all = check redis->sUnion(["set1", "set2"]);
 
 Store the union of all provided sets at a destination key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `string` | Yes | The destination key. |
 | `keys` | `string[]` | Yes | The set keys. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->sUnionStore("union_result", ["set1", "set2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -1813,7 +1814,7 @@ int count = check redis->sUnionStore("union_result", ["set1", "set2"]);
 
 </details>
 
-#### Sorted Set Operations
+#### Sorted set operations
 
 <details>
 <summary>zAdd</summary>
@@ -1822,16 +1823,16 @@ int count = check redis->sUnionStore("union_result", ["set1", "set2"]);
 
 Add one or more members to a sorted set, or update the score of an existing member.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The sorted set key. |
 | `memberScoreMap` | `map<any>` | Yes | A map of member names to their scores. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int added = check redis->zAdd("leaderboard", {
@@ -1841,7 +1842,7 @@ int added = check redis->zAdd("leaderboard", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -1858,7 +1859,7 @@ int added = check redis->zAdd("leaderboard", {
 
 Return a range of members in a sorted set by index (low to high).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1866,15 +1867,15 @@ Return a range of members in a sorted set by index (low to high).
 | `min` | `int` | Yes | Start index (inclusive). |
 | `max` | `int` | Yes | Stop index (inclusive). |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] members = check redis->zRange("leaderboard", 0, -1);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["bob", "charlie", "alice"]
@@ -1891,7 +1892,7 @@ string[] members = check redis->zRange("leaderboard", 0, -1);
 
 Return a range of members in a sorted set by index (high to low).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1899,15 +1900,15 @@ Return a range of members in a sorted set by index (high to low).
 | `min` | `int` | Yes | Start index (inclusive). |
 | `max` | `int` | Yes | Stop index (inclusive). |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] topPlayers = check redis->zRevRange("leaderboard", 0, 2);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["alice", "charlie", "bob"]
@@ -1924,7 +1925,7 @@ string[] topPlayers = check redis->zRevRange("leaderboard", 0, 2);
 
 Return members in a sorted set with scores within the given range (low to high).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1932,15 +1933,15 @@ Return members in a sorted set with scores within the given range (low to high).
 | `min` | `float` | Yes | Minimum score (inclusive). |
 | `max` | `float` | Yes | Maximum score (inclusive). |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] members = check redis->zRangeByScore("leaderboard", 90.0, 100.0);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["charlie", "alice"]
@@ -1957,7 +1958,7 @@ string[] members = check redis->zRangeByScore("leaderboard", 90.0, 100.0);
 
 Return members in a sorted set with scores within the given range (high to low).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1965,15 +1966,15 @@ Return members in a sorted set with scores within the given range (high to low).
 | `min` | `float` | Yes | Minimum score (inclusive). |
 | `max` | `float` | Yes | Maximum score (inclusive). |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] members = check redis->zRevRangeByScore("leaderboard", 80.0, 100.0);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["alice", "charlie", "bob"]
@@ -1990,7 +1991,7 @@ string[] members = check redis->zRevRangeByScore("leaderboard", 80.0, 100.0);
 
 Return a range of members in a sorted set by lexicographical range (lowest to highest).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1998,15 +1999,15 @@ Return a range of members in a sorted set by lexicographical range (lowest to hi
 | `min` | `string` | Yes | Minimum lex bound (e.g., `[a` or `-`). |
 | `max` | `string` | Yes | Maximum lex bound (e.g., `[z` or `+`). |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] members = check redis->zRangeByLex("names", "-", "+");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["alice", "bob", "charlie"]
@@ -2023,7 +2024,7 @@ string[] members = check redis->zRangeByLex("names", "-", "+");
 
 Return a range of members in a sorted set by lexicographical range (highest to lowest).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2031,15 +2032,15 @@ Return a range of members in a sorted set by lexicographical range (highest to l
 | `min` | `string` | Yes | Minimum lex bound. |
 | `max` | `string` | Yes | Maximum lex bound. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] members = check redis->zRevRangeByLex("names", "+", "-");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["charlie", "bob", "alice"]
@@ -2056,22 +2057,22 @@ string[] members = check redis->zRevRangeByLex("names", "+", "-");
 
 Get the score associated with the given member in a sorted set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The sorted set key. |
 | `member` | `string` | Yes | The member name. |
 
-**Returns:** `float|error`
+Returns: `float|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 float score = check redis->zScore("leaderboard", "alice");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 100.0
@@ -2088,22 +2089,22 @@ float score = check redis->zScore("leaderboard", "alice");
 
 Determine the index of a member in a sorted set (lowest score = rank 0).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The sorted set key. |
 | `member` | `string` | Yes | The member name. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int rank = check redis->zRank("leaderboard", "alice");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 2
@@ -2120,22 +2121,22 @@ int rank = check redis->zRank("leaderboard", "alice");
 
 Determine the index of a member in a sorted set, with scores ordered from high to low.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The sorted set key. |
 | `member` | `string` | Yes | The member name. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int rank = check redis->zRevRank("leaderboard", "alice");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 0
@@ -2152,21 +2153,21 @@ int rank = check redis->zRevRank("leaderboard", "alice");
 
 Get the number of members in a sorted set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The sorted set key. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->zCard("leaderboard");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -2183,7 +2184,7 @@ int count = check redis->zCard("leaderboard");
 
 Count the members in a sorted set with scores within the given range.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2191,15 +2192,15 @@ Count the members in a sorted set with scores within the given range.
 | `min` | `float` | Yes | Minimum score (inclusive). |
 | `max` | `float` | Yes | Maximum score (inclusive). |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->zCount("leaderboard", 90.0, 100.0);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 2
@@ -2216,7 +2217,7 @@ int count = check redis->zCount("leaderboard", 90.0, 100.0);
 
 Count the number of members in a sorted set within a lexicographical range.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2224,15 +2225,15 @@ Count the number of members in a sorted set within a lexicographical range.
 | `min` | `string` | Yes | Minimum lex bound. |
 | `max` | `string` | Yes | Maximum lex bound. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->zLexCount("names", "-", "+");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -2249,7 +2250,7 @@ int count = check redis->zLexCount("names", "-", "+");
 
 Increment the score of a member in a sorted set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2257,15 +2258,15 @@ Increment the score of a member in a sorted set.
 | `amount` | `float` | Yes | The increment amount. |
 | `member` | `string` | Yes | The member name. |
 
-**Returns:** `float|error`
+Returns: `float|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 float newScore = check redis->zIncrBy("leaderboard", 10.0, "bob");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 95.0
@@ -2282,22 +2283,22 @@ float newScore = check redis->zIncrBy("leaderboard", 10.0, "bob");
 
 Remove one or more members from a sorted set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The sorted set key. |
 | `members` | `string[]` | Yes | The members to remove. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int removed = check redis->zRem("leaderboard", ["bob"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -2314,7 +2315,7 @@ int removed = check redis->zRem("leaderboard", ["bob"]);
 
 Remove all members in a sorted set within the given indices.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2322,15 +2323,15 @@ Remove all members in a sorted set within the given indices.
 | `min` | `int` | Yes | Start index. |
 | `max` | `int` | Yes | Stop index. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int removed = check redis->zRemRangeByRank("leaderboard", 0, 1);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 2
@@ -2347,7 +2348,7 @@ int removed = check redis->zRemRangeByRank("leaderboard", 0, 1);
 
 Remove all members in a sorted set within the given scores.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2355,15 +2356,15 @@ Remove all members in a sorted set within the given scores.
 | `min` | `float` | Yes | Minimum score. |
 | `max` | `float` | Yes | Maximum score. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int removed = check redis->zRemRangeByScore("leaderboard", 0.0, 50.0);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 0
@@ -2380,7 +2381,7 @@ int removed = check redis->zRemRangeByScore("leaderboard", 0.0, 50.0);
 
 Remove all members in a sorted set within the given lexicographical range.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2388,15 +2389,15 @@ Remove all members in a sorted set within the given lexicographical range.
 | `min` | `string` | Yes | Minimum lex bound. |
 | `max` | `string` | Yes | Maximum lex bound. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int removed = check redis->zRemRangeByLex("names", "[a", "[b");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -2413,22 +2414,22 @@ int removed = check redis->zRemRangeByLex("names", "[a", "[b");
 
 Intersect multiple sorted sets and store the resulting sorted set in a new key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `string` | Yes | The destination key. |
 | `keys` | `string[]` | Yes | The sorted set keys to intersect. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->zInterStore("common_scores", ["set1", "set2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 2
@@ -2445,22 +2446,22 @@ int count = check redis->zInterStore("common_scores", ["set1", "set2"]);
 
 Compute the union of multiple sorted sets and store the result in a new key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `string` | Yes | The destination key. |
 | `keys` | `string[]` | Yes | The sorted set keys to union. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->zUnionStore("all_scores", ["set1", "set2"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 5
@@ -2470,7 +2471,7 @@ int count = check redis->zUnionStore("all_scores", ["set1", "set2"]);
 
 </details>
 
-#### Hash Operations
+#### Hash operations
 
 <details>
 <summary>hSet</summary>
@@ -2479,7 +2480,7 @@ int count = check redis->zUnionStore("all_scores", ["set1", "set2"]);
 
 Set the string value of a hash field.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2487,15 +2488,15 @@ Set the string value of a hash field.
 | `field` | `string` | Yes | The field name. |
 | `value` | `string` | Yes | The field value. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean isNew = check redis->hSet("user:1001", "name", "John Doe");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -2512,22 +2513,22 @@ true
 
 Get the value of a hash field.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 | `field` | `string` | Yes | The field name. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string name = check redis->hGet("user:1001", "name");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "John Doe"
@@ -2544,21 +2545,21 @@ string name = check redis->hGet("user:1001", "name");
 
 Get all the fields and values in a hash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 
-**Returns:** `map<any>|error`
+Returns: `map<any>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 map<any> user = check redis->hGetAll("user:1001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "John Doe", "email": "john@example.com", "age": "30"}
@@ -2575,16 +2576,16 @@ map<any> user = check redis->hGetAll("user:1001");
 
 Set multiple hash fields to multiple values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 | `fieldValueMap` | `map<any>` | Yes | A map of field names to values. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string result = check redis->hMSet("user:1001", {
@@ -2594,7 +2595,7 @@ string result = check redis->hMSet("user:1001", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "OK"
@@ -2611,22 +2612,22 @@ string result = check redis->hMSet("user:1001", {
 
 Get the values of all the given hash fields.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 | `fields` | `string[]` | Yes | The field names to retrieve. |
 
-**Returns:** `map<any>|error`
+Returns: `map<any>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 map<any> values = check redis->hMGet("user:1001", ["name", "email"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "John Doe", "email": "john@example.com"}
@@ -2643,22 +2644,22 @@ map<any> values = check redis->hMGet("user:1001", ["name", "email"]);
 
 Delete one or more hash fields.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 | `fields` | `string[]` | Yes | The field names to delete. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int deleted = check redis->hDel("user:1001", ["age"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1
@@ -2675,22 +2676,22 @@ int deleted = check redis->hDel("user:1001", ["age"]);
 
 Determine if a hash field exists.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 | `field` | `string` | Yes | The field name. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean exists = check redis->hExists("user:1001", "email");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -2707,7 +2708,7 @@ true
 
 Set the value of a hash field, only if the field does not exist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2715,15 +2716,15 @@ Set the value of a hash field, only if the field does not exist.
 | `field` | `string` | Yes | The field name. |
 | `value` | `string` | Yes | The field value. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean wasSet = check redis->hSetNx("user:1001", "role", "admin");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -2740,21 +2741,21 @@ true
 
 Get all the fields in a hash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] fields = check redis->hKeys("user:1001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["name", "email", "age"]
@@ -2771,21 +2772,21 @@ string[] fields = check redis->hKeys("user:1001");
 
 Get all the values in a hash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] values = check redis->hVals("user:1001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["John Doe", "john@example.com", "30"]
@@ -2802,21 +2803,21 @@ string[] values = check redis->hVals("user:1001");
 
 Get the number of fields in a hash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int fieldCount = check redis->hLen("user:1001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -2833,7 +2834,7 @@ int fieldCount = check redis->hLen("user:1001");
 
 Increment the integer value of a hash field by the given number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2841,15 +2842,15 @@ Increment the integer value of a hash field by the given number.
 | `field` | `string` | Yes | The field name. |
 | `amount` | `int` | Yes | The increment amount. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int newAge = check redis->hIncrBy("user:1001", "age", 1);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 31
@@ -2866,7 +2867,7 @@ int newAge = check redis->hIncrBy("user:1001", "age", 1);
 
 Increment the float value of a hash field by the given amount.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2874,15 +2875,15 @@ Increment the float value of a hash field by the given amount.
 | `field` | `string` | Yes | The field name. |
 | `amount` | `float` | Yes | The float increment amount. |
 
-**Returns:** `float|error`
+Returns: `float|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 float newBalance = check redis->hIncrByFloat("account:1001", "balance", 25.50);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 125.50
@@ -2899,22 +2900,22 @@ float newBalance = check redis->hIncrByFloat("account:1001", "balance", 25.50);
 
 Get the string length of the value associated with a field in a hash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The hash key. |
 | `field` | `string` | Yes | The field name. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int length = check redis->hStrLen("user:1001", "name");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 8
@@ -2924,7 +2925,7 @@ int length = check redis->hStrLen("user:1001", "name");
 
 </details>
 
-#### Key Operations
+#### Key operations
 
 <details>
 <summary>del</summary>
@@ -2933,21 +2934,21 @@ int length = check redis->hStrLen("user:1001", "name");
 
 Delete one or more keys.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `keys` | `string[]` | Yes | The keys to delete. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int deleted = check redis->del(["key1", "key2", "key3"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -2964,21 +2965,21 @@ int deleted = check redis->del(["key1", "key2", "key3"]);
 
 Determine how many of the specified keys exist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `keys` | `string[]` | Yes | The keys to check. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check redis->exists(["name", "counter", "nonexistent"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 2
@@ -2995,22 +2996,22 @@ int count = check redis->exists(["name", "counter", "nonexistent"]);
 
 Set a key's time to live in seconds.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key. |
 | `seconds` | `int` | Yes | Expiration time in seconds. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean result = check redis->expire("session:abc", 3600);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -3027,22 +3028,22 @@ true
 
 Set a key's time to live in milliseconds.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key. |
 | `expirationTime` | `int` | Yes | Expiration time in milliseconds. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean result = check redis->pExpire("temp:data", 5000);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -3059,21 +3060,21 @@ true
 
 Get the time to live for a key in seconds.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int remainingSeconds = check redis->ttl("session:abc");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3542
@@ -3090,21 +3091,21 @@ int remainingSeconds = check redis->ttl("session:abc");
 
 Get the time to live for a key in milliseconds.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int remainingMs = check redis->pTtl("temp:data");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 4320
@@ -3121,21 +3122,21 @@ int remainingMs = check redis->pTtl("temp:data");
 
 Remove the expiration from a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean result = check redis->persist("session:abc");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -3152,21 +3153,21 @@ true
 
 Find all keys matching the given pattern.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `pattern` | `string` | Yes | The glob-style pattern to match (e.g., `user:*`). |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] matchingKeys = check redis->keys("user:*");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["user:1001", "user:1002", "user:1003"]
@@ -3183,22 +3184,22 @@ string[] matchingKeys = check redis->keys("user:*");
 
 Rename a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The current key name. |
 | `newName` | `string` | Yes | The new key name. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string result = check redis->rename("old_key", "new_key");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "OK"
@@ -3215,22 +3216,22 @@ string result = check redis->rename("old_key", "new_key");
 
 Rename a key, only if the new key does not exist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The current key name. |
 | `newName` | `string` | Yes | The new key name. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean renamed = check redis->renameNx("old_key", "new_key");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -3247,22 +3248,22 @@ true
 
 Move a key to another database.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to move. |
 | `database` | `int` | Yes | The target database index. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean moved = check redis->move("temp_key", 1);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -3279,21 +3280,21 @@ true
 
 Sort the elements in a list, set, or sorted set.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to sort. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] sorted = check redis->sort("numbers");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["1", "2", "3", "5", "8"]
@@ -3311,15 +3312,15 @@ string[] sorted = check redis->sort("numbers");
 Return a random key from the keyspace.
 
 
-**Returns:** `string|error?`
+Returns: `string|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string? key = check redis->randomKey();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "user:1002"
@@ -3336,21 +3337,21 @@ string? key = check redis->randomKey();
 
 Determine the type stored at a key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key to inspect. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string keyType = check redis->redisType("user:1001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "hash"
@@ -3360,7 +3361,7 @@ string keyType = check redis->redisType("user:1001");
 
 </details>
 
-#### Connection Operations
+#### Connection operations
 
 <details>
 <summary>ping</summary>
@@ -3370,15 +3371,15 @@ string keyType = check redis->redisType("user:1001");
 Ping the server to test connectivity.
 
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string response = check redis->ping();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "PONG"
@@ -3395,21 +3396,21 @@ string response = check redis->ping();
 
 Authenticate to the server.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `password` | `string` | Yes | The authentication password. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string result = check redis->auth("my_password");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "OK"
@@ -3426,21 +3427,21 @@ string result = check redis->auth("my_password");
 
 Echo the given string back from the server.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `string` | Yes | The message to echo. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string response = check redis->echo("Hello Redis");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "Hello Redis"
@@ -3458,9 +3459,9 @@ string response = check redis->echo("Hello Redis");
 Close the connection to the Redis server.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check redis->close();
@@ -3470,7 +3471,7 @@ check redis->close();
 
 </details>
 
-#### Cluster Operations
+#### Cluster operations
 
 <details>
 <summary>clusterInfo</summary>
@@ -3480,15 +3481,15 @@ check redis->close();
 Retrieve information and statistics about the Redis cluster.
 
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] info = check redis->clusterInfo();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["cluster_enabled:1", "cluster_state:ok", "cluster_slots_assigned:16384", "cluster_slots_ok:16384", "cluster_known_nodes:6", "cluster_size:3"]

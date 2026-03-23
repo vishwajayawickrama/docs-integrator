@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a WSO2 OpenChoreo component and obtaining the credentials and identifiers required to send traces to the AMP platform.
@@ -7,7 +10,7 @@ This guide walks you through setting up a WSO2 OpenChoreo component and obtainin
 
 - A WSO2 OpenChoreo account. Sign up at the OpenChoreo portal if you do not have one.
 
-## Step 1: Create or select a project in OpenChoreo
+## Step 1: Create or select a project in openChoreo
 
 1. Log in to the WSO2 OpenChoreo console.
 2. In the left navigation, click **Projects**.

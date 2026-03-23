@@ -3,11 +3,11 @@ title: "Database"
 description: "Database connectors available in WSO2 Integrator."
 ---
 
-# Database Connectors
+# Database
 
 <!-- TODO: Searchable grid/table with: name, icon, 1-line description, supported operations, link to detail page -->
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -23,7 +23,7 @@ description: "Database connectors available in WSO2 Integrator."
 | [Redis](redis/overview.md) | In-memory data store with string, list, set, sorted set, and hash operations | Get, Set, List, Hash, Set, Sorted Set, Key Management | Password / ACL |
 | [Snowflake](snowflake/overview.md) | Cloud data warehouse with SQL queries, DML/DDL execution, batch operations, and stored procedures | Query, Execute, Batch Execute, Call | Basic Auth, Key-Pair Auth |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

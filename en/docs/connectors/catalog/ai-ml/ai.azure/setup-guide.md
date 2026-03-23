@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up Azure OpenAI Service and Azure AI Search resources and obtaining the credentials required to use the Azure OpenAI connector.
@@ -8,7 +11,7 @@ This guide walks you through setting up Azure OpenAI Service and Azure AI Search
 - An active Microsoft Azure account. If you do not have one, [sign up for free](https://azure.microsoft.com/free/).
 - An Azure AI Search resource (only required if using the `AiSearchKnowledgeBase` client). [Create one in the Azure portal](https://portal.azure.com/#create/Microsoft.Search).
 
-## Step 1: Create an Azure OpenAI Resource
+## Step 1: Create an Azure OpenAI resource
 
 1. Log in to the [Azure portal](https://portal.azure.com/).
 2. Click **Create a resource** and search for **Azure OpenAI**.
@@ -26,7 +29,7 @@ This guide walks you through setting up Azure OpenAI Service and Azure AI Search
 Azure OpenAI access may require approval. If you haven't already, apply for access at https://aka.ms/oai/access.
 :::
 
-## Step 2: Deploy a Model
+## Step 2: Deploy a model
 
 1. Navigate to your Azure OpenAI resource in the Azure portal.
 2. Click **Go to Azure OpenAI Studio** (or open [Azure OpenAI Studio](https://oai.azure.com/) directly).
@@ -39,7 +42,7 @@ Azure OpenAI access may require approval. If you haven't already, apply for acce
 Note the deployment name you choose — you will use it as the `deploymentId` when initializing the connector client.
 :::
 
-## Step 3: Get the API Key and Endpoint
+## Step 3: Get the API key and endpoint
 
 1. In the Azure portal, navigate to your Azure OpenAI resource.
 2. In the left sidebar under **Resource Management**, click **Keys and Endpoint**.
@@ -50,7 +53,7 @@ Note the deployment name you choose — you will use it as the `deploymentId` wh
 Store the API key securely. Do not commit it to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply it at runtime.
 :::
 
-## Step 4: Find the API Version
+## Step 4: Find the API version
 
 The `apiVersion` parameter specifies the Azure OpenAI REST API version to use. Common values include:
 
@@ -60,14 +63,14 @@ The `apiVersion` parameter specifies the Azure OpenAI REST API version to use. C
 
 Refer to the [Azure OpenAI API version documentation](https://learn.microsoft.com/en-us/azure/ai-services/openai/reference) for the latest supported versions.
 
-## Step 5: Set Up Azure AI Search (Optional)
+## Step 5: Set up Azure AI search (optional)
 
 If you plan to use the `AiSearchKnowledgeBase` client:
 
 1. Navigate to your Azure AI Search resource in the Azure portal.
 2. In the left sidebar, click **Keys**.
 3. Copy the **Primary admin key** — this is the `apiKey` for the knowledge base client.
-4. Copy the **URL** from the **Overview** page (e.g., `https://your-search.search.windows.net`) — this is the `serviceUrl` for the knowledge base client.
+4. Copy the **URL** from the Overview page (e.g., `https://your-search.search.windows.net`) — this is the `serviceUrl` for the knowledge base client.
 5. Create or note the name of the search index you want to use — this is the `index` parameter.
 
 :::note

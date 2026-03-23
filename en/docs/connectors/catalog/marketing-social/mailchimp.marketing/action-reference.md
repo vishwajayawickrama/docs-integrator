@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -33,7 +34,7 @@ Mailchimp Marketing API — audiences, members, campaigns, automations, template
 | `poolConfig` | `PoolConfiguration` | `()` | Connection pool settings. |
 | `validation` | `boolean` | `true` | Enable or disable schema validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/mailchimp.marketing as mailchimp;
@@ -51,7 +52,7 @@ mailchimp:Client mailchimpClient = check new ({
 
 ### Operations
 
-#### API Root & Health
+#### API root & health
 
 <details>
 <summary>List API root resources</summary>
@@ -61,15 +62,15 @@ mailchimp:Client mailchimpClient = check new ({
 Returns the top-level resources available in the Mailchimp Marketing API.
 
 
-**Returns:** `APIRoot|error`
+Returns: `APIRoot|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:APIRoot root = check mailchimpClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"account_id": "abc123", "login_id": "user@example.com", "account_name": "My Company", "email": "user@example.com", "role": "owner", "industry_stats": {"open_rate": 0.17, "bounce_rate": 0.006, "click_rate": 0.028}}
@@ -87,15 +88,15 @@ mailchimp:APIRoot root = check mailchimpClient->/.get();
 Tests the API connection and authentication. Returns a health status.
 
 
-**Returns:** `APIHealthStatus|error`
+Returns: `APIHealthStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:APIHealthStatus status = check mailchimpClient->/ping.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"health_status": "Everything's Chimpy!"}
@@ -105,7 +106,7 @@ mailchimp:APIHealthStatus status = check mailchimpClient->/ping.get();
 
 </details>
 
-#### Audiences (Lists)
+#### Audiences (lists)
 
 <details>
 <summary>Get all lists info</summary>
@@ -114,21 +115,21 @@ mailchimp:APIHealthStatus status = check mailchimpClient->/ping.get();
 
 Retrieves information about all audiences (lists) in the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetListsQueries` | No | Optional query parameters for filtering, pagination, and field selection. |
 
-**Returns:** `SubscriberLists|error`
+Returns: `SubscriberLists|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:SubscriberLists lists = check mailchimpClient->/lists.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"lists": [{"id": "abc123def", "name": "My Newsletter", "contact": {"company": "My Company"}, "stats": {"member_count": 1500, "unsubscribe_count": 20, "open_rate": 35.5}}], "total_items": 1}
@@ -145,15 +146,15 @@ mailchimp:SubscriberLists lists = check mailchimpClient->/lists.get();
 
 Creates a new audience (list) in the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SubscriberList3` | Yes | The audience configuration including name, contact info, and permission reminder. |
 
-**Returns:** `SubscriberList1|error`
+Returns: `SubscriberList1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:SubscriberList1 newList = check mailchimpClient->/lists.post({
@@ -177,7 +178,7 @@ mailchimp:SubscriberList1 newList = check mailchimpClient->/lists.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "def456ghi", "name": "Product Updates", "contact": {"company": "My Company"}, "stats": {"member_count": 0}, "date_created": "2025-01-15T10:30:00+00:00"}
@@ -194,22 +195,22 @@ mailchimp:SubscriberList1 newList = check mailchimpClient->/lists.post({
 
 Retrieves information about a specific audience (list).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `queries` | `GetListsIdQueries` | No | Optional query parameters for field selection. |
 
-**Returns:** `SubscriberList1|error`
+Returns: `SubscriberList1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:SubscriberList1 list = check mailchimpClient->/lists/["abc123def"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "abc123def", "name": "My Newsletter", "stats": {"member_count": 1500, "unsubscribe_count": 20, "open_rate": 35.5}, "date_created": "2024-06-01T08:00:00+00:00"}
@@ -226,16 +227,16 @@ mailchimp:SubscriberList1 list = check mailchimpClient->/lists/["abc123def"].get
 
 Updates the settings for an existing audience (list).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `payload` | `SubscriberList3` | Yes | The updated list configuration. |
 
-**Returns:** `SubscriberList1|error`
+Returns: `SubscriberList1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:SubscriberList1 updated = check mailchimpClient->/lists/["abc123def"].patch({
@@ -259,7 +260,7 @@ mailchimp:SubscriberList1 updated = check mailchimpClient->/lists/["abc123def"].
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "abc123def", "name": "Updated Newsletter Name", "stats": {"member_count": 1500}}
@@ -276,15 +277,15 @@ mailchimp:SubscriberList1 updated = check mailchimpClient->/lists/["abc123def"].
 
 Deletes an audience (list) from the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/lists/["abc123def"].delete();
@@ -301,16 +302,16 @@ check mailchimpClient->/lists/["abc123def"].delete();
 
 Batch subscribes or unsubscribes list members.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `payload` | `MembersToSubscribeUnsubscribeTofromAListInBatch` | Yes | Batch member subscribe/unsubscribe payload. |
 
-**Returns:** `BatchUpdateListMembers|error`
+Returns: `BatchUpdateListMembers|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:BatchUpdateListMembers result = check mailchimpClient->/lists/["abc123def"].post({
@@ -321,7 +322,7 @@ mailchimp:BatchUpdateListMembers result = check mailchimpClient->/lists/["abc123
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"new_members": [{"id": "hash1", "email_address": "user1@example.com", "status": "subscribed"}], "updated_members": [], "errors": [], "total_created": 2, "total_updated": 0, "error_count": 0}
@@ -331,7 +332,7 @@ mailchimp:BatchUpdateListMembers result = check mailchimpClient->/lists/["abc123
 
 </details>
 
-#### List Members
+#### List members
 
 <details>
 <summary>List members</summary>
@@ -340,22 +341,22 @@ mailchimp:BatchUpdateListMembers result = check mailchimpClient->/lists/["abc123
 
 Retrieves information about members in a specific audience list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `queries` | `GetListsIdMembersQueries` | No | Optional query parameters for filtering, pagination, and field selection. |
 
-**Returns:** `ListMembers1|error`
+Returns: `ListMembers1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:ListMembers1 members = check mailchimpClient->/lists/["abc123def"]/members.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"members": [{"id": "a1b2c3", "email_address": "user@example.com", "status": "subscribed", "merge_fields": {"FNAME": "John", "LNAME": "Doe"}, "stats": {"avg_open_rate": 0.42, "avg_click_rate": 0.12}}], "total_items": 1}
@@ -372,16 +373,16 @@ mailchimp:ListMembers1 members = check mailchimpClient->/lists/["abc123def"]/mem
 
 Adds a new member (subscriber) to an audience list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `payload` | `AddListMembers1` | Yes | The member data including email address and subscription status. |
 
-**Returns:** `ListMembers2|error`
+Returns: `ListMembers2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:ListMembers2 member = check mailchimpClient->/lists/["abc123def"]/members.post({
@@ -394,7 +395,7 @@ mailchimp:ListMembers2 member = check mailchimpClient->/lists/["abc123def"]/memb
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "d4e5f6", "email_address": "newuser@example.com", "status": "subscribed", "merge_fields": {"FNAME": "Jane", "LNAME": "Smith"}, "timestamp_signup": "2025-03-15T14:30:00+00:00"}
@@ -411,7 +412,7 @@ mailchimp:ListMembers2 member = check mailchimpClient->/lists/["abc123def"]/memb
 
 Retrieves information about a specific list member by their subscriber hash (MD5 hash of lowercase email).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -419,15 +420,15 @@ Retrieves information about a specific list member by their subscriber hash (MD5
 | `subscriberHash` | `string` | Yes | The MD5 hash of the lowercase email address or the email address itself. |
 | `queries` | `GetListsIdMembersIdQueries` | No | Optional query parameters for field selection. |
 
-**Returns:** `ListMembers2|error`
+Returns: `ListMembers2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:ListMembers2 member = check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3", "email_address": "user@example.com", "status": "subscribed", "merge_fields": {"FNAME": "John", "LNAME": "Doe"}, "stats": {"avg_open_rate": 0.42, "avg_click_rate": 0.12}, "last_changed": "2025-02-20T09:15:00+00:00"}
@@ -444,7 +445,7 @@ mailchimp:ListMembers2 member = check mailchimpClient->/lists/["abc123def"]/memb
 
 Updates an existing list member's information.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -452,9 +453,9 @@ Updates an existing list member's information.
 | `subscriberHash` | `string` | Yes | The MD5 hash of the lowercase email address or the email address itself. |
 | `payload` | `AddListMembers1` | Yes | The updated member data. |
 
-**Returns:** `ListMembers2|error`
+Returns: `ListMembers2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:ListMembers2 updated = check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"].patch({
@@ -464,7 +465,7 @@ mailchimp:ListMembers2 updated = check mailchimpClient->/lists/["abc123def"]/mem
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3", "email_address": "user@example.com", "status": "subscribed", "merge_fields": {"FNAME": "Jonathan", "LNAME": "Doe"}}
@@ -481,7 +482,7 @@ mailchimp:ListMembers2 updated = check mailchimpClient->/lists/["abc123def"]/mem
 
 Adds a new member or updates an existing member in the list (upsert).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -489,9 +490,9 @@ Adds a new member or updates an existing member in the list (upsert).
 | `subscriberHash` | `string` | Yes | The MD5 hash of the lowercase email address or the email address itself. |
 | `payload` | `AddListMembers2` | Yes | The member data to add or update. |
 
-**Returns:** `ListMembers2|error`
+Returns: `ListMembers2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:ListMembers2 member = check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"].put({
@@ -504,7 +505,7 @@ mailchimp:ListMembers2 member = check mailchimpClient->/lists/["abc123def"]/memb
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3", "email_address": "user@example.com", "status": "subscribed", "merge_fields": {"FNAME": "John", "LNAME": "Doe"}}
@@ -521,16 +522,16 @@ mailchimp:ListMembers2 member = check mailchimpClient->/lists/["abc123def"]/memb
 
 Archives a list member (soft delete). The member can be re-added later.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `subscriberHash` | `string` | Yes | The MD5 hash of the lowercase email address or the email address itself. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"].delete();
@@ -547,16 +548,16 @@ check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"].delete(
 
 Permanently deletes a list member. This action cannot be undone.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `subscriberHash` | `string` | Yes | The MD5 hash of the lowercase email address or the email address itself. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"]/actions/'delete\-permanent.post();
@@ -566,7 +567,7 @@ check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"]/actions
 
 </details>
 
-#### Member Tags & Events
+#### Member tags & events
 
 <details>
 <summary>List member tags</summary>
@@ -575,22 +576,22 @@ check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"]/actions
 
 Retrieves the tags assigned to a specific list member.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `subscriberHash` | `string` | Yes | The MD5 hash of the lowercase email address or the email address itself. |
 
-**Returns:** `CollectionOfTags|error`
+Returns: `CollectionOfTags|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:CollectionOfTags tags = check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"]/tags.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"tags": [{"id": 1, "name": "VIP"}, {"id": 2, "name": "Early Adopter"}], "total_items": 2}
@@ -607,7 +608,7 @@ mailchimp:CollectionOfTags tags = check mailchimpClient->/lists/["abc123def"]/me
 
 Adds or removes tags from a specific list member.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -615,9 +616,9 @@ Adds or removes tags from a specific list member.
 | `subscriberHash` | `string` | Yes | The MD5 hash of the lowercase email address or the email address itself. |
 | `payload` | `MemberTags` | Yes | Tags to add or remove with their status. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"]/tags.post({
@@ -639,7 +640,7 @@ check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"]/tags.po
 
 Adds a custom event for a specific list member, which can trigger automations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -647,9 +648,9 @@ Adds a custom event for a specific list member, which can trigger automations.
 | `subscriberHash` | `string` | Yes | The MD5 hash of the lowercase email address or the email address itself. |
 | `payload` | `Events` | Yes | Event name and optional properties. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"]/events.post({
@@ -672,22 +673,22 @@ check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"]/events.
 
 Retrieves events for a specific list member.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `subscriberHash` | `string` | Yes | The MD5 hash of the lowercase email address or the email address itself. |
 
-**Returns:** `CollectionOfEvents|error`
+Returns: `CollectionOfEvents|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:CollectionOfEvents events = check mailchimpClient->/lists/["abc123def"]/members/["user@example.com"]/events.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"events": [{"occurred_at": "2025-03-10T12:00:00+00:00", "name": "purchased_product", "properties": {"product": "Widget Pro"}}], "total_items": 1}
@@ -706,21 +707,21 @@ mailchimp:CollectionOfEvents events = check mailchimpClient->/lists/["abc123def"
 
 Retrieves all segments for a specific list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 
-**Returns:** `CollectionOfSegments|error`
+Returns: `CollectionOfSegments|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:CollectionOfSegments segments = check mailchimpClient->/lists/["abc123def"]/segments.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"segments": [{"id": 12345, "name": "Active Subscribers", "member_count": 500, "type": "saved", "created_at": "2025-01-10T08:00:00+00:00"}], "total_items": 1}
@@ -737,16 +738,16 @@ mailchimp:CollectionOfSegments segments = check mailchimpClient->/lists/["abc123
 
 Creates a new segment for a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `payload` | `List3` | Yes | Segment configuration including name and conditions. |
 
-**Returns:** `List4|error`
+Returns: `List4|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:List4 segment = check mailchimpClient->/lists/["abc123def"]/segments.post({
@@ -755,7 +756,7 @@ mailchimp:List4 segment = check mailchimpClient->/lists/["abc123def"]/segments.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 12346, "name": "High Engagement", "member_count": 2, "type": "static", "created_at": "2025-03-15T10:00:00+00:00"}
@@ -772,16 +773,16 @@ mailchimp:List4 segment = check mailchimpClient->/lists/["abc123def"]/segments.p
 
 Deletes a specific segment from a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | `string` | Yes | The unique ID of the list. |
 | `segmentId` | `string` | Yes | The unique ID of the segment. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/lists/["abc123def"]/segments/["12345"].delete();
@@ -800,21 +801,21 @@ check mailchimpClient->/lists/["abc123def"]/segments/["12345"].delete();
 
 Retrieves all campaigns in the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetCampaignsQueries` | No | Optional query parameters for filtering, pagination, and field selection. |
 
-**Returns:** `InlineResponse2007|error`
+Returns: `InlineResponse2007|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:InlineResponse2007 campaigns = check mailchimpClient->/campaigns.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"campaigns": [{"id": "cam123", "type": "regular", "status": "sent", "settings": {"subject_line": "March Newsletter", "from_name": "My Company"}, "send_time": "2025-03-01T09:00:00+00:00", "report_summary": {"opens": 450, "clicks": 120}}], "total_items": 1}
@@ -831,15 +832,15 @@ mailchimp:InlineResponse2007 campaigns = check mailchimpClient->/campaigns.get()
 
 Creates a new campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Campaign` | Yes | Campaign configuration including type, recipients, and settings. |
 
-**Returns:** `Campaign1|error`
+Returns: `Campaign1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:Campaign1 campaign = check mailchimpClient->/campaigns.post({
@@ -855,7 +856,7 @@ mailchimp:Campaign1 campaign = check mailchimpClient->/campaigns.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "cam456", "type": "regular", "status": "save", "settings": {"subject_line": "March Newsletter", "from_name": "My Company"}, "create_time": "2025-03-15T10:30:00+00:00"}
@@ -872,21 +873,21 @@ mailchimp:Campaign1 campaign = check mailchimpClient->/campaigns.post({
 
 Retrieves information about a specific campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 
-**Returns:** `Campaign1|error`
+Returns: `Campaign1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:Campaign1 campaign = check mailchimpClient->/campaigns/["cam456"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "cam456", "type": "regular", "status": "save", "settings": {"subject_line": "March Newsletter", "from_name": "My Company"}, "recipients": {"list_id": "abc123def"}}
@@ -903,16 +904,16 @@ mailchimp:Campaign1 campaign = check mailchimpClient->/campaigns/["cam456"].get(
 
 Updates the settings of an existing campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 | `payload` | `Campaign2` | Yes | The updated campaign settings. |
 
-**Returns:** `Campaign1|error`
+Returns: `Campaign1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:Campaign1 updated = check mailchimpClient->/campaigns/["cam456"].patch({
@@ -924,7 +925,7 @@ mailchimp:Campaign1 updated = check mailchimpClient->/campaigns/["cam456"].patch
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "cam456", "type": "regular", "status": "save", "settings": {"subject_line": "Updated: March Newsletter", "from_name": "My Company"}}
@@ -941,15 +942,15 @@ mailchimp:Campaign1 updated = check mailchimpClient->/campaigns/["cam456"].patch
 
 Permanently deletes a campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/campaigns/["cam456"].delete();
@@ -966,15 +967,15 @@ check mailchimpClient->/campaigns/["cam456"].delete();
 
 Sends a campaign to the recipients.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/campaigns/["cam456"]/actions/send.post();
@@ -991,16 +992,16 @@ check mailchimpClient->/campaigns/["cam456"]/actions/send.post();
 
 Schedules a campaign for delivery at a specified time.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 | `payload` | `Body1` | Yes | Schedule configuration with send time. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/campaigns/["cam456"]/actions/schedule.post({
@@ -1019,15 +1020,15 @@ check mailchimpClient->/campaigns/["cam456"]/actions/schedule.post({
 
 Unschedules a previously scheduled campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/campaigns/["cam456"]/actions/unschedule.post();
@@ -1044,21 +1045,21 @@ check mailchimpClient->/campaigns/["cam456"]/actions/unschedule.post();
 
 Creates a copy of an existing campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign to copy. |
 
-**Returns:** `Campaign3|error`
+Returns: `Campaign3|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:Campaign3 copy = check mailchimpClient->/campaigns/["cam456"]/actions/replicate.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "cam789", "type": "regular", "status": "save", "settings": {"subject_line": "March Newsletter"}, "create_time": "2025-03-15T11:00:00+00:00"}
@@ -1075,16 +1076,16 @@ mailchimp:Campaign3 copy = check mailchimpClient->/campaigns/["cam456"]/actions/
 
 Sends a test email to specified email addresses.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 | `payload` | `Body2` | Yes | Test email configuration with recipient addresses and email type. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/campaigns/["cam456"]/actions/test.post({
@@ -1104,21 +1105,21 @@ check mailchimpClient->/campaigns/["cam456"]/actions/test.post({
 
 Reviews the send checklist for a campaign and resolves any issues before sending.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 
-**Returns:** `SendChecklist|error`
+Returns: `SendChecklist|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:SendChecklist checklist = check mailchimpClient->/campaigns/["cam456"]/send\-checklist.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"is_ready": true, "items": [{"type": "success", "id": "list", "heading": "List", "details": "My Newsletter (1500 recipients)"}]}
@@ -1128,7 +1129,7 @@ mailchimp:SendChecklist checklist = check mailchimpClient->/campaigns/["cam456"]
 
 </details>
 
-#### Campaign Content
+#### Campaign content
 
 <details>
 <summary>Get campaign content</summary>
@@ -1137,21 +1138,21 @@ mailchimp:SendChecklist checklist = check mailchimpClient->/campaigns/["cam456"]
 
 Retrieves the HTML and plain-text content for a campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 
-**Returns:** `CampaignContent|error`
+Returns: `CampaignContent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:CampaignContent content = check mailchimpClient->/campaigns/["cam456"]/content.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"plain_text": "Hello, welcome to our newsletter!", "html": "<html><body><h1>Welcome!</h1></body></html>"}
@@ -1168,16 +1169,16 @@ mailchimp:CampaignContent content = check mailchimpClient->/campaigns/["cam456"]
 
 Sets the content (HTML, plain text, or template) for a campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignId` | `string` | Yes | The unique ID of the campaign. |
 | `payload` | `CampaignContent1` | Yes | The campaign content configuration. |
 
-**Returns:** `CampaignContent|error`
+Returns: `CampaignContent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:CampaignContent content = check mailchimpClient->/campaigns/["cam456"]/content.put({
@@ -1185,7 +1186,7 @@ mailchimp:CampaignContent content = check mailchimpClient->/campaigns/["cam456"]
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"plain_text": "March Newsletter\nHello *|FNAME|*!", "html": "<html><body><h1>March Newsletter</h1><p>Hello *|FNAME|*!</p></body></html>"}
@@ -1204,21 +1205,21 @@ mailchimp:CampaignContent content = check mailchimpClient->/campaigns/["cam456"]
 
 Retrieves a summary of all automations in the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAutomationsQueries` | No | Optional query parameters for filtering and pagination. |
 
-**Returns:** `InlineResponse2005|error`
+Returns: `InlineResponse2005|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:InlineResponse2005 automations = check mailchimpClient->/automations.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"automations": [{"id": "auto123", "status": "sending", "settings": {"title": "Welcome Series"}, "emails_sent": 350, "create_time": "2025-01-01T08:00:00+00:00"}], "total_items": 1}
@@ -1235,15 +1236,15 @@ mailchimp:InlineResponse2005 automations = check mailchimpClient->/automations.g
 
 Creates a new automation workflow.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AutomationWorkflow` | Yes | Automation configuration including recipients and settings. |
 
-**Returns:** `AutomationWorkflow1|error`
+Returns: `AutomationWorkflow1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:AutomationWorkflow1 automation = check mailchimpClient->/automations.post({
@@ -1259,7 +1260,7 @@ mailchimp:AutomationWorkflow1 automation = check mailchimpClient->/automations.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "auto456", "status": "save", "settings": {"title": "Welcome Series"}, "create_time": "2025-03-15T12:00:00+00:00"}
@@ -1276,15 +1277,15 @@ mailchimp:AutomationWorkflow1 automation = check mailchimpClient->/automations.p
 
 Pauses all emails in an automation workflow.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `workflowId` | `string` | Yes | The unique ID of the automation workflow. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/automations/["auto123"]/actions/'pause\-all\-emails.post();
@@ -1301,15 +1302,15 @@ check mailchimpClient->/automations/["auto123"]/actions/'pause\-all\-emails.post
 
 Starts all emails in a paused automation workflow.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `workflowId` | `string` | Yes | The unique ID of the automation workflow. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/automations/["auto123"]/actions/'start\-all\-emails.post();
@@ -1328,21 +1329,21 @@ check mailchimpClient->/automations/["auto123"]/actions/'start\-all\-emails.post
 
 Retrieves all templates in the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetTemplatesQueries` | No | Optional query parameters for filtering and pagination. |
 
-**Returns:** `Templates|error`
+Returns: `Templates|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:Templates templates = check mailchimpClient->/templates.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"templates": [{"id": 10001, "type": "user", "name": "Monthly Newsletter", "active": true, "date_created": "2025-01-05T08:00:00+00:00"}], "total_items": 1}
@@ -1359,15 +1360,15 @@ mailchimp:Templates templates = check mailchimpClient->/templates.get();
 
 Creates a new template with custom HTML.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TemplateInstance` | Yes | Template configuration with name and HTML content. |
 
-**Returns:** `TemplateInstance1|error`
+Returns: `TemplateInstance1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:TemplateInstance1 template = check mailchimpClient->/templates.post({
@@ -1376,7 +1377,7 @@ mailchimp:TemplateInstance1 template = check mailchimpClient->/templates.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10002, "type": "user", "name": "Product Launch", "active": true, "date_created": "2025-03-15T14:00:00+00:00"}
@@ -1393,15 +1394,15 @@ mailchimp:TemplateInstance1 template = check mailchimpClient->/templates.post({
 
 Deletes a specific template.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `templateId` | `string` | Yes | The unique ID of the template. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mailchimpClient->/templates/["10001"].delete();
@@ -1411,7 +1412,7 @@ check mailchimpClient->/templates/["10001"].delete();
 
 </details>
 
-#### Template Folders
+#### Template folders
 
 <details>
 <summary>List template folders</summary>
@@ -1421,15 +1422,15 @@ check mailchimpClient->/templates/["10001"].delete();
 Retrieves all template folders in the account.
 
 
-**Returns:** `TemplateFolders|error`
+Returns: `TemplateFolders|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:TemplateFolders folders = check mailchimpClient->/template\-folders.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"folders": [{"id": "tf001", "name": "Marketing Templates", "count": 5}], "total_items": 1}
@@ -1446,15 +1447,15 @@ mailchimp:TemplateFolders folders = check mailchimpClient->/template\-folders.ge
 
 Creates a new template folder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TemplateFolder` | Yes | Folder configuration with a name. |
 
-**Returns:** `TemplateFolder1|error`
+Returns: `TemplateFolder1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:TemplateFolder1 folder = check mailchimpClient->/template\-folders.post({
@@ -1462,7 +1463,7 @@ mailchimp:TemplateFolder1 folder = check mailchimpClient->/template\-folders.pos
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "tf002", "name": "Seasonal Campaigns", "count": 0}
@@ -1472,7 +1473,7 @@ mailchimp:TemplateFolder1 folder = check mailchimpClient->/template\-folders.pos
 
 </details>
 
-#### Campaign Folders
+#### Campaign folders
 
 <details>
 <summary>List campaign folders</summary>
@@ -1482,15 +1483,15 @@ mailchimp:TemplateFolder1 folder = check mailchimpClient->/template\-folders.pos
 Retrieves all campaign folders in the account.
 
 
-**Returns:** `CampaignFolders|error`
+Returns: `CampaignFolders|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:CampaignFolders folders = check mailchimpClient->/campaign\-folders.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"folders": [{"id": "cf001", "name": "Q1 Campaigns", "count": 3}], "total_items": 1}
@@ -1507,15 +1508,15 @@ mailchimp:CampaignFolders folders = check mailchimpClient->/campaign\-folders.ge
 
 Creates a new campaign folder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CampaignFolder` | Yes | Folder configuration with a name. |
 
-**Returns:** `CampaignFolder1|error`
+Returns: `CampaignFolder1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:CampaignFolder1 folder = check mailchimpClient->/campaign\-folders.post({
@@ -1523,7 +1524,7 @@ mailchimp:CampaignFolder1 folder = check mailchimpClient->/campaign\-folders.pos
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "cf002", "name": "Q2 Campaigns", "count": 0}
@@ -1533,7 +1534,7 @@ mailchimp:CampaignFolder1 folder = check mailchimpClient->/campaign\-folders.pos
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>List batch requests</summary>
@@ -1543,15 +1544,15 @@ mailchimp:CampaignFolder1 folder = check mailchimpClient->/campaign\-folders.pos
 Retrieves a list of batch operation requests.
 
 
-**Returns:** `BatchOperations|error`
+Returns: `BatchOperations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:BatchOperations batches = check mailchimpClient->/batches.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"batches": [{"id": "batch001", "status": "finished", "total_operations": 100, "finished_operations": 100, "submitted_at": "2025-03-10T08:00:00+00:00"}], "total_items": 1}
@@ -1568,15 +1569,15 @@ mailchimp:BatchOperations batches = check mailchimpClient->/batches.get();
 
 Starts a new batch operation with multiple API calls.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Body7` | Yes | Batch request configuration with an array of operations. |
 
-**Returns:** `Batch|error`
+Returns: `Batch|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:Batch batch = check mailchimpClient->/batches.post({
@@ -1590,7 +1591,7 @@ mailchimp:Batch batch = check mailchimpClient->/batches.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "batch002", "status": "pending", "total_operations": 1, "submitted_at": "2025-03-15T15:00:00+00:00"}
@@ -1607,21 +1608,21 @@ mailchimp:Batch batch = check mailchimpClient->/batches.post({
 
 Retrieves the status of a specific batch operation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `batchId` | `string` | Yes | The unique ID of the batch operation. |
 
-**Returns:** `Batch|error`
+Returns: `Batch|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:Batch batch = check mailchimpClient->/batches/["batch002"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "batch002", "status": "finished", "total_operations": 1, "finished_operations": 1, "errored_operations": 0, "submitted_at": "2025-03-15T15:00:00+00:00", "completed_at": "2025-03-15T15:01:00+00:00"}
@@ -1631,7 +1632,7 @@ mailchimp:Batch batch = check mailchimpClient->/batches/["batch002"].get();
 
 </details>
 
-#### File Manager
+#### File manager
 
 <details>
 <summary>List stored files</summary>
@@ -1640,21 +1641,21 @@ mailchimp:Batch batch = check mailchimpClient->/batches/["batch002"].get();
 
 Retrieves a list of all files in the file manager.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetFileManagerFilesQueries` | No | Optional query parameters for filtering and pagination. |
 
-**Returns:** `FileManager|error`
+Returns: `FileManager|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:FileManager files = check mailchimpClient->/file\-manager/files.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"files": [{"id": 1001, "name": "logo.png", "type": "image", "size": 24680, "full_size_url": "https://gallery.mailchimp.com/logo.png"}], "total_items": 1, "total_file_size": 24680}
@@ -1671,15 +1672,15 @@ mailchimp:FileManager files = check mailchimpClient->/file\-manager/files.get();
 
 Uploads a new file to the file manager.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `GalleryFile` | Yes | File upload payload with name and base64-encoded file data. |
 
-**Returns:** `GalleryFile1|error`
+Returns: `GalleryFile1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:GalleryFile1 file = check mailchimpClient->/file\-manager/files.post({
@@ -1688,7 +1689,7 @@ mailchimp:GalleryFile1 file = check mailchimpClient->/file\-manager/files.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1002, "name": "banner.png", "type": "image", "size": 15360, "full_size_url": "https://gallery.mailchimp.com/banner.png", "created_at": "2025-03-15T16:00:00+00:00"}
@@ -1707,21 +1708,21 @@ mailchimp:GalleryFile1 file = check mailchimpClient->/file\-manager/files.post({
 
 Searches all campaigns for the specified query terms.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetSearchCampaignsQueries` | Yes | Query parameters including the search query string. |
 
-**Returns:** `InlineResponse20014|error`
+Returns: `InlineResponse20014|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:InlineResponse20014 results = check mailchimpClient->/search\-campaigns.get(queries = { query: "newsletter" });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"results": [{"campaign": {"id": "cam123", "settings": {"subject_line": "March Newsletter"}}}], "total_items": 1}
@@ -1738,21 +1739,21 @@ mailchimp:InlineResponse20014 results = check mailchimpClient->/search\-campaign
 
 Searches for list members across all lists matching the query.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetSearchMembersQueries` | Yes | Query parameters including the search query string. |
 
-**Returns:** `Members|error`
+Returns: `Members|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:Members results = check mailchimpClient->/search\-members.get(queries = { query: "john@example.com" });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"exact_matches": {"members": [{"id": "a1b2c3", "email_address": "john@example.com", "status": "subscribed", "list_id": "abc123def"}], "total_items": 1}, "full_search": {"members": [], "total_items": 0}}
@@ -1762,7 +1763,7 @@ mailchimp:Members results = check mailchimpClient->/search\-members.get(queries 
 
 </details>
 
-#### Connected Sites
+#### Connected sites
 
 <details>
 <summary>List connected sites</summary>
@@ -1772,15 +1773,15 @@ mailchimp:Members results = check mailchimpClient->/search\-members.get(queries 
 Retrieves all connected sites in the account.
 
 
-**Returns:** `ConnectedSites|error`
+Returns: `ConnectedSites|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:ConnectedSites sites = check mailchimpClient->/connected\-sites.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"sites": [{"foreign_id": "site001", "store_id": "store001", "platform": "shopify", "domain": "mystore.example.com", "site_script": {"url": "https://chimpstatic.com/mcjs-connected/js/users/abc123.js"}}], "total_items": 1}
@@ -1790,7 +1791,7 @@ mailchimp:ConnectedSites sites = check mailchimpClient->/connected\-sites.get();
 
 </details>
 
-#### Account Exports
+#### Account exports
 
 <details>
 <summary>List account exports</summary>
@@ -1800,15 +1801,15 @@ mailchimp:ConnectedSites sites = check mailchimpClient->/connected\-sites.get();
 Retrieves a list of account data exports.
 
 
-**Returns:** `InlineResponse2001|error`
+Returns: `InlineResponse2001|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:InlineResponse2001 exports = check mailchimpClient->/account\-exports.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"exports": [{"export_id": "exp001", "started": "2025-03-10T08:00:00+00:00", "finished": "2025-03-10T08:05:00+00:00", "size_in_bytes": 1048576}], "total_items": 1}
@@ -1825,15 +1826,15 @@ mailchimp:InlineResponse2001 exports = check mailchimpClient->/account\-exports.
 
 Creates a new account export.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateAnAccountExport` | Yes | Export configuration with included data types. |
 
-**Returns:** `InlineResponse2002|error`
+Returns: `InlineResponse2002|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mailchimp:InlineResponse2002 export = check mailchimpClient->/account\-exports.post({
@@ -1841,7 +1842,7 @@ mailchimp:InlineResponse2002 export = check mailchimpClient->/account\-exports.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"export_id": "exp002", "started": "2025-03-15T17:00:00+00:00", "finished": null, "size_in_bytes": 0}
@@ -1851,7 +1852,7 @@ mailchimp:InlineResponse2002 export = check mailchimpClient->/account\-exports.p
 
 </details>
 
-#### Customer Journeys
+#### Customer journeys
 
 <details>
 <summary>Trigger customer journey step</summary>
@@ -1860,7 +1861,7 @@ mailchimp:InlineResponse2002 export = check mailchimpClient->/account\-exports.p
 
 Triggers a specific step in a customer journey for one or more contacts.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1868,9 +1869,9 @@ Triggers a specific step in a customer journey for one or more contacts.
 | `stepId` | `int` | Yes | The unique ID of the journey step. |
 | `payload` | `Body11` | Yes | Trigger payload with email address to trigger the journey step for. |
 
-**Returns:** `record {}|error`
+Returns: `record {}|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} result = check mailchimpClient->/customer\-journeys/journeys/[1234]/steps/[5678]/actions/trigger.post({
@@ -1878,7 +1879,7 @@ record {} result = check mailchimpClient->/customer\-journeys/journeys/[1234]/st
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {}

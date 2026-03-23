@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a HubSpot Private App and obtaining the access token required to authenticate with the HubSpot Feedback Submissions API.
@@ -7,19 +10,19 @@ This guide walks you through creating a HubSpot Private App and obtaining the ac
 
 - A HubSpot account. If you do not have one, [sign up for a free account](https://app.hubspot.com/signup).
 
-## Step 1: Navigate to Private Apps
+## Step 1: Navigate to private apps
 
 1. Log in to your HubSpot account.
 2. Click the **Settings** gear icon in the top navigation bar.
 3. In the left sidebar, navigate to **Integrations** → **Private Apps**.
 
-## Step 2: Create a New Private App
+## Step 2: Create a new private app
 
 1. Click **Create a private app**.
 2. On the **Basic Info** tab, enter a name for your app (e.g., `Ballerina Feedback Connector`)
    and an optional description.
 
-## Step 3: Configure Required Scopes
+## Step 3: Configure required scopes
 
 1. Click the **Scopes** tab.
 2. In the search box, type `feedback` to filter relevant scopes.
@@ -32,7 +35,7 @@ This guide walks you through creating a HubSpot Private App and obtaining the ac
 HubSpot's Feedback Submissions endpoints are primarily read-only. Write operations may be restricted depending on your HubSpot subscription and the specific survey type.
 :::
 
-## Step 4: Create the App and Copy the Access Token
+## Step 4: Create the app and copy the access token
 
 1. Click **Create app** in the top-right corner.
 2. Review the scope summary in the confirmation dialog and click **Continue creating**.
@@ -44,7 +47,7 @@ Store your private app token securely. Do not commit it to source control.
 Use Ballerina's `configurable` feature and a `Config.toml` file to supply it at runtime.
 :::
 
-## Step 5: Set Up OAuth 2.0 (Optional — for third-party integrations)
+## Step 5: Set up OAuth 2.0 (optional — for third-party integrations)
 
 If you are building a third-party integration that acts on behalf of HubSpot customers,
 use OAuth 2.0 instead of a private app token:

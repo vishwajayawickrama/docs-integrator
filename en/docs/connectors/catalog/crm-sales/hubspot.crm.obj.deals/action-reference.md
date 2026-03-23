@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Perform CRUD, batch, search, and merge operations on HubSpot CRM deal records.
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable constraint validation on request/response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.obj.deals;
@@ -57,23 +58,23 @@ deals:Client hubSpotDeals = check new ({
 
 Returns a paginated list of deals. Optionally expand specific properties and associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetCrmV3ObjectsDealsGetPageQueries` | No | Query parameters including `limit`, `after` (cursor), `properties`, `propertiesWithHistory`, `associations`, and `archived`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 deals:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging allDeals =
     check hubSpotDeals->/;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -113,16 +114,16 @@ deals:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging allDeals
 
 Creates a new deal record with the provided properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SimplePublicObjectInputForCreate` | Yes | Deal properties and optional associations to set on creation. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 deals:SimplePublicObjectInputForCreate payload = {
@@ -138,7 +139,7 @@ deals:SimplePublicObjectInputForCreate payload = {
 deals:SimplePublicObject createdDeal = check hubSpotDeals->/.post(payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -169,7 +170,7 @@ deals:SimplePublicObject createdDeal = check hubSpotDeals->/.post(payload);
 
 Retrieves a single deal record by its internal HubSpot deal ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -177,16 +178,16 @@ Retrieves a single deal record by its internal HubSpot deal ID.
 | `queries` | `GetCrmV3ObjectsDealsDealIdGetByIdQueries` | No | Query parameters including `properties`, `propertiesWithHistory`, `associations`, `archived`, and `idProperty`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string dealId = "19171005526";
 deals:SimplePublicObjectWithAssociations deal = check hubSpotDeals->/[dealId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -217,7 +218,7 @@ deals:SimplePublicObjectWithAssociations deal = check hubSpotDeals->/[dealId];
 
 Updates properties of an existing deal by its internal ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -226,9 +227,9 @@ Updates properties of an existing deal by its internal ID.
 | `queries` | `PatchCrmV3ObjectsDealsDealIdUpdateQueries` | No | Optional `idProperty` to identify the deal by a unique property instead of ID. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string dealId = "19171005526";
@@ -241,7 +242,7 @@ deals:SimplePublicObjectInput updatePayload = {
 deals:SimplePublicObject updatedDeal = check hubSpotDeals->/[dealId].patch(updatePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -270,16 +271,16 @@ deals:SimplePublicObject updatedDeal = check hubSpotDeals->/[dealId].patch(updat
 
 Archives (soft-deletes) a deal by its internal ID. Archived deals can be restored via the HubSpot UI.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `dealId` | `string` | Yes | The internal HubSpot deal ID to archive. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string dealId = "19171005526";
@@ -290,7 +291,7 @@ check hubSpotDeals->/[dealId].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of deals</summary>
@@ -299,16 +300,16 @@ check hubSpotDeals->/[dealId].delete();
 
 Creates multiple deal records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectInputForCreate` | Yes | Array of deal input objects, each containing properties and optional associations. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 deals:BatchInputSimplePublicObjectInputForCreate batchPayload = {
@@ -322,7 +323,7 @@ deals:BatchResponseSimplePublicObject|deals:BatchResponseSimplePublicObjectWithE
     check hubSpotDeals->/batch/create.post(batchPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -348,7 +349,7 @@ deals:BatchResponseSimplePublicObject|deals:BatchResponseSimplePublicObjectWithE
 
 Reads multiple deal records by their internal IDs or unique property values in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -356,9 +357,9 @@ Reads multiple deal records by their internal IDs or unique property values in a
 | `queries` | `PostCrmV3ObjectsDealsBatchReadReadQueries` | No | Optional `archived` flag to include archived deals. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 deals:BatchReadInputSimplePublicObjectId readPayload = {
@@ -369,7 +370,7 @@ deals:BatchResponseSimplePublicObject|deals:BatchResponseSimplePublicObjectWithE
     check hubSpotDeals->/batch/read.post(readPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -394,16 +395,16 @@ deals:BatchResponseSimplePublicObject|deals:BatchResponseSimplePublicObjectWithE
 
 Updates multiple deal records by their internal IDs or unique property values in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInput` | Yes | Array of deal update inputs, each containing an ID and the properties to update. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 deals:BatchInputSimplePublicObjectBatchInput updateBatch = {
@@ -416,7 +417,7 @@ deals:BatchResponseSimplePublicObject|deals:BatchResponseSimplePublicObjectWithE
     check hubSpotDeals->/batch/update.post(updateBatch);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -441,16 +442,16 @@ deals:BatchResponseSimplePublicObject|deals:BatchResponseSimplePublicObjectWithE
 
 Archives multiple deal records by their internal IDs in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectId` | Yes | Array of deal IDs to archive. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 deals:BatchInputSimplePublicObjectId archivePayload = {
@@ -470,16 +471,16 @@ check hubSpotDeals->/batch/archive.post(archivePayload);
 
 Creates or updates multiple deals in a single request, matching on a unique property value (idProperty). Records that match are updated; non-matching records are created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInputUpsert` | Yes | Array of deal upsert inputs with an `idProperty` for matching and a `properties` map. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 deals:BatchInputSimplePublicObjectBatchInputUpsert upsertPayload = {
@@ -492,7 +493,7 @@ deals:BatchResponseSimplePublicUpsertObject|deals:BatchResponseSimplePublicUpser
     check hubSpotDeals->/batch/upsert.post(upsertPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -510,7 +511,7 @@ deals:BatchResponseSimplePublicUpsertObject|deals:BatchResponseSimplePublicUpser
 
 </details>
 
-#### Search & Merge
+#### Search & merge
 
 <details>
 <summary>Search deals</summary>
@@ -519,16 +520,16 @@ deals:BatchResponseSimplePublicUpsertObject|deals:BatchResponseSimplePublicUpser
 
 Searches deal records using filter groups, sorts, and property projections.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicObjectSearchRequest` | Yes | Search request with `filterGroups`, `sorts`, `properties`, `limit`, and `after` cursor. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 deals:PublicObjectSearchRequest searchRequest = {
@@ -549,7 +550,7 @@ deals:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResults =
     check hubSpotDeals->/search.post(searchRequest);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -572,16 +573,16 @@ deals:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResults =
 
 Merges two deal records into one. The primary deal ID is retained; the secondary deal is archived.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicMergeInput` | Yes | Merge input containing `primaryObjectId` (kept) and `objectIdToMerge` (archived). |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 deals:PublicMergeInput mergePayload = {
@@ -591,7 +592,7 @@ deals:PublicMergeInput mergePayload = {
 deals:SimplePublicObject mergedDeal = check hubSpotDeals->/merge.post(mergePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

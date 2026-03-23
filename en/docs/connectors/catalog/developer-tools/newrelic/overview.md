@@ -1,9 +1,12 @@
+---
+title: New Relic Connector Overview
+---
 # New Relic Connector Overview
 
 New Relic is a cloud-based observability platform for monitoring application performance, infrastructure, and distributed traces. The Ballerina `ballerinax/newrelic` module (v1.0.3) is an observability extension that automatically instruments Ballerina services to export metrics and distributed traces to New Relic — no client instantiation or manual telemetry calls required beyond a side-effect import and configuration.
 
 
-## Key Features
+## Key features
 
 - Automatic HTTP service metrics collection: response time, request count, error rates, and in-flight request counts
 - Distributed tracing via OpenTelemetry exported to New Relic's OTLP endpoint (`otlp.nr-data.net:4317`)
@@ -25,14 +28,14 @@ The `ballerinax/newrelic` module is an observability extension, not a traditiona
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## New Relic Connector Documentation
+## New relic connector documentation
 
 * **[New Relic Connector Setup Guide](setup-guide.md)**: This guide walks you through creating a New Relic account and obtaining the License Key required to configure the `ballerinax/newrelic` observability extension.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

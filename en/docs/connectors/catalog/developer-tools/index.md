@@ -3,11 +3,11 @@ title: "Developer Tools"
 description: "Developer tools connectors available in WSO2 Integrator."
 ---
 
-# Developer Tools Connectors
+# Developer Tools
 
 <!-- TODO: Searchable grid/table with: name, icon, 1-line description, supported operations, link to detail page -->
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -19,7 +19,7 @@ description: "Developer tools connectors available in WSO2 Integrator."
 | [New Relic](newrelic/overview.md) | Observability extension that auto-exports Ballerina runtime metrics and distributed traces to New Relic | Metrics Export, Distributed Tracing, Multi-account Fan-out | API Key (License Key) |
 | [WSO2 APIM Catalog](wso2.apim.catalog/overview.md) | WSO2 API Manager Service Catalog for registering and managing backend service definitions | Create, Read, Update, Delete, Import, Export, Settings | OAuth 2.0 Password Grant |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

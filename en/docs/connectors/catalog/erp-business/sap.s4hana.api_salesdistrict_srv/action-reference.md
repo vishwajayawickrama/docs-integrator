@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -36,7 +37,7 @@ Provides read access to SAP S/4HANA sales district master data and multilingual 
 | `proxy` | `ProxyConfig?` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Whether to enable constraint validation on request and response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.api_salesdistrict_srv as salesdistrict;
@@ -53,7 +54,7 @@ salesdistrict:Client salesDistrictClient = check new (
 
 ### Operations
 
-#### Sales Districts
+#### Sales districts
 
 <details>
 <summary>listA_SalesDistricts</summary>
@@ -62,23 +63,23 @@ salesdistrict:Client salesDistrictClient = check new (
 
 Retrieves a collection of all sales district entities from SAP S/4HANA.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers to include in the request. |
 | `queries` | `ListA_SalesDistrictsQueries` | No | OData query options including `$top`, `$skip`, `$filter`, `$orderby`, `$select`, `$expand`, and `$inlinecount`. |
 
-**Returns:** `CollectionOfA_SalesDistrictWrapper|error`
+Returns: `CollectionOfA_SalesDistrictWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesdistrict:CollectionOfA_SalesDistrictWrapper result =
     check salesDistrictClient->listA_SalesDistricts();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -104,7 +105,7 @@ salesdistrict:CollectionOfA_SalesDistrictWrapper result =
 
 Retrieves a single sales district entity by its unique sales district key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -112,16 +113,16 @@ Retrieves a single sales district entity by its unique sales district key.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers to include in the request. |
 | `queries` | `GetA_SalesDistrictQueries` | No | OData query options: `$select`, `$expand`. |
 
-**Returns:** `A_SalesDistrictWrapper|error`
+Returns: `A_SalesDistrictWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesdistrict:A_SalesDistrictWrapper result =
     check salesDistrictClient->getA_SalesDistrict("D001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -145,7 +146,7 @@ salesdistrict:A_SalesDistrictWrapper result =
 
 Retrieves all multilingual text descriptions associated with a specific sales district.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -153,16 +154,16 @@ Retrieves all multilingual text descriptions associated with a specific sales di
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers to include in the request. |
 | `queries` | `ListTextsOfA_SalesDistrictQueries` | No | OData query options including `$top`, `$skip`, `$filter`, `$orderby`, `$select`, `$expand`, and `$inlinecount`. |
 
-**Returns:** `CollectionOfA_SalesDistrictTextWrapper|error`
+Returns: `CollectionOfA_SalesDistrictTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesdistrict:CollectionOfA_SalesDistrictTextWrapper texts =
     check salesDistrictClient->listTextsOfA_SalesDistrict("D001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -180,7 +181,7 @@ salesdistrict:CollectionOfA_SalesDistrictTextWrapper texts =
 
 </details>
 
-#### Sales District Texts
+#### Sales district texts
 
 <details>
 <summary>listA_SalesDistrictTexts</summary>
@@ -189,23 +190,23 @@ salesdistrict:CollectionOfA_SalesDistrictTextWrapper texts =
 
 Retrieves a collection of all sales district text entities across all districts and languages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers to include in the request. |
 | `queries` | `ListA_SalesDistrictTextsQueries` | No | OData query options including `$top`, `$skip`, `$filter`, `$orderby`, `$select`, `$expand`, and `$inlinecount`. |
 
-**Returns:** `CollectionOfA_SalesDistrictTextWrapper|error`
+Returns: `CollectionOfA_SalesDistrictTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesdistrict:CollectionOfA_SalesDistrictTextWrapper allTexts =
     check salesDistrictClient->listA_SalesDistrictTexts();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -232,7 +233,7 @@ salesdistrict:CollectionOfA_SalesDistrictTextWrapper allTexts =
 
 Retrieves a single sales district text entity by its composite key (sales district key and language code).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -241,16 +242,16 @@ Retrieves a single sales district text entity by its composite key (sales distri
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers to include in the request. |
 | `queries` | `GetA_SalesDistrictTextQueries` | No | OData query options: `$select`, `$expand`. |
 
-**Returns:** `A_SalesDistrictTextWrapper|error`
+Returns: `A_SalesDistrictTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesdistrict:A_SalesDistrictTextWrapper textEntry =
     check salesDistrictClient->getA_SalesDistrictText("D001", "EN");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -273,7 +274,7 @@ salesdistrict:A_SalesDistrictTextWrapper textEntry =
 
 Navigates from a sales district text entity back to its parent sales district record.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -282,16 +283,16 @@ Navigates from a sales district text entity back to its parent sales district re
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers to include in the request. |
 | `queries` | `GetSalesDistrictOfA_SalesDistrictTextQueries` | No | OData query options: `$select`, `$expand`. |
 
-**Returns:** `A_SalesDistrictWrapper|error`
+Returns: `A_SalesDistrictWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesdistrict:A_SalesDistrictWrapper parentDistrict =
     check salesDistrictClient->getSalesDistrictOfA_SalesDistrictText("D001", "EN");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

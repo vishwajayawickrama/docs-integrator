@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through configuring SAP S/4HANA Communication Management to expose the Sales Order (A2X) API and obtaining the credentials required to use the connector.
@@ -8,7 +11,7 @@ This guide walks you through configuring SAP S/4HANA Communication Management to
 - An active SAP S/4HANA Cloud or on-premise system with administrative access.
 - A user with the SAP_BR_ADMINISTRATOR or equivalent role to create communication arrangements.
 
-## Step 1: Create a Communication User
+## Step 1: Create a communication user
 
 1. Log in to your SAP S/4HANA system.
 2. Navigate to **Communication Management** → **Maintain Communication Users**.
@@ -19,7 +22,7 @@ This guide walks you through configuring SAP S/4HANA Communication Management to
     - **Password**: Set a strong password and confirm it.
 5. Click **Create**.
 
-## Step 2: Create a Communication System
+## Step 2: Create a communication system
 
 1. Navigate to **Communication Management** → **Communication Systems**.
 2. Click **New**.
@@ -30,7 +33,7 @@ This guide walks you through configuring SAP S/4HANA Communication Management to
 4. Under **Users for Inbound Communication**, add the communication user created in the previous step.
 5. Click **Save**.
 
-## Step 3: Create a Communication Arrangement for the Sales Order API
+## Step 3: Create a communication arrangement for the sales order API
 
 1. Navigate to **Communication Management** → **Communication Arrangements**.
 2. Click **New**.
@@ -44,7 +47,7 @@ This guide walks you through configuring SAP S/4HANA Communication Management to
 After saving the arrangement, the system displays the Service URL (base path). Copy the hostname portion — you will use it as the `hostname` parameter when initialising the Ballerina client.
 :::
 
-## Step 4: Retrieve the API Hostname
+## Step 4: Retrieve the API hostname
 
 1. Open the saved Communication Arrangement.
 2. Under **Inbound Services**, locate the entry for **Sales Order (A2X)**.

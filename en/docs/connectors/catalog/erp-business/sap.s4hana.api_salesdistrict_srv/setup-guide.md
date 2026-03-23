@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through configuring SAP S/4HANA access and obtaining the credentials required to use the SAP Sales District connector.
@@ -8,7 +11,7 @@ This guide walks you through configuring SAP S/4HANA access and obtaining the cr
 - Access to an SAP S/4HANA system (on-premise or cloud) with the Sales District Read API (`API_SALESDISTRICT_SRV`) activated.
 - An SAP user account with permissions to call OData services in the relevant S/4HANA client.
 
-## Step 1: Verify the OData Service is Active
+## Step 1: Verify the OData service is active
 
 1. Log in to your SAP S/4HANA system using SAP Logon or the SAP Fiori Launchpad.
 2. Open transaction **SICF** (HTTP Service Framework).
@@ -20,7 +23,7 @@ This guide walks you through configuring SAP S/4HANA access and obtaining the cr
 You need Basis administrator privileges to activate or deactivate ICF services.
 :::
 
-## Step 2: Register the OData Service in SAP Gateway (on-premise only)
+## Step 2: Register the OData service in SAP gateway (on-premise only)
 
 1. Open transaction **/IWFND/MAINT_SERVICE** (SAP Gateway: Activate and Maintain Services).
 2. Click **Add Service**.
@@ -33,7 +36,7 @@ You need Basis administrator privileges to activate or deactivate ICF services.
 On SAP S/4HANA Cloud, standard OData APIs are pre-activated. This step is only required for on-premise installations.
 :::
 
-## Step 3: Obtain SAP Credentials
+## Step 3: Obtain SAP credentials
 
 The SAP Sales District connector uses HTTP basic authentication. You need a username and
 password with permission to call OData services.
@@ -54,7 +57,7 @@ password with permission to call OData services.
 Use a dedicated technical user (service account) rather than a personal dialog user to avoid disruptions when passwords are rotated or accounts are locked.
 :::
 
-## Step 4: Determine the SAP S/4HANA Hostname
+## Step 4: Determine the SAP s/4HANA hostname
 
 The connector requires the hostname of your SAP S/4HANA system.
 

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Google Cloud project, enabling the Google Calendar API, and obtaining the OAuth 2.0 credentials required to use the connector.
@@ -8,20 +11,20 @@ This guide walks you through creating a Google Cloud project, enabling the Googl
 - A Google account. If you do not have one, [create a free Google account](https://accounts.google.com/signup).
 - A Google Cloud Platform (GCP) account with billing enabled (free tier is sufficient for the Calendar API).
 
-## Step 1: Create a Google Cloud Platform Project
+## Step 1: Create a Google cloud platform project
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
 2. Click the project drop-down at the top of the page and select **New Project**.
 3. Enter a **Project Name** (e.g., `Ballerina Calendar Integration`) and click **Create**.
 4. Once created, select the new project from the drop-down to make it the active project.
 
-## Step 2: Enable the Google Calendar API
+## Step 2: Enable the Google calendar API
 
 1. In the Google Cloud Console, open the left navigation menu and go to **APIs & Services > Library**.
 2. Search for `Google Calendar API`.
 3. Click the **Google Calendar API** result, then click **Enable**.
 
-## Step 3: Configure the OAuth Consent Screen
+## Step 3: Configure the OAuth consent screen
 
 1. In the left navigation menu, go to **APIs & Services > OAuth consent screen**.
 2. Select **External** as the user type (or **Internal** if your account is a Google Workspace account), then click **Create**.
@@ -36,7 +39,7 @@ This guide walks you through creating a Google Cloud project, enabling the Googl
 If your app is in **Testing** mode, only explicitly added test users can authorize it. Add your Google account email under **Test Users** if needed.
 :::
 
-## Step 4: Create OAuth 2.0 Client ID Credentials
+## Step 4: Create OAuth 2.0 client ID credentials
 
 1. In the left navigation menu, go to **APIs & Services > Credentials**.
 2. Click **+ Create Credentials** and select **OAuth client ID**.
@@ -53,7 +56,7 @@ If your app is in **Testing** mode, only explicitly added test users can authori
 Store the Client ID and Client Secret securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 5: Obtain a Refresh Token via OAuth 2.0 Playground
+## Step 5: Obtain a refresh token via OAuth 2.0 playground
 
 1. Go to the [OAuth 2.0 Playground](https://developers.google.com/oauthplayground).
 2. Click the settings icon (gear icon) in the top-right corner.

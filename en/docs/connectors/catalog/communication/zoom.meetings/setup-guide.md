@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Zoom OAuth app on the Zoom App Marketplace and obtaining the credentials required to authenticate the Zoom Meetings connector.
@@ -8,7 +11,7 @@ This guide walks you through creating a Zoom OAuth app on the Zoom App Marketpla
 - A Zoom account with Pro, Business, or Enterprise plan (recommended for full API access). [Sign up at zoom.us](https://zoom.us/signup).
 - Access to the [Zoom App Marketplace](https://marketplace.zoom.us).
 
-## Step 1: Create a Zoom OAuth App
+## Step 1: Create a Zoom OAuth app
 
 1. Go to the [Zoom App Marketplace](https://marketplace.zoom.us) and sign in with your Zoom account.
 2. Click **Develop** in the top-right navigation menu and select **Build App**.
@@ -17,7 +20,7 @@ This guide walks you through creating a Zoom OAuth app on the Zoom App Marketpla
 5. Select **Account-level app** if you want the app to act on behalf of all users in your account, or **User-managed** for individual user authorization.
 6. Click **Create** to proceed to the app configuration page.
 
-## Step 2: Configure OAuth Redirect URI and Scopes
+## Step 2: Configure OAuth redirect URI and scopes
 
 1. In your app's **App Credentials** tab, locate your **Client ID** and **Client Secret** — you will need these later.
 2. Under **Redirect URL for OAuth**, add your callback URL (e.g., `https://your-app.example.com/callback`). For local testing you may use `https://zoom.us/oauth/token`.
@@ -33,7 +36,7 @@ This guide walks you through creating a Zoom OAuth app on the Zoom App Marketpla
 Add only the scopes required for your use case following the principle of least privilege. The exact scopes needed depend on which API operations your integration calls.
 :::
 
-## Step 3: Generate a Refresh Token via the Authorization Code Flow
+## Step 3: Generate a refresh token via the authorization code flow
 
 1. Construct the authorization URL using your **Client ID** and **Redirect URI**:
 
@@ -61,7 +64,7 @@ Add only the scopes required for your use case following the principle of least 
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange in step 4.
 :::
 
-## Step 4: Determine Your User ID
+## Step 4: Determine your user ID
 
 Many API operations require a `userId` parameter identifying the Zoom user to act on behalf of.
 You can use any of the following forms:

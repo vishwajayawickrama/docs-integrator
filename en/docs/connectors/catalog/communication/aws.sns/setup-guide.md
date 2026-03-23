@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up an AWS account and obtaining the credentials required to use the AWS SNS connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up an AWS account and obtaining the credent
 
 - An active AWS account. If you do not have one, [sign up for an AWS account](https://aws.amazon.com/free/).
 
-## Step 1: Create an IAM User
+## Step 1: Create an IAM user
 
 1. Log in to the [AWS Management Console](https://console.aws.amazon.com/).
 2. Navigate to **IAM** (Identity and Access Management) by searching for it in the top search bar.
@@ -21,7 +24,7 @@ This guide walks you through setting up an AWS account and obtaining the credent
 For production environments, follow the principle of least privilege and create a custom IAM policy with only the specific SNS actions your integration requires.
 :::
 
-## Step 2: Generate Access Keys
+## Step 2: Generate access keys
 
 1. In the IAM console, click on the user you just created.
 2. Go to the **Security credentials** tab.
@@ -38,7 +41,7 @@ The secret access key is shown only once. Download the `.csv` file or copy the s
 Store the access key ID and secret access key securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 3: Note Your AWS Region
+## Step 3: Note your AWS region
 
 Identify the AWS region where you want to use SNS. The region determines the endpoint
 for API calls and where your topics are created. Common regions include:
@@ -51,7 +54,7 @@ for API calls and where your topics are created. Common regions include:
 You can find the full list of supported regions in the
 [AWS SNS documentation](https://docs.aws.amazon.com/general/latest/gr/sns.html).
 
-## Step 4: Configure Security Token (Optional)
+## Step 4: Configure security token (optional)
 
 If you are using temporary security credentials (e.g., from AWS STS AssumeRole), you
 will also need a **session token** in addition to the access key ID and secret access key.

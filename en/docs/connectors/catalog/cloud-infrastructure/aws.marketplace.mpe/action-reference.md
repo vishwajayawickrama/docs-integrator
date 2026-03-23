@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -23,7 +24,7 @@ Retrieves customer entitlements for AWS Marketplace products.
 | `region` | `Region` | Required | The AWS region for the Marketplace Entitlement Service endpoint (e.g., `US_EAST_1`). |
 | `auth` | `AuthConfig` | Required | AWS credentials including `accessKeyId`, `secretAccessKey`, and optional `sessionToken`. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/aws.marketplace.mpe;
@@ -51,7 +52,7 @@ mpe:Client mpeClient = check new (
 
 Retrieves the entitlement values for a given product, with optional filtering by customer identifier or dimension and pagination support.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -60,9 +61,9 @@ Retrieves the entitlement values for a given product, with optional filtering by
 | `maxResults` | `int` | No | Maximum number of entitlements to return per request. |
 | `nextToken` | `string` | No | Pagination token from a previous response to retrieve the next page of results. |
 
-**Returns:** `EntitlementsResponse|Error`
+Returns: `EntitlementsResponse|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mpe:EntitlementsResponse response = check mpeClient->getEntitlements(
@@ -70,7 +71,7 @@ mpe:EntitlementsResponse response = check mpeClient->getEntitlements(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -99,9 +100,9 @@ mpe:EntitlementsResponse response = check mpeClient->getEntitlements(
 Closes the AWS MPE client and releases associated resources.
 
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mpeClient->close();
@@ -111,7 +112,7 @@ check mpeClient->close();
 
 </details>
 
-#### Filtered Queries
+#### Filtered queries
 
 <details>
 <summary>getEntitlements (filtered by customer)</summary>
@@ -120,16 +121,16 @@ check mpeClient->close();
 
 Retrieves entitlements filtered by a specific customer identifier.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `productCode` | `string` | Yes | The AWS Marketplace product code. |
 | `filter` | `EntitlementFilter` | Yes | Filter containing `customerIdentifier` array to filter by specific customers. |
 
-**Returns:** `EntitlementsResponse|Error`
+Returns: `EntitlementsResponse|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mpe:EntitlementsResponse response = check mpeClient->getEntitlements(
@@ -140,7 +141,7 @@ mpe:EntitlementsResponse response = check mpeClient->getEntitlements(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

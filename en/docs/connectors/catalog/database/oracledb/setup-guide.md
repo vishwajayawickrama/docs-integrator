@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up an Oracle Database instance and obtaining the connection details required to use the Oracle DB connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up an Oracle Database instance and obtainin
 
 - An Oracle Database instance (on-premise or cloud). If you do not have one, you can use [Oracle Cloud Free Tier](https://www.oracle.com/cloud/free/) or run a local instance using [Oracle Database Free container image](https://container-registry.oracle.com/ords/ocr/ba/database/free).
 
-## Step 1: Set Up the Oracle Database Instance
+## Step 1: Set up the Oracle database instance
 
 1. Install or provision an Oracle Database instance (version 12c or later is recommended).
 2. Ensure the database listener is running and accessible on the desired host and port (default port is **1521**).
@@ -20,7 +23,7 @@ This guide walks you through setting up an Oracle Database instance and obtainin
 For Oracle Cloud Autonomous Database, download the wallet file from the OCI console and use it for secure connections.
 :::
 
-## Step 2: Create a Database User
+## Step 2: Create a database user
 
 1. Connect to the database as a privileged user (e.g., `SYS` or `SYSTEM`):
 
@@ -47,7 +50,7 @@ For Oracle Cloud Autonomous Database, download the wallet file from the OCI cons
 Do not use the SYS or SYSTEM account for application connections. Always create a dedicated user with the minimum required privileges.
 :::
 
-## Step 3: Create Your Application Schema
+## Step 3: Create your application schema
 
 1. Connect as the application user:
 
@@ -66,7 +69,7 @@ Do not use the SYS or SYSTEM account for application connections. Always create 
     );
     ```
 
-## Step 4: Configure Network Access (if applicable)
+## Step 4: Configure network access (if applicable)
 
 1. If the database is behind a firewall, ensure that port **1521** (or your configured listener port) is open for inbound connections from your Ballerina application host.
 2. For Oracle Cloud databases, configure the **Access Control List (ACL)** or **Network Security Group** to allow your application's IP address.

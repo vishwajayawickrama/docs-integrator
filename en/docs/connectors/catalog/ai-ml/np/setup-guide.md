@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through obtaining the credentials required to use the NP connector with either OpenAI or Azure OpenAI as your model provider.
@@ -7,7 +10,7 @@ This guide walks you through obtaining the credentials required to use the NP co
 
 - An active OpenAI account for the OpenAI provider, or an Azure subscription with Azure OpenAI service access for the Azure OpenAI provider.
 
-## Step 1: Generate an OpenAI API Key (OpenAI provider)
+## Step 1: Generate an OpenAI API key (OpenAI provider)
 
 1. Log in to your account at [platform.openai.com](https://platform.openai.com/).
 2. Click on your profile icon in the top-right corner and select **API keys**.
@@ -20,7 +23,7 @@ This guide walks you through obtaining the credentials required to use the NP co
 Store the API key securely. Use Ballerina's `configurable` feature and a `Config.toml` file to supply it at runtime rather than hardcoding it in source code.
 :::
 
-## Step 2: Create an Azure OpenAI Resource (Azure OpenAI provider)
+## Step 2: Create an Azure OpenAI resource (Azure OpenAI provider)
 
 1. Log in to the [Azure Portal](https://portal.azure.com/).
 2. In the search bar, type **Azure OpenAI** and select the service.
@@ -32,7 +35,7 @@ Store the API key securely. Use Ballerina's `configurable` feature and a `Config
     - **Pricing Tier**: Select the appropriate tier.
 4. Click **Review + Create**, then **Create** to provision the resource.
 
-## Step 3: Deploy a Model in Azure OpenAI Studio (Azure OpenAI provider)
+## Step 3: Deploy a model in Azure OpenAI studio (Azure OpenAI provider)
 
 1. Navigate to your Azure OpenAI resource in the Azure Portal.
 2. Under **Resource Management**, click **Model Deployments**.
@@ -45,7 +48,7 @@ Store the API key securely. Use Ballerina's `configurable` feature and a `Config
 The `deploymentId` is the custom name you assign to the deployment, not the model name itself.
 :::
 
-## Step 4: Retrieve Azure OpenAI Credentials (Azure OpenAI provider)
+## Step 4: Retrieve Azure OpenAI credentials (Azure OpenAI provider)
 
 1. In the Azure Portal, navigate to your Azure OpenAI resource.
 2. Under **Resource Management**, click **Keys and Endpoint**.

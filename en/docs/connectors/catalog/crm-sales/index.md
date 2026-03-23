@@ -3,9 +3,9 @@ title: "CRM & Sales"
 description: "CRM and sales connectors available in WSO2 Integrator."
 ---
 
-# CRM & Sales Connectors
+# CRM & Sales
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -41,7 +41,7 @@ description: "CRM and sales connectors available in WSO2 Integrator."
 | [HubSpot CRM Tickets](hubspot.crm.obj.tickets/overview.md) | CRM platform for managing customer support ticket records with pipeline and priority tracking | Create, Read, Update, Delete, Search, Merge, Batch Create, Batch Read, Batch Update | OAuth 2.0 |
 | [Salesforce](salesforce/overview.md) | CRM platform with records, queries, bulk data operations, and change event triggers | Create, Read, Update, Delete, Query, Bulk, Events | OAuth 2.0 |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -40,7 +41,7 @@ Provides text-to-speech generation, audio transcription, and audio translation v
 | `validation` | `boolean` | `true` | Enable payload validation. |
 | `laxDataBinding` | `boolean` | `true` | Enable lax data binding. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/openai.audio;
@@ -65,16 +66,16 @@ audio:Client openaiAudio = check new ({
 
 Generates audio from the input text using the specified TTS model and voice.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateSpeechRequest` | Yes | The speech generation request containing the input text, model, and voice. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `byte[]|error`
+Returns: `byte[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] audioBytes = check openaiAudio->/audio/speech.post({
@@ -85,7 +86,7 @@ byte[] audioBytes = check openaiAudio->/audio/speech.post({
 check io:fileWriteBytes("speech.mp3", audioBytes);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 <binary audio data written to speech.mp3>
@@ -104,16 +105,16 @@ check io:fileWriteBytes("speech.mp3", audioBytes);
 
 Transcribes audio into text in the language of the input audio using the Whisper model.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateTranscriptionRequest` | Yes | The transcription request containing the audio file and model. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `CreateTranscriptionResponse|error`
+Returns: `CreateTranscriptionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] audioFileBytes = check io:fileReadBytes("meeting.mp3");
@@ -126,7 +127,7 @@ audio:CreateTranscriptionResponse response = check openaiAudio->/audio/transcrip
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"text": "Good morning everyone. Let's start by reviewing the quarterly results and then move on to the product roadmap discussion."}
@@ -145,16 +146,16 @@ audio:CreateTranscriptionResponse response = check openaiAudio->/audio/transcrip
 
 Translates audio into English text using the Whisper model. The input audio can be in any supported language.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateTranslationRequest` | Yes | The translation request containing the audio file and model. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `CreateTranslationResponse|error`
+Returns: `CreateTranslationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] audioFileBytes = check io:fileReadBytes("french_audio.mp3");
@@ -167,7 +168,7 @@ audio:CreateTranslationResponse response = check openaiAudio->/audio/translation
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"text": "Hello, welcome to today's news broadcast. We will be covering the latest developments in international politics and the economy."}

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -12,7 +13,7 @@ The `ballerinax/ai.deepseek` package exposes the following clients:
 
 ---
 
-## Model Provider
+## Model provider
 
 Provides chat completion and structured generation using DeepSeek LLM models.
 
@@ -27,7 +28,7 @@ Provides chat completion and structured generation using DeepSeek LLM models.
 | `temperature` | `decimal` | `0.7` | Controls randomness in the model's output. Higher values produce more creative responses. |
 | `connectionConfig` | `ConnectionConfig` | `{}` | Additional HTTP client configurations (timeout, retry, proxy, SSL, etc.). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ai.deepseek;
@@ -39,7 +40,7 @@ deepseek:ModelProvider deepseekModel = check new (apiKey);
 
 ### Operations
 
-#### Chat Completion
+#### Chat completion
 
 <details>
 <summary>chat</summary>
@@ -48,7 +49,7 @@ deepseek:ModelProvider deepseekModel = check new (apiKey);
 
 Generates a chat completion message from a DeepSeek model. Supports multi-turn conversations and tool/function calling.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -56,9 +57,9 @@ Generates a chat completion message from a DeepSeek model. Supports multi-turn c
 | `tools` | `ai:ChatCompletionFunctions[]` | Yes | Tool definitions available for the model to call. Pass an empty array if no tools are needed. |
 | `stop` | `string?` | No | A stop sequence to halt the completion. |
 
-**Returns:** `ai:ChatAssistantMessage|ai:Error`
+Returns: `ai:ChatAssistantMessage|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/ai;
@@ -69,7 +70,7 @@ ai:ChatMessage[] chatMessages = [
 ai:ChatAssistantMessage response = check deepseekModel->chat(chatMessages, tools = []);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"role": "assistant", "content": "The capital of France is Paris."}
@@ -79,7 +80,7 @@ ai:ChatAssistantMessage response = check deepseekModel->chat(chatMessages, tools
 
 </details>
 
-#### Structured Generation
+#### Structured generation
 
 <details>
 <summary>generate</summary>
@@ -88,16 +89,16 @@ ai:ChatAssistantMessage response = check deepseekModel->chat(chatMessages, tools
 
 Sends a prompt to the model and generates a value that conforms to the specified Ballerina type descriptor. Supports records, arrays, primitives, and other `anydata` types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `prompt` | `ai:Prompt` | Yes | The prompt to send, constructed using a tagged template literal. |
 | `td` | `typedesc<anydata>` | No | Type descriptor specifying the expected return type. Inferred from the assignment target if omitted. |
 
-**Returns:** `td|ai:Error`
+Returns: `td|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Review record {|
@@ -110,7 +111,7 @@ Review result = check deepseekModel->generate(`Please rate this blog out of 10.
     Content: Ballerina is a cloud-native programming language...`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"rating": 8, "comment": "Well-structured introduction with clear examples. Could benefit from more advanced use cases."}

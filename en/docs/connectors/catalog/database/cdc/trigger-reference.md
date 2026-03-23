@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The CDC connector is built entirely around listeners and services. A database-specific CDC listener (e.g., `mysql:CdcListener`) connects to the database and streams change events; a `cdc:Service` defines the callbacks that process those events. The `ballerinax/cdc` package provides the shared types, configuration records, and service interface that all database-specific listeners implement.
@@ -29,7 +32,7 @@ The listener supports the following connection strategies:
 | `Options` | Connector behavior and performance tuning options passed via the `options` parameter of the listener constructor. |
 | `ListenerConfiguration` | Top-level configuration passed as the optional `listenerConfig` parameter to control engine identity, storage backends, and liveness. |
 
-**`DatabaseConnection` fields:**
+`DatabaseConnection` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -46,7 +49,7 @@ The listener supports the following connection strategies:
 | `tasksMax` | `int` | `1` | Maximum number of concurrent connector tasks. |
 | `secure` | `SecureDatabaseConnection` | `()` | SSL/TLS configuration for the database connection. |
 
-**`Options` fields:**
+`Options` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -59,7 +62,7 @@ The listener supports the following connection strategies:
 | `maxBatchSize` | `int` | `2048` | Maximum number of events processed per batch. |
 | `queryTimeout` | `decimal` | `60` | Timeout in seconds for database queries issued by the connector. |
 
-**`ListenerConfiguration` fields:**
+`ListenerConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -69,7 +72,7 @@ The listener supports the following connection strategies:
 | `options` | `Options` | `{}` | Connector behavior options (same as the `options` parameter on the listener constructor). |
 | `livenessInterval` | `decimal` | `60.0` | Interval in seconds between liveness heartbeat events used by `cdc:isLive()`. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **MySQL — no initial snapshot, insert-only tracking:**
 
@@ -134,7 +137,7 @@ listener mysql:CdcListener mysqlListener = new (
 A `cdc:Service` is attached to a CDC listener and implements remote function callbacks for each database change event type. Callbacks receive the row data as a `record {}` or a user-defined typed record, and may optionally accept a `string tableName` second parameter. Multiple services can be attached to the same listener, each scoped to specific tables using the `@cdc:ServiceConfig` annotation.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -155,7 +158,7 @@ You do not need to implement all callbacks — only implement the event types re
 
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -238,7 +241,7 @@ Replace the generic `record {}` parameter type with a concrete Ballerina record 
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `SecureDatabaseConnection`
 

@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/kafka` connector supports event-driven message consumption through a `kafka:Listener` that continuously polls Kafka topics and dispatches batches of records to your `kafka:Service` callback — eliminating the need for manual poll loops.
@@ -27,7 +30,7 @@ The listener supports the following connection strategies:
 |-------------|-------------|
 | `ConsumerConfiguration` | The Listener reuses the same `ConsumerConfiguration` as the Consumer client. Key fields for listener usage are shown below. |
 
-**`ConsumerConfiguration` fields:**
+`ConsumerConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -43,7 +46,7 @@ The listener supports the following connection strategies:
 | `auth` | `AuthenticationConfiguration?` | `()` | SASL authentication configuration. |
 | `securityProtocol` | `SecurityProtocol` | `PROTOCOL_PLAINTEXT` | Security protocol. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Basic listener with auto-commit disabled:**
 
@@ -88,7 +91,7 @@ listener kafka:Listener kafkaListener = new (bootstrapServers, {
 A `kafka:Service` is a Ballerina service attached to a `kafka:Listener`. It implements the `onConsumerRecord` callback which is invoked each time the listener polls a batch of records from the subscribed Kafka topic(s).
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -98,7 +101,7 @@ A `kafka:Service` is a Ballerina service attached to a `kafka:Listener`. It impl
 The `kafka:Caller` provides `commit()`, `commitOffset()`, and `seek()` remote functions for manual offset management within the service callback.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -129,7 +132,7 @@ Set `autoCommit: false` in the listener configuration when using manual offset c
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `BytesConsumerRecord`
 

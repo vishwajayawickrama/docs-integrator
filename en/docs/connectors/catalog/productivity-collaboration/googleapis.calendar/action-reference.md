@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -23,7 +24,7 @@ Manages calendars and events through the Google Calendar API V3.
 | `auth` | `BearerTokenConfig\|OAuth2RefreshTokenGrantConfig\|JwtIssuerConfig` | Required | Authentication configuration — typically OAuth 2.0 refresh token credentials. |
 | `secureSocketConfig` | `ClientSecureSocket` | `()` | SSL/TLS configuration for secure connections. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/googleapis.calendar;
@@ -45,7 +46,7 @@ calendar:Client calendarClient = check new ({
 
 ### Operations
 
-#### Calendar Operations
+#### Calendar operations
 
 <details>
 <summary>getCalendars</summary>
@@ -54,16 +55,16 @@ calendar:Client calendarClient = check new ({
 
 Retrieves all calendars accessible to the authenticated user as a stream.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `optional` | `CalendarsToAccess?` | No | Record containing optional parameters such as `minAccessRole`, `showDeleted`, and `showHidden`. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `stream<Calendar, error?>|error`
+Returns: `stream<Calendar, error?>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<calendar:Calendar, error?> calendars = check calendarClient->getCalendars();
@@ -73,7 +74,7 @@ check from calendar:Calendar cal in calendars
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -105,22 +106,22 @@ check from calendar:Calendar cal in calendars
 
 Creates a new secondary calendar.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `title` | `string` | Yes | The name/summary for the new calendar. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `CalendarResource|error`
+Returns: `CalendarResource|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calendar:CalendarResource newCalendar = check calendarClient->createCalendar("Project Meetings");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -146,16 +147,16 @@ calendar:CalendarResource newCalendar = check calendarClient->createCalendar("Pr
 
 Deletes a secondary calendar. Use `"primary"` to clear (not delete) the primary calendar.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `calendarId` | `string` | Yes | The calendar identifier to delete. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check calendarClient->deleteCalendar("abc123xyz@group.calendar.google.com");
@@ -165,7 +166,7 @@ check calendarClient->deleteCalendar("abc123xyz@group.calendar.google.com");
 
 </details>
 
-#### Event Operations
+#### Event operations
 
 <details>
 <summary>createEvent</summary>
@@ -174,7 +175,7 @@ check calendarClient->deleteCalendar("abc123xyz@group.calendar.google.com");
 
 Creates a new event in the specified calendar.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -183,9 +184,9 @@ Creates a new event in the specified calendar.
 | `optional` | `EventsToAccess?` | No | Record containing optional query parameters like `conferenceDataVersion`, `maxAttendees`, `sendUpdates`, and `supportsAttachments`. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `Event|error`
+Returns: `Event|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calendar:Event event = check calendarClient->createEvent("primary", {
@@ -211,7 +212,7 @@ calendar:Event event = check calendarClient->createEvent("primary", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -266,7 +267,7 @@ calendar:Event event = check calendarClient->createEvent("primary", {
 
 Creates an event at the moment with simple text, letting Google parse the date, time, and title automatically.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -275,15 +276,15 @@ Creates an event at the moment with simple text, letting Google parse the date, 
 | `sendUpdates` | `string?` | No | Configuration for notifying about the creation. Possible values: `"all"`, `"externalOnly"`, `"none"`. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `Event|error`
+Returns: `Event|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calendar:Event quickEvent = check calendarClient->quickAddEvent("primary", "Team standup at 9am tomorrow");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -317,7 +318,7 @@ calendar:Event quickEvent = check calendarClient->quickAddEvent("primary", "Team
 
 Retrieves a single event by its ID from the specified calendar.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -325,15 +326,15 @@ Retrieves a single event by its ID from the specified calendar.
 | `eventId` | `string` | Yes | The event identifier. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `Event|error`
+Returns: `Event|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calendar:Event event = check calendarClient->getEvent("primary", "evt123abc");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -365,7 +366,7 @@ calendar:Event event = check calendarClient->getEvent("primary", "evt123abc");
 
 Updates an existing event in the specified calendar.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -375,9 +376,9 @@ Updates an existing event in the specified calendar.
 | `optional` | `EventsToAccess?` | No | Record containing optional query parameters. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `Event|error`
+Returns: `Event|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calendar:Event updatedEvent = check calendarClient->updateEvent("primary", "evt123abc", {
@@ -395,7 +396,7 @@ calendar:Event updatedEvent = check calendarClient->updateEvent("primary", "evt1
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -428,7 +429,7 @@ calendar:Event updatedEvent = check calendarClient->updateEvent("primary", "evt1
 
 Deletes an event from the specified calendar.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -436,9 +437,9 @@ Deletes an event from the specified calendar.
 | `eventId` | `string` | Yes | The event identifier. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check calendarClient->deleteEvent("primary", "evt123abc");
@@ -448,7 +449,7 @@ check calendarClient->deleteEvent("primary", "evt123abc");
 
 </details>
 
-#### Event Queries
+#### Event queries
 
 <details>
 <summary>getEvents</summary>
@@ -457,7 +458,7 @@ check calendarClient->deleteEvent("primary", "evt123abc");
 
 Retrieves all events from a calendar as a stream, with optional filtering criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -465,9 +466,9 @@ Retrieves all events from a calendar as a stream, with optional filtering criter
 | `filter` | `EventFilterCriteria?` | No | Record containing filtering criteria such as `timeMin`, `timeMax`, `q` (search text), `orderBy`, `singleEvents`, and more. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `stream<Event, error?>|error`
+Returns: `stream<Event, error?>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<calendar:Event, error?> events = check calendarClient->getEvents("primary", {
@@ -482,7 +483,7 @@ check from calendar:Event evt in events
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -514,7 +515,7 @@ check from calendar:Event evt in events
 
 Retrieves events with full pagination support, returning an EventResponse record that includes sync tokens and page tokens for incremental synchronization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -525,15 +526,15 @@ Retrieves events with full pagination support, returning an EventResponse record
 | `filter` | `EventFilterCriteria?` | No | Record containing filtering criteria. |
 | `userAccount` | `string?` | No | The email address of the user for requesting delegated access in service account. |
 
-**Returns:** `EventResponse|error`
+Returns: `EventResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calendar:EventResponse response = check calendarClient->getEventsResponse("primary", count = 10);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

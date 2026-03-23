@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 credentials (or private app token) required to use the HubSpot CRM Deals connector.
@@ -8,14 +11,14 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 - A HubSpot account. If you do not have one, [sign up for a free account](https://app.hubspot.com/signup).
 - A HubSpot developer account for creating apps. [Register at the HubSpot Developer Portal](https://developers.hubspot.com/).
 
-## Step 1: Create a HubSpot Developer App
+## Step 1: Create a HubSpot developer app
 
 1. Log in to your [HubSpot Developer Portal](https://developers.hubspot.com/).
 2. Click **Apps** in the top navigation, then click **Create app**.
 3. Enter an **App name** (e.g., `Ballerina Deals Integration`) and optionally a description.
 4. Click **Create app**.
 
-## Step 2: Configure OAuth Scopes
+## Step 2: Configure OAuth scopes
 
 1. In your app settings, navigate to the **Auth** tab.
 2. Under **Scopes**, add the following required scopes:
@@ -28,7 +31,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 Copy the **Client ID** and **Client Secret** from the Auth tab — you will need them in subsequent steps.
 :::
 
-## Step 3: Authorize the App and Get an Authorization Code
+## Step 3: Authorize the app and get an authorization code
 
 1. Construct the following authorization URL, replacing the placeholders with your values:
 
@@ -40,7 +43,7 @@ Copy the **Client ID** and **Client Secret** from the Auth tab — you will need
 3. Select the HubSpot account (portal) you want to connect, then click **Grant access**.
 4. After authorization, HubSpot redirects to your `redirect_uri` with a `code` query parameter. Copy that `code` value.
 
-## Step 4: Exchange the Authorization Code for a Refresh Token
+## Step 4: Exchange the authorization code for a refresh token
 
 Send the following POST request to exchange your authorization code for tokens:
 
@@ -61,7 +64,7 @@ The response contains `access_token`, `refresh_token`, and `expires_in`. Save th
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange.
 :::
 
-## Step 5: Alternative — Use a Private App Token
+## Step 5: Alternative — use a private app token
 
 If you prefer not to use OAuth 2.0, HubSpot Private Apps provide a simpler API key approach:
 

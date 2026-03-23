@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/postgresql` connector supports event-driven integration through Debezium-based Change Data Capture (CDC). When rows are inserted, updated, or deleted in PostgreSQL, the CDC listener captures WAL (Write-Ahead Log) events in real time, triggering your service callbacks automatically.
@@ -27,13 +30,13 @@ The listener supports the following connection strategies:
 | `PostgresListenerConfiguration` | Configuration for the PostgreSQL CDC listener, including database connection and Debezium engine settings. |
 | `PostgresDatabaseConnection` | Database connection settings for CDC. |
 
-**`PostgresListenerConfiguration` fields:**
+`PostgresListenerConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `database` | `PostgresDatabaseConnection` | Required | PostgreSQL database connection configuration. |
 
-**`PostgresDatabaseConnection` fields:**
+`PostgresDatabaseConnection` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -51,7 +54,7 @@ The listener supports the following connection strategies:
 | `publicationName` | `string` | `"dbz_publication"` | Name of the PostgreSQL publication for pgoutput plugin. |
 | `tasksMax` | `int` | `1` | Maximum number of tasks (always 1 for PostgreSQL CDC). |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Basic CDC listener:**
 
@@ -100,7 +103,7 @@ listener postgresql:CdcListener cdcListener = new (database = {
 A CDC service is attached to a `postgresql:CdcListener`. It receives row-level change events from PostgreSQL and dispatches them to your callback functions based on the event type (snapshot read, create, update, or delete).
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -113,7 +116,7 @@ A CDC service is attached to a `postgresql:CdcListener`. It receives row-level c
 You do not need to implement all four callbacks. Only implement the event types relevant to your use case.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/io;
@@ -152,7 +155,7 @@ CDC requires PostgreSQL to be configured with `wal_level = logical` and the conn
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `PostgresDatabaseConnection`
 

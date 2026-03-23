@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/asb` connector supports event-driven integration through the `asb:Listener`. When messages arrive on Azure Service Bus queues or topic subscriptions, the listener receives them and dispatches to your service callbacks automatically. You can settle messages using the `asb:Caller` provided to the `onMessage` callback.
@@ -29,7 +32,7 @@ The listener supports the following connection strategies:
 |-------------|-------------|
 | `ListenerConfiguration` | Configuration for the ASB Listener. Extends `ASBServiceReceiverConfig` with additional listener-specific settings. |
 
-**`ListenerConfiguration` fields:**
+`ListenerConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -42,7 +45,7 @@ The listener supports the following connection strategies:
 | `prefetchCount` | `int` | `0` | Number of messages to prefetch from the broker. `0` disables prefetching. |
 | `maxConcurrency` | `int` | `1` | Maximum number of concurrent message processing threads. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Listening on a queue:**
 
@@ -89,7 +92,7 @@ listener asb:Listener asbListener = new ({
 An `asb:Service` is a Ballerina service attached to an `asb:Listener`. It implements callbacks for processing messages and handling retrieval errors from Azure Service Bus.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -100,7 +103,7 @@ An `asb:Service` is a Ballerina service attached to an `asb:Listener`. It implem
 When `autoComplete` is `true` (the default), messages are automatically completed after `onMessage` returns successfully. Set it to `false` for manual settlement.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -141,7 +144,7 @@ The `onError` callback is optional. If not implemented, retrieval errors are log
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `Message`
 

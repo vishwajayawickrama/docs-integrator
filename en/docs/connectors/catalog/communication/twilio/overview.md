@@ -1,4 +1,5 @@
 ---
+title: Twilio Connector Overview
 connector: true
 connector_name: "twilio"
 connector_version: "5.0.x"
@@ -9,7 +10,7 @@ connector_version: "5.0.x"
 Twilio is a cloud communications platform that provides APIs for SMS, voice calls, WhatsApp messaging, and more. The Ballerina `ballerinax/twilio` connector (v5.0.1) offers programmatic access to the Twilio REST API (v2010-04-01), enabling you to send messages, make voice calls, manage phone numbers, and handle recordings from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Send and receive SMS, MMS, and WhatsApp messages
 - Initiate and manage outbound voice calls with TwiML support
@@ -31,14 +32,14 @@ Actions are operations you invoke on Twilio from your integration — sending me
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## Twilio Connector Documentation
+## Twilio connector documentation
 
 * **[Twilio Connector Setup Guide](setup-guide.md)**: This guide walks you through creating a Twilio account and obtaining the credentials required to use the Twilio connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

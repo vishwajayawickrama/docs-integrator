@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Manage HubSpot CRM pipelines and pipeline stages via the Pipelines REST API.
 | `validation` | <code>boolean</code> | `true` | Enable or disable payload validation. |
 | `laxDataBinding` | <code>boolean</code> | `true` | Use lax data binding for response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -51,33 +52,33 @@ final hspipelines:Client hubSpotPipelines = check new ({auth});
 
 ### Operations
 
-#### Pipeline Operations
+#### Pipeline operations
 
 <details>
 <summary>List all pipelines</summary>
 
 <div>
 
-**Signature:** `get /[string objectType]`
+Signature: `get /[string objectType]`
 
 Returns all pipelines for the specified object type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"deals"`, `"tickets"`, `"orders"`). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponsePipelineNoPaging|error`
+Returns: `CollectionResponsePipelineNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:CollectionResponsePipelineNoPaging pipelines = check hubSpotPipelines->/orders;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -114,11 +115,11 @@ hspipelines:CollectionResponsePipelineNoPaging pipelines = check hubSpotPipeline
 
 <div>
 
-**Signature:** `post /[string objectType]`
+Signature: `post /[string objectType]`
 
 Creates a new pipeline for the specified object type with the given stages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -126,9 +127,9 @@ Creates a new pipeline for the specified object type with the given stages.
 | `payload` | <code>PipelineInput</code> | Yes | Pipeline definition including label, display order, and stages. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `Pipeline|error`
+Returns: `Pipeline|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:Pipeline pipeline = check hubSpotPipelines->/orders.post({
@@ -144,7 +145,7 @@ hspipelines:Pipeline pipeline = check hubSpotPipelines->/orders.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -173,11 +174,11 @@ hspipelines:Pipeline pipeline = check hubSpotPipelines->/orders.post({
 
 <div>
 
-**Signature:** `get /[string objectType]/[string pipelineId]`
+Signature: `get /[string objectType]/[string pipelineId]`
 
 Retrieves a single pipeline by its ID for the specified object type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -185,15 +186,15 @@ Retrieves a single pipeline by its ID for the specified object type.
 | `pipelineId` | <code>string</code> | Yes | The ID of the pipeline to retrieve. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `Pipeline|error`
+Returns: `Pipeline|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:Pipeline pipeline = check hubSpotPipelines->/orders/["67890"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -218,11 +219,11 @@ hspipelines:Pipeline pipeline = check hubSpotPipelines->/orders/["67890"];
 
 <div>
 
-**Signature:** `put /[string objectType]/[string pipelineId]`
+Signature: `put /[string objectType]/[string pipelineId]`
 
 Replaces a pipeline entirely with the provided definition. Use this to overwrite all fields and stages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -232,9 +233,9 @@ Replaces a pipeline entirely with the provided definition. Use this to overwrite
 | `queries` | <code>PutCrmV3PipelinesObjectTypePipelineIdReplaceQueries</code> | No | Optional query parameters for validation before deletion. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `Pipeline|error`
+Returns: `Pipeline|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:Pipeline updated = check hubSpotPipelines->/orders/["67890"].put({
@@ -247,7 +248,7 @@ hspipelines:Pipeline updated = check hubSpotPipelines->/orders/["67890"].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -273,11 +274,11 @@ hspipelines:Pipeline updated = check hubSpotPipelines->/orders/["67890"].put({
 
 <div>
 
-**Signature:** `patch /[string objectType]/[string pipelineId]`
+Signature: `patch /[string objectType]/[string pipelineId]`
 
 Partially updates a pipeline's properties (label, display order, archived status).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -287,9 +288,9 @@ Partially updates a pipeline's properties (label, display order, archived status
 | `queries` | <code>PatchCrmV3PipelinesObjectTypePipelineIdUpdateQueries</code> | No | Optional query parameters for validation before deletion. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `Pipeline|error`
+Returns: `Pipeline|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:Pipeline patched = check hubSpotPipelines->/orders/["67890"].patch({
@@ -297,7 +298,7 @@ hspipelines:Pipeline patched = check hubSpotPipelines->/orders/["67890"].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -320,11 +321,11 @@ hspipelines:Pipeline patched = check hubSpotPipelines->/orders/["67890"].patch({
 
 <div>
 
-**Signature:** `delete /[string objectType]/[string pipelineId]`
+Signature: `delete /[string objectType]/[string pipelineId]`
 
 Archives (deletes) a pipeline by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -333,9 +334,9 @@ Archives (deletes) a pipeline by its ID.
 | `queries` | <code>DeleteCrmV3PipelinesObjectTypePipelineIdArchiveQueries</code> | No | Optional query parameters for validation before deletion. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubSpotPipelines->/orders/["67890"].delete();
@@ -350,11 +351,11 @@ check hubSpotPipelines->/orders/["67890"].delete();
 
 <div>
 
-**Signature:** `get /[string objectType]/[string pipelineId]/audit`
+Signature: `get /[string objectType]/[string pipelineId]/audit`
 
 Returns the audit history for a pipeline, showing changes made over time.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -362,16 +363,16 @@ Returns the audit history for a pipeline, showing changes made over time.
 | `pipelineId` | <code>string</code> | Yes | The ID of the pipeline to audit. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponsePublicAuditInfoNoPaging|error`
+Returns: `CollectionResponsePublicAuditInfoNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:CollectionResponsePublicAuditInfoNoPaging auditLog =
     check hubSpotPipelines->/orders/["67890"]/audit;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -399,18 +400,18 @@ hspipelines:CollectionResponsePublicAuditInfoNoPaging auditLog =
 
 </details>
 
-#### Pipeline Stage Operations
+#### Pipeline stage operations
 
 <details>
 <summary>List all stages in a pipeline</summary>
 
 <div>
 
-**Signature:** `get /[string objectType]/[string pipelineId]/stages`
+Signature: `get /[string objectType]/[string pipelineId]/stages`
 
 Returns all stages for a specific pipeline.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -418,16 +419,16 @@ Returns all stages for a specific pipeline.
 | `pipelineId` | <code>string</code> | Yes | The ID of the pipeline. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponsePipelineStageNoPaging|error`
+Returns: `CollectionResponsePipelineStageNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:CollectionResponsePipelineStageNoPaging stages =
     check hubSpotPipelines->/tickets/["67890"]/stages;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -463,11 +464,11 @@ hspipelines:CollectionResponsePipelineStageNoPaging stages =
 
 <div>
 
-**Signature:** `post /[string objectType]/[string pipelineId]/stages`
+Signature: `post /[string objectType]/[string pipelineId]/stages`
 
 Creates a new stage within a pipeline.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -476,9 +477,9 @@ Creates a new stage within a pipeline.
 | `payload` | <code>PipelineStageInput</code> | Yes | Stage definition including label, display order, and optional metadata. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PipelineStage|error`
+Returns: `PipelineStage|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:PipelineStage stage = check hubSpotPipelines->/tickets/["67890"]/stages.post({
@@ -488,7 +489,7 @@ hspipelines:PipelineStage stage = check hubSpotPipelines->/tickets/["67890"]/sta
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -511,11 +512,11 @@ hspipelines:PipelineStage stage = check hubSpotPipelines->/tickets/["67890"]/sta
 
 <div>
 
-**Signature:** `get /[string objectType]/[string pipelineId]/stages/[string stageId]`
+Signature: `get /[string objectType]/[string pipelineId]/stages/[string stageId]`
 
 Retrieves a single stage by its ID within a pipeline.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -524,16 +525,16 @@ Retrieves a single stage by its ID within a pipeline.
 | `stageId` | <code>string</code> | Yes | The ID of the stage to retrieve. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PipelineStage|error`
+Returns: `PipelineStage|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:PipelineStage stage =
     check hubSpotPipelines->/tickets/["67890"]/stages/["33333"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -556,11 +557,11 @@ hspipelines:PipelineStage stage =
 
 <div>
 
-**Signature:** `put /[string objectType]/[string pipelineId]/stages/[string stageId]`
+Signature: `put /[string objectType]/[string pipelineId]/stages/[string stageId]`
 
 Replaces a pipeline stage entirely with the provided definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -570,9 +571,9 @@ Replaces a pipeline stage entirely with the provided definition.
 | `payload` | <code>PipelineStageInput</code> | Yes | Complete stage definition to replace the existing one. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PipelineStage|error`
+Returns: `PipelineStage|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:PipelineStage replaced =
@@ -583,7 +584,7 @@ hspipelines:PipelineStage replaced =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -606,11 +607,11 @@ hspipelines:PipelineStage replaced =
 
 <div>
 
-**Signature:** `patch /[string objectType]/[string pipelineId]/stages/[string stageId]`
+Signature: `patch /[string objectType]/[string pipelineId]/stages/[string stageId]`
 
 Partially updates a pipeline stage's properties (label, display order, metadata, archived status).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -620,9 +621,9 @@ Partially updates a pipeline stage's properties (label, display order, metadata,
 | `payload` | <code>PipelineStagePatchInput</code> | Yes | Fields to update (label, displayOrder, metadata, archived). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PipelineStage|error`
+Returns: `PipelineStage|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:PipelineStage patched =
@@ -631,7 +632,7 @@ hspipelines:PipelineStage patched =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -654,11 +655,11 @@ hspipelines:PipelineStage patched =
 
 <div>
 
-**Signature:** `delete /[string objectType]/[string pipelineId]/stages/[string stageId]`
+Signature: `delete /[string objectType]/[string pipelineId]/stages/[string stageId]`
 
 Archives (deletes) a stage from a pipeline.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -667,9 +668,9 @@ Archives (deletes) a stage from a pipeline.
 | `stageId` | <code>string</code> | Yes | The ID of the stage to delete. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubSpotPipelines->/tickets/["67890"]/stages/["33333"].delete();
@@ -684,11 +685,11 @@ check hubSpotPipelines->/tickets/["67890"]/stages/["33333"].delete();
 
 <div>
 
-**Signature:** `get /[string objectType]/[string pipelineId]/stages/[string stageId]/audit`
+Signature: `get /[string objectType]/[string pipelineId]/stages/[string stageId]/audit`
 
 Returns the audit history for a specific pipeline stage.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -697,16 +698,16 @@ Returns the audit history for a specific pipeline stage.
 | `stageId` | <code>string</code> | Yes | The ID of the stage to audit. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponsePublicAuditInfoNoPaging|error`
+Returns: `CollectionResponsePublicAuditInfoNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hspipelines:CollectionResponsePublicAuditInfoNoPaging stageAudit =
     check hubSpotPipelines->/tickets/["67890"]/stages/["33333"]/audit;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

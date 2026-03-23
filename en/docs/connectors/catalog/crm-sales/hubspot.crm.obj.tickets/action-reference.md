@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Provides CRUD, search, merge, and batch operations for HubSpot CRM ticket record
 | `validation` | `boolean` | `true` | Enables constraint validation on request and response payloads. |
 | `laxDataBinding` | `boolean` | `true` | Enables lax data binding, allowing unknown fields in responses to be ignored. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.obj.tickets as hstickets;
@@ -51,7 +52,7 @@ hstickets:Client hubspotClient = check new ({
 
 ### Operations
 
-#### Ticket Operations
+#### Ticket operations
 
 <details>
 <summary>List</summary>
@@ -60,7 +61,7 @@ hstickets:Client hubspotClient = check new ({
 
 Lists all tickets accessible to the authenticated user, with optional filtering by properties and associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -70,16 +71,16 @@ Lists all tickets accessible to the authenticated user, with optional filtering 
 | `queries.associations` | `string[]` | No | List of object types to retrieve associated IDs for. |
 | `queries.archived` | `boolean` | No | Set to `true` to return only archived tickets. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging ticketList =
     check hubspotClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -118,15 +119,15 @@ hstickets:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging tick
 
 Creates a new ticket record in HubSpot CRM.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SimplePublicObjectInputForCreate` | Yes | Ticket properties and optional associations for the new record. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:SimplePublicObjectInputForCreate payload = {
@@ -141,7 +142,7 @@ hstickets:SimplePublicObjectInputForCreate payload = {
 hstickets:SimplePublicObject createdTicket = check hubspotClient->/.post(payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -172,7 +173,7 @@ hstickets:SimplePublicObject createdTicket = check hubspotClient->/.post(payload
 
 Retrieves a single ticket by its internal HubSpot ID, with optional property and association expansion.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -182,16 +183,16 @@ Retrieves a single ticket by its internal HubSpot ID, with optional property and
 | `queries.associations` | `string[]` | No | List of object types to retrieve associated IDs for. |
 | `queries.archived` | `boolean` | No | Set to `true` to retrieve an archived ticket. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:SimplePublicObjectWithAssociations ticket =
     check hubspotClient->/["12345678"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -223,7 +224,7 @@ hstickets:SimplePublicObjectWithAssociations ticket =
 
 Updates the properties of an existing ticket by its internal ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -231,9 +232,9 @@ Updates the properties of an existing ticket by its internal ID.
 | `payload` | `SimplePublicObjectInput` | Yes | Map of property names to updated values. |
 | `queries.idProperty` | `string` | No | The name of a unique property to use as the identifier instead of the internal ID. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:SimplePublicObjectInput updatePayload = {
@@ -248,7 +249,7 @@ hstickets:SimplePublicObject updatedTicket =
     check hubspotClient->/["12345678"].patch(updatePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -279,15 +280,15 @@ hstickets:SimplePublicObject updatedTicket =
 
 Archives (soft-deletes) a ticket by its internal ID. Archived tickets can be restored later.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ticketId` | `string` | Yes | The internal HubSpot ticket ID to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["12345678"].delete();
@@ -304,15 +305,15 @@ check hubspotClient->/["12345678"].delete();
 
 Merges two tickets into one, with the secondary ticket's data folded into the primary ticket.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicMergeInput` | Yes | Specifies the primary ticket ID and the secondary ticket ID to merge into it. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:PublicMergeInput mergePayload = {
@@ -323,7 +324,7 @@ hstickets:SimplePublicObject mergedTicket =
     check hubspotClient->/merge.post(mergePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -353,15 +354,15 @@ hstickets:SimplePublicObject mergedTicket =
 
 Searches for tickets using filter groups, property projections, sorting, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicObjectSearchRequest` | Yes | Search criteria including filter groups, properties to return, sort order, and pagination. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:PublicObjectSearchRequest searchPayload = {
@@ -385,7 +386,7 @@ hstickets:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResul
     check hubspotClient->/search.post(searchPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -421,7 +422,7 @@ hstickets:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResul
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of tickets</summary>
@@ -430,15 +431,15 @@ hstickets:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResul
 
 Creates multiple ticket records in a single API call.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectInputForCreate` | Yes | A list of ticket property maps to create in bulk. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:BatchInputSimplePublicObjectInputForCreate batchCreatePayload = {
@@ -467,7 +468,7 @@ hstickets:BatchResponseSimplePublicObject batchResponse =
     check hubspotClient->/batch/create.post(batchCreatePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -517,16 +518,16 @@ hstickets:BatchResponseSimplePublicObject batchResponse =
 
 Retrieves multiple tickets in a single request using their internal IDs or unique property values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchReadInputSimplePublicObjectId` | Yes | List of ticket IDs and properties to retrieve. |
 | `queries.archived` | `boolean` | No | Set to `true` to include archived tickets in the results. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:BatchReadInputSimplePublicObjectId batchReadPayload = {
@@ -539,7 +540,7 @@ hstickets:BatchResponseSimplePublicObject batchReadResponse =
     check hubspotClient->/batch/read.post(batchReadPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -587,15 +588,15 @@ hstickets:BatchResponseSimplePublicObject batchReadResponse =
 
 Updates multiple tickets in a single request using their internal IDs or unique property values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInput` | Yes | List of ticket IDs with the property updates to apply to each. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:BatchInputSimplePublicObjectBatchInput batchUpdatePayload = {
@@ -622,7 +623,7 @@ hstickets:BatchResponseSimplePublicObject batchUpdateResponse =
     check hubspotClient->/batch/update.post(batchUpdatePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -668,15 +669,15 @@ hstickets:BatchResponseSimplePublicObject batchUpdateResponse =
 
 Archives multiple tickets in a single request by their internal IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectId` | Yes | List of ticket IDs to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:BatchInputSimplePublicObjectId batchArchivePayload = {
@@ -699,15 +700,15 @@ check hubspotClient->/batch/archive.post(batchArchivePayload);
 
 Creates new tickets or updates existing ones matched by a unique property identifier, in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInputUpsert` | Yes | List of tickets with an `idProperty` to match on and property values to create or update. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hstickets:BatchInputSimplePublicObjectBatchInputUpsert upsertPayload = {
@@ -726,7 +727,7 @@ hstickets:BatchResponseSimplePublicUpsertObject upsertResponse =
     check hubspotClient->/batch/upsert.post(upsertPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

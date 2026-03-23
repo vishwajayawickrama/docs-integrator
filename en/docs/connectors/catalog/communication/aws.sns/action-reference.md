@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -25,7 +26,7 @@ Provides operations to interact with AWS SNS — topic management, publishing, s
 | `region` | `string` | `"us-east-1"` | AWS region for the SNS service. |
 | `securityToken` | `string` | `()` | AWS security token for temporary credentials (e.g., from STS AssumeRole). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/aws.sns;
@@ -43,7 +44,7 @@ sns:Client snsClient = check new ({
 
 ### Operations
 
-#### Topic Management
+#### Topic management
 
 <details>
 <summary>createTopic</summary>
@@ -52,7 +53,7 @@ sns:Client snsClient = check new ({
 
 Creates a new SNS topic and returns its ARN.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -61,15 +62,15 @@ Creates a new SNS topic and returns its ARN.
 | `dataProtectionPolicy` | `json` | No | Optional data protection policy for the topic. |
 | `tags` | `map<string>` | No | Optional key-value tags to associate with the topic. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string topicArn = check snsClient->createTopic("WeatherAlerts");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "arn:aws:sns:us-east-1:123456789012:WeatherAlerts"
@@ -86,15 +87,15 @@ string topicArn = check snsClient->createTopic("WeatherAlerts");
 
 Deletes an SNS topic and all its subscriptions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | Yes | ARN of the topic to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->deleteTopic("arn:aws:sns:us-east-1:123456789012:WeatherAlerts");
@@ -112,9 +113,9 @@ check snsClient->deleteTopic("arn:aws:sns:us-east-1:123456789012:WeatherAlerts")
 Returns a stream of all topic ARNs in the account.
 
 
-**Returns:** `stream<string, error?>`
+Returns: `stream<string, error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<string, error?> topics = check snsClient->listTopics();
@@ -124,7 +125,7 @@ check from string topicArn in topics
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "arn:aws:sns:us-east-1:123456789012:WeatherAlerts"
@@ -141,15 +142,15 @@ check from string topicArn in topics
 
 Retrieves the attributes of an SNS topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | Yes | ARN of the topic. |
 
-**Returns:** `GettableTopicAttributes|error`
+Returns: `GettableTopicAttributes|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sns:GettableTopicAttributes attrs = check snsClient->getTopicAttributes(
@@ -157,7 +158,7 @@ sns:GettableTopicAttributes attrs = check snsClient->getTopicAttributes(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -181,7 +182,7 @@ sns:GettableTopicAttributes attrs = check snsClient->getTopicAttributes(
 
 Sets a single attribute on an SNS topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -189,9 +190,9 @@ Sets a single attribute on an SNS topic.
 | `attributeName` | `TopicAttributeName` | Yes | The attribute to set (e.g., `DISPLAY_NAME`, `DELIVERY_POLICY`). |
 | `value` | `json\|string\|int\|boolean` | Yes | The new value for the attribute. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->setTopicAttributes(
@@ -214,7 +215,7 @@ check snsClient->setTopicAttributes(
 
 Publishes a message to an SNS topic, a specific ARN, or a phone number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -225,9 +226,9 @@ Publishes a message to an SNS topic, a specific ARN, or a phone number.
 | `deduplicationId` | `string` | No | Deduplication ID for FIFO topics. |
 | `groupId` | `string` | No | Message group ID for FIFO topics. |
 
-**Returns:** `PublishMessageResponse|error`
+Returns: `PublishMessageResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sns:PublishMessageResponse response = check snsClient->publish(
@@ -236,7 +237,7 @@ sns:PublishMessageResponse response = check snsClient->publish(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"messageId": "d9b9b0e8-5b6e-4c1e-9a3b-1f2e3d4c5b6a"}
@@ -253,16 +254,16 @@ sns:PublishMessageResponse response = check snsClient->publish(
 
 Publishes up to 10 messages to an SNS topic in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | Yes | ARN of the topic to publish to. |
 | `entries` | `PublishBatchRequestEntry[]` | Yes | Array of batch entries, each containing a message and optional attributes. |
 
-**Returns:** `PublishBatchResponse|error`
+Returns: `PublishBatchResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sns:PublishBatchResponse response = check snsClient->publishBatch(
@@ -274,7 +275,7 @@ sns:PublishBatchResponse response = check snsClient->publishBatch(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -299,7 +300,7 @@ sns:PublishBatchResponse response = check snsClient->publishBatch(
 
 Subscribes an endpoint to an SNS topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -309,9 +310,9 @@ Subscribes an endpoint to an SNS topic.
 | `attributes` | `SubscriptionAttributes` | No | Optional subscription attributes such as filter policy and delivery policy. |
 | `returnSubscriptionArn` | `boolean` | No | Whether to return the subscription ARN even if pending confirmation. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string subscriptionArn = check snsClient->subscribe(
@@ -325,7 +326,7 @@ string subscriptionArn = check snsClient->subscribe(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "pending confirmation"
@@ -342,7 +343,7 @@ string subscriptionArn = check snsClient->subscribe(
 
 Confirms a pending subscription using the token from the confirmation message.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -350,9 +351,9 @@ Confirms a pending subscription using the token from the confirmation message.
 | `token` | `string` | Yes | The confirmation token from the subscription confirmation message. |
 | `authenticateOnUnsubscribe` | `boolean` | No | Whether to require authentication for unsubscribe requests. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string subscriptionArn = check snsClient->confirmSubscription(
@@ -361,7 +362,7 @@ string subscriptionArn = check snsClient->confirmSubscription(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "arn:aws:sns:us-east-1:123456789012:WeatherAlerts:a1b2c3d4-e5f6-7890-abcd-ef1234567890"
@@ -378,15 +379,15 @@ string subscriptionArn = check snsClient->confirmSubscription(
 
 Returns a stream of all subscriptions, optionally filtered by topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | No | If provided, lists only subscriptions for this topic. |
 
-**Returns:** `stream<Subscription, error?>`
+Returns: `stream<Subscription, error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<sns:Subscription, error?> subscriptions = check snsClient->listSubscriptions(
@@ -398,7 +399,7 @@ check from sns:Subscription sub in subscriptions
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -421,15 +422,15 @@ check from sns:Subscription sub in subscriptions
 
 Retrieves the attributes of a subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `subscriptionArn` | `string` | Yes | ARN of the subscription. |
 
-**Returns:** `GettableSubscriptionAttributes|error`
+Returns: `GettableSubscriptionAttributes|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sns:GettableSubscriptionAttributes attrs = check snsClient->getSubscriptionAttributes(
@@ -437,7 +438,7 @@ sns:GettableSubscriptionAttributes attrs = check snsClient->getSubscriptionAttri
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -461,7 +462,7 @@ sns:GettableSubscriptionAttributes attrs = check snsClient->getSubscriptionAttri
 
 Sets a single attribute on a subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -469,9 +470,9 @@ Sets a single attribute on a subscription.
 | `attributeName` | `SubscriptionAttributeName` | Yes | The attribute to set (e.g., `FILTER_POLICY`, `RAW_MESSAGE_DELIVERY`). |
 | `value` | `json\|FilterPolicyScope\|boolean\|string` | Yes | The new value for the attribute. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->setSubscriptionAttributes(
@@ -492,15 +493,15 @@ check snsClient->setSubscriptionAttributes(
 
 Unsubscribes an endpoint from an SNS topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `subscriptionArn` | `string` | Yes | ARN of the subscription to remove. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->unsubscribe(
@@ -512,7 +513,7 @@ check snsClient->unsubscribe(
 
 </details>
 
-#### Platform Applications
+#### Platform applications
 
 <details>
 <summary>createPlatformApplication</summary>
@@ -521,7 +522,7 @@ check snsClient->unsubscribe(
 
 Creates a platform application for mobile push notifications (APNs, FCM, ADM, etc.).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -530,9 +531,9 @@ Creates a platform application for mobile push notifications (APNs, FCM, ADM, et
 | `auth` | `PlatformApplicationAuthentication` | Yes | Authentication credentials for the platform (e.g., API key, certificate). |
 | `attributes` | `PlatformApplicationAttributes` | No | Optional attributes such as event notification endpoints and feedback settings. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string platformAppArn = check snsClient->createPlatformApplication(
@@ -542,7 +543,7 @@ string platformAppArn = check snsClient->createPlatformApplication(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "arn:aws:sns:us-east-1:123456789012:app/GCM/MyMobileApp"
@@ -560,9 +561,9 @@ string platformAppArn = check snsClient->createPlatformApplication(
 Returns a stream of all platform applications in the account.
 
 
-**Returns:** `stream<PlatformApplication, error?>`
+Returns: `stream<PlatformApplication, error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<sns:PlatformApplication, error?> apps = check snsClient->listPlatformApplications();
@@ -572,7 +573,7 @@ check from sns:PlatformApplication app in apps
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -592,15 +593,15 @@ check from sns:PlatformApplication app in apps
 
 Retrieves the attributes of a platform application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `platformApplicationArn` | `string` | Yes | ARN of the platform application. |
 
-**Returns:** `RetrievablePlatformApplicationAttributes|error`
+Returns: `RetrievablePlatformApplicationAttributes|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sns:RetrievablePlatformApplicationAttributes attrs =
@@ -609,7 +610,7 @@ sns:RetrievablePlatformApplicationAttributes attrs =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -630,16 +631,16 @@ sns:RetrievablePlatformApplicationAttributes attrs =
 
 Updates the attributes of a platform application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `platformApplicationArn` | `string` | Yes | ARN of the platform application. |
 | `attributes` | `SettablePlatformApplicationAttributes` | Yes | The attributes to set. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->setPlatformApplicationAttributes(
@@ -659,15 +660,15 @@ check snsClient->setPlatformApplicationAttributes(
 
 Deletes a platform application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `platformApplicationArn` | `string` | Yes | ARN of the platform application to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->deletePlatformApplication(
@@ -679,7 +680,7 @@ check snsClient->deletePlatformApplication(
 
 </details>
 
-#### Platform Endpoints
+#### Platform endpoints
 
 <details>
 <summary>createEndpoint</summary>
@@ -688,7 +689,7 @@ check snsClient->deletePlatformApplication(
 
 Creates a platform endpoint for a device to receive push notifications.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -697,9 +698,9 @@ Creates a platform endpoint for a device to receive push notifications.
 | `attributes` | `EndpointAttributes` | No | Optional endpoint attributes. |
 | `customUserData` | `string` | No | Arbitrary user data to associate with the endpoint. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string endpointArn = check snsClient->createEndpoint(
@@ -708,7 +709,7 @@ string endpointArn = check snsClient->createEndpoint(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "arn:aws:sns:us-east-1:123456789012:endpoint/GCM/MyMobileApp/a1b2c3d4-e5f6-7890"
@@ -725,15 +726,15 @@ string endpointArn = check snsClient->createEndpoint(
 
 Returns a stream of all endpoints for a platform application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `platformApplicationArn` | `string` | Yes | ARN of the platform application. |
 
-**Returns:** `stream<Endpoint, error?>`
+Returns: `stream<Endpoint, error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<sns:Endpoint, error?> endpoints = check snsClient->listEndpoints(
@@ -745,7 +746,7 @@ check from sns:Endpoint ep in endpoints
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -766,15 +767,15 @@ check from sns:Endpoint ep in endpoints
 
 Retrieves the attributes of a platform endpoint.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `endpointArn` | `string` | Yes | ARN of the endpoint. |
 
-**Returns:** `EndpointAttributes|error`
+Returns: `EndpointAttributes|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sns:EndpointAttributes attrs = check snsClient->getEndpointAttributes(
@@ -782,7 +783,7 @@ sns:EndpointAttributes attrs = check snsClient->getEndpointAttributes(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"enabled": true, "token": "device-token-abc123", "customUserData": null}
@@ -799,16 +800,16 @@ sns:EndpointAttributes attrs = check snsClient->getEndpointAttributes(
 
 Updates the attributes of a platform endpoint.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `endpointArn` | `string` | Yes | ARN of the endpoint. |
 | `attributes` | `EndpointAttributes` | Yes | The attributes to set. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->setEndpointAttributes(
@@ -828,15 +829,15 @@ check snsClient->setEndpointAttributes(
 
 Deletes a platform endpoint.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `endpointArn` | `string` | Yes | ARN of the endpoint to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->deleteEndpoint(
@@ -848,7 +849,7 @@ check snsClient->deleteEndpoint(
 
 </details>
 
-#### SMS Sandbox
+#### SMS sandbox
 
 <details>
 <summary>createSMSSandboxPhoneNumber</summary>
@@ -857,16 +858,16 @@ check snsClient->deleteEndpoint(
 
 Adds a phone number to the SMS sandbox for verification.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `phoneNumber` | `string` | Yes | The phone number to add (E.164 format, e.g., `+14155552671`). |
 | `languageCode` | `LanguageCode` | No | Language for the verification SMS (default: `EN_US`). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->createSMSSandboxPhoneNumber("+14155552671");
@@ -883,16 +884,16 @@ check snsClient->createSMSSandboxPhoneNumber("+14155552671");
 
 Verifies a phone number in the SMS sandbox using the OTP received.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `phoneNumber` | `string` | Yes | The phone number to verify. |
 | `otp` | `string` | Yes | The one-time password received via SMS. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->verifySMSSandboxPhoneNumber("+14155552671", "123456");
@@ -910,9 +911,9 @@ check snsClient->verifySMSSandboxPhoneNumber("+14155552671", "123456");
 Returns a stream of all phone numbers in the SMS sandbox.
 
 
-**Returns:** `stream<SMSSandboxPhoneNumber, error?>`
+Returns: `stream<SMSSandboxPhoneNumber, error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<sns:SMSSandboxPhoneNumber, error?> numbers =
@@ -923,7 +924,7 @@ check from sns:SMSSandboxPhoneNumber num in numbers
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"phoneNumber": "+14155552671", "status": "Verified"}
@@ -940,15 +941,15 @@ check from sns:SMSSandboxPhoneNumber num in numbers
 
 Removes a phone number from the SMS sandbox.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `phoneNumber` | `string` | Yes | The phone number to remove. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->deleteSMSSandboxPhoneNumber("+14155552671");
@@ -966,15 +967,15 @@ check snsClient->deleteSMSSandboxPhoneNumber("+14155552671");
 Checks whether the account is still in the SMS sandbox. Returns `true` if in sandbox.
 
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean inSandbox = check snsClient->getSMSSandboxAccountStatus();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 true
@@ -984,7 +985,7 @@ true
 
 </details>
 
-#### SMS & Phone Numbers
+#### SMS & phone numbers
 
 <details>
 <summary>listOriginationNumbers</summary>
@@ -994,9 +995,9 @@ true
 Returns a stream of origination phone numbers associated with the account.
 
 
-**Returns:** `stream<OriginationPhoneNumber, error?>`
+Returns: `stream<OriginationPhoneNumber, error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<sns:OriginationPhoneNumber, error?> numbers =
@@ -1007,7 +1008,7 @@ check from sns:OriginationPhoneNumber num in numbers
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1031,9 +1032,9 @@ check from sns:OriginationPhoneNumber num in numbers
 Returns a stream of phone numbers that have opted out of receiving SMS.
 
 
-**Returns:** `stream<string, error?>`
+Returns: `stream<string, error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<string, error?> optedOut = check snsClient->listPhoneNumbersOptedOut();
@@ -1043,7 +1044,7 @@ check from string phone in optedOut
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "+14155552671"
@@ -1060,21 +1061,21 @@ check from string phone in optedOut
 
 Checks whether a phone number has opted out of receiving SMS messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `phoneNumber` | `string` | Yes | The phone number to check (E.164 format). |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean optedOut = check snsClient->checkIfPhoneNumberIsOptedOut("+14155552671");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 false
@@ -1091,15 +1092,15 @@ false
 
 Opts in a previously opted-out phone number to receive SMS messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `phoneNumber` | `string` | Yes | The phone number to opt in. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->optInPhoneNumber("+14155552671");
@@ -1116,15 +1117,15 @@ check snsClient->optInPhoneNumber("+14155552671");
 
 Sets the default SMS attributes for the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `attributes` | `SMSAttributes` | Yes | SMS attributes to set (e.g., default SMS type, sender ID, spend limit). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->setSMSAttributes({
@@ -1145,15 +1146,15 @@ check snsClient->setSMSAttributes({
 Retrieves the default SMS attributes for the account.
 
 
-**Returns:** `SMSAttributes|error`
+Returns: `SMSAttributes|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sns:SMSAttributes smsAttrs = check snsClient->getSMSAttributes();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1167,7 +1168,7 @@ sns:SMSAttributes smsAttrs = check snsClient->getSMSAttributes();
 
 </details>
 
-#### Tags & Permissions
+#### Tags & permissions
 
 <details>
 <summary>tagResource</summary>
@@ -1176,16 +1177,16 @@ sns:SMSAttributes smsAttrs = check snsClient->getSMSAttributes();
 
 Adds or updates tags on an SNS topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | Yes | ARN of the topic to tag. |
 | `tags` | `Tags` | Yes | Key-value tag pairs to add. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->tagResource(
@@ -1205,15 +1206,15 @@ check snsClient->tagResource(
 
 Lists all tags associated with an SNS topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | Yes | ARN of the topic. |
 
-**Returns:** `Tags|error`
+Returns: `Tags|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sns:Tags tags = check snsClient->listTags(
@@ -1221,7 +1222,7 @@ sns:Tags tags = check snsClient->listTags(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"environment": "production", "team": "platform"}
@@ -1238,16 +1239,16 @@ sns:Tags tags = check snsClient->listTags(
 
 Removes tags from an SNS topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | Yes | ARN of the topic. |
 | `tagKeys` | `string[]` | Yes | Array of tag keys to remove. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->untagResource(
@@ -1267,7 +1268,7 @@ check snsClient->untagResource(
 
 Adds a permission statement to a topic's access control policy.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1276,9 +1277,9 @@ Adds a permission statement to a topic's access control policy.
 | `awsAccountIds` | `string[]` | Yes | AWS account IDs to grant permission to. |
 | `label` | `string` | Yes | A unique label for this permission statement. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->addPermission(
@@ -1300,16 +1301,16 @@ check snsClient->addPermission(
 
 Removes a permission statement from a topic's access control policy.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | Yes | ARN of the topic. |
 | `label` | `string` | Yes | The label of the permission statement to remove. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->removePermission(
@@ -1322,7 +1323,7 @@ check snsClient->removePermission(
 
 </details>
 
-#### Data Protection
+#### Data protection
 
 <details>
 <summary>putDataProtectionPolicy</summary>
@@ -1331,16 +1332,16 @@ check snsClient->removePermission(
 
 Sets a data protection policy on an SNS topic for message data redaction and auditing.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | Yes | ARN of the topic. |
 | `dataProtectionPolicy` | `json` | Yes | The data protection policy document as JSON. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snsClient->putDataProtectionPolicy(
@@ -1365,15 +1366,15 @@ check snsClient->putDataProtectionPolicy(
 
 Retrieves the data protection policy of an SNS topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicArn` | `string` | Yes | ARN of the topic. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json policy = check snsClient->getDataProtectionPolicy(
@@ -1381,7 +1382,7 @@ json policy = check snsClient->getDataProtectionPolicy(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

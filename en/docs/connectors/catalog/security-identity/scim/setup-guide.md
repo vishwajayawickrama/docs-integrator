@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up an Asgardeo Machine-to-Machine (M2M) application and obtaining the OAuth 2.0 client credentials required to use the SCIM connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up an Asgardeo Machine-to-Machine (M2M) app
 
 - An active Asgardeo account. If you do not have one, [sign up for a free Asgardeo organization](https://asgardeo.io/signup).
 
-## Step 1: Register a Machine-to-Machine (M2M) application
+## Step 1: Register a machine-to-Machine (M2M) application
 
 1. Log in to the [Asgardeo Console](https://console.asgardeo.io/).
 2. Click **Applications** in the left navigation menu.
@@ -34,7 +37,7 @@ This guide walks you through setting up an Asgardeo Machine-to-Machine (M2M) app
 Only authorize the scopes your integration needs. Following the principle of least privilege improves security.
 :::
 
-## Step 3: Get the Client ID and Client Secret
+## Step 3: Get the client ID and client secret
 
 1. Navigate to the **Protocol** tab of the M2M application.
 2. Copy the **Client ID** — this is your `clientId`.
@@ -44,7 +47,7 @@ Only authorize the scopes your integration needs. Following the principle of lea
 Store the Client ID and Client Secret securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 4: Identify your Organization Name and Token URL
+## Step 4: Identify your organization name and token URL
 
 Your Asgardeo organization name is used to construct both the SCIM service URL and the OAuth token URL:
 

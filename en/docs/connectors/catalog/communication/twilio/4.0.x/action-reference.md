@@ -1,4 +1,5 @@
 ---
+title: Actions
 connector: true
 connector_name: "twilio"
 connector_version: "4.0.x"
@@ -31,7 +32,7 @@ Primary client for all Twilio REST API operations: messaging, calls, phone numbe
 | `proxy` | <code>http:ProxyConfig</code> | `()` | Proxy server configuration. |
 | `validation` | <code>boolean</code> | `true` | Enables inbound payload validation using the constraint package. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/twilio;
@@ -63,7 +64,7 @@ twilio:Client twilioClient = check new ({
 
 ### Operations
 
-#### Message Operations
+#### Message operations
 
 <details>
 <summary>createMessage</summary>
@@ -72,16 +73,16 @@ twilio:Client twilioClient = check new ({
 
 Sends an SMS, MMS, or WhatsApp message. The `To` field accepts E.164 phone numbers or channel addresses such as `whatsapp:+15552229999`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>CreateMessageRequest</code> | Yes | Message request body. Must include `To` and either `From` (or `MessagingServiceSid`) plus `Body` or `MediaUrl`. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. Defaults to the SID supplied during client initialisation. |
 
-**Returns:** `Message|error`
+Returns: `Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerinax/twilio;
@@ -95,7 +96,7 @@ twilio:CreateMessageRequest messageRequest = {
 twilio:Message response = check twilioClient->createMessage(messageRequest);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -127,22 +128,22 @@ twilio:Message response = check twilioClient->createMessage(messageRequest);
 
 Fetches the details of a specific message by its SID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sid` | <code>string</code> | Yes | The unique SID of the Message resource (begins with `SM`). |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `Message|error`
+Returns: `Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:Message message = check twilioClient->fetchMessage("SM4f16fca1d7391c99249b842f063c4da0");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -173,7 +174,7 @@ twilio:Message message = check twilioClient->fetchMessage("SM4f16fca1d7391c99249
 
 Retrieves a paginated list of messages sent from or received by the account, with optional filters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -183,9 +184,9 @@ Retrieves a paginated list of messages sent from or received by the account, wit
 | `pageSize` | <code>int?</code> | No | Number of records to return per page. Maximum 1000. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `ListMessageResponse|error`
+Returns: `ListMessageResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:ListMessageResponse response = check twilioClient->listMessage(pageSize = 10);
@@ -198,7 +199,7 @@ if messages is twilio:Message[] {
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -231,16 +232,16 @@ if messages is twilio:Message[] {
 
 Deletes a message record from the account. Once deleted, it cannot be recovered.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sid` | <code>string</code> | Yes | The SID of the message to delete. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 
@@ -257,7 +258,7 @@ Deletes a message record from the account. Once deleted, it cannot be recovered.
 
 Updates a message — primarily used to cancel a scheduled message by setting `status` to `canceled`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -265,9 +266,9 @@ Updates a message — primarily used to cancel a scheduled message by setting `s
 | `payload` | <code>UpdateMessageRequest</code> | Yes | Update payload, e.g., `{ Status: "canceled" }`. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `Message|error`
+Returns: `Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:UpdateMessageRequest updateReq = {
@@ -279,7 +280,7 @@ twilio:Message updated = check twilioClient->updateMessage(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -294,7 +295,7 @@ twilio:Message updated = check twilioClient->updateMessage(
 
 </details>
 
-#### Call Operations
+#### Call operations
 
 <details>
 <summary>createCall</summary>
@@ -303,16 +304,16 @@ twilio:Message updated = check twilioClient->updateMessage(
 
 Initiates an outbound voice call. The call is controlled by TwiML returned from a `Url` or inline `Twiml`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>CreateCallRequest</code> | Yes | Call request body. Must include `To`, `From`, and either `Url` or `Twiml`. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `Call|error`
+Returns: `Call|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:CreateCallRequest callRequest = {
@@ -324,7 +325,7 @@ twilio:CreateCallRequest callRequest = {
 twilio:Call response = check twilioClient->createCall(callRequest);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -354,22 +355,22 @@ twilio:Call response = check twilioClient->createCall(callRequest);
 
 Fetches the details of a specific call by its SID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sid` | <code>string</code> | Yes | The unique SID of the Call resource (begins with `CA`). |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `Call|error`
+Returns: `Call|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:Call call = check twilioClient->fetchCall("CA1234567890abcdef1234567890abcdef");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -398,7 +399,7 @@ twilio:Call call = check twilioClient->fetchCall("CA1234567890abcdef1234567890ab
 
 Retrieves a paginated list of calls made to and from the account, with optional filters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -408,9 +409,9 @@ Retrieves a paginated list of calls made to and from the account, with optional 
 | `pageSize` | <code>int?</code> | No | Number of records per page. Maximum 1000. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `ListCallResponse|error`
+Returns: `ListCallResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:ListCallResponse response = check twilioClient->listCall(pageSize = 10);
@@ -423,7 +424,7 @@ if calls is twilio:Call[] {
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -456,16 +457,16 @@ if calls is twilio:Call[] {
 
 Deletes a call log record from the account. The call must have a terminal status (`completed`, `busy`, `failed`, `no-answer`, or `canceled`).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sid` | <code>string</code> | Yes | The SID of the call to delete. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 
@@ -482,7 +483,7 @@ Deletes a call log record from the account. The call must have a terminal status
 
 Modifies a live call in progress — for example, redirecting it to a new TwiML URL or hanging it up.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -490,9 +491,9 @@ Modifies a live call in progress — for example, redirecting it to a new TwiML 
 | `payload` | <code>UpdateCallRequest</code> | Yes | Update payload, e.g., `{ Status: "completed" }` to hang up. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `Call|error`
+Returns: `Call|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:UpdateCallRequest updateReq = {
@@ -504,7 +505,7 @@ twilio:Call updated = check twilioClient->updateCall(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -518,7 +519,7 @@ twilio:Call updated = check twilioClient->updateCall(
 
 </details>
 
-#### Phone Number Management
+#### Phone number management
 
 <details>
 <summary>createIncomingPhoneNumber</summary>
@@ -527,16 +528,16 @@ twilio:Call updated = check twilioClient->updateCall(
 
 Purchases a new Twilio phone number and adds it to the account. Specify either `PhoneNumber` (E.164) or `AreaCode` to select the number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>CreateIncomingPhoneNumberRequest</code> | Yes | Purchase request. Provide `PhoneNumber` (e.g., `+14155551234`) or `AreaCode` (US/Canada only). |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `Incoming_phone_number|error`
+Returns: `Incoming_phone_number|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:CreateIncomingPhoneNumberRequest purchaseReq = {
@@ -547,7 +548,7 @@ twilio:CreateIncomingPhoneNumberRequest purchaseReq = {
 twilio:Incoming_phone_number number = check twilioClient->createIncomingPhoneNumber(purchaseReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -574,16 +575,16 @@ twilio:Incoming_phone_number number = check twilioClient->createIncomingPhoneNum
 
 Fetches the configuration and properties of a specific incoming phone number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sid` | <code>string</code> | Yes | The SID of the IncomingPhoneNumber resource (begins with `PN`). |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `Incoming_phone_number|error`
+Returns: `Incoming_phone_number|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:Incoming_phone_number number = check twilioClient->fetchIncomingPhoneNumber(
@@ -591,7 +592,7 @@ twilio:Incoming_phone_number number = check twilioClient->fetchIncomingPhoneNumb
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -617,7 +618,7 @@ twilio:Incoming_phone_number number = check twilioClient->fetchIncomingPhoneNumb
 
 Retrieves a paginated list of all incoming phone numbers associated with the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -626,15 +627,15 @@ Retrieves a paginated list of all incoming phone numbers associated with the acc
 | `pageSize` | <code>int?</code> | No | Number of records per page. Maximum 1000. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `ListIncomingPhoneNumberResponse|error`
+Returns: `ListIncomingPhoneNumberResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:ListIncomingPhoneNumberResponse response = check twilioClient->listIncomingPhoneNumber();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -663,16 +664,16 @@ twilio:ListIncomingPhoneNumberResponse response = check twilioClient->listIncomi
 
 Releases a phone number from the account. The number will no longer be associated with the account and will become available for purchase by others.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sid` | <code>string</code> | Yes | The SID of the IncomingPhoneNumber resource to delete. |
 | `accountSid` | <code>string?</code> | No | Override the account SID. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 
@@ -682,7 +683,7 @@ Releases a phone number from the account. The number will no longer be associate
 
 </details>
 
-#### Account Operations
+#### Account operations
 
 <details>
 <summary>fetchBalance</summary>
@@ -691,21 +692,21 @@ Releases a phone number from the account. The number will no longer be associate
 
 Fetches the current balance of the account in the account's billing currency.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `accountSid` | <code>string?</code> | No | The SID of the account to fetch the balance for. Defaults to the authenticated account. |
 
-**Returns:** `Balance|error`
+Returns: `Balance|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:Balance balance = check twilioClient->fetchBalance();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -726,21 +727,21 @@ twilio:Balance balance = check twilioClient->fetchBalance();
 
 Fetches the properties and settings of a specific account by SID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sid` | <code>string</code> | Yes | The SID of the account to fetch (begins with `AC`). |
 
-**Returns:** `Account|error`
+Returns: `Account|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:Account account = check twilioClient->fetchAccount("ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -765,15 +766,15 @@ twilio:Account account = check twilioClient->fetchAccount("ACxxxxxxxxxxxxxxxxxxx
 
 Creates a new Twilio sub-account under the account making the request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>CreateAccountRequest</code> | Yes | Sub-account request. Optionally provide `FriendlyName` to label the new account. |
 
-**Returns:** `Account|error`
+Returns: `Account|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:CreateAccountRequest subAccountReq = {
@@ -782,7 +783,7 @@ twilio:CreateAccountRequest subAccountReq = {
 twilio:Account subAccount = check twilioClient->createAccount(subAccountReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -807,7 +808,7 @@ twilio:Account subAccount = check twilioClient->createAccount(subAccountReq);
 
 Retrieves a list of sub-accounts belonging to the authenticated account, with optional filters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -815,15 +816,15 @@ Retrieves a list of sub-accounts belonging to the authenticated account, with op
 | `status` | <code>Account_enum_status?</code> | No | Filter by account status: `active`, `suspended`, or `closed`. |
 | `pageSize` | <code>int?</code> | No | Number of records per page. Maximum 1000. |
 
-**Returns:** `ListAccountResponse|error`
+Returns: `ListAccountResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:ListAccountResponse response = check twilioClient->listAccount(status = "active");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -852,16 +853,16 @@ twilio:ListAccountResponse response = check twilioClient->listAccount(status = "
 
 Modifies the properties of an account — for example, changing its friendly name or suspending it.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sid` | <code>string</code> | Yes | The SID of the account to update. |
 | `payload` | <code>UpdateAccountRequest</code> | Yes | Update fields such as `FriendlyName` or `Status`. |
 
-**Returns:** `Account|error`
+Returns: `Account|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twilio:UpdateAccountRequest updateReq = {
@@ -873,7 +874,7 @@ twilio:Account updated = check twilioClient->updateAccount(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a Confluent Schema Registry instance and obtaining the credentials required to use the connector.
@@ -7,14 +10,14 @@ This guide walks you through setting up a Confluent Schema Registry instance and
 
 - A Confluent Cloud account. If you do not have one, [sign up for a free trial at Confluent](https://www.confluent.io/confluent-cloud/tryfree/).
 
-## Step 1: Create an Environment and Kafka Cluster
+## Step 1: Create an environment and Kafka cluster
 
 1. Log in to the [Confluent Cloud Console](https://confluent.cloud/).
 2. Create a new **Environment** (or use the default).
 3. Inside the environment, create a **Kafka Cluster** (the Basic tier is sufficient for development).
 4. Wait for the cluster to be provisioned.
 
-## Step 2: Enable Schema Registry
+## Step 2: Enable schema registry
 
 1. In your environment, navigate to **Schema Registry** in the left sidebar.
 2. Select a cloud provider and region for the Schema Registry instance.
@@ -25,7 +28,7 @@ This guide walks you through setting up a Confluent Schema Registry instance and
 Schema Registry is enabled at the environment level. All clusters within the environment share the same Schema Registry instance.
 :::
 
-## Step 3: Create Schema Registry API Key and Secret
+## Step 3: Create schema registry API key and secret
 
 1. In the Schema Registry section, click **API credentials** or navigate to **API Keys**.
 2. Click **Add Key** and select **Schema Registry** as the resource scope.
@@ -35,7 +38,7 @@ Schema Registry is enabled at the environment level. All clusters within the env
 Store the API Key and API Secret securely. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 4: Configure SSL Truststore (if required)
+## Step 4: Configure SSL truststore (if required)
 
 If your Schema Registry instance requires SSL/TLS with a custom certificate authority:
 

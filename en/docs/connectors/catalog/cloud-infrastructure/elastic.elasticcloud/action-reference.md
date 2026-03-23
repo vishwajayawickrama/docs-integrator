@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -22,7 +23,7 @@ Provides access to the Elastic Cloud REST API for deployment management, organiz
 |-------|------|---------|-------------|
 | `authorization` | `string` | Required | The API key authorization header value (e.g., `"ApiKey " + apiKey`). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/elastic.elasticcloud;
@@ -36,7 +37,7 @@ elasticcloud:Client elasticClient = check new ({
 
 ### Operations
 
-#### Account Operations
+#### Account operations
 
 <details>
 <summary>Fetch current account information</summary>
@@ -46,15 +47,15 @@ elasticcloud:Client elasticClient = check new ({
 Retrieves the current account information including trust settings.
 
 
-**Returns:** `AccountResponse|error`
+Returns: `AccountResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:AccountResponse account = check elasticClient->/account();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "abc123456789", "trust": {"trust_all": false}}
@@ -71,21 +72,21 @@ elasticcloud:AccountResponse account = check elasticClient->/account();
 
 Replaces the current account settings with the provided values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AccountUpdateRequest` | Yes | The updated account data. |
 
-**Returns:** `AccountResponse|error`
+Returns: `AccountResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:AccountResponse updated = check elasticClient->/account.put({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "abc123456789", "trust": {"trust_all": true}}
@@ -102,21 +103,21 @@ elasticcloud:AccountResponse updated = check elasticClient->/account.put({});
 
 Applies partial updates to the current account using JSON Merge Patch rules.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `string` | Yes | JSON Merge Patch payload for partial account updates. |
 
-**Returns:** `AccountResponse|error`
+Returns: `AccountResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:AccountResponse patched = check elasticClient->/account.patch("{}");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "abc123456789", "trust": {"trust_all": false}}
@@ -126,7 +127,7 @@ elasticcloud:AccountResponse patched = check elasticClient->/account.patch("{}")
 
 </details>
 
-#### Deployment Operations
+#### Deployment operations
 
 <details>
 <summary>List Deployments</summary>
@@ -136,15 +137,15 @@ elasticcloud:AccountResponse patched = check elasticClient->/account.patch("{}")
 Retrieves all deployments belonging to the authenticated user.
 
 
-**Returns:** `DeploymentsListResponse|error`
+Returns: `DeploymentsListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:DeploymentsListResponse deploymentsList = check elasticClient->/deployments();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"deployments": [{"id": "a1b2c3d4e5", "name": "my-deployment", "resources": [{"ref_id": "main-elasticsearch", "kind": "elasticsearch", "id": "es-abc123"}]}]}
@@ -161,16 +162,16 @@ elasticcloud:DeploymentsListResponse deploymentsList = check elasticClient->/dep
 
 Creates a new deployment with the specified configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `DeploymentCreateRequest` | Yes | The deployment definition including name, region, and version. |
 | `queries` | `CreateDeploymentQueries` | No | Query parameters including `template_id` and `validate_only`. |
 
-**Returns:** `DeploymentCreateResponse|error`
+Returns: `DeploymentCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:DeploymentCreateResponse createdDeployment = check elasticClient->/deployments.post(
@@ -183,7 +184,7 @@ elasticcloud:DeploymentCreateResponse createdDeployment = check elasticClient->/
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "f6g7h8i9j0", "name": "ballerina-example-deployment", "created": true, "resources": [{"ref_id": "main-elasticsearch", "kind": "elasticsearch", "id": "es-xyz789"}]}
@@ -200,16 +201,16 @@ elasticcloud:DeploymentCreateResponse createdDeployment = check elasticClient->/
 
 Searches for deployments matching a query. When no query is specified, all deployments are matched.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SearchRequest` | Yes | The search query. Use an empty record to match all deployments. |
 | `queries` | `SearchDeploymentsQueries` | No | Query parameters for search pagination. |
 
-**Returns:** `DeploymentsSearchResponse|error`
+Returns: `DeploymentsSearchResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:DeploymentsSearchResponse searchResults = check elasticClient->/deployments/_search.post(
@@ -217,7 +218,7 @@ elasticcloud:DeploymentsSearchResponse searchResults = check elasticClient->/dep
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"return_count": 2, "deployments": [{"id": "a1b2c3d4e5", "name": "my-deployment", "healthy": true}, {"id": "f6g7h8i9j0", "name": "test-deployment", "healthy": true}]}
@@ -234,22 +235,22 @@ elasticcloud:DeploymentsSearchResponse searchResults = check elasticClient->/dep
 
 Retrieves detailed information about a specific deployment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `deploymentId` | `string` | Yes | Identifier for the deployment. |
 | `queries` | `GetDeploymentQueries` | No | Query parameters to control response detail. |
 
-**Returns:** `DeploymentGetResponse|error`
+Returns: `DeploymentGetResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:DeploymentGetResponse deployment = check elasticClient->/deployments/["a1b2c3d4e5"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3d4e5", "name": "my-deployment", "healthy": true, "resources": {"elasticsearch": [], "kibana": [], "apm": [], "integrations_server": [], "enterprise_search": []}}
@@ -266,16 +267,16 @@ elasticcloud:DeploymentGetResponse deployment = check elasticClient->/deployment
 
 Updates an existing deployment with a new configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `deploymentId` | `string` | Yes | Identifier for the deployment. |
 | `payload` | `DeploymentUpdateRequest` | Yes | The updated deployment definition. |
 
-**Returns:** `DeploymentUpdateResponse|error`
+Returns: `DeploymentUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:DeploymentUpdateResponse updated = check elasticClient->/deployments/["a1b2c3d4e5"].put(
@@ -283,7 +284,7 @@ elasticcloud:DeploymentUpdateResponse updated = check elasticClient->/deployment
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3d4e5", "name": "renamed-deployment", "resources": [{"ref_id": "main-elasticsearch", "kind": "elasticsearch", "id": "es-abc123"}]}
@@ -300,22 +301,22 @@ elasticcloud:DeploymentUpdateResponse updated = check elasticClient->/deployment
 
 Shuts down all resources in a deployment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `deploymentId` | `string` | Yes | Identifier for the deployment. |
 | `queries` | `ShutdownDeploymentQueries` | No | Query parameters including `hide` and `skip_snapshot`. |
 
-**Returns:** `DeploymentShutdownResponse|error`
+Returns: `DeploymentShutdownResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:DeploymentShutdownResponse shutdownResp = check elasticClient->/deployments/["a1b2c3d4e5"]/_shutdown.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3d4e5", "name": "my-deployment"}
@@ -332,21 +333,21 @@ elasticcloud:DeploymentShutdownResponse shutdownResp = check elasticClient->/dep
 
 Restores a previously shut-down deployment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `deploymentId` | `string` | Yes | Identifier for the deployment. |
 
-**Returns:** `DeploymentRestoreResponse|error`
+Returns: `DeploymentRestoreResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:DeploymentRestoreResponse restoreResp = check elasticClient->/deployments/["a1b2c3d4e5"]/_restore.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3d4e5"}
@@ -356,7 +357,7 @@ elasticcloud:DeploymentRestoreResponse restoreResp = check elasticClient->/deplo
 
 </details>
 
-#### Elasticsearch Resource Operations
+#### Elasticsearch resource operations
 
 <details>
 <summary>Get Deployment Elasticsearch Resource Info</summary>
@@ -365,22 +366,22 @@ elasticcloud:DeploymentRestoreResponse restoreResp = check elasticClient->/deplo
 
 Retrieves detailed information about the Elasticsearch resource within a deployment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `deploymentId` | `string` | Yes | Identifier for the deployment. |
 | `refId` | `string` | Yes | User-specified RefId for the resource (or `_main` if there is only one). |
 
-**Returns:** `ElasticsearchResourceInfo|error`
+Returns: `ElasticsearchResourceInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:ElasticsearchResourceInfo esInfo = check elasticClient->/deployments/["a1b2c3d4e5"]/elasticsearch/["main-elasticsearch"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ref_id": "main-elasticsearch", "id": "es-abc123", "region": "gcp-asia-south1", "info": {"healthy": true, "status": "started"}}
@@ -397,22 +398,22 @@ elasticcloud:ElasticsearchResourceInfo esInfo = check elasticClient->/deployment
 
 Resets the password for the `elastic` user on the specified Elasticsearch resource.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `deploymentId` | `string` | Yes | Identifier for the deployment. |
 | `refId` | `string` | Yes | User-specified RefId for the Elasticsearch resource. |
 
-**Returns:** `ElasticsearchElasticUserPasswordResetResponse|error`
+Returns: `ElasticsearchElasticUserPasswordResetResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:ElasticsearchElasticUserPasswordResetResponse resetResp = check elasticClient->/deployments/["a1b2c3d4e5"]/elasticsearch/["main-elasticsearch"]/_reset\-password.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"username": "elastic", "password": "newGeneratedPassword123"}
@@ -429,22 +430,22 @@ elasticcloud:ElasticsearchElasticUserPasswordResetResponse resetResp = check ela
 
 Retrieves the keystore contents for the specified Elasticsearch resource.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `deploymentId` | `string` | Yes | Identifier for the deployment. |
 | `refId` | `string` | Yes | User-specified RefId for the Elasticsearch resource. |
 
-**Returns:** `KeystoreContents|error`
+Returns: `KeystoreContents|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:KeystoreContents keystore = check elasticClient->/deployments/["a1b2c3d4e5"]/elasticsearch/["main-elasticsearch"]/keystore();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"secrets": {"s3.client.default.access_key": {"as_file": false}}}
@@ -461,22 +462,22 @@ elasticcloud:KeystoreContents keystore = check elasticClient->/deployments/["a1b
 
 Retrieves the remote cluster configuration for cross-cluster search and replication.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `deploymentId` | `string` | Yes | Identifier for the deployment. |
 | `refId` | `string` | Yes | User-specified RefId for the Elasticsearch resource. |
 
-**Returns:** `RemoteResources|error`
+Returns: `RemoteResources|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:RemoteResources remoteClusters = check elasticClient->/deployments/["a1b2c3d4e5"]/elasticsearch/["main-elasticsearch"]/remote\-clusters();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"resources": []}
@@ -486,7 +487,7 @@ elasticcloud:RemoteResources remoteClusters = check elasticClient->/deployments/
 
 </details>
 
-#### Extension Operations
+#### Extension operations
 
 <details>
 <summary>List Extensions</summary>
@@ -496,15 +497,15 @@ elasticcloud:RemoteResources remoteClusters = check elasticClient->/deployments/
 Retrieves all available extensions.
 
 
-**Returns:** `Extensions|error`
+Returns: `Extensions|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:Extensions extensions = check elasticClient->/deployments/extensions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"extensions": [{"id": "ext-001", "name": "custom-analyzer", "extension_type": "bundle", "description": "Custom analysis plugin"}]}
@@ -521,15 +522,15 @@ elasticcloud:Extensions extensions = check elasticClient->/deployments/extension
 
 Creates a new extension for use with Elasticsearch deployments.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateExtensionRequest` | Yes | The extension creation data including name, type, and version. |
 
-**Returns:** `Extension|error`
+Returns: `Extension|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:Extension ext = check elasticClient->/deployments/extensions.post({
@@ -539,7 +540,7 @@ elasticcloud:Extension ext = check elasticClient->/deployments/extensions.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "ext-002", "name": "my-plugin", "extension_type": "bundle"}
@@ -556,21 +557,21 @@ elasticcloud:Extension ext = check elasticClient->/deployments/extensions.post({
 
 Retrieves the details of a specific extension.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `extensionId` | `string` | Yes | Identifier for the extension. |
 
-**Returns:** `Extension|error`
+Returns: `Extension|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:Extension ext = check elasticClient->/deployments/extensions/["ext-001"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "ext-001", "name": "custom-analyzer", "extension_type": "bundle", "description": "Custom analysis plugin", "deployments": ["a1b2c3d4e5"]}
@@ -587,15 +588,15 @@ elasticcloud:Extension ext = check elasticClient->/deployments/extensions/["ext-
 
 Deletes an extension by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `extensionId` | `string` | Yes | Identifier for the extension. |
 
-**Returns:** `EmptyResponse|error`
+Returns: `EmptyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:EmptyResponse _ = check elasticClient->/deployments/extensions/["ext-001"].delete();
@@ -605,7 +606,7 @@ elasticcloud:EmptyResponse _ = check elasticClient->/deployments/extensions/["ex
 
 </details>
 
-#### Traffic Filter Operations
+#### Traffic filter operations
 
 <details>
 <summary>List traffic filter rulesets</summary>
@@ -614,21 +615,21 @@ elasticcloud:EmptyResponse _ = check elasticClient->/deployments/extensions/["ex
 
 Retrieves all traffic filter rulesets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetTrafficFilterRulesetsQueries` | No | Query parameters to filter rulesets by region or include associations. |
 
-**Returns:** `TrafficFilterRulesets|error`
+Returns: `TrafficFilterRulesets|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:TrafficFilterRulesets rulesets = check elasticClient->/deployments/traffic\-filter/rulesets();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"rulesets": [{"id": "tf-001", "name": "office-ip-filter", "type": "ip", "include_by_default": false, "rules": [{"source": "203.0.113.0/24"}]}]}
@@ -645,15 +646,15 @@ elasticcloud:TrafficFilterRulesets rulesets = check elasticClient->/deployments/
 
 Creates a new traffic filter ruleset for controlling network access.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TrafficFilterRulesetRequest` | Yes | The ruleset definition including name, type, and rules. |
 
-**Returns:** `TrafficFilterRulesetResponse|error`
+Returns: `TrafficFilterRulesetResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:TrafficFilterRulesetResponse ruleset = check elasticClient->/deployments/traffic\-filter/rulesets.post({
@@ -664,7 +665,7 @@ elasticcloud:TrafficFilterRulesetResponse ruleset = check elasticClient->/deploy
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "tf-002"}
@@ -681,15 +682,15 @@ elasticcloud:TrafficFilterRulesetResponse ruleset = check elasticClient->/deploy
 
 Deletes a traffic filter ruleset by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `rulesetId` | `string` | Yes | Identifier for the traffic filter ruleset. |
 
-**Returns:** `EmptyResponse|error`
+Returns: `EmptyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:EmptyResponse _ = check elasticClient->/deployments/traffic\-filter/rulesets/["tf-001"].delete();
@@ -706,16 +707,16 @@ elasticcloud:EmptyResponse _ = check elasticClient->/deployments/traffic\-filter
 
 Associates a traffic filter ruleset with a deployment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `rulesetId` | `string` | Yes | Identifier for the traffic filter ruleset. |
 | `payload` | `FilterAssociation` | Yes | The association definition including entity type and ID. |
 
-**Returns:** `EmptyResponse|error`
+Returns: `EmptyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:EmptyResponse _ = check elasticClient->/deployments/traffic\-filter/rulesets/["tf-001"]/associations.post({
@@ -728,7 +729,7 @@ elasticcloud:EmptyResponse _ = check elasticClient->/deployments/traffic\-filter
 
 </details>
 
-#### Deployment Template & Stack Version Operations
+#### Deployment template & stack version operations
 
 <details>
 <summary>Get deployment templates</summary>
@@ -737,21 +738,21 @@ elasticcloud:EmptyResponse _ = check elasticClient->/deployments/traffic\-filter
 
 Retrieves available deployment templates for creating new deployments.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetDeploymentTemplatesV2Queries` | No | Query parameters including `region` and `stack_version`. |
 
-**Returns:** `DeploymentTemplateInfoV2[]|error`
+Returns: `DeploymentTemplateInfoV2[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:DeploymentTemplateInfoV2[] templates = check elasticClient->/deployments/templates(queries = {region: "gcp-asia-south1"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "gcp-general-purpose", "name": "General Purpose", "description": "A general purpose deployment template"}]
@@ -768,21 +769,21 @@ elasticcloud:DeploymentTemplateInfoV2[] templates = check elasticClient->/deploy
 
 Retrieves all available Elastic Stack versions including template version and structure.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetVersionStacksQueries` | No | Query parameters including `show_deleted` and `show_unusable`. |
 
-**Returns:** `StackVersionConfigs|error`
+Returns: `StackVersionConfigs|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:StackVersionConfigs versions = check elasticClient->/stack/versions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"stacks": [{"version": "8.17.0", "accessible": true, "min_upgradable_from": "7.17.0"}]}
@@ -792,7 +793,7 @@ elasticcloud:StackVersionConfigs versions = check elasticClient->/stack/versions
 
 </details>
 
-#### Organization Operations
+#### Organization operations
 
 <details>
 <summary>List organizations</summary>
@@ -802,15 +803,15 @@ elasticcloud:StackVersionConfigs versions = check elasticClient->/stack/versions
 Retrieves all organizations accessible to the authenticated user.
 
 
-**Returns:** `OrganizationList|error`
+Returns: `OrganizationList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:OrganizationList orgs = check elasticClient->/organizations();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"organizations": [{"id": "org-abc123", "name": "My Organization"}]}
@@ -827,21 +828,21 @@ elasticcloud:OrganizationList orgs = check elasticClient->/organizations();
 
 Retrieves detailed information about a specific organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | Identifier for the organization. |
 
-**Returns:** `Organization|error`
+Returns: `Organization|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:Organization org = check elasticClient->/organizations/["org-abc123"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "org-abc123", "name": "My Organization", "default_disk_usage_alerts_enabled": true}
@@ -858,16 +859,16 @@ elasticcloud:Organization org = check elasticClient->/organizations/["org-abc123
 
 Updates an organization's settings.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | Identifier for the organization. |
 | `payload` | `OrganizationRequest` | Yes | The organization update payload. |
 
-**Returns:** `Organization|error`
+Returns: `Organization|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:Organization updated = check elasticClient->/organizations/["org-abc123"].put({
@@ -875,7 +876,7 @@ elasticcloud:Organization updated = check elasticClient->/organizations/["org-ab
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "org-abc123", "name": "My Organization", "notifications_allowed_email_domains": ["example.com"]}
@@ -892,21 +893,21 @@ elasticcloud:Organization updated = check elasticClient->/organizations/["org-ab
 
 Retrieves all members of an organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | Identifier for the organization. |
 
-**Returns:** `OrganizationMemberships|error`
+Returns: `OrganizationMemberships|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:OrganizationMemberships members = check elasticClient->/organizations/["org-abc123"]/members();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"members": [{"user_id": "user-001", "email": "admin@example.com", "organization_id": "org-abc123"}]}
@@ -923,16 +924,16 @@ elasticcloud:OrganizationMemberships members = check elasticClient->/organizatio
 
 Sends invitations to join an organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | Identifier for the organization. |
 | `payload` | `OrganizationInvitationRequest` | Yes | The invitation request with email addresses. |
 
-**Returns:** `OrganizationInvitations|error`
+Returns: `OrganizationInvitations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:OrganizationInvitations invitations = check elasticClient->/organizations/["org-abc123"]/invitations.post({
@@ -940,7 +941,7 @@ elasticcloud:OrganizationInvitations invitations = check elasticClient->/organiz
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"invitations": [{"token": "inv-token-xyz", "email": "newuser@example.com", "accepted": false}]}
@@ -950,7 +951,7 @@ elasticcloud:OrganizationInvitations invitations = check elasticClient->/organiz
 
 </details>
 
-#### API Key Operations
+#### API key operations
 
 <details>
 <summary>Get all API keys</summary>
@@ -960,15 +961,15 @@ elasticcloud:OrganizationInvitations invitations = check elasticClient->/organiz
 Retrieves the metadata for all API keys belonging to the authenticated user.
 
 
-**Returns:** `ApiKeysResponse|error`
+Returns: `ApiKeysResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:ApiKeysResponse allKeys = check elasticClient->/users/auth/keys();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"keys": [{"id": "key-001", "description": "Production key", "creation_date": "2025-01-15T10:30:00Z"}, {"id": "key-002", "description": "Dev key", "creation_date": "2025-02-20T14:00:00Z", "expiration_date": "2025-08-20T14:00:00Z"}]}
@@ -985,15 +986,15 @@ elasticcloud:ApiKeysResponse allKeys = check elasticClient->/users/auth/keys();
 
 Creates a new API key. The key value is returned only once in the response.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateApiKeyRequest` | Yes | The API key creation request including description and optional expiration. |
 
-**Returns:** `ApiKeyResponse|error`
+Returns: `ApiKeyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:ApiKeyResponse createdKey = check elasticClient->/users/auth/keys.post({
@@ -1001,7 +1002,7 @@ elasticcloud:ApiKeyResponse createdKey = check elasticClient->/users/auth/keys.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "key-003", "key": "VnVhQ2ZHY0JDZGJrUW0tZTVhT3g6dWkybHAyYXhUTm1zeWFrdzl0dk5udw==", "description": "API key created from Ballerina", "creation_date": "2025-03-17T08:00:00Z"}
@@ -1018,21 +1019,21 @@ elasticcloud:ApiKeyResponse createdKey = check elasticClient->/users/auth/keys.p
 
 Retrieves the metadata for a specific API key by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `apiKeyId` | `string` | Yes | The API key ID. |
 
-**Returns:** `ApiKeyResponse|error`
+Returns: `ApiKeyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:ApiKeyResponse keyInfo = check elasticClient->/users/auth/keys/["key-001"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "key-001", "description": "Production key", "creation_date": "2025-01-15T10:30:00Z", "user_id": "user-001", "organization_id": "org-abc123"}
@@ -1049,15 +1050,15 @@ elasticcloud:ApiKeyResponse keyInfo = check elasticClient->/users/auth/keys/["ke
 
 Deletes a specific API key by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `apiKeyId` | `string` | Yes | The API key ID. |
 
-**Returns:** `EmptyResponse|error`
+Returns: `EmptyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:EmptyResponse _ = check elasticClient->/users/auth/keys/["key-003"].delete();
@@ -1074,15 +1075,15 @@ elasticcloud:EmptyResponse _ = check elasticClient->/users/auth/keys/["key-003"]
 
 Deletes multiple API keys at once.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `DeleteApiKeysRequest` | Yes | The list of API key IDs to delete. |
 
-**Returns:** `EmptyResponse|error`
+Returns: `EmptyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:EmptyResponse _ = check elasticClient->/users/auth/keys.delete({
@@ -1094,7 +1095,7 @@ elasticcloud:EmptyResponse _ = check elasticClient->/users/auth/keys.delete({
 
 </details>
 
-#### User Role Assignment Operations
+#### User role assignment operations
 
 <details>
 <summary>Add Role Assignments</summary>
@@ -1103,16 +1104,16 @@ elasticcloud:EmptyResponse _ = check elasticClient->/users/auth/keys.delete({
 
 Adds role assignments to a user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | Identifier for the user. |
 | `payload` | `RoleAssignments` | Yes | The role assignments to add. |
 
-**Returns:** `EmptyResponse|error`
+Returns: `EmptyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:EmptyResponse _ = check elasticClient->/users/["user-001"]/role_assignments.post({
@@ -1131,16 +1132,16 @@ elasticcloud:EmptyResponse _ = check elasticClient->/users/["user-001"]/role_ass
 
 Removes role assignments from a user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | Identifier for the user. |
 | `payload` | `RoleAssignments` | Yes | The role assignments to remove. |
 
-**Returns:** `EmptyResponse|error`
+Returns: `EmptyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:EmptyResponse _ = check elasticClient->/users/["user-001"]/role_assignments.delete({
@@ -1152,7 +1153,7 @@ elasticcloud:EmptyResponse _ = check elasticClient->/users/["user-001"]/role_ass
 
 </details>
 
-#### Trust & Security Operations
+#### Trust & security operations
 
 <details>
 <summary>Get trusted environments</summary>
@@ -1162,15 +1163,15 @@ elasticcloud:EmptyResponse _ = check elasticClient->/users/["user-001"]/role_ass
 Retrieves the trusted environment settings for the organization.
 
 
-**Returns:** `ElasticsearchClusterTrustSettings|error`
+Returns: `ElasticsearchClusterTrustSettings|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:ElasticsearchClusterTrustSettings trustSettings = check elasticClient->/trusted\-environments();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"accounts": [], "external": []}
@@ -1187,21 +1188,21 @@ elasticcloud:ElasticsearchClusterTrustSettings trustSettings = check elasticClie
 
 Retrieves the certificate authority for a deployment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `deploymentId` | `string` | Yes | Identifier for the deployment. |
 
-**Returns:** `CertificateAuthority|error`
+Returns: `CertificateAuthority|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 elasticcloud:CertificateAuthority ca = check elasticClient->/deployments/["a1b2c3d4e5"]/certificate\-authority();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pem": "-----BEGIN CERTIFICATE-----\nMIIDQTCCAimgAw...\n-----END CERTIFICATE-----\n"}

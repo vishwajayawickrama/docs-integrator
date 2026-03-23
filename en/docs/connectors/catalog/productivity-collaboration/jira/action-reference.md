@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -26,7 +27,7 @@ Jira Cloud REST API v3 — issues, projects, search, comments, workflows, users,
 | `retryConfig` | `http:RetryConfig` | `()` | Configurations associated with retrying. |
 | `secureSocket` | `http:ClientSecureSocket` | `()` | SSL/TLS-related options. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/jira;
@@ -58,16 +59,16 @@ jira:Client jiraClient = check new (config, serviceUrl);
 
 Creates a new issue in a Jira project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IssueUpdateDetails` | Yes | The issue details including project key, summary, description (ADF format), and issue type. |
 | `queries` | `CreateIssueQueries` | No | Optional query parameters such as `updateHistory`. |
 
-**Returns:** `CreatedIssue|error`
+Returns: `CreatedIssue|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueUpdateDetails issuePayload = {
@@ -95,7 +96,7 @@ jira:IssueUpdateDetails issuePayload = {
 jira:CreatedIssue issue = check jiraClient->/api/'3/issue.post(issuePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10042", "key": "PROJ-15", "self": "https://your-domain.atlassian.net/rest/api/3/issue/10042"}
@@ -112,22 +113,22 @@ jira:CreatedIssue issue = check jiraClient->/api/'3/issue.post(issuePayload);
 
 Retrieves the details of an issue by its ID or key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue (e.g., `"PROJ-15"`). |
 | `queries` | `GetIssueQueries` | No | Optional query parameters such as `fields`, `expand`, `properties`. |
 
-**Returns:** `IssueBean|error`
+Returns: `IssueBean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueBean issue = check jiraClient->/api/'3/issue/["PROJ-15"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10042", "key": "PROJ-15", "self": "https://your-domain.atlassian.net/rest/api/3/issue/10042", "fields": {"summary": "Fix login page bug", "status": {"name": "To Do"}, "issuetype": {"name": "Bug"}, "priority": {"name": "High"}}}
@@ -144,7 +145,7 @@ jira:IssueBean issue = check jiraClient->/api/'3/issue/["PROJ-15"];
 
 Edits an existing issue. Only the fields included in the request are updated.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -152,9 +153,9 @@ Edits an existing issue. Only the fields included in the request are updated.
 | `payload` | `IssueUpdateDetails` | Yes | The fields to update. |
 | `queries` | `EditIssueQueries` | No | Optional query parameters such as `notifyUsers`, `returnIssue`. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issue/["PROJ-15"].put({
@@ -165,7 +166,7 @@ json result = check jiraClient->/api/'3/issue/["PROJ-15"].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -182,16 +183,16 @@ null
 
 Deletes an issue. An issue can be deleted only if it has no sub-tasks, unless `deleteSubtasks` is set to true.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `queries` | `DeleteIssueQueries` | No | Optional query parameters such as `deleteSubtasks`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/issue/["PROJ-15"].delete();
@@ -208,16 +209,16 @@ check jiraClient->/api/'3/issue/["PROJ-15"].delete();
 
 Assigns an issue to a user by their account ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `payload` | `User` | Yes | The user to assign. Set `accountId` to the target user's account ID, or `null` to unassign. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issue/["PROJ-15"]/assignee.put({
@@ -225,7 +226,7 @@ json result = check jiraClient->/api/'3/issue/["PROJ-15"]/assignee.put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -242,22 +243,22 @@ null
 
 Returns the available workflow transitions for an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `queries` | `GetTransitionsQueries` | No | Optional query parameters such as `transitionId`, `expand`. |
 
-**Returns:** `Transitions|error`
+Returns: `Transitions|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Transitions transitions = check jiraClient->/api/'3/issue/["PROJ-15"]/transitions;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"transitions": [{"id": "11", "name": "In Progress", "to": {"name": "In Progress", "id": "3"}}, {"id": "21", "name": "Done", "to": {"name": "Done", "id": "10001"}}]}
@@ -274,16 +275,16 @@ jira:Transitions transitions = check jiraClient->/api/'3/issue/["PROJ-15"]/trans
 
 Performs a workflow transition on an issue, moving it to a new status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `payload` | `IssueUpdateDetails` | Yes | The transition details including the `transition.id`. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issue/["PROJ-15"]/transitions.post({
@@ -293,7 +294,7 @@ json result = check jiraClient->/api/'3/issue/["PROJ-15"]/transitions.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -310,15 +311,15 @@ null
 
 Creates multiple issues in a single request. Returns details of each created issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IssuesUpdateBean` | Yes | The list of issue details to create. |
 
-**Returns:** `CreatedIssues|error`
+Returns: `CreatedIssues|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:CreatedIssues issues = check jiraClient->/api/'3/issue/bulk.post({
@@ -341,7 +342,7 @@ jira:CreatedIssues issues = check jiraClient->/api/'3/issue/bulk.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"issues": [{"id": "10043", "key": "PROJ-16", "self": "https://your-domain.atlassian.net/rest/api/3/issue/10043"}, {"id": "10044", "key": "PROJ-17", "self": "https://your-domain.atlassian.net/rest/api/3/issue/10044"}], "errors": []}
@@ -360,21 +361,21 @@ jira:CreatedIssues issues = check jiraClient->/api/'3/issue/bulk.post({
 
 Searches for issues using JQL (Jira Query Language) via query parameters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `SearchForIssuesUsingJqlQueries` | No | Query parameters including `jql`, `startAt`, `maxResults`, `fields`, `expand`. |
 
-**Returns:** `SearchResults|error`
+Returns: `SearchResults|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SearchResults results = check jiraClient->/api/'3/search(jql = "project = PROJ AND status = 'To Do' ORDER BY priority DESC", maxResults = 10);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"startAt": 0, "maxResults": 10, "total": 2, "issues": [{"id": "10042", "key": "PROJ-15", "fields": {"summary": "Fix login page bug", "status": {"name": "To Do"}, "priority": {"name": "High"}}}, {"id": "10043", "key": "PROJ-16", "fields": {"summary": "Task 1", "status": {"name": "To Do"}, "priority": {"name": "Medium"}}}]}
@@ -391,15 +392,15 @@ jira:SearchResults results = check jiraClient->/api/'3/search(jql = "project = P
 
 Searches for issues using JQL via a request body. Preferred for complex or long JQL queries.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SearchRequestBean` | Yes | The search request including `jql`, `startAt`, `maxResults`, `fields`. |
 
-**Returns:** `SearchResults|error`
+Returns: `SearchResults|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SearchResults results = check jiraClient->/api/'3/search.post({
@@ -409,7 +410,7 @@ jira:SearchResults results = check jiraClient->/api/'3/search.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"startAt": 0, "maxResults": 25, "total": 1, "issues": [{"id": "10042", "key": "PROJ-15", "fields": {"summary": "Fix login page bug", "status": {"name": "To Do"}, "assignee": {"displayName": "John Doe"}, "priority": {"name": "High"}}}]}
@@ -428,22 +429,22 @@ jira:SearchResults results = check jiraClient->/api/'3/search.post({
 
 Returns all comments on an issue, paginated.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `queries` | `GetCommentsQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `orderBy`, `expand`. |
 
-**Returns:** `PageOfComments|error`
+Returns: `PageOfComments|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageOfComments comments = check jiraClient->/api/'3/issue/["PROJ-15"]/comment;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"startAt": 0, "maxResults": 50, "total": 1, "comments": [{"id": "10001", "author": {"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}, "body": {"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Sample comment"}]}]}, "created": "2025-01-15T10:30:00.000+0000"}]}
@@ -460,7 +461,7 @@ jira:PageOfComments comments = check jiraClient->/api/'3/issue/["PROJ-15"]/comme
 
 Adds a comment to an issue. The comment body uses Atlassian Document Format (ADF).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -468,9 +469,9 @@ Adds a comment to an issue. The comment body uses Atlassian Document Format (ADF
 | `payload` | `Comment` | Yes | The comment details including body in ADF format. |
 | `queries` | `AddCommentQueries` | No | Optional query parameters such as `expand`. |
 
-**Returns:** `Comment|error`
+Returns: `Comment|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Comment comment = check jiraClient->/api/'3/issue/["PROJ-15"]/comment.post({
@@ -492,7 +493,7 @@ jira:Comment comment = check jiraClient->/api/'3/issue/["PROJ-15"]/comment.post(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10002", "author": {"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}, "body": {"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": "This issue has been reviewed and approved."}]}]}, "created": "2025-01-15T11:00:00.000+0000"}
@@ -509,22 +510,22 @@ jira:Comment comment = check jiraClient->/api/'3/issue/["PROJ-15"]/comment.post(
 
 Returns a specific comment on an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `id` | `string` | Yes | The ID of the comment. |
 
-**Returns:** `Comment|error`
+Returns: `Comment|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Comment comment = check jiraClient->/api/'3/issue/["PROJ-15"]/comment/["10001"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10001", "author": {"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}, "body": {"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Sample comment"}]}]}, "created": "2025-01-15T10:30:00.000+0000"}
@@ -541,7 +542,7 @@ jira:Comment comment = check jiraClient->/api/'3/issue/["PROJ-15"]/comment/["100
 
 Updates an existing comment on an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -549,9 +550,9 @@ Updates an existing comment on an issue.
 | `id` | `string` | Yes | The ID of the comment. |
 | `payload` | `Comment` | Yes | The updated comment body. |
 
-**Returns:** `Comment|error`
+Returns: `Comment|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Comment updated = check jiraClient->/api/'3/issue/["PROJ-15"]/comment/["10001"].put({
@@ -570,7 +571,7 @@ jira:Comment updated = check jiraClient->/api/'3/issue/["PROJ-15"]/comment/["100
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10001", "author": {"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}, "body": {"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": "Updated comment text."}]}]}, "updated": "2025-01-15T12:00:00.000+0000"}
@@ -587,16 +588,16 @@ jira:Comment updated = check jiraClient->/api/'3/issue/["PROJ-15"]/comment/["100
 
 Deletes a comment from an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `id` | `string` | Yes | The ID of the comment. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/issue/["PROJ-15"]/comment/["10001"].delete();
@@ -615,15 +616,15 @@ check jiraClient->/api/'3/issue/["PROJ-15"]/comment/["10001"].delete();
 
 Creates a new Jira project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateProjectDetails` | Yes | The project details including key, name, project type key, and lead account ID. |
 
-**Returns:** `ProjectIdentifiers|error`
+Returns: `ProjectIdentifiers|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectIdentifiers project = check jiraClient->/api/'3/project.post({
@@ -634,7 +635,7 @@ jira:ProjectIdentifiers project = check jiraClient->/api/'3/project.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/project/10001", "id": 10001, "key": "NEWPROJ"}
@@ -651,21 +652,21 @@ jira:ProjectIdentifiers project = check jiraClient->/api/'3/project.post({
 
 Returns all projects visible to the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAllProjectsQueries` | No | Optional query parameters such as `expand`, `recent`, `properties`. |
 
-**Returns:** `Project[]|error`
+Returns: `Project[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Project[] projects = check jiraClient->/api/'3/project;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/project/10001", "id": "10001", "key": "PROJ", "name": "My Project", "projectTypeKey": "software"}]
@@ -682,22 +683,22 @@ jira:Project[] projects = check jiraClient->/api/'3/project;
 
 Returns the details of a project by its ID or key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 | `queries` | `GetProjectQueries` | No | Optional query parameters such as `expand`, `properties`. |
 
-**Returns:** `Project|error`
+Returns: `Project|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Project project = check jiraClient->/api/'3/project/["PROJ"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/project/10001", "id": "10001", "key": "PROJ", "name": "My Project", "projectTypeKey": "software", "lead": {"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}}
@@ -714,16 +715,16 @@ jira:Project project = check jiraClient->/api/'3/project/["PROJ"];
 
 Updates the details of a project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 | `payload` | `UpdateProjectDetails` | Yes | The project details to update. |
 
-**Returns:** `Project|error`
+Returns: `Project|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Project updated = check jiraClient->/api/'3/project/["PROJ"].put({
@@ -732,7 +733,7 @@ jira:Project updated = check jiraClient->/api/'3/project/["PROJ"].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/project/10001", "id": "10001", "key": "PROJ", "name": "Updated Project Name"}
@@ -749,16 +750,16 @@ jira:Project updated = check jiraClient->/api/'3/project/["PROJ"].put({
 
 Deletes a project. All issues and components associated with the project are also deleted.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 | `queries` | `DeleteProjectQueries` | No | Optional query parameters such as `enableUndo`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/project/["PROJ"].delete();
@@ -775,21 +776,21 @@ check jiraClient->/api/'3/project/["PROJ"].delete();
 
 Returns a paginated list of projects matching the search criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `SearchProjectsQueries` | No | Query parameters including `query`, `typeKey`, `categoryId`, `expand`, `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanProject|error`
+Returns: `PageBeanProject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanProject results = check jiraClient->/api/'3/project/search(query = "Mobile");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/project/search?query=Mobile", "maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10002", "key": "MOB", "name": "Mobile App", "projectTypeKey": "software"}]}
@@ -808,21 +809,21 @@ jira:PageBeanProject results = check jiraClient->/api/'3/project/search(query = 
 
 Returns details of the currently authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetCurrentUserQueries` | No | Optional query parameters such as `expand`. |
 
-**Returns:** `User|error`
+Returns: `User|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:User me = check jiraClient->/api/'3/myself;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/user?accountId=5b10ac8d82e05b22cc7d4ef5", "accountId": "5b10ac8d82e05b22cc7d4ef5", "emailAddress": "john@example.com", "displayName": "John Doe", "active": true}
@@ -839,21 +840,21 @@ jira:User me = check jiraClient->/api/'3/myself;
 
 Returns details of a user by account ID, username, or key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetUserQueries` | No | Query parameters including `accountId`, `username`, `key`, `expand`. |
 
-**Returns:** `User|error`
+Returns: `User|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:User user = check jiraClient->/api/'3/user(accountId = "5b10ac8d82e05b22cc7d4ef5");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/user?accountId=5b10ac8d82e05b22cc7d4ef5", "accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe", "emailAddress": "john@example.com", "active": true}
@@ -870,21 +871,21 @@ jira:User user = check jiraClient->/api/'3/user(accountId = "5b10ac8d82e05b22cc7
 
 Returns a list of users matching the search string.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `FindUsersQueries` | No | Query parameters including `query`, `startAt`, `maxResults`. |
 
-**Returns:** `User[]|error`
+Returns: `User[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:User[] users = check jiraClient->/api/'3/user/search(query = "john");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/user?accountId=5b10ac8d82e05b22cc7d4ef5", "accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe", "active": true}]
@@ -901,21 +902,21 @@ jira:User[] users = check jiraClient->/api/'3/user/search(query = "john");
 
 Returns users that can be assigned to an issue in a given project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `FindAssignableUsersQueries` | No | Query parameters including `query`, `project`, `issueKey`, `maxResults`. |
 
-**Returns:** `User[]|error`
+Returns: `User[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:User[] assignable = check jiraClient->/api/'3/user/assignable/search(project = "PROJ");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe", "active": true}, {"accountId": "5b10ac8d82e05b22cc7d4ef6", "displayName": "Jane Smith", "active": true}]
@@ -934,22 +935,22 @@ jira:User[] assignable = check jiraClient->/api/'3/user/assignable/search(projec
 
 Returns all worklogs for an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `queries` | `GetIssueWorklogQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `expand`. |
 
-**Returns:** `PageOfWorklogs|error`
+Returns: `PageOfWorklogs|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageOfWorklogs worklogs = check jiraClient->/api/'3/issue/["PROJ-15"]/worklog;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"startAt": 0, "maxResults": 1048576, "total": 1, "worklogs": [{"id": "100028", "author": {"displayName": "John Doe"}, "timeSpent": "3h 20m", "timeSpentSeconds": 12000, "started": "2025-01-15T09:00:00.000+0000"}]}
@@ -966,16 +967,16 @@ jira:PageOfWorklogs worklogs = check jiraClient->/api/'3/issue/["PROJ-15"]/workl
 
 Adds a worklog entry to an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `payload` | `Worklog` | Yes | The worklog details including `timeSpentSeconds` or `timeSpent` and `started`. |
 
-**Returns:** `Worklog|error`
+Returns: `Worklog|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Worklog worklog = check jiraClient->/api/'3/issue/["PROJ-15"]/worklog.post({
@@ -984,7 +985,7 @@ jira:Worklog worklog = check jiraClient->/api/'3/issue/["PROJ-15"]/worklog.post(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "100029", "author": {"displayName": "John Doe"}, "timeSpent": "2h", "timeSpentSeconds": 7200, "started": "2025-01-15T09:00:00.000+0000"}
@@ -994,7 +995,7 @@ jira:Worklog worklog = check jiraClient->/api/'3/issue/["PROJ-15"]/worklog.post(
 
 </details>
 
-#### Watchers & Votes
+#### Watchers & votes
 
 <details>
 <summary>Get issue watchers</summary>
@@ -1003,21 +1004,21 @@ jira:Worklog worklog = check jiraClient->/api/'3/issue/["PROJ-15"]/worklog.post(
 
 Returns the list of watchers for an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 
-**Returns:** `Watchers|error`
+Returns: `Watchers|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Watchers watchers = check jiraClient->/api/'3/issue/["PROJ-15"]/watchers;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/issue/PROJ-15/watchers", "watchCount": 2, "isWatching": true, "watchers": [{"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}]}
@@ -1034,22 +1035,22 @@ jira:Watchers watchers = check jiraClient->/api/'3/issue/["PROJ-15"]/watchers;
 
 Adds a user as a watcher of an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `payload` | `string` | Yes | The account ID of the user to add as a watcher (as a quoted string). |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issue/["PROJ-15"]/watchers.post("\"5b10ac8d82e05b22cc7d4ef5\"");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -1066,21 +1067,21 @@ null
 
 Returns the votes for an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 
-**Returns:** `Votes|error`
+Returns: `Votes|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Votes votes = check jiraClient->/api/'3/issue/["PROJ-15"]/votes;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/issue/PROJ-15/votes", "votes": 3, "hasVoted": false, "voters": [{"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}]}
@@ -1090,7 +1091,7 @@ jira:Votes votes = check jiraClient->/api/'3/issue/["PROJ-15"]/votes;
 
 </details>
 
-#### Issue Links
+#### Issue links
 
 <details>
 <summary>Create issue link</summary>
@@ -1099,15 +1100,15 @@ jira:Votes votes = check jiraClient->/api/'3/issue/["PROJ-15"]/votes;
 
 Creates a link between two issues.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `LinkIssueRequestJsonBean` | Yes | The link details including link type, inward issue, and outward issue. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issueLink.post({
@@ -1117,7 +1118,7 @@ json result = check jiraClient->/api/'3/issueLink.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -1134,21 +1135,21 @@ null
 
 Returns an issue link by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `linkId` | `string` | Yes | The ID of the issue link. |
 
-**Returns:** `IssueLink|error`
+Returns: `IssueLink|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueLink link = check jiraClient->/api/'3/issueLink/["10001"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10001", "type": {"id": "10000", "name": "Blocks", "inward": "is blocked by", "outward": "blocks"}, "inwardIssue": {"id": "10043", "key": "PROJ-16"}, "outwardIssue": {"id": "10042", "key": "PROJ-15"}}
@@ -1165,15 +1166,15 @@ jira:IssueLink link = check jiraClient->/api/'3/issueLink/["10001"];
 
 Deletes an issue link.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `linkId` | `string` | Yes | The ID of the issue link. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/issueLink/["10001"].delete();
@@ -1183,7 +1184,7 @@ check jiraClient->/api/'3/issueLink/["10001"].delete();
 
 </details>
 
-#### Issue Types
+#### Issue types
 
 <details>
 <summary>Get all issue types</summary>
@@ -1193,15 +1194,15 @@ check jiraClient->/api/'3/issueLink/["10001"].delete();
 Returns all issue types available in the Jira instance.
 
 
-**Returns:** `IssueTypeDetails[]|error`
+Returns: `IssueTypeDetails[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueTypeDetails[] issueTypes = check jiraClient->/api/'3/issuetype;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/issuetype/10001", "id": "10001", "name": "Bug", "subtask": false, "description": "A problem or error."}, {"self": "https://your-domain.atlassian.net/rest/api/3/issuetype/10002", "id": "10002", "name": "Task", "subtask": false, "description": "A task that needs to be done."}]
@@ -1218,21 +1219,21 @@ jira:IssueTypeDetails[] issueTypes = check jiraClient->/api/'3/issuetype;
 
 Returns the issue types available for a specific project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetIssueTypesForProjectQueries` | Yes | Query parameters including `projectId`. |
 
-**Returns:** `IssueTypeDetails[]|error`
+Returns: `IssueTypeDetails[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueTypeDetails[] types = check jiraClient->/api/'3/issuetype/project(projectId = 10001);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "10001", "name": "Bug", "subtask": false}, {"id": "10002", "name": "Task", "subtask": false}, {"id": "10003", "name": "Story", "subtask": false}]
@@ -1251,15 +1252,15 @@ jira:IssueTypeDetails[] types = check jiraClient->/api/'3/issuetype/project(proj
 
 Creates a project version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Version` | Yes | The version details including name, project ID, and optional release/start dates. |
 
-**Returns:** `Version|error`
+Returns: `Version|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Version version = check jiraClient->/api/'3/version.post({
@@ -1270,7 +1271,7 @@ jira:Version version = check jiraClient->/api/'3/version.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/version/10000", "id": "10000", "name": "v1.0.0", "projectId": 10001, "released": false, "releaseDate": "2025-03-01"}
@@ -1287,21 +1288,21 @@ jira:Version version = check jiraClient->/api/'3/version.post({
 
 Returns a project version by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the version. |
 
-**Returns:** `Version|error`
+Returns: `Version|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Version version = check jiraClient->/api/'3/version/["10000"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/version/10000", "id": "10000", "name": "v1.0.0", "projectId": 10001, "released": false, "releaseDate": "2025-03-01"}
@@ -1318,16 +1319,16 @@ jira:Version version = check jiraClient->/api/'3/version/["10000"];
 
 Updates a project version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the version. |
 | `payload` | `Version` | Yes | The updated version details. |
 
-**Returns:** `Version|error`
+Returns: `Version|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Version updated = check jiraClient->/api/'3/version/["10000"].put({
@@ -1336,7 +1337,7 @@ jira:Version updated = check jiraClient->/api/'3/version/["10000"].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10000", "name": "v1.0.0", "projectId": 10001, "released": true, "releaseDate": "2025-02-28"}
@@ -1353,15 +1354,15 @@ jira:Version updated = check jiraClient->/api/'3/version/["10000"].put({
 
 Deletes a project version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the version. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/version/["10000"].delete();
@@ -1378,21 +1379,21 @@ check jiraClient->/api/'3/version/["10000"].delete();
 
 Returns the number of issues in each status category for a version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the version. |
 
-**Returns:** `VersionIssueCounts|error`
+Returns: `VersionIssueCounts|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:VersionIssueCounts counts = check jiraClient->/api/'3/version/["10000"]/relatedIssueCounts;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/version/10000/relatedIssueCounts", "issuesFixedCount": 5, "issuesAffectedCount": 12, "issueCountWithCustomFieldsShowingVersion": 3}
@@ -1411,15 +1412,15 @@ jira:VersionIssueCounts counts = check jiraClient->/api/'3/version/["10000"]/rel
 
 Creates a new project component.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ProjectComponent` | Yes | The component details including name and project reference. |
 
-**Returns:** `ProjectComponent|error`
+Returns: `ProjectComponent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectComponent component = check jiraClient->/api/'3/component.post({
@@ -1429,7 +1430,7 @@ jira:ProjectComponent component = check jiraClient->/api/'3/component.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/component/10000", "id": "10000", "name": "Backend", "project": "PROJ", "lead": {"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}}
@@ -1446,21 +1447,21 @@ jira:ProjectComponent component = check jiraClient->/api/'3/component.post({
 
 Returns a project component by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the component. |
 
-**Returns:** `ProjectComponent|error`
+Returns: `ProjectComponent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectComponent component = check jiraClient->/api/'3/component/["10000"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/component/10000", "id": "10000", "name": "Backend", "project": "PROJ"}
@@ -1477,16 +1478,16 @@ jira:ProjectComponent component = check jiraClient->/api/'3/component/["10000"];
 
 Updates a project component.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the component. |
 | `payload` | `ProjectComponent` | Yes | The updated component details. |
 
-**Returns:** `ProjectComponent|error`
+Returns: `ProjectComponent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectComponent updated = check jiraClient->/api/'3/component/["10000"].put({
@@ -1495,7 +1496,7 @@ jira:ProjectComponent updated = check jiraClient->/api/'3/component/["10000"].pu
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10000", "name": "Backend Services", "description": "All backend microservices", "project": "PROJ"}
@@ -1512,15 +1513,15 @@ jira:ProjectComponent updated = check jiraClient->/api/'3/component/["10000"].pu
 
 Deletes a project component.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the component. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/component/["10000"].delete();
@@ -1530,7 +1531,7 @@ check jiraClient->/api/'3/component/["10000"].delete();
 
 </details>
 
-#### Priorities & Statuses
+#### Priorities & statuses
 
 <details>
 <summary>Get all priorities</summary>
@@ -1540,15 +1541,15 @@ check jiraClient->/api/'3/component/["10000"].delete();
 Returns all issue priorities.
 
 
-**Returns:** `Priority[]|error`
+Returns: `Priority[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Priority[] priorities = check jiraClient->/api/'3/priority;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/priority/1", "id": "1", "name": "Highest", "iconUrl": "https://your-domain.atlassian.net/images/icons/priorities/highest.svg"}, {"self": "https://your-domain.atlassian.net/rest/api/3/priority/2", "id": "2", "name": "High"}, {"self": "https://your-domain.atlassian.net/rest/api/3/priority/3", "id": "3", "name": "Medium"}]
@@ -1566,15 +1567,15 @@ jira:Priority[] priorities = check jiraClient->/api/'3/priority;
 Returns all statuses associated with workflows.
 
 
-**Returns:** `StatusDetails[]|error`
+Returns: `StatusDetails[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:StatusDetails[] statuses = check jiraClient->/api/'3/status;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/status/1", "id": "1", "name": "Open", "statusCategory": {"id": 2, "key": "new", "name": "To Do"}}, {"self": "https://your-domain.atlassian.net/rest/api/3/status/3", "id": "3", "name": "In Progress", "statusCategory": {"id": 4, "key": "indeterminate", "name": "In Progress"}}]
@@ -1591,21 +1592,21 @@ jira:StatusDetails[] statuses = check jiraClient->/api/'3/status;
 
 Returns a paginated list of all labels.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAllLabelsQueries` | No | Optional query parameters such as `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanString|error`
+Returns: `PageBeanString|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanString labels = check jiraClient->/api/'3/label;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 1000, "startAt": 0, "total": 3, "isLast": true, "values": ["backend", "frontend", "urgent"]}
@@ -1624,21 +1625,21 @@ jira:PageBeanString labels = check jiraClient->/api/'3/label;
 
 Returns a group with its name and members.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetGroupQueries` | Yes | Query parameters including `groupname` or `groupId`, and optional `expand`. |
 
-**Returns:** `Group|error`
+Returns: `Group|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Group group = check jiraClient->/api/'3/group(groupname = "jira-software-users");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "jira-software-users", "self": "https://your-domain.atlassian.net/rest/api/3/group?groupname=jira-software-users", "users": {"size": 25, "items": [], "max-results": 50, "start-index": 0, "end-index": 0}}
@@ -1655,21 +1656,21 @@ jira:Group group = check jiraClient->/api/'3/group(groupname = "jira-software-us
 
 Creates a new group.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AddGroupBean` | Yes | The group name. |
 
-**Returns:** `Group|error`
+Returns: `Group|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Group group = check jiraClient->/api/'3/group.post({name: "new-team-group"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "new-team-group", "self": "https://your-domain.atlassian.net/rest/api/3/group?groupname=new-team-group"}
@@ -1686,21 +1687,21 @@ jira:Group group = check jiraClient->/api/'3/group.post({name: "new-team-group"}
 
 Returns the members of a group.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetUsersFromGroupQueries` | Yes | Query parameters including `groupname` or `groupId`, `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanUserDetails|error`
+Returns: `PageBeanUserDetails|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanUserDetails members = check jiraClient->/api/'3/group/member(groupname = "jira-software-users");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/group/member?groupname=jira-software-users", "maxResults": 50, "startAt": 0, "total": 2, "isLast": true, "values": [{"self": "https://your-domain.atlassian.net/rest/api/3/user?accountId=5b10ac8d82e05b22cc7d4ef5", "accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe", "active": true}]}
@@ -1719,21 +1720,21 @@ jira:PageBeanUserDetails members = check jiraClient->/api/'3/group/member(groupn
 
 Returns a paginated list of dashboards matching the search criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetDashboardsPaginatedQueries` | No | Query parameters including `dashboardName`, `startAt`, `maxResults`, `expand`. |
 
-**Returns:** `PageBeanDashboard|error`
+Returns: `PageBeanDashboard|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanDashboard dashboards = check jiraClient->/api/'3/dashboard/search(dashboardName = "Sprint");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10001", "name": "Sprint Dashboard", "self": "https://your-domain.atlassian.net/rest/api/3/dashboard/10001", "owner": {"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}}]}
@@ -1750,15 +1751,15 @@ jira:PageBeanDashboard dashboards = check jiraClient->/api/'3/dashboard/search(d
 
 Creates a new dashboard.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `DashboardDetails` | Yes | The dashboard details including name and share permissions. |
 
-**Returns:** `Dashboard|error`
+Returns: `Dashboard|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Dashboard dashboard = check jiraClient->/api/'3/dashboard.post({
@@ -1769,7 +1770,7 @@ jira:Dashboard dashboard = check jiraClient->/api/'3/dashboard.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10002", "name": "Team Dashboard", "self": "https://your-domain.atlassian.net/rest/api/3/dashboard/10002", "owner": {"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}}
@@ -1786,21 +1787,21 @@ jira:Dashboard dashboard = check jiraClient->/api/'3/dashboard.post({
 
 Returns a dashboard by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the dashboard. |
 
-**Returns:** `Dashboard|error`
+Returns: `Dashboard|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Dashboard dashboard = check jiraClient->/api/'3/dashboard/["10001"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10001", "name": "Sprint Dashboard", "self": "https://your-domain.atlassian.net/rest/api/3/dashboard/10001", "owner": {"accountId": "5b10ac8d82e05b22cc7d4ef5", "displayName": "John Doe"}}
@@ -1817,15 +1818,15 @@ jira:Dashboard dashboard = check jiraClient->/api/'3/dashboard/["10001"];
 
 Deletes a dashboard.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the dashboard. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/dashboard/["10001"].delete();
@@ -1844,16 +1845,16 @@ check jiraClient->/api/'3/dashboard/["10001"].delete();
 
 Adds one or more attachments to an issue via multipart file upload.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `payload` | `MultipartFile[]` | Yes | Array of files to attach. |
 
-**Returns:** `Attachment[]|error`
+Returns: `Attachment[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Attachment[] attachments = check jiraClient->/api/'3/issue/["PROJ-15"]/attachments.post([
@@ -1861,7 +1862,7 @@ jira:Attachment[] attachments = check jiraClient->/api/'3/issue/["PROJ-15"]/atta
 ]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/attachment/10000", "id": "10000", "filename": "report.pdf", "size": 24576, "mimeType": "application/pdf"}]
@@ -1878,21 +1879,21 @@ jira:Attachment[] attachments = check jiraClient->/api/'3/issue/["PROJ-15"]/atta
 
 Returns metadata for an attachment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the attachment. |
 
-**Returns:** `AttachmentMetadata|error`
+Returns: `AttachmentMetadata|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:AttachmentMetadata meta = check jiraClient->/api/'3/attachment/["10000"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/attachment/10000", "id": "10000", "filename": "report.pdf", "size": 24576, "mimeType": "application/pdf", "created": "2025-01-15T10:30:00.000+0000"}
@@ -1909,15 +1910,15 @@ jira:AttachmentMetadata meta = check jiraClient->/api/'3/attachment/["10000"];
 
 Deletes an attachment from an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the attachment. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/attachment/["10000"].delete();
@@ -1936,15 +1937,15 @@ check jiraClient->/api/'3/attachment/["10000"].delete();
 
 Creates a new filter (saved JQL query).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Filter` | Yes | The filter details including name and JQL. |
 
-**Returns:** `Filter|error`
+Returns: `Filter|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Filter filter = check jiraClient->/api/'3/filter.post({
@@ -1954,7 +1955,7 @@ jira:Filter filter = check jiraClient->/api/'3/filter.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/filter/10001", "id": "10001", "name": "My Open Bugs", "jql": "project = PROJ AND issuetype = Bug AND status != Done", "favourite": true}
@@ -1971,21 +1972,21 @@ jira:Filter filter = check jiraClient->/api/'3/filter.post({
 
 Returns a paginated list of filters matching the search criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetFiltersPaginatedQueries` | No | Query parameters including `filterName`, `expand`, `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanFilterDetails|error`
+Returns: `PageBeanFilterDetails|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanFilterDetails filters = check jiraClient->/api/'3/filter/search(filterName = "Bug");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10001", "name": "My Open Bugs", "jql": "project = PROJ AND issuetype = Bug AND status != Done"}]}
@@ -2004,21 +2005,21 @@ jira:PageBeanFilterDetails filters = check jiraClient->/api/'3/filter/search(fil
 
 Returns a paginated list of workflows.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetWorkflowsPaginatedQueries` | No | Query parameters including `workflowName`, `expand`, `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanWorkflow|error`
+Returns: `PageBeanWorkflow|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanWorkflow workflows = check jiraClient->/api/'3/workflow/search;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "isLast": true, "values": [{"id": {"name": "jira"}, "description": "The default Jira workflow.", "transitions": [{"id": "1", "name": "Create", "to": {"id": "1", "name": "Open"}}]}]}
@@ -2028,7 +2029,7 @@ jira:PageBeanWorkflow workflows = check jiraClient->/api/'3/workflow/search;
 
 </details>
 
-#### Server Info
+#### Server info
 
 <details>
 <summary>Get server info</summary>
@@ -2038,15 +2039,15 @@ jira:PageBeanWorkflow workflows = check jiraClient->/api/'3/workflow/search;
 Returns information about the Jira instance.
 
 
-**Returns:** `ServerInformation|error`
+Returns: `ServerInformation|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ServerInformation info = check jiraClient->/api/'3/serverInfo;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"baseUrl": "https://your-domain.atlassian.net", "version": "1001.0.0-SNAPSHOT", "versionNumbers": [1001, 0, 0], "deploymentType": "Cloud", "scmInfo": "unknown", "serverTitle": "Jira"}
@@ -2056,7 +2057,7 @@ jira:ServerInformation info = check jiraClient->/api/'3/serverInfo;
 
 </details>
 
-#### Bulk Operations
+#### Bulk operations
 
 <details>
 <summary>Bulk delete issues</summary>
@@ -2065,15 +2066,15 @@ jira:ServerInformation info = check jiraClient->/api/'3/serverInfo;
 
 Submits a bulk delete operation for multiple issues.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IssueBulkDeletePayload` | Yes | The list of issue IDs or keys to delete. |
 
-**Returns:** `SubmittedBulkOperation|error`
+Returns: `SubmittedBulkOperation|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SubmittedBulkOperation op = check jiraClient->/api/'3/bulk/issues/delete.post({
@@ -2082,7 +2083,7 @@ jira:SubmittedBulkOperation op = check jiraClient->/api/'3/bulk/issues/delete.po
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"taskId": "10001"}
@@ -2099,15 +2100,15 @@ jira:SubmittedBulkOperation op = check jiraClient->/api/'3/bulk/issues/delete.po
 
 Submits a bulk transition operation to move multiple issues to a new status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IssueBulkTransitionPayload` | Yes | The transition details for the issues. |
 
-**Returns:** `SubmittedBulkOperation|error`
+Returns: `SubmittedBulkOperation|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SubmittedBulkOperation op = check jiraClient->/api/'3/bulk/issues/transition.post({
@@ -2119,7 +2120,7 @@ jira:SubmittedBulkOperation op = check jiraClient->/api/'3/bulk/issues/transitio
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"taskId": "10002"}
@@ -2136,21 +2137,21 @@ jira:SubmittedBulkOperation op = check jiraClient->/api/'3/bulk/issues/transitio
 
 Returns the progress of a bulk operation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `taskId` | `string` | Yes | The ID of the bulk operation task. |
 
-**Returns:** `BulkOperationProgress|error`
+Returns: `BulkOperationProgress|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:BulkOperationProgress progress = check jiraClient->/api/'3/bulk/queue/["10001"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"taskId": "10001", "status": "COMPLETE", "progressPercent": 100, "submittedBy": {"accountId": "5b10ac8d82e05b22cc7d4ef5"}, "created": 1705312200000, "started": 1705312201000, "finished": 1705312205000}
@@ -2160,7 +2161,7 @@ jira:BulkOperationProgress progress = check jiraClient->/api/'3/bulk/queue/["100
 
 </details>
 
-#### Remote Issue Links
+#### Remote issue links
 
 <details>
 <summary>Get remote issue links</summary>
@@ -2169,21 +2170,21 @@ jira:BulkOperationProgress progress = check jiraClient->/api/'3/bulk/queue/["100
 
 Returns the remote issue links for an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 
-**Returns:** `RemoteIssueLink|error`
+Returns: `RemoteIssueLink|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:RemoteIssueLink links = check jiraClient->/api/'3/issue/["PROJ-15"]/remotelink;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10000, "self": "https://your-domain.atlassian.net/rest/api/3/issue/PROJ-15/remotelink/10000", "object": {"url": "https://github.com/org/repo/pull/42", "title": "PR #42 - Fix login bug"}}
@@ -2200,16 +2201,16 @@ jira:RemoteIssueLink links = check jiraClient->/api/'3/issue/["PROJ-15"]/remotel
 
 Creates a remote issue link that associates an issue with an external resource.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `payload` | `RemoteIssueLinkRequest` | Yes | The remote link details including the external object URL and title. |
 
-**Returns:** `RemoteIssueLinkIdentifies|error`
+Returns: `RemoteIssueLinkIdentifies|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:RemoteIssueLinkIdentifies link = check jiraClient->/api/'3/issue/["PROJ-15"]/remotelink.post({
@@ -2220,7 +2221,7 @@ jira:RemoteIssueLinkIdentifies link = check jiraClient->/api/'3/issue/["PROJ-15"
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10001, "self": "https://your-domain.atlassian.net/rest/api/3/issue/PROJ-15/remotelink/10001"}
@@ -2240,15 +2241,15 @@ jira:RemoteIssueLinkIdentifies link = check jiraClient->/api/'3/issue/["PROJ-15"
 Returns all permissions available in Jira, including custom permissions.
 
 
-**Returns:** `Permissions|error`
+Returns: `Permissions|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Permissions permissions = check jiraClient->/api/'3/permissions;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"permissions": {"BROWSE_PROJECTS": {"key": "BROWSE_PROJECTS", "name": "Browse Projects", "type": "PROJECT", "description": "Ability to browse projects."}, "CREATE_ISSUES": {"key": "CREATE_ISSUES", "name": "Create Issues", "type": "PROJECT", "description": "Ability to create issues."}}}
@@ -2265,15 +2266,15 @@ jira:Permissions permissions = check jiraClient->/api/'3/permissions;
 
 Returns whether the user has the specified permissions for the given resources.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BulkPermissionsRequestBean` | Yes | The permission check request including permissions and resource context. |
 
-**Returns:** `BulkPermissionGrants|error`
+Returns: `BulkPermissionGrants|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:BulkPermissionGrants grants = check jiraClient->/api/'3/permissions/check.post({
@@ -2286,7 +2287,7 @@ jira:BulkPermissionGrants grants = check jiraClient->/api/'3/permissions/check.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"projectPermissions": [{"permission": "BROWSE_PROJECTS", "projects": [10001]}, {"permission": "CREATE_ISSUES", "projects": [10001]}]}
@@ -2303,21 +2304,21 @@ jira:BulkPermissionGrants grants = check jiraClient->/api/'3/permissions/check.p
 
 Returns the permissions the current user has for the given project, issue, or globally.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetMyPermissionsQueries` | No | Query parameters including `permissions`, `projectKey`, `issueKey`. |
 
-**Returns:** `Permissions|error`
+Returns: `Permissions|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Permissions myPerms = check jiraClient->/api/'3/mypermissions(permissions = "BROWSE_PROJECTS,CREATE_ISSUES", projectKey = "PROJ");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"permissions": {"BROWSE_PROJECTS": {"key": "BROWSE_PROJECTS", "name": "Browse Projects", "havePermission": true}, "CREATE_ISSUES": {"key": "CREATE_ISSUES", "name": "Create Issues", "havePermission": true}}}
@@ -2327,7 +2328,7 @@ jira:Permissions myPerms = check jiraClient->/api/'3/mypermissions(permissions =
 
 </details>
 
-#### Permission Schemes
+#### Permission schemes
 
 <details>
 <summary>Get all permission schemes</summary>
@@ -2336,21 +2337,21 @@ jira:Permissions myPerms = check jiraClient->/api/'3/mypermissions(permissions =
 
 Returns all permission schemes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAllPermissionSchemesQueries` | No | Optional query parameters such as `expand`. |
 
-**Returns:** `PermissionSchemes|error`
+Returns: `PermissionSchemes|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PermissionSchemes schemes = check jiraClient->/api/'3/permissionscheme;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"permissionSchemes": [{"id": 10000, "self": "https://your-domain.atlassian.net/rest/api/3/permissionscheme/10000", "name": "Default Permission Scheme", "description": "Default scheme"}]}
@@ -2367,15 +2368,15 @@ jira:PermissionSchemes schemes = check jiraClient->/api/'3/permissionscheme;
 
 Creates a new permission scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PermissionScheme` | Yes | The permission scheme details including name and permissions. |
 
-**Returns:** `PermissionScheme|error`
+Returns: `PermissionScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PermissionScheme scheme = check jiraClient->/api/'3/permissionscheme.post({
@@ -2384,7 +2385,7 @@ jira:PermissionScheme scheme = check jiraClient->/api/'3/permissionscheme.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10001, "self": "https://your-domain.atlassian.net/rest/api/3/permissionscheme/10001", "name": "Custom Permission Scheme", "description": "Permissions for the engineering team"}
@@ -2401,21 +2402,21 @@ jira:PermissionScheme scheme = check jiraClient->/api/'3/permissionscheme.post({
 
 Returns a permission scheme by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `schemeId` | `int` | Yes | The ID of the permission scheme. |
 
-**Returns:** `PermissionScheme|error`
+Returns: `PermissionScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PermissionScheme scheme = check jiraClient->/api/'3/permissionscheme/[10000];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10000, "name": "Default Permission Scheme", "description": "Default scheme", "permissions": [{"id": 10001, "holder": {"type": "group", "parameter": "jira-software-users"}, "permission": "BROWSE_PROJECTS"}]}
@@ -2432,16 +2433,16 @@ jira:PermissionScheme scheme = check jiraClient->/api/'3/permissionscheme/[10000
 
 Updates a permission scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `schemeId` | `int` | Yes | The ID of the permission scheme. |
 | `payload` | `PermissionScheme` | Yes | The updated permission scheme details. |
 
-**Returns:** `PermissionScheme|error`
+Returns: `PermissionScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PermissionScheme updated = check jiraClient->/api/'3/permissionscheme/[10000].put({
@@ -2450,7 +2451,7 @@ jira:PermissionScheme updated = check jiraClient->/api/'3/permissionscheme/[1000
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10000, "name": "Updated Permission Scheme", "description": "Updated description"}
@@ -2467,15 +2468,15 @@ jira:PermissionScheme updated = check jiraClient->/api/'3/permissionscheme/[1000
 
 Deletes a permission scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `schemeId` | `int` | Yes | The ID of the permission scheme. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/permissionscheme/[10001].delete();
@@ -2492,21 +2493,21 @@ check jiraClient->/api/'3/permissionscheme/[10001].delete();
 
 Returns all permission grants for a permission scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `schemeId` | `int` | Yes | The ID of the permission scheme. |
 
-**Returns:** `PermissionGrants|error`
+Returns: `PermissionGrants|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PermissionGrants grants = check jiraClient->/api/'3/permissionscheme/[10000]/permission;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"permissions": [{"id": 10001, "holder": {"type": "group", "parameter": "jira-software-users"}, "permission": "BROWSE_PROJECTS"}], "expand": "permissions"}
@@ -2523,16 +2524,16 @@ jira:PermissionGrants grants = check jiraClient->/api/'3/permissionscheme/[10000
 
 Creates a new permission grant in a permission scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `schemeId` | `int` | Yes | The ID of the permission scheme. |
 | `payload` | `PermissionGrant` | Yes | The permission grant details. |
 
-**Returns:** `PermissionGrant|error`
+Returns: `PermissionGrant|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PermissionGrant grant = check jiraClient->/api/'3/permissionscheme/[10000]/permission.post({
@@ -2544,7 +2545,7 @@ jira:PermissionGrant grant = check jiraClient->/api/'3/permissionscheme/[10000]/
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10002, "holder": {"type": "group", "parameter": "jira-software-users"}, "permission": "CREATE_ISSUES"}
@@ -2561,16 +2562,16 @@ jira:PermissionGrant grant = check jiraClient->/api/'3/permissionscheme/[10000]/
 
 Deletes a permission grant from a permission scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `schemeId` | `int` | Yes | The ID of the permission scheme. |
 | `permissionId` | `int` | Yes | The ID of the permission grant. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/permissionscheme/[10000]/permission/[10002].delete();
@@ -2580,7 +2581,7 @@ check jiraClient->/api/'3/permissionscheme/[10000]/permission/[10002].delete();
 
 </details>
 
-#### Notification Schemes
+#### Notification schemes
 
 <details>
 <summary>Get notification schemes</summary>
@@ -2589,21 +2590,21 @@ check jiraClient->/api/'3/permissionscheme/[10000]/permission/[10002].delete();
 
 Returns a paginated list of notification schemes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetNotificationSchemesQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `id`, `expand`. |
 
-**Returns:** `PageBeanNotificationScheme|error`
+Returns: `PageBeanNotificationScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanNotificationScheme schemes = check jiraClient->/api/'3/notificationscheme;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": 10000, "self": "https://your-domain.atlassian.net/rest/api/3/notificationscheme/10000", "name": "Default Notification Scheme"}]}
@@ -2620,15 +2621,15 @@ jira:PageBeanNotificationScheme schemes = check jiraClient->/api/'3/notification
 
 Creates a new notification scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateNotificationSchemeDetails` | Yes | The notification scheme details. |
 
-**Returns:** `NotificationSchemeId|error`
+Returns: `NotificationSchemeId|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:NotificationSchemeId scheme = check jiraClient->/api/'3/notificationscheme.post({
@@ -2637,7 +2638,7 @@ jira:NotificationSchemeId scheme = check jiraClient->/api/'3/notificationscheme.
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10001"}
@@ -2654,21 +2655,21 @@ jira:NotificationSchemeId scheme = check jiraClient->/api/'3/notificationscheme.
 
 Returns a notification scheme by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the notification scheme. |
 
-**Returns:** `NotificationScheme|error`
+Returns: `NotificationScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:NotificationScheme scheme = check jiraClient->/api/'3/notificationscheme/[10000];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10000, "self": "https://your-domain.atlassian.net/rest/api/3/notificationscheme/10000", "name": "Default Notification Scheme", "description": "Default notification settings"}
@@ -2685,16 +2686,16 @@ jira:NotificationScheme scheme = check jiraClient->/api/'3/notificationscheme/[1
 
 Updates a notification scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the notification scheme. |
 | `payload` | `UpdateNotificationSchemeDetails` | Yes | The updated notification scheme details. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/notificationscheme/["10000"].put({
@@ -2703,7 +2704,7 @@ json result = check jiraClient->/api/'3/notificationscheme/["10000"].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -2720,21 +2721,21 @@ null
 
 Deletes a notification scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `notificationSchemeId` | `string` | Yes | The ID of the notification scheme. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/notificationscheme/["10001"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -2744,7 +2745,7 @@ null
 
 </details>
 
-#### Announcement Banner
+#### Announcement banner
 
 <details>
 <summary>Get announcement banner configuration</summary>
@@ -2754,15 +2755,15 @@ null
 Returns the current announcement banner configuration.
 
 
-**Returns:** `AnnouncementBannerConfiguration|error`
+Returns: `AnnouncementBannerConfiguration|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:AnnouncementBannerConfiguration banner = check jiraClient->/api/'3/announcementBanner;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "System maintenance scheduled for tonight.", "isDismissible": true, "isEnabled": true, "hashId": "abc123", "visibility": "public"}
@@ -2779,15 +2780,15 @@ jira:AnnouncementBannerConfiguration banner = check jiraClient->/api/'3/announce
 
 Updates the announcement banner configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AnnouncementBannerConfigurationUpdate` | Yes | The updated banner configuration. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/announcementBanner.put({
@@ -2798,7 +2799,7 @@ json result = check jiraClient->/api/'3/announcementBanner.put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -2808,7 +2809,7 @@ null
 
 </details>
 
-#### Application Properties & Roles
+#### Application properties & roles
 
 <details>
 <summary>Get application property</summary>
@@ -2817,21 +2818,21 @@ null
 
 Returns an application property or list of application properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetApplicationPropertyQueries` | No | Optional query parameters such as `key`, `permissionLevel`, `keyFilter`. |
 
-**Returns:** `ApplicationProperty[]|error`
+Returns: `ApplicationProperty[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ApplicationProperty[] props = check jiraClient->/api/'3/application\-properties;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "jira.title", "key": "jira.title", "value": "My Jira Instance", "name": "Title", "desc": "The title of this Jira instance."}]
@@ -2849,15 +2850,15 @@ jira:ApplicationProperty[] props = check jiraClient->/api/'3/application\-proper
 Returns the application properties that are accessible on the Advanced Settings page.
 
 
-**Returns:** `ApplicationProperty[]|error`
+Returns: `ApplicationProperty[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ApplicationProperty[] settings = check jiraClient->/api/'3/application\-properties/advanced\-settings;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "jira.attachment.size", "key": "jira.attachment.size", "value": "52428800", "name": "Maximum attachment size", "desc": "Maximum size (in bytes) for attachments."}]
@@ -2875,15 +2876,15 @@ jira:ApplicationProperty[] settings = check jiraClient->/api/'3/application\-pro
 Returns all application roles.
 
 
-**Returns:** `ApplicationRole[]|error`
+Returns: `ApplicationRole[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ApplicationRole[] roles = check jiraClient->/api/'3/applicationrole;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"key": "jira-software", "name": "Jira Software", "groups": ["jira-software-users"], "defaultGroups": ["jira-software-users"]}]
@@ -2900,21 +2901,21 @@ jira:ApplicationRole[] roles = check jiraClient->/api/'3/applicationrole;
 
 Returns an application role by its key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | The key of the application role. |
 
-**Returns:** `ApplicationRole|error`
+Returns: `ApplicationRole|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ApplicationRole role = check jiraClient->/api/'3/applicationrole/["jira-software"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"key": "jira-software", "name": "Jira Software", "groups": ["jira-software-users"], "defaultGroups": ["jira-software-users"]}
@@ -2924,7 +2925,7 @@ jira:ApplicationRole role = check jiraClient->/api/'3/applicationrole/["jira-sof
 
 </details>
 
-#### Audit Records
+#### Audit records
 
 <details>
 <summary>Get audit records</summary>
@@ -2933,21 +2934,21 @@ jira:ApplicationRole role = check jiraClient->/api/'3/applicationrole/["jira-sof
 
 Returns a list of audit records matching the filter criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAuditRecordsQueries` | No | Query parameters including `offset`, `limit`, `filter`, `from`, `to`. |
 
-**Returns:** `AuditRecords|error`
+Returns: `AuditRecords|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:AuditRecords records = check jiraClient->/api/'3/auditing/'record;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"offset": 0, "limit": 1000, "total": 1, "records": [{"id": 1, "summary": "User logged in", "created": "2025-01-15T10:30:00.000+0000", "category": "user management"}]}
@@ -2967,15 +2968,15 @@ jira:AuditRecords records = check jiraClient->/api/'3/auditing/'record;
 Returns the global Jira configuration settings.
 
 
-**Returns:** `Configuration|error`
+Returns: `Configuration|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Configuration config = check jiraClient->/api/'3/configuration;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"votingEnabled": true, "watchingEnabled": true, "unassignedIssuesAllowed": true, "subTasksEnabled": true, "issueLinkingEnabled": true, "timeTrackingEnabled": true, "attachmentsEnabled": true, "timeTrackingConfiguration": {"workingHoursPerDay": 8.0, "workingDaysPerWeek": 5.0}}
@@ -2993,15 +2994,15 @@ jira:Configuration config = check jiraClient->/api/'3/configuration;
 Returns the currently selected time tracking provider.
 
 
-**Returns:** `TimeTrackingProvider|json|error`
+Returns: `TimeTrackingProvider|json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:TimeTrackingProvider|json provider = check jiraClient->/api/'3/configuration/timetracking;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"key": "JIRA", "name": "JIRA provided time tracking"}
@@ -3019,15 +3020,15 @@ jira:TimeTrackingProvider|json provider = check jiraClient->/api/'3/configuratio
 Returns the time tracking settings (hours per day, days per week, format).
 
 
-**Returns:** `TimeTrackingConfiguration|error`
+Returns: `TimeTrackingConfiguration|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:TimeTrackingConfiguration ttConfig = check jiraClient->/api/'3/configuration/timetracking/options;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"workingHoursPerDay": 8.0, "workingDaysPerWeek": 5.0, "timeFormat": "pretty", "defaultUnit": "minute"}
@@ -3047,15 +3048,15 @@ jira:TimeTrackingConfiguration ttConfig = check jiraClient->/api/'3/configuratio
 Returns all system and custom fields.
 
 
-**Returns:** `FieldDetails[]|error`
+Returns: `FieldDetails[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:FieldDetails[] fields = check jiraClient->/api/'3/'field;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "summary", "name": "Summary", "custom": false, "orderable": true, "navigable": true, "searchable": true, "schema": {"type": "string", "system": "summary"}}, {"id": "customfield_10001", "name": "Story Points", "custom": true}]
@@ -3072,15 +3073,15 @@ jira:FieldDetails[] fields = check jiraClient->/api/'3/'field;
 
 Creates a custom field.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CustomFieldDefinitionJsonBean` | Yes | The custom field definition including name, type, and search key. |
 
-**Returns:** `FieldDetails|error`
+Returns: `FieldDetails|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:FieldDetails field = check jiraClient->/api/'3/'field.post({
@@ -3090,7 +3091,7 @@ jira:FieldDetails field = check jiraClient->/api/'3/'field.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "customfield_10100", "name": "Story Points", "custom": true, "schema": {"type": "number", "custom": "com.atlassian.jira.plugin.system.customfieldtypes:float", "customId": 10100}}
@@ -3107,21 +3108,21 @@ jira:FieldDetails field = check jiraClient->/api/'3/'field.post({
 
 Returns a paginated list of fields matching the search criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetFieldsPaginatedQueries` | No | Query parameters including `startAt`, `maxResults`, `type`, `id`, `query`, `expand`. |
 
-**Returns:** `PageBeanField|error`
+Returns: `PageBeanField|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanField fields = check jiraClient->/api/'3/'field/search(query = "Story");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "customfield_10100", "name": "Story Points", "schema": {"type": "number"}, "description": "Estimated story points"}]}
@@ -3138,16 +3139,16 @@ jira:PageBeanField fields = check jiraClient->/api/'3/'field/search(query = "Sto
 
 Updates a custom field's name and description.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fieldId` | `string` | Yes | The ID of the custom field. |
 | `payload` | `UpdateCustomFieldDetails` | Yes | The updated field details. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/'field/["customfield_10100"].put({
@@ -3156,7 +3157,7 @@ json result = check jiraClient->/api/'3/'field/["customfield_10100"].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -3173,15 +3174,15 @@ null
 
 Deletes a custom field. The custom field is moved to the trash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the custom field. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check jiraClient->/api/'3/'field/["customfield_10100"].delete();
@@ -3198,22 +3199,22 @@ http:Response resp = check jiraClient->/api/'3/'field/["customfield_10100"].dele
 
 Returns the contexts for a custom field.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fieldId` | `string` | Yes | The ID of the custom field. |
 | `queries` | `GetContextsForFieldQueries` | No | Optional query parameters such as `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanCustomFieldContext|error`
+Returns: `PageBeanCustomFieldContext|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanCustomFieldContext contexts = check jiraClient->/api/'3/'field/["customfield_10100"]/context;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10001", "name": "Default Context", "isGlobalContext": true, "isAnyIssueType": true}]}
@@ -3230,22 +3231,22 @@ jira:PageBeanCustomFieldContext contexts = check jiraClient->/api/'3/'field/["cu
 
 Returns the options for a custom field context (e.g., select list options).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fieldId` | `string` | Yes | The ID of the custom field. |
 | `contextId` | `int` | Yes | The ID of the context. |
 
-**Returns:** `PageBeanCustomFieldContextOption|error`
+Returns: `PageBeanCustomFieldContextOption|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanCustomFieldContextOption options = check jiraClient->/api/'3/'field/["customfield_10200"]/context/[10001]/option;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 2, "values": [{"id": "10001", "value": "Option A", "disabled": false}, {"id": "10002", "value": "Option B", "disabled": false}]}
@@ -3255,7 +3256,7 @@ jira:PageBeanCustomFieldContextOption options = check jiraClient->/api/'3/'field
 
 </details>
 
-#### Field Configurations
+#### Field configurations
 
 <details>
 <summary>Get all field configurations</summary>
@@ -3264,21 +3265,21 @@ jira:PageBeanCustomFieldContextOption options = check jiraClient->/api/'3/'field
 
 Returns a paginated list of field configurations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAllFieldConfigurationsQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `id`, `isDefault`. |
 
-**Returns:** `PageBeanFieldConfigurationDetails|error`
+Returns: `PageBeanFieldConfigurationDetails|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanFieldConfigurationDetails configs = check jiraClient->/api/'3/fieldconfiguration;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": 10000, "name": "Default Field Configuration", "isDefault": true}]}
@@ -3295,15 +3296,15 @@ jira:PageBeanFieldConfigurationDetails configs = check jiraClient->/api/'3/field
 
 Creates a new field configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `FieldConfigurationDetails` | Yes | The field configuration details. |
 
-**Returns:** `FieldConfiguration|error`
+Returns: `FieldConfiguration|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:FieldConfiguration config = check jiraClient->/api/'3/fieldconfiguration.post({
@@ -3312,7 +3313,7 @@ jira:FieldConfiguration config = check jiraClient->/api/'3/fieldconfiguration.po
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10001, "name": "Bug Field Configuration", "description": "Fields for bug tracking"}
@@ -3329,21 +3330,21 @@ jira:FieldConfiguration config = check jiraClient->/api/'3/fieldconfiguration.po
 
 Returns the fields for a field configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the field configuration. |
 
-**Returns:** `PageBeanFieldConfigurationItem|error`
+Returns: `PageBeanFieldConfigurationItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanFieldConfigurationItem items = check jiraClient->/api/'3/fieldconfiguration/[10000]/fields;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 2, "values": [{"id": "summary", "isHidden": false, "isRequired": true}, {"id": "description", "isHidden": false, "isRequired": false}]}
@@ -3360,21 +3361,21 @@ jira:PageBeanFieldConfigurationItem items = check jiraClient->/api/'3/fieldconfi
 
 Deletes a field configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the field configuration. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/fieldconfiguration/[10001].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -3384,7 +3385,7 @@ null
 
 </details>
 
-#### Field Configuration Schemes
+#### Field configuration schemes
 
 <details>
 <summary>Get all field configuration schemes</summary>
@@ -3393,21 +3394,21 @@ null
 
 Returns a paginated list of field configuration schemes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAllFieldConfigurationSchemesQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `id`. |
 
-**Returns:** `PageBeanFieldConfigurationScheme|error`
+Returns: `PageBeanFieldConfigurationScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanFieldConfigurationScheme schemes = check jiraClient->/api/'3/fieldconfigurationscheme;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10000", "name": "Default Field Configuration Scheme"}]}
@@ -3424,15 +3425,15 @@ jira:PageBeanFieldConfigurationScheme schemes = check jiraClient->/api/'3/fieldc
 
 Creates a field configuration scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `UpdateFieldConfigurationSchemeDetails` | Yes | The scheme details. |
 
-**Returns:** `FieldConfigurationScheme|error`
+Returns: `FieldConfigurationScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:FieldConfigurationScheme scheme = check jiraClient->/api/'3/fieldconfigurationscheme.post({
@@ -3441,7 +3442,7 @@ jira:FieldConfigurationScheme scheme = check jiraClient->/api/'3/fieldconfigurat
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10001", "name": "Custom Field Config Scheme", "description": "Scheme for specific projects"}
@@ -3458,21 +3459,21 @@ jira:FieldConfigurationScheme scheme = check jiraClient->/api/'3/fieldconfigurat
 
 Deletes a field configuration scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the field configuration scheme. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/fieldconfigurationscheme/[10001].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -3482,7 +3483,7 @@ null
 
 </details>
 
-#### Issue Type Schemes
+#### Issue type schemes
 
 <details>
 <summary>Get all issue type schemes</summary>
@@ -3491,21 +3492,21 @@ null
 
 Returns a paginated list of issue type schemes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAllIssueTypeSchemesQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `id`, `orderBy`. |
 
-**Returns:** `PageBeanIssueTypeScheme|error`
+Returns: `PageBeanIssueTypeScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanIssueTypeScheme schemes = check jiraClient->/api/'3/issuetypescheme;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10000", "name": "Default Issue Type Scheme", "defaultIssueTypeId": "10001"}]}
@@ -3522,15 +3523,15 @@ jira:PageBeanIssueTypeScheme schemes = check jiraClient->/api/'3/issuetypescheme
 
 Creates an issue type scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IssueTypeSchemeDetails` | Yes | The issue type scheme details including name and issue type IDs. |
 
-**Returns:** `IssueTypeSchemeID|error`
+Returns: `IssueTypeSchemeID|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueTypeSchemeID scheme = check jiraClient->/api/'3/issuetypescheme.post({
@@ -3539,7 +3540,7 @@ jira:IssueTypeSchemeID scheme = check jiraClient->/api/'3/issuetypescheme.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"issueTypeSchemeId": "10001"}
@@ -3556,16 +3557,16 @@ jira:IssueTypeSchemeID scheme = check jiraClient->/api/'3/issuetypescheme.post({
 
 Updates an issue type scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueTypeSchemeId` | `int` | Yes | The ID of the issue type scheme. |
 | `payload` | `IssueTypeSchemeUpdateDetails` | Yes | The updated scheme details. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issuetypescheme/[10001].put({
@@ -3574,7 +3575,7 @@ json result = check jiraClient->/api/'3/issuetypescheme/[10001].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -3591,21 +3592,21 @@ null
 
 Deletes an issue type scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueTypeSchemeId` | `int` | Yes | The ID of the issue type scheme. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issuetypescheme/[10001].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -3615,7 +3616,7 @@ null
 
 </details>
 
-#### Issue Type Screen Schemes
+#### Issue type screen schemes
 
 <details>
 <summary>Get all issue type screen schemes</summary>
@@ -3624,21 +3625,21 @@ null
 
 Returns a paginated list of issue type screen schemes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetIssueTypeScreenSchemesQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `id`. |
 
-**Returns:** `PageBeanIssueTypeScreenScheme|error`
+Returns: `PageBeanIssueTypeScreenScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanIssueTypeScreenScheme schemes = check jiraClient->/api/'3/issuetypescreenscheme;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10000", "name": "Default Issue Type Screen Scheme"}]}
@@ -3655,15 +3656,15 @@ jira:PageBeanIssueTypeScreenScheme schemes = check jiraClient->/api/'3/issuetype
 
 Creates an issue type screen scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IssueTypeScreenSchemeDetails` | Yes | The issue type screen scheme details. |
 
-**Returns:** `IssueTypeScreenSchemeId|error`
+Returns: `IssueTypeScreenSchemeId|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueTypeScreenSchemeId scheme = check jiraClient->/api/'3/issuetypescreenscheme.post({
@@ -3674,7 +3675,7 @@ jira:IssueTypeScreenSchemeId scheme = check jiraClient->/api/'3/issuetypescreens
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10001"}
@@ -3691,21 +3692,21 @@ jira:IssueTypeScreenSchemeId scheme = check jiraClient->/api/'3/issuetypescreens
 
 Deletes an issue type screen scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueTypeScreenSchemeId` | `string` | Yes | The ID of the issue type screen scheme. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issuetypescreenscheme/["10001"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -3715,7 +3716,7 @@ null
 
 </details>
 
-#### Issue Security Schemes
+#### Issue security schemes
 
 <details>
 <summary>Get issue security schemes</summary>
@@ -3725,15 +3726,15 @@ null
 Returns all issue security schemes.
 
 
-**Returns:** `SecuritySchemes|error`
+Returns: `SecuritySchemes|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SecuritySchemes schemes = check jiraClient->/api/'3/issuesecurityschemes;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"issueSecuritySchemes": [{"self": "https://your-domain.atlassian.net/rest/api/3/issuesecurityschemes/10000", "id": 10000, "name": "Default Security Scheme"}]}
@@ -3750,15 +3751,15 @@ jira:SecuritySchemes schemes = check jiraClient->/api/'3/issuesecurityschemes;
 
 Creates an issue security scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateIssueSecuritySchemeDetails` | Yes | The security scheme details. |
 
-**Returns:** `SecuritySchemeId|error`
+Returns: `SecuritySchemeId|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SecuritySchemeId scheme = check jiraClient->/api/'3/issuesecurityschemes.post({
@@ -3767,7 +3768,7 @@ jira:SecuritySchemeId scheme = check jiraClient->/api/'3/issuesecurityschemes.po
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10001"}
@@ -3784,21 +3785,21 @@ jira:SecuritySchemeId scheme = check jiraClient->/api/'3/issuesecurityschemes.po
 
 Returns an issue security scheme by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the issue security scheme. |
 
-**Returns:** `SecurityScheme|error`
+Returns: `SecurityScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SecurityScheme scheme = check jiraClient->/api/'3/issuesecurityschemes/[10000];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/issuesecurityschemes/10000", "id": 10000, "name": "Default Security Scheme", "defaultSecurityLevelId": 10001}
@@ -3815,21 +3816,21 @@ jira:SecurityScheme scheme = check jiraClient->/api/'3/issuesecurityschemes/[100
 
 Deletes an issue security scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `schemeId` | `string` | Yes | The ID of the issue security scheme. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issuesecurityschemes/["10001"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -3848,21 +3849,21 @@ null
 
 Returns a paginated list of all screens.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetScreensQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `id`. |
 
-**Returns:** `PageBeanScreen|error`
+Returns: `PageBeanScreen|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanScreen screens = check jiraClient->/api/'3/screens;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": 10000, "name": "Default Screen"}]}
@@ -3879,15 +3880,15 @@ jira:PageBeanScreen screens = check jiraClient->/api/'3/screens;
 
 Creates a screen.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ScreenDetails` | Yes | The screen details. |
 
-**Returns:** `Screen|error`
+Returns: `Screen|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Screen screen = check jiraClient->/api/'3/screens.post({
@@ -3896,7 +3897,7 @@ jira:Screen screen = check jiraClient->/api/'3/screens.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10001, "name": "Bug Screen", "description": "Screen for bug issues"}
@@ -3913,16 +3914,16 @@ jira:Screen screen = check jiraClient->/api/'3/screens.post({
 
 Updates a screen.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `screenId` | `int` | Yes | The ID of the screen. |
 | `payload` | `UpdateScreenDetails` | Yes | The updated screen details. |
 
-**Returns:** `Screen|error`
+Returns: `Screen|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Screen updated = check jiraClient->/api/'3/screens/[10001].put({
@@ -3931,7 +3932,7 @@ jira:Screen updated = check jiraClient->/api/'3/screens/[10001].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10001, "name": "Bug Screen Updated", "description": "Updated screen for bugs"}
@@ -3948,15 +3949,15 @@ jira:Screen updated = check jiraClient->/api/'3/screens/[10001].put({
 
 Deletes a screen.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `screenId` | `int` | Yes | The ID of the screen. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/screens/[10001].delete();
@@ -3973,21 +3974,21 @@ check jiraClient->/api/'3/screens/[10001].delete();
 
 Returns the tabs for a screen.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `screenId` | `int` | Yes | The ID of the screen. |
 
-**Returns:** `ScreenableTab[]|error`
+Returns: `ScreenableTab[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ScreenableTab[] tabs = check jiraClient->/api/'3/screens/[10000]/tabs;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 10001, "name": "Field Tab"}]
@@ -4004,22 +4005,22 @@ jira:ScreenableTab[] tabs = check jiraClient->/api/'3/screens/[10000]/tabs;
 
 Returns the fields on a screen tab.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `screenId` | `int` | Yes | The ID of the screen. |
 | `tabId` | `int` | Yes | The ID of the tab. |
 
-**Returns:** `ScreenableField[]|error`
+Returns: `ScreenableField[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ScreenableField[] fields = check jiraClient->/api/'3/screens/[10000]/tabs/[10001]/fields;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "summary", "name": "Summary"}, {"id": "description", "name": "Description"}, {"id": "priority", "name": "Priority"}]
@@ -4029,7 +4030,7 @@ jira:ScreenableField[] fields = check jiraClient->/api/'3/screens/[10000]/tabs/[
 
 </details>
 
-#### Screen Schemes
+#### Screen schemes
 
 <details>
 <summary>Get screen schemes</summary>
@@ -4038,21 +4039,21 @@ jira:ScreenableField[] fields = check jiraClient->/api/'3/screens/[10000]/tabs/[
 
 Returns a paginated list of screen schemes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetScreenSchemesQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `id`. |
 
-**Returns:** `PageBeanScreenScheme|error`
+Returns: `PageBeanScreenScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanScreenScheme schemes = check jiraClient->/api/'3/screenscheme;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": 10000, "name": "Default Screen Scheme"}]}
@@ -4069,15 +4070,15 @@ jira:PageBeanScreenScheme schemes = check jiraClient->/api/'3/screenscheme;
 
 Creates a screen scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ScreenSchemeDetails` | Yes | The screen scheme details. |
 
-**Returns:** `ScreenSchemeId|error`
+Returns: `ScreenSchemeId|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ScreenSchemeId scheme = check jiraClient->/api/'3/screenscheme.post({
@@ -4088,7 +4089,7 @@ jira:ScreenSchemeId scheme = check jiraClient->/api/'3/screenscheme.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10001}
@@ -4105,15 +4106,15 @@ jira:ScreenSchemeId scheme = check jiraClient->/api/'3/screenscheme.post({
 
 Deletes a screen scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `screenSchemeId` | `string` | Yes | The ID of the screen scheme. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/screenscheme/["10001"].delete();
@@ -4123,7 +4124,7 @@ check jiraClient->/api/'3/screenscheme/["10001"].delete();
 
 </details>
 
-#### Workflow Schemes
+#### Workflow schemes
 
 <details>
 <summary>Get all workflow schemes</summary>
@@ -4132,21 +4133,21 @@ check jiraClient->/api/'3/screenscheme/["10001"].delete();
 
 Returns a paginated list of all workflow schemes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAllWorkflowSchemesQueries` | No | Optional query parameters such as `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanWorkflowScheme|error`
+Returns: `PageBeanWorkflowScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanWorkflowScheme schemes = check jiraClient->/api/'3/workflowscheme;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": 10000, "name": "Default Workflow Scheme", "defaultWorkflow": "jira"}]}
@@ -4163,15 +4164,15 @@ jira:PageBeanWorkflowScheme schemes = check jiraClient->/api/'3/workflowscheme;
 
 Creates a workflow scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `WorkflowScheme` | Yes | The workflow scheme details. |
 
-**Returns:** `WorkflowScheme|error`
+Returns: `WorkflowScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:WorkflowScheme scheme = check jiraClient->/api/'3/workflowscheme.post({
@@ -4181,7 +4182,7 @@ jira:WorkflowScheme scheme = check jiraClient->/api/'3/workflowscheme.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10001, "name": "Custom Workflow Scheme", "description": "Workflow for software projects", "defaultWorkflow": "jira"}
@@ -4198,21 +4199,21 @@ jira:WorkflowScheme scheme = check jiraClient->/api/'3/workflowscheme.post({
 
 Returns a workflow scheme by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the workflow scheme. |
 
-**Returns:** `WorkflowScheme|error`
+Returns: `WorkflowScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:WorkflowScheme scheme = check jiraClient->/api/'3/workflowscheme/[10000];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10000, "name": "Default Workflow Scheme", "defaultWorkflow": "jira", "issueTypeMappings": {"10001": "jira", "10002": "jira"}}
@@ -4229,16 +4230,16 @@ jira:WorkflowScheme scheme = check jiraClient->/api/'3/workflowscheme/[10000];
 
 Updates a workflow scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the workflow scheme. |
 | `payload` | `WorkflowScheme` | Yes | The updated workflow scheme details. |
 
-**Returns:** `WorkflowScheme|error`
+Returns: `WorkflowScheme|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:WorkflowScheme updated = check jiraClient->/api/'3/workflowscheme/[10001].put({
@@ -4247,7 +4248,7 @@ jira:WorkflowScheme updated = check jiraClient->/api/'3/workflowscheme/[10001].p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10001, "name": "Updated Workflow Scheme", "description": "Updated description", "defaultWorkflow": "jira"}
@@ -4264,15 +4265,15 @@ jira:WorkflowScheme updated = check jiraClient->/api/'3/workflowscheme/[10001].p
 
 Deletes a workflow scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the workflow scheme. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/workflowscheme/[10001].delete();
@@ -4292,15 +4293,15 @@ check jiraClient->/api/'3/workflowscheme/[10001].delete();
 Returns a list of all project roles.
 
 
-**Returns:** `ProjectRole[]|error`
+Returns: `ProjectRole[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectRole[] roles = check jiraClient->/api/'3/role;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/role/10002", "name": "Administrators", "id": 10002}, {"self": "https://your-domain.atlassian.net/rest/api/3/role/10001", "name": "Developers", "id": 10001}]
@@ -4317,15 +4318,15 @@ jira:ProjectRole[] roles = check jiraClient->/api/'3/role;
 
 Creates a new project role.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateUpdateRoleRequestBean` | Yes | The role details including name and description. |
 
-**Returns:** `ProjectRole|error`
+Returns: `ProjectRole|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectRole role = check jiraClient->/api/'3/role.post({
@@ -4334,7 +4335,7 @@ jira:ProjectRole role = check jiraClient->/api/'3/role.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/role/10003", "name": "QA Team", "id": 10003, "description": "Quality assurance team members"}
@@ -4351,21 +4352,21 @@ jira:ProjectRole role = check jiraClient->/api/'3/role.post({
 
 Returns a project role by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the project role. |
 
-**Returns:** `ProjectRole|error`
+Returns: `ProjectRole|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectRole role = check jiraClient->/api/'3/role/[10002];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/role/10002", "name": "Administrators", "id": 10002, "description": "A project role for administrators"}
@@ -4382,15 +4383,15 @@ jira:ProjectRole role = check jiraClient->/api/'3/role/[10002];
 
 Deletes a project role.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the project role. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/role/[10003].delete();
@@ -4400,7 +4401,7 @@ check jiraClient->/api/'3/role/[10003].delete();
 
 </details>
 
-#### Project Categories
+#### Project categories
 
 <details>
 <summary>Get all project categories</summary>
@@ -4410,15 +4411,15 @@ check jiraClient->/api/'3/role/[10003].delete();
 Returns all project categories.
 
 
-**Returns:** `ProjectCategory[]|error`
+Returns: `ProjectCategory[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectCategory[] categories = check jiraClient->/api/'3/projectCategory;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/projectCategory/10000", "id": "10000", "name": "Engineering", "description": "Engineering projects"}]
@@ -4435,15 +4436,15 @@ jira:ProjectCategory[] categories = check jiraClient->/api/'3/projectCategory;
 
 Creates a project category.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ProjectCategory` | Yes | The project category details. |
 
-**Returns:** `ProjectCategory|error`
+Returns: `ProjectCategory|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectCategory category = check jiraClient->/api/'3/projectCategory.post({
@@ -4452,7 +4453,7 @@ jira:ProjectCategory category = check jiraClient->/api/'3/projectCategory.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/projectCategory/10001", "id": "10001", "name": "Marketing", "description": "Marketing projects"}
@@ -4469,21 +4470,21 @@ jira:ProjectCategory category = check jiraClient->/api/'3/projectCategory.post({
 
 Returns a project category by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the project category. |
 
-**Returns:** `ProjectCategory|error`
+Returns: `ProjectCategory|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectCategory category = check jiraClient->/api/'3/projectCategory/[10000];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/projectCategory/10000", "id": "10000", "name": "Engineering", "description": "Engineering projects"}
@@ -4500,15 +4501,15 @@ jira:ProjectCategory category = check jiraClient->/api/'3/projectCategory/[10000
 
 Deletes a project category.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The ID of the project category. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/projectCategory/[10001].delete();
@@ -4518,7 +4519,7 @@ check jiraClient->/api/'3/projectCategory/[10001].delete();
 
 </details>
 
-#### Project Validation
+#### Project validation
 
 <details>
 <summary>Validate project key</summary>
@@ -4527,21 +4528,21 @@ check jiraClient->/api/'3/projectCategory/[10001].delete();
 
 Validates a project key and returns any errors.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ValidateProjectKeyQueries` | No | Query parameters including `key`. |
 
-**Returns:** `ErrorCollection|error`
+Returns: `ErrorCollection|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ErrorCollection result = check jiraClient->/api/'3/projectvalidate/'key(key = "NEWPROJ");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"errorMessages": [], "errors": {}}
@@ -4558,21 +4559,21 @@ jira:ErrorCollection result = check jiraClient->/api/'3/projectvalidate/'key(key
 
 Returns a valid project key based on the suggested key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetValidProjectKeyQueries` | No | Query parameters including `key`. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string validKey = check jiraClient->/api/'3/projectvalidate/validProjectKey(key = "My Project");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "MYPROJECT"
@@ -4592,15 +4593,15 @@ string validKey = check jiraClient->/api/'3/projectvalidate/validProjectKey(key 
 Returns a list of all issue resolution values.
 
 
-**Returns:** `Resolution[]|error`
+Returns: `Resolution[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Resolution[] resolutions = check jiraClient->/api/'3/resolution;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/resolution/1", "id": "1", "name": "Fixed", "description": "A fix for this issue is checked into the tree and tested."}, {"id": "2", "name": "Won't Fix"}, {"id": "3", "name": "Duplicate"}]
@@ -4617,21 +4618,21 @@ jira:Resolution[] resolutions = check jiraClient->/api/'3/resolution;
 
 Returns a resolution by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the resolution. |
 
-**Returns:** `Resolution|error`
+Returns: `Resolution|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Resolution resolution = check jiraClient->/api/'3/resolution/["1"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/resolution/1", "id": "1", "name": "Fixed", "description": "A fix for this issue is checked into the tree and tested."}
@@ -4648,21 +4649,21 @@ jira:Resolution resolution = check jiraClient->/api/'3/resolution/["1"];
 
 Returns a paginated list of resolutions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `SearchResolutionsQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `id`. |
 
-**Returns:** `PageBeanResolutionJsonBean|error`
+Returns: `PageBeanResolutionJsonBean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanResolutionJsonBean results = check jiraClient->/api/'3/resolution/search;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 3, "values": [{"id": "1", "name": "Fixed"}, {"id": "2", "name": "Won't Fix"}, {"id": "3", "name": "Duplicate"}]}
@@ -4672,7 +4673,7 @@ jira:PageBeanResolutionJsonBean results = check jiraClient->/api/'3/resolution/s
 
 </details>
 
-#### Priority Schemes
+#### Priority schemes
 
 <details>
 <summary>Get priority schemes</summary>
@@ -4681,21 +4682,21 @@ jira:PageBeanResolutionJsonBean results = check jiraClient->/api/'3/resolution/s
 
 Returns a paginated list of priority schemes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetPrioritySchemesQueries` | No | Optional query parameters such as `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanPrioritySchemeWithPaginatedPrioritiesAndProjects|error`
+Returns: `PageBeanPrioritySchemeWithPaginatedPrioritiesAndProjects|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanPrioritySchemeWithPaginatedPrioritiesAndProjects schemes = check jiraClient->/api/'3/priorityscheme;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": 10000, "name": "Default Priority Scheme"}]}
@@ -4712,15 +4713,15 @@ jira:PageBeanPrioritySchemeWithPaginatedPrioritiesAndProjects schemes = check ji
 
 Creates a priority scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreatePrioritySchemeDetails` | Yes | The priority scheme details. |
 
-**Returns:** `PrioritySchemeId|error`
+Returns: `PrioritySchemeId|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PrioritySchemeId scheme = check jiraClient->/api/'3/priorityscheme.post({
@@ -4729,7 +4730,7 @@ jira:PrioritySchemeId scheme = check jiraClient->/api/'3/priorityscheme.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"prioritySchemeId": 10001}
@@ -4746,21 +4747,21 @@ jira:PrioritySchemeId scheme = check jiraClient->/api/'3/priorityscheme.post({
 
 Deletes a priority scheme.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `schemeId` | `int` | Yes | The ID of the priority scheme. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/priorityscheme/[10001].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -4770,7 +4771,7 @@ null
 
 </details>
 
-#### Plans (Advanced Roadmaps)
+#### Plans (advanced roadmaps)
 
 <details>
 <summary>Get plans</summary>
@@ -4779,21 +4780,21 @@ null
 
 Returns a paginated list of plans (requires Jira Premium or Advanced Roadmaps).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetPlansQueries` | No | Optional query parameters such as `cursor`. |
 
-**Returns:** `PageWithCursorGetPlanResponseForPage|error`
+Returns: `PageWithCursorGetPlanResponseForPage|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageWithCursorGetPlanResponseForPage plans = check jiraClient->/api/'3/plans/plan;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"values": [{"id": 1, "name": "Q1 Roadmap", "status": "ACTIVE"}], "cursor": "abc123"}
@@ -4810,15 +4811,15 @@ jira:PageWithCursorGetPlanResponseForPage plans = check jiraClient->/api/'3/plan
 
 Creates a new plan.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreatePlanRequest` | Yes | The plan details. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int planId = check jiraClient->/api/'3/plans/plan.post({
@@ -4835,7 +4836,7 @@ int planId = check jiraClient->/api/'3/plans/plan.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 2
@@ -4852,21 +4853,21 @@ int planId = check jiraClient->/api/'3/plans/plan.post({
 
 Returns a plan by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `planId` | `int` | Yes | The ID of the plan. |
 
-**Returns:** `GetPlanResponse|error`
+Returns: `GetPlanResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:GetPlanResponse plan = check jiraClient->/api/'3/plans/plan/[1];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "name": "Q1 Roadmap", "status": "ACTIVE", "leadAccountId": "5b10ac8d82e05b22cc7d4ef5"}
@@ -4883,21 +4884,21 @@ jira:GetPlanResponse plan = check jiraClient->/api/'3/plans/plan/[1];
 
 Archives a plan.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `planId` | `int` | Yes | The ID of the plan. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/plans/plan/[1]/archive.put();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -4914,21 +4915,21 @@ null
 
 Moves a plan to the trash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `planId` | `int` | Yes | The ID of the plan. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/plans/plan/[1]/trash.put();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -4948,15 +4949,15 @@ null
 Returns the JQL autocomplete reference data — fields, functions, and operators.
 
 
-**Returns:** `JQLReferenceData|error`
+Returns: `JQLReferenceData|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:JQLReferenceData data = check jiraClient->/api/'3/jql/autocompletedata;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"visibleFieldNames": [{"value": "summary", "displayName": "Summary", "orderable": "true"}], "visibleFunctionNames": [{"value": "currentUser()", "displayName": "currentUser()"}]}
@@ -4973,15 +4974,15 @@ jira:JQLReferenceData data = check jiraClient->/api/'3/jql/autocompletedata;
 
 Parses and validates JQL queries, returning the parsed structure or errors.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `JqlQueriesToParse` | Yes | The JQL queries to parse. |
 
-**Returns:** `ParsedJqlQueries|error`
+Returns: `ParsedJqlQueries|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ParsedJqlQueries parsed = check jiraClient->/api/'3/jql/parse.post({
@@ -4989,7 +4990,7 @@ jira:ParsedJqlQueries parsed = check jiraClient->/api/'3/jql/parse.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"queries": [{"query": "project = PROJ AND status = 'In Progress'", "structure": {"where": {"clause": "AND"}}}]}
@@ -5006,15 +5007,15 @@ jira:ParsedJqlQueries parsed = check jiraClient->/api/'3/jql/parse.post({
 
 Sanitizes JQL queries by replacing user-identifying information with account IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `JqlQueriesToSanitize` | Yes | The JQL queries to sanitize. |
 
-**Returns:** `SanitizedJqlQueries|error`
+Returns: `SanitizedJqlQueries|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SanitizedJqlQueries sanitized = check jiraClient->/api/'3/jql/sanitize.post({
@@ -5024,7 +5025,7 @@ jira:SanitizedJqlQueries sanitized = check jiraClient->/api/'3/jql/sanitize.post
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"queries": [{"initialQuery": "assignee = john.doe", "sanitizedQuery": "assignee = '5b10ac8d82e05b22cc7d4ef5'"}]}
@@ -5043,21 +5044,21 @@ jira:SanitizedJqlQueries sanitized = check jiraClient->/api/'3/jql/sanitize.post
 
 Returns the webhooks registered by the calling app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetDynamicWebhooksForAppQueries` | No | Optional query parameters such as `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanWebhook|error`
+Returns: `PageBeanWebhook|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanWebhook webhooks = check jiraClient->/api/'3/webhook;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": 10001, "jqlFilter": "project = PROJ", "fieldIdsFilter": ["summary", "status"], "events": ["jira:issue_created", "jira:issue_updated"]}]}
@@ -5074,15 +5075,15 @@ jira:PageBeanWebhook webhooks = check jiraClient->/api/'3/webhook;
 
 Registers webhooks for the calling app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `WebhookRegistrationDetails` | Yes | The webhook registration details including URL, events, and JQL filter. |
 
-**Returns:** `ContainerForRegisteredWebhooks|error`
+Returns: `ContainerForRegisteredWebhooks|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ContainerForRegisteredWebhooks result = check jiraClient->/api/'3/webhook.post({
@@ -5096,7 +5097,7 @@ jira:ContainerForRegisteredWebhooks result = check jiraClient->/api/'3/webhook.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"webhookRegistrationResult": [{"createdWebhookId": 10001}]}
@@ -5113,15 +5114,15 @@ jira:ContainerForRegisteredWebhooks result = check jiraClient->/api/'3/webhook.p
 
 Deletes webhooks by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ContainerForWebhookIDs` | Yes | The IDs of webhooks to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/webhook.delete({webhookIds: [10001]});
@@ -5138,21 +5139,21 @@ check jiraClient->/api/'3/webhook.delete({webhookIds: [10001]});
 
 Returns webhooks that have recently failed to be delivered.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetFailedWebhooksQueries` | No | Optional query parameters such as `maxResults`, `after`. |
 
-**Returns:** `FailedWebhooks|error`
+Returns: `FailedWebhooks|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:FailedWebhooks failed = check jiraClient->/api/'3/webhook/failed;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 100, "values": [{"id": "abc123", "body": "{\"webhookEvent\":\"jira:issue_created\"}", "url": "https://your-app.example.com/webhook", "failureTime": 1705312200000}]}
@@ -5169,21 +5170,21 @@ jira:FailedWebhooks failed = check jiraClient->/api/'3/webhook/failed;
 
 Extends the life of the specified webhooks.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ContainerForWebhookIDs` | Yes | The IDs of webhooks to refresh. |
 
-**Returns:** `WebhooksExpirationDate|error`
+Returns: `WebhooksExpirationDate|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:WebhooksExpirationDate expiry = check jiraClient->/api/'3/webhook/refresh.put({webhookIds: [10001]});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"expirationDate": 1707904200000}
@@ -5193,7 +5194,7 @@ jira:WebhooksExpirationDate expiry = check jiraClient->/api/'3/webhook/refresh.p
 
 </details>
 
-#### Issue Link Types
+#### Issue link types
 
 <details>
 <summary>Get issue link types</summary>
@@ -5203,15 +5204,15 @@ jira:WebhooksExpirationDate expiry = check jiraClient->/api/'3/webhook/refresh.p
 Returns all issue link types.
 
 
-**Returns:** `IssueLinkTypes|error`
+Returns: `IssueLinkTypes|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueLinkTypes linkTypes = check jiraClient->/api/'3/issueLinkType;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"issueLinkTypes": [{"id": "10000", "name": "Blocks", "inward": "is blocked by", "outward": "blocks"}, {"id": "10001", "name": "Duplicate", "inward": "is duplicated by", "outward": "duplicates"}]}
@@ -5228,15 +5229,15 @@ jira:IssueLinkTypes linkTypes = check jiraClient->/api/'3/issueLinkType;
 
 Creates an issue link type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IssueLinkType` | Yes | The issue link type details. |
 
-**Returns:** `IssueLinkType|error`
+Returns: `IssueLinkType|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueLinkType linkType = check jiraClient->/api/'3/issueLinkType.post({
@@ -5246,7 +5247,7 @@ jira:IssueLinkType linkType = check jiraClient->/api/'3/issueLinkType.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10002", "name": "Causes", "inward": "is caused by", "outward": "causes"}
@@ -5263,21 +5264,21 @@ jira:IssueLinkType linkType = check jiraClient->/api/'3/issueLinkType.post({
 
 Returns an issue link type by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueLinkTypeId` | `string` | Yes | The ID of the issue link type. |
 
-**Returns:** `IssueLinkType|error`
+Returns: `IssueLinkType|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueLinkType linkType = check jiraClient->/api/'3/issueLinkType/["10000"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10000", "name": "Blocks", "inward": "is blocked by", "outward": "blocks"}
@@ -5294,15 +5295,15 @@ jira:IssueLinkType linkType = check jiraClient->/api/'3/issueLinkType/["10000"];
 
 Deletes an issue link type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueLinkTypeId` | `string` | Yes | The ID of the issue link type. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/issueLinkType/["10002"].delete();
@@ -5312,7 +5313,7 @@ check jiraClient->/api/'3/issueLinkType/["10002"].delete();
 
 </details>
 
-#### Statuses (Managed)
+#### Statuses (managed)
 
 <details>
 <summary>Get statuses by ID</summary>
@@ -5321,21 +5322,21 @@ check jiraClient->/api/'3/issueLinkType/["10002"].delete();
 
 Returns the statuses matching the given IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetStatusesByIdQueries` | No | Query parameters including `id`, `expand`. |
 
-**Returns:** `JiraStatus[]|error`
+Returns: `JiraStatus[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:JiraStatus[] statuses = check jiraClient->/api/'3/statuses(id = "1,3");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "1", "name": "Open", "statusCategory": "TODO"}, {"id": "3", "name": "In Progress", "statusCategory": "IN_PROGRESS"}]
@@ -5352,15 +5353,15 @@ jira:JiraStatus[] statuses = check jiraClient->/api/'3/statuses(id = "1,3");
 
 Creates statuses for a workflow.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `StatusCreateRequest` | Yes | The status creation details including names and categories. |
 
-**Returns:** `JiraStatus[]|error`
+Returns: `JiraStatus[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:JiraStatus[] newStatuses = check jiraClient->/api/'3/statuses.post({
@@ -5375,7 +5376,7 @@ jira:JiraStatus[] newStatuses = check jiraClient->/api/'3/statuses.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "10100", "name": "Code Review", "statusCategory": "IN_PROGRESS"}, {"id": "10101", "name": "QA Testing", "statusCategory": "IN_PROGRESS"}]
@@ -5392,15 +5393,15 @@ jira:JiraStatus[] newStatuses = check jiraClient->/api/'3/statuses.post({
 
 Updates existing statuses.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `StatusUpdateRequest` | Yes | The status update details. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/statuses.put({
@@ -5410,7 +5411,7 @@ json result = check jiraClient->/api/'3/statuses.put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -5427,21 +5428,21 @@ null
 
 Returns a paginated list of statuses matching the search criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `SearchQueries` | No | Query parameters including `expand`, `projectId`, `startAt`, `maxResults`, `searchString`, `statusCategory`. |
 
-**Returns:** `PageOfStatuses|error`
+Returns: `PageOfStatuses|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageOfStatuses results = check jiraClient->/api/'3/statuses/search(searchString = "Review");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10100", "name": "Code Review", "statusCategory": "IN_PROGRESS"}]}
@@ -5451,7 +5452,7 @@ jira:PageOfStatuses results = check jiraClient->/api/'3/statuses/search(searchSt
 
 </details>
 
-#### Issue Properties
+#### Issue properties
 
 <details>
 <summary>Get issue property keys</summary>
@@ -5460,21 +5461,21 @@ jira:PageOfStatuses results = check jiraClient->/api/'3/statuses/search(searchSt
 
 Returns the keys of all properties for an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 
-**Returns:** `PropertyKeys|error`
+Returns: `PropertyKeys|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PropertyKeys keys = check jiraClient->/api/'3/issue/["PROJ-15"]/properties;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"keys": [{"self": "https://your-domain.atlassian.net/rest/api/3/issue/PROJ-15/properties/myProperty", "key": "myProperty"}]}
@@ -5491,22 +5492,22 @@ jira:PropertyKeys keys = check jiraClient->/api/'3/issue/["PROJ-15"]/properties;
 
 Returns the value of an issue property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `propertyKey` | `string` | Yes | The key of the property. |
 
-**Returns:** `EntityProperty|error`
+Returns: `EntityProperty|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:EntityProperty prop = check jiraClient->/api/'3/issue/["PROJ-15"]/properties/["myProperty"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"key": "myProperty", "value": {"count": 42, "label": "Custom Value"}}
@@ -5523,7 +5524,7 @@ jira:EntityProperty prop = check jiraClient->/api/'3/issue/["PROJ-15"]/propertie
 
 Sets the value of an issue property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -5531,15 +5532,15 @@ Sets the value of an issue property.
 | `propertyKey` | `string` | Yes | The key of the property. |
 | `payload` | `json` | Yes | The property value (any JSON). |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issue/["PROJ-15"]/properties/["myProperty"].put({"count": 42, "label": "Custom Value"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -5556,16 +5557,16 @@ null
 
 Deletes an issue property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `propertyKey` | `string` | Yes | The key of the property. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/api/'3/issue/["PROJ-15"]/properties/["myProperty"].delete();
@@ -5575,7 +5576,7 @@ check jiraClient->/api/'3/issue/["PROJ-15"]/properties/["myProperty"].delete();
 
 </details>
 
-#### Issue Changelogs
+#### Issue changelogs
 
 <details>
 <summary>Get issue changelogs</summary>
@@ -5584,22 +5585,22 @@ check jiraClient->/api/'3/issue/["PROJ-15"]/properties/["myProperty"].delete();
 
 Returns a paginated list of all changelogs for an issue sorted by date.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `queries` | `GetChangeLogsQueries` | No | Optional query parameters such as `startAt`, `maxResults`. |
 
-**Returns:** `PageBeanChangelog|error`
+Returns: `PageBeanChangelog|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanChangelog changelogs = check jiraClient->/api/'3/issue/["PROJ-15"]/changelog;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 100, "startAt": 0, "total": 1, "values": [{"id": "10001", "author": {"displayName": "John Doe"}, "created": "2025-01-15T10:30:00.000+0000", "items": [{"field": "status", "fromString": "To Do", "toString": "In Progress"}]}]}
@@ -5609,7 +5610,7 @@ jira:PageBeanChangelog changelogs = check jiraClient->/api/'3/issue/["PROJ-15"]/
 
 </details>
 
-#### Issue Notifications
+#### Issue notifications
 
 <details>
 <summary>Send issue notification</summary>
@@ -5618,16 +5619,16 @@ jira:PageBeanChangelog changelogs = check jiraClient->/api/'3/issue/["PROJ-15"]/
 
 Sends a notification (email) about an issue to specified users.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 | `payload` | `Notification` | Yes | The notification details including subject, text body, and recipients. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/issue/["PROJ-15"]/notify.post({
@@ -5641,7 +5642,7 @@ json result = check jiraClient->/api/'3/issue/["PROJ-15"]/notify.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -5651,7 +5652,7 @@ null
 
 </details>
 
-#### Issue Edit & Create Metadata
+#### Issue edit & create metadata
 
 <details>
 <summary>Get create issue metadata</summary>
@@ -5660,21 +5661,21 @@ null
 
 Returns the metadata required to create issues, including available projects and issue types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetCreateIssueMetaQueries` | No | Optional query parameters such as `projectIds`, `projectKeys`, `issuetypeIds`, `expand`. |
 
-**Returns:** `IssueCreateMetadata|error`
+Returns: `IssueCreateMetadata|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueCreateMetadata meta = check jiraClient->/api/'3/issue/createmeta(projectKeys = "PROJ");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"projects": [{"id": "10001", "key": "PROJ", "name": "My Project", "issuetypes": [{"id": "10001", "name": "Bug"}, {"id": "10002", "name": "Task"}]}]}
@@ -5691,21 +5692,21 @@ jira:IssueCreateMetadata meta = check jiraClient->/api/'3/issue/createmeta(proje
 
 Returns the metadata required to edit an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `issueIdOrKey` | `string` | Yes | The ID or key of the issue. |
 
-**Returns:** `IssueUpdateMetadata|error`
+Returns: `IssueUpdateMetadata|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueUpdateMetadata editMeta = check jiraClient->/api/'3/issue/["PROJ-15"]/editmeta;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"fields": {"summary": {"required": true, "schema": {"type": "string"}, "name": "Summary", "operations": ["set"]}, "priority": {"required": false, "schema": {"type": "priority"}, "name": "Priority", "operations": ["set"]}}}
@@ -5715,7 +5716,7 @@ jira:IssueUpdateMetadata editMeta = check jiraClient->/api/'3/issue/["PROJ-15"]/
 
 </details>
 
-#### My Preferences
+#### My preferences
 
 <details>
 <summary>Get preference</summary>
@@ -5724,21 +5725,21 @@ jira:IssueUpdateMetadata editMeta = check jiraClient->/api/'3/issue/["PROJ-15"]/
 
 Returns the value of a preference for the current user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetPreferenceQueries` | Yes | Query parameters including `key`. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string pref = check jiraClient->/api/'3/mypreferences(key = "user.notifications.mimetype");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "text/html"
@@ -5755,22 +5756,22 @@ string pref = check jiraClient->/api/'3/mypreferences(key = "user.notifications.
 
 Sets the value of a preference for the current user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `string` | Yes | The new preference value. |
 | `queries` | `SetPreferenceQueries` | Yes | Query parameters including `key`. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/mypreferences.put("text/html", key = "user.notifications.mimetype");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -5788,15 +5789,15 @@ null
 Returns the locale of the current user.
 
 
-**Returns:** `Locale|error`
+Returns: `Locale|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Locale locale = check jiraClient->/api/'3/mypreferences/locale;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"locale": "en_US"}
@@ -5815,21 +5816,21 @@ jira:Locale locale = check jiraClient->/api/'3/mypreferences/locale;
 
 Returns the status of a long-running asynchronous task.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `taskId` | `string` | Yes | The ID of the task. |
 
-**Returns:** `TaskProgressBeanObject|error`
+Returns: `TaskProgressBeanObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:TaskProgressBeanObject task = check jiraClient->/api/'3/task/["10001"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/task/10001", "id": "10001", "status": "COMPLETE", "progress": 100, "result": "Success"}
@@ -5846,21 +5847,21 @@ jira:TaskProgressBeanObject task = check jiraClient->/api/'3/task/["10001"];
 
 Cancels a long-running asynchronous task.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `taskId` | `string` | Yes | The ID of the task. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/task/["10001"]/cancel.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -5870,7 +5871,7 @@ null
 
 </details>
 
-#### Issue Events
+#### Issue events
 
 <details>
 <summary>Get events</summary>
@@ -5880,15 +5881,15 @@ null
 Returns all issue event types.
 
 
-**Returns:** `IssueEvent[]|error`
+Returns: `IssueEvent[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueEvent[] events = check jiraClient->/api/'3/events;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 1, "name": "Issue Created"}, {"id": 2, "name": "Issue Updated"}, {"id": 3, "name": "Issue Assigned"}, {"id": 4, "name": "Issue Resolved"}, {"id": 5, "name": "Issue Deleted"}]
@@ -5898,7 +5899,7 @@ jira:IssueEvent[] events = check jiraClient->/api/'3/events;
 
 </details>
 
-#### Custom Field Option
+#### Custom field option
 
 <details>
 <summary>Get custom field option</summary>
@@ -5907,21 +5908,21 @@ jira:IssueEvent[] events = check jiraClient->/api/'3/events;
 
 Returns a custom field option by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the custom field option. |
 
-**Returns:** `CustomFieldOption|error`
+Returns: `CustomFieldOption|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:CustomFieldOption option = check jiraClient->/api/'3/customFieldOption/["10001"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/customFieldOption/10001", "value": "Option A"}
@@ -5931,7 +5932,7 @@ jira:CustomFieldOption option = check jiraClient->/api/'3/customFieldOption/["10
 
 </details>
 
-#### License & Instance
+#### License & instance
 
 <details>
 <summary>Get instance license</summary>
@@ -5941,15 +5942,15 @@ jira:CustomFieldOption option = check jiraClient->/api/'3/customFieldOption/["10
 Returns the license information for the Jira instance.
 
 
-**Returns:** `License|error`
+Returns: `License|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:License license = check jiraClient->/api/'3/instance/license;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"applications": [{"id": "jira-software", "plan": "FREE"}]}
@@ -5967,15 +5968,15 @@ jira:License license = check jiraClient->/api/'3/instance/license;
 Returns the approximate license count for the Jira instance.
 
 
-**Returns:** `LicenseMetric|error`
+Returns: `LicenseMetric|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:LicenseMetric metric = check jiraClient->/api/'3/license/approximateLicenseCount;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"key": "approximateLicenseCount", "value": "25"}
@@ -5985,7 +5986,7 @@ jira:LicenseMetric metric = check jiraClient->/api/'3/license/approximateLicense
 
 </details>
 
-#### System Avatars
+#### System avatars
 
 <details>
 <summary>Get system avatars</summary>
@@ -5994,21 +5995,21 @@ jira:LicenseMetric metric = check jiraClient->/api/'3/license/approximateLicense
 
 Returns the system avatars by type (issuetype, project, user, or priority).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `type` | `"issuetype"\|"project"\|"user"\|"priority"` | Yes | The avatar type. |
 
-**Returns:** `SystemAvatars|error`
+Returns: `SystemAvatars|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SystemAvatars avatars = check jiraClient->/api/'3/avatar/["project"]/system;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"system": [{"id": "10001", "isSystemAvatar": true, "isSelected": false}]}
@@ -6018,7 +6019,7 @@ jira:SystemAvatars avatars = check jiraClient->/api/'3/avatar/["project"]/system
 
 </details>
 
-#### Status Categories
+#### Status categories
 
 <details>
 <summary>Get all status categories</summary>
@@ -6028,15 +6029,15 @@ jira:SystemAvatars avatars = check jiraClient->/api/'3/avatar/["project"]/system
 Returns all status categories.
 
 
-**Returns:** `StatusCategory[]|error`
+Returns: `StatusCategory[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:StatusCategory[] categories = check jiraClient->/api/'3/statuscategory;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/statuscategory/1", "id": 1, "key": "undefined", "colorName": "medium-gray", "name": "No Category"}, {"id": 2, "key": "new", "colorName": "blue-gray", "name": "To Do"}, {"id": 4, "key": "indeterminate", "colorName": "yellow", "name": "In Progress"}, {"id": 3, "key": "done", "colorName": "green", "name": "Done"}]
@@ -6053,21 +6054,21 @@ jira:StatusCategory[] categories = check jiraClient->/api/'3/statuscategory;
 
 Returns a status category by its ID or key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `idOrKey` | `string` | Yes | The ID or key of the status category. |
 
-**Returns:** `StatusCategory|error`
+Returns: `StatusCategory|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:StatusCategory category = check jiraClient->/api/'3/statuscategory/["done"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/statuscategory/3", "id": 3, "key": "done", "colorName": "green", "name": "Done"}
@@ -6077,7 +6078,7 @@ jira:StatusCategory category = check jiraClient->/api/'3/statuscategory/["done"]
 
 </details>
 
-#### Issue Archive
+#### Issue archive
 
 <details>
 <summary>Archive issues</summary>
@@ -6086,15 +6087,15 @@ jira:StatusCategory category = check jiraClient->/api/'3/statuscategory/["done"]
 
 Archives a list of issues synchronously.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IssueArchivalSyncRequest` | Yes | The list of issue IDs or keys to archive. |
 
-**Returns:** `IssueArchivalSyncResponse|error`
+Returns: `IssueArchivalSyncResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueArchivalSyncResponse result = check jiraClient->/api/'3/issue/archive.put({
@@ -6102,7 +6103,7 @@ jira:IssueArchivalSyncResponse result = check jiraClient->/api/'3/issue/archive.
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"numberOfIssuesUpdated": 2, "errors": {}}
@@ -6119,15 +6120,15 @@ jira:IssueArchivalSyncResponse result = check jiraClient->/api/'3/issue/archive.
 
 Unarchives a list of issues synchronously.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IssueArchivalSyncRequest` | Yes | The list of issue IDs or keys to unarchive. |
 
-**Returns:** `IssueArchivalSyncResponse|error`
+Returns: `IssueArchivalSyncResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueArchivalSyncResponse result = check jiraClient->/api/'3/issue/unarchive.put({
@@ -6135,7 +6136,7 @@ jira:IssueArchivalSyncResponse result = check jiraClient->/api/'3/issue/unarchiv
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"numberOfIssuesUpdated": 2, "errors": {}}
@@ -6145,7 +6146,7 @@ jira:IssueArchivalSyncResponse result = check jiraClient->/api/'3/issue/unarchiv
 
 </details>
 
-#### UI Modifications
+#### UI modifications
 
 <details>
 <summary>Get UI modifications</summary>
@@ -6154,21 +6155,21 @@ jira:IssueArchivalSyncResponse result = check jiraClient->/api/'3/issue/unarchiv
 
 Returns a paginated list of UI modifications.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetUiModificationsQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `expand`. |
 
-**Returns:** `PageBeanUiModificationDetails|error`
+Returns: `PageBeanUiModificationDetails|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanUiModificationDetails mods = check jiraClient->/api/'3/uiModifications;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 0, "values": []}
@@ -6185,15 +6186,15 @@ jira:PageBeanUiModificationDetails mods = check jiraClient->/api/'3/uiModificati
 
 Creates a UI modification.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateUiModificationDetails` | Yes | The UI modification details. |
 
-**Returns:** `UiModificationIdentifiers|error`
+Returns: `UiModificationIdentifiers|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:UiModificationIdentifiers mod = check jiraClient->/api/'3/uiModifications.post({
@@ -6202,7 +6203,7 @@ jira:UiModificationIdentifiers mod = check jiraClient->/api/'3/uiModifications.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "10001", "self": "https://your-domain.atlassian.net/rest/api/3/uiModifications/10001"}
@@ -6219,21 +6220,21 @@ jira:UiModificationIdentifiers mod = check jiraClient->/api/'3/uiModifications.p
 
 Deletes a UI modification.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `uiModificationId` | `string` | Yes | The ID of the UI modification. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/uiModifications/["10001"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -6243,7 +6244,7 @@ null
 
 </details>
 
-#### Bulk Worklogs
+#### Bulk worklogs
 
 <details>
 <summary>Get deleted worklog IDs</summary>
@@ -6252,21 +6253,21 @@ null
 
 Returns the IDs and delete times of worklogs deleted since the specified timestamp.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetIdsOfWorklogsDeletedSinceQueries` | No | Query parameters including `since` (Unix timestamp in ms). |
 
-**Returns:** `ChangedWorklogs|error`
+Returns: `ChangedWorklogs|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ChangedWorklogs deleted = check jiraClient->/api/'3/worklog/deleted(since = 1705312200000);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"values": [{"worklogId": 100028, "updatedTime": 1705400000000}], "since": 1705312200000, "until": 1705400000000, "lastPage": true}
@@ -6283,15 +6284,15 @@ jira:ChangedWorklogs deleted = check jiraClient->/api/'3/worklog/deleted(since =
 
 Returns the worklogs for a list of worklog IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `WorklogIdsRequestBean` | Yes | The worklog IDs to retrieve. |
 
-**Returns:** `Worklog[]|error`
+Returns: `Worklog[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:Worklog[] worklogs = check jiraClient->/api/'3/worklog/list.post({
@@ -6299,7 +6300,7 @@ jira:Worklog[] worklogs = check jiraClient->/api/'3/worklog/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "100028", "author": {"displayName": "John Doe"}, "timeSpent": "3h 20m", "timeSpentSeconds": 12000}, {"id": "100029", "author": {"displayName": "Jane Smith"}, "timeSpent": "2h", "timeSpentSeconds": 7200}]
@@ -6316,21 +6317,21 @@ jira:Worklog[] worklogs = check jiraClient->/api/'3/worklog/list.post({
 
 Returns the IDs and update times of worklogs updated since the specified timestamp.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetIdsOfWorklogsModifiedSinceQueries` | No | Query parameters including `since` (Unix timestamp in ms). |
 
-**Returns:** `ChangedWorklogs|error`
+Returns: `ChangedWorklogs|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ChangedWorklogs updated = check jiraClient->/api/'3/worklog/updated(since = 1705312200000);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"values": [{"worklogId": 100028, "updatedTime": 1705400000000}], "since": 1705312200000, "until": 1705400000000, "lastPage": true}
@@ -6340,7 +6341,7 @@ jira:ChangedWorklogs updated = check jiraClient->/api/'3/worklog/updated(since =
 
 </details>
 
-#### Data Policy
+#### Data policy
 
 <details>
 <summary>Get workspace data policy</summary>
@@ -6350,15 +6351,15 @@ jira:ChangedWorklogs updated = check jiraClient->/api/'3/worklog/updated(since =
 Returns the data policy for the workspace.
 
 
-**Returns:** `WorkspaceDataPolicy|error`
+Returns: `WorkspaceDataPolicy|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:WorkspaceDataPolicy policy = check jiraClient->/api/'3/data\-policy;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"anyContentBlocked": false}
@@ -6375,21 +6376,21 @@ jira:WorkspaceDataPolicy policy = check jiraClient->/api/'3/data\-policy;
 
 Returns data policies for projects.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetPoliciesQueries` | No | Query parameters including `ids`. |
 
-**Returns:** `ProjectDataPolicies|error`
+Returns: `ProjectDataPolicies|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectDataPolicies policies = check jiraClient->/api/'3/data\-policy/project(ids = "10001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"projectDataPolicies": [{"projectId": "10001", "anyContentBlocked": false}]}
@@ -6399,7 +6400,7 @@ jira:ProjectDataPolicies policies = check jiraClient->/api/'3/data\-policy/proje
 
 </details>
 
-#### Classification Levels
+#### Classification levels
 
 <details>
 <summary>Get classification levels</summary>
@@ -6408,21 +6409,21 @@ jira:ProjectDataPolicies policies = check jiraClient->/api/'3/data\-policy/proje
 
 Returns all classification levels.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetAllUserDataClassificationLevelsQueries` | No | Optional query parameters such as `status`, `orderBy`. |
 
-**Returns:** `DataClassificationLevelsBean|error`
+Returns: `DataClassificationLevelsBean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:DataClassificationLevelsBean levels = check jiraClient->/api/'3/classification\-levels;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"classifications": [{"id": "10001", "name": "Public", "description": "Public information", "rank": 1}]}
@@ -6442,15 +6443,15 @@ jira:DataClassificationLevelsBean levels = check jiraClient->/api/'3/classificat
 Returns the default issue navigator columns.
 
 
-**Returns:** `ColumnItem[]|error`
+Returns: `ColumnItem[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ColumnItem[] columns = check jiraClient->/api/'3/settings/columns;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"label": "Key", "value": "issuekey"}, {"label": "Summary", "value": "summary"}, {"label": "Issue Type", "value": "issuetype"}, {"label": "Status", "value": "status"}, {"label": "Priority", "value": "priority"}]
@@ -6469,15 +6470,15 @@ jira:ColumnItem[] columns = check jiraClient->/api/'3/settings/columns;
 
 Analyses Jira expressions and returns type information and validation errors.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `JiraExpressionForAnalysis` | Yes | The Jira expressions to analyse. |
 
-**Returns:** `JiraExpressionsAnalysis|error`
+Returns: `JiraExpressionsAnalysis|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:JiraExpressionsAnalysis analysis = check jiraClient->/api/'3/expression/analyse.post({
@@ -6485,7 +6486,7 @@ jira:JiraExpressionsAnalysis analysis = check jiraClient->/api/'3/expression/ana
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"results": [{"expression": "issue.summary", "valid": true, "type": "string"}]}
@@ -6502,15 +6503,15 @@ jira:JiraExpressionsAnalysis analysis = check jiraClient->/api/'3/expression/ana
 
 Evaluates a Jira expression and returns the result.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `JiraExpressionEvaluateRequestBean` | Yes | The expression to evaluate including context. |
 
-**Returns:** `JExpEvaluateJiraExpressionResultBean|error`
+Returns: `JExpEvaluateJiraExpressionResultBean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:JExpEvaluateJiraExpressionResultBean result = check jiraClient->/api/'3/expression/evaluate.post({
@@ -6523,7 +6524,7 @@ jira:JExpEvaluateJiraExpressionResultBean result = check jiraClient->/api/'3/exp
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"value": "Fix login page bug", "meta": {"complexity": {"steps": {"value": 1, "limit": 10000}}}}
@@ -6533,7 +6534,7 @@ jira:JExpEvaluateJiraExpressionResultBean result = check jiraClient->/api/'3/exp
 
 </details>
 
-#### Project Properties
+#### Project properties
 
 <details>
 <summary>Get project property keys</summary>
@@ -6542,21 +6543,21 @@ jira:JExpEvaluateJiraExpressionResultBean result = check jiraClient->/api/'3/exp
 
 Returns the keys of all properties for a project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 
-**Returns:** `PropertyKeys|error`
+Returns: `PropertyKeys|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PropertyKeys keys = check jiraClient->/api/'3/project/["PROJ"]/properties;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"keys": [{"self": "https://your-domain.atlassian.net/rest/api/3/project/PROJ/properties/myProp", "key": "myProp"}]}
@@ -6573,22 +6574,22 @@ jira:PropertyKeys keys = check jiraClient->/api/'3/project/["PROJ"]/properties;
 
 Returns the value of a project property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 | `propertyKey` | `string` | Yes | The key of the property. |
 
-**Returns:** `EntityProperty|error`
+Returns: `EntityProperty|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:EntityProperty prop = check jiraClient->/api/'3/project/["PROJ"]/properties/["myProp"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"key": "myProp", "value": {"team": "engineering"}}
@@ -6605,7 +6606,7 @@ jira:EntityProperty prop = check jiraClient->/api/'3/project/["PROJ"]/properties
 
 Sets the value of a project property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -6613,15 +6614,15 @@ Sets the value of a project property.
 | `propertyKey` | `string` | Yes | The key of the property. |
 | `payload` | `json` | Yes | The property value. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check jiraClient->/api/'3/project/["PROJ"]/properties/["myProp"].put({"team": "engineering"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 null
@@ -6631,7 +6632,7 @@ null
 
 </details>
 
-#### Project Roles (per Project)
+#### Project roles (per project)
 
 <details>
 <summary>Get project roles for project</summary>
@@ -6640,21 +6641,21 @@ null
 
 Returns a list of project roles for a specific project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 
-**Returns:** `record {|string...;|}|error`
+Returns: `record {|string...;|}|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {|string...;|} roles = check jiraClient->/api/'3/project/["PROJ"]/role;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"Administrators": "https://your-domain.atlassian.net/rest/api/3/project/PROJ/role/10002", "Developers": "https://your-domain.atlassian.net/rest/api/3/project/PROJ/role/10001"}
@@ -6671,22 +6672,22 @@ record {|string...;|} roles = check jiraClient->/api/'3/project/["PROJ"]/role;
 
 Returns the details of a project role for a specific project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 | `id` | `int` | Yes | The ID of the project role. |
 
-**Returns:** `ProjectRole|error`
+Returns: `ProjectRole|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectRole role = check jiraClient->/api/'3/project/["PROJ"]/role/[10002];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/project/PROJ/role/10002", "name": "Administrators", "id": 10002, "actors": [{"id": 10001, "displayName": "John Doe", "type": "atlassian-user-role-actor"}]}
@@ -6696,7 +6697,7 @@ jira:ProjectRole role = check jiraClient->/api/'3/project/["PROJ"]/role/[10002];
 
 </details>
 
-#### Project Versions (per Project)
+#### Project versions (per project)
 
 <details>
 <summary>Get project versions paginated</summary>
@@ -6705,22 +6706,22 @@ jira:ProjectRole role = check jiraClient->/api/'3/project/["PROJ"]/role/[10002];
 
 Returns a paginated list of versions for a project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 | `queries` | `GetProjectVersionsPaginatedQueries` | No | Optional query parameters such as `startAt`, `maxResults`, `orderBy`, `status`, `expand`. |
 
-**Returns:** `PageBeanVersion|error`
+Returns: `PageBeanVersion|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanVersion versions = check jiraClient->/api/'3/project/["PROJ"]/version;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 2, "values": [{"id": "10000", "name": "v1.0.0", "released": true}, {"id": "10001", "name": "v2.0.0", "released": false}]}
@@ -6737,21 +6738,21 @@ jira:PageBeanVersion versions = check jiraClient->/api/'3/project/["PROJ"]/versi
 
 Returns all components for a project.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 
-**Returns:** `ProjectComponent[]|error`
+Returns: `ProjectComponent[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectComponent[] components = check jiraClient->/api/'3/project/["PROJ"]/components;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/component/10000", "id": "10000", "name": "Backend"}, {"id": "10001", "name": "Frontend"}]
@@ -6768,21 +6769,21 @@ jira:ProjectComponent[] components = check jiraClient->/api/'3/project/["PROJ"]/
 
 Returns the valid statuses for a project, grouped by issue type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectIdOrKey` | `string` | Yes | The ID or key of the project. |
 
-**Returns:** `IssueTypeWithStatus[]|error`
+Returns: `IssueTypeWithStatus[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:IssueTypeWithStatus[] statuses = check jiraClient->/api/'3/project/["PROJ"]/statuses;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"self": "https://your-domain.atlassian.net/rest/api/3/issuetype/10001", "id": "10001", "name": "Bug", "statuses": [{"self": "https://your-domain.atlassian.net/rest/api/3/status/1", "id": "1", "name": "Open"}, {"id": "3", "name": "In Progress"}, {"id": "10001", "name": "Done"}]}]
@@ -6792,7 +6793,7 @@ jira:IssueTypeWithStatus[] statuses = check jiraClient->/api/'3/project/["PROJ"]
 
 </details>
 
-#### Project Types
+#### Project types
 
 <details>
 <summary>Get all project types</summary>
@@ -6802,15 +6803,15 @@ jira:IssueTypeWithStatus[] statuses = check jiraClient->/api/'3/project/["PROJ"]
 Returns all project types.
 
 
-**Returns:** `ProjectType[]|error`
+Returns: `ProjectType[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectType[] types = check jiraClient->/api/'3/project/'type;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"key": "software", "formattedKey": "Software", "descriptionI18nKey": "jira.project.type.software.description"}, {"key": "business", "formattedKey": "Business"}, {"key": "service_desk", "formattedKey": "Service Management"}]
@@ -6827,21 +6828,21 @@ jira:ProjectType[] types = check jiraClient->/api/'3/project/'type;
 
 Returns a project type if it is accessible to the user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `projectTypeKey` | `"software"\|"service_desk"\|"business"\|"product_discovery"` | Yes | The key of the project type. |
 
-**Returns:** `ProjectType|error`
+Returns: `ProjectType|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ProjectType projectType = check jiraClient->/api/'3/project/'type/["software"]/accessible;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"key": "software", "formattedKey": "Software", "descriptionI18nKey": "jira.project.type.software.description"}
@@ -6851,7 +6852,7 @@ jira:ProjectType projectType = check jiraClient->/api/'3/project/'type/["softwar
 
 </details>
 
-#### Search (Advanced)
+#### Search (advanced)
 
 <details>
 <summary>Get approximate issue count</summary>
@@ -6860,15 +6861,15 @@ jira:ProjectType projectType = check jiraClient->/api/'3/project/'type/["softwar
 
 Returns an approximate count of issues matching a JQL query.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `JQLCountRequestBean` | Yes | The JQL query to count. |
 
-**Returns:** `JQLCountResultsBean|error`
+Returns: `JQLCountResultsBean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:JQLCountResultsBean count = check jiraClient->/api/'3/search/approximate\-count.post({
@@ -6876,7 +6877,7 @@ jira:JQLCountResultsBean count = check jiraClient->/api/'3/search/approximate\-c
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"count": 42}
@@ -6893,21 +6894,21 @@ jira:JQLCountResultsBean count = check jiraClient->/api/'3/search/approximate\-c
 
 Searches for issues using JQL with reconciliation support.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `SearchAndReconsileIssuesUsingJqlQueries` | No | Query parameters including `jql`, `startAt`, `maxResults`, `fields`. |
 
-**Returns:** `SearchAndReconcileResults|error`
+Returns: `SearchAndReconcileResults|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SearchAndReconcileResults results = check jiraClient->/api/'3/search/jql(jql = "project = PROJ ORDER BY updated DESC");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"issues": [{"id": "10042", "key": "PROJ-15", "fields": {"summary": "Fix login page bug"}}]}
@@ -6924,15 +6925,15 @@ jira:SearchAndReconcileResults results = check jiraClient->/api/'3/search/jql(jq
 
 Searches for issues using JQL via request body with reconciliation support.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SearchAndReconcileRequestBean` | Yes | The search request. |
 
-**Returns:** `SearchAndReconcileResults|error`
+Returns: `SearchAndReconcileResults|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SearchAndReconcileResults results = check jiraClient->/api/'3/search/jql.post({
@@ -6941,7 +6942,7 @@ jira:SearchAndReconcileResults results = check jiraClient->/api/'3/search/jql.po
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"issues": [{"id": "10042", "key": "PROJ-15", "fields": {"summary": "Fix login page bug"}}]}
@@ -6951,7 +6952,7 @@ jira:SearchAndReconcileResults results = check jiraClient->/api/'3/search/jql.po
 
 </details>
 
-#### Atlassian Connect
+#### Atlassian connect
 
 <details>
 <summary>Get app property keys</summary>
@@ -6960,21 +6961,21 @@ jira:SearchAndReconcileResults results = check jiraClient->/api/'3/search/jql.po
 
 Returns the keys of all properties for a Connect app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `addonKey` | `string` | Yes | The key of the Connect app. |
 
-**Returns:** `PropertyKeys|error`
+Returns: `PropertyKeys|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PropertyKeys keys = check jiraClient->/atlassian\-connect/'1/addons/["my-addon"]/properties;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"keys": [{"self": "https://your-domain.atlassian.net/rest/atlassian-connect/1/addons/my-addon/properties/config", "key": "config"}]}
@@ -6992,15 +6993,15 @@ jira:PropertyKeys keys = check jiraClient->/atlassian\-connect/'1/addons/["my-ad
 Returns all dynamic modules registered by the calling Connect app.
 
 
-**Returns:** `ConnectModules|error`
+Returns: `ConnectModules|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ConnectModules modules = check jiraClient->/atlassian\-connect/'1/app/module/dynamic;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"modules": []}
@@ -7017,21 +7018,21 @@ jira:ConnectModules modules = check jiraClient->/atlassian\-connect/'1/app/modul
 
 Returns services registered in the Atlassian service registry.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ServiceRegistryResourceServicesGetQueries` | No | Optional query parameters. |
 
-**Returns:** `ServiceRegistry[]|error`
+Returns: `ServiceRegistry[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:ServiceRegistry[] services = check jiraClient->/atlassian\-connect/'1/service\-registry;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 []
@@ -7041,7 +7042,7 @@ jira:ServiceRegistry[] services = check jiraClient->/atlassian\-connect/'1/servi
 
 </details>
 
-#### Security Level
+#### Security level
 
 <details>
 <summary>Get security level</summary>
@@ -7050,21 +7051,21 @@ jira:ServiceRegistry[] services = check jiraClient->/atlassian\-connect/'1/servi
 
 Returns a security level by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the security level. |
 
-**Returns:** `SecurityLevel|error`
+Returns: `SecurityLevel|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:SecurityLevel level = check jiraClient->/api/'3/securitylevel/["10001"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"self": "https://your-domain.atlassian.net/rest/api/3/securitylevel/10001", "id": "10001", "name": "Confidential", "description": "Only visible to team leads"}
@@ -7083,15 +7084,15 @@ jira:SecurityLevel level = check jiraClient->/api/'3/securitylevel/["10001"];
 
 Submits a bulk redaction request to remove sensitive data from issues.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BulkRedactionRequest` | Yes | The redaction request details. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string jobId = check jiraClient->/api/'3/redact.post({
@@ -7101,7 +7102,7 @@ string jobId = check jiraClient->/api/'3/redact.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "job-abc-123"
@@ -7118,21 +7119,21 @@ string jobId = check jiraClient->/api/'3/redact.post({
 
 Returns the status of a redaction job.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the redaction job. |
 
-**Returns:** `RedactionJobStatusResponse|error`
+Returns: `RedactionJobStatusResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:RedactionJobStatusResponse status = check jiraClient->/api/'3/redact/status/["job-abc-123"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"status": "COMPLETED", "totalIssues": 2, "processedIssues": 2}
@@ -7142,7 +7143,7 @@ jira:RedactionJobStatusResponse status = check jiraClient->/api/'3/redact/status
 
 </details>
 
-#### App Custom Field Configuration
+#### App custom field configuration
 
 <details>
 <summary>Bulk get custom field configurations</summary>
@@ -7151,15 +7152,15 @@ jira:RedactionJobStatusResponse status = check jiraClient->/api/'3/redact/status
 
 Returns custom field configurations for a list of contexts.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ConfigurationsListParameters` | Yes | The context IDs to retrieve configurations for. |
 
-**Returns:** `PageBeanBulkContextualConfiguration|error`
+Returns: `PageBeanBulkContextualConfiguration|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanBulkContextualConfiguration configs = check jiraClient->/api/'3/app/'field/context/configuration/list.post({
@@ -7168,7 +7169,7 @@ jira:PageBeanBulkContextualConfiguration configs = check jiraClient->/api/'3/app
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10001", "fieldId": "customfield_10100", "configuration": {}}]}
@@ -7185,21 +7186,21 @@ jira:PageBeanBulkContextualConfiguration configs = check jiraClient->/api/'3/app
 
 Returns the configuration for a custom field's context.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fieldIdOrKey` | `string` | Yes | The ID or key of the custom field. |
 
-**Returns:** `PageBeanContextualConfiguration|error`
+Returns: `PageBeanContextualConfiguration|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:PageBeanContextualConfiguration config = check jiraClient->/api/'3/app/'field/["customfield_10100"]/context/configuration;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"maxResults": 50, "startAt": 0, "total": 1, "values": [{"id": "10001", "configuration": {}}]}
@@ -7209,7 +7210,7 @@ jira:PageBeanContextualConfiguration config = check jiraClient->/api/'3/app/'fie
 
 </details>
 
-#### Forge App Properties
+#### Forge app properties
 
 <details>
 <summary>Set Forge app property</summary>
@@ -7218,22 +7219,22 @@ jira:PageBeanContextualConfiguration config = check jiraClient->/api/'3/app/'fie
 
 Sets the value of a Forge app property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `propertyKey` | `string` | Yes | The key of the property. |
 | `payload` | `json` | Yes | The property value. |
 
-**Returns:** `OperationMessage|error`
+Returns: `OperationMessage|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jira:OperationMessage result = check jiraClient->/forge/'1/app/properties/["myForgeConfig"].put({"enabled": true});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "Property updated.", "statusCode": 200}
@@ -7250,15 +7251,15 @@ jira:OperationMessage result = check jiraClient->/forge/'1/app/properties/["myFo
 
 Deletes a Forge app property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `propertyKey` | `string` | Yes | The key of the property. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jiraClient->/forge/'1/app/properties/["myForgeConfig"].delete();

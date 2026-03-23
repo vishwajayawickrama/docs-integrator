@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manages the full PayPal order lifecycle — creation, retrieval, update, authori
 | `compression` | `http:Compression` | `AUTO` | HTTP compression setting. |
 | `validation` | `boolean` | `true` | Enable/disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/paypal.orders;
@@ -49,7 +50,7 @@ orders:Client paypalOrders = check new ({
 
 ### Operations
 
-#### Order Lifecycle
+#### Order lifecycle
 
 <details>
 <summary>Create an order</summary>
@@ -58,16 +59,16 @@ orders:Client paypalOrders = check new ({
 
 Creates a new order with the specified intent (CAPTURE or AUTHORIZE) and purchase units.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `OrderRequest` | Yes | The order request containing `intent` and `purchase_units`. |
 | `headers` | `OrdersCreateHeaders` | No | Optional headers including `PayPal-Request-Id` and `Prefer`. |
 
-**Returns:** `Order|error`
+Returns: `Order|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:Order createdOrder = check paypalOrders->/orders.post({
@@ -83,7 +84,7 @@ orders:Order createdOrder = check paypalOrders->/orders.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -119,22 +120,22 @@ orders:Order createdOrder = check paypalOrders->/orders.post({
 
 Retrieves the details of an existing order by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The PayPal order ID. |
 | `queries` | `OrdersGetQueries` | No | Optional query parameters. Use `fields: "payment_source"` to include payment source details. |
 
-**Returns:** `Order|error`
+Returns: `Order|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:Order orderDetails = check paypalOrders->/orders/["5O190127TN364715T"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -168,16 +169,16 @@ orders:Order orderDetails = check paypalOrders->/orders/["5O190127TN364715T"];
 
 Updates an existing order using JSON Patch operations. Can modify amount, description, shipping, and other fields.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The PayPal order ID. |
 | `payload` | `PatchRequest (Patch[])` | Yes | Array of JSON Patch operations to apply. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check paypalOrders->/orders/[orderId].patch([
@@ -202,7 +203,7 @@ check paypalOrders->/orders/[orderId].patch([
 
 </details>
 
-#### Payment Processing
+#### Payment processing
 
 <details>
 <summary>Confirm the order</summary>
@@ -211,7 +212,7 @@ check paypalOrders->/orders/[orderId].patch([
 
 Confirms a payment source for an order before authorization or capture. Payer interaction may be required after confirmation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -219,9 +220,9 @@ Confirms a payment source for an order before authorization or capture. Payer in
 | `payload` | `ConfirmOrderRequest` | Yes | The confirm order request containing the payment source. |
 | `headers` | `OrdersConfirmHeaders` | No | Optional headers including `PayPal-Client-Metadata-Id` and `Prefer`. |
 
-**Returns:** `Order|error`
+Returns: `Order|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:Order confirmedOrder = check paypalOrders->/orders/[orderId]/confirm\-payment\-source.post({
@@ -242,7 +243,7 @@ orders:Order confirmedOrder = check paypalOrders->/orders/[orderId]/confirm\-pay
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -279,7 +280,7 @@ orders:Order confirmedOrder = check paypalOrders->/orders/[orderId]/confirm\-pay
 
 Authorizes payment for an approved order. The authorization places a hold on the payer's funds but does not capture them.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -287,15 +288,15 @@ Authorizes payment for an approved order. The authorization places a hold on the
 | `payload` | `OrderAuthorizeRequest` | Yes | The authorize request, optionally containing a payment source. |
 | `headers` | `OrdersAuthorizeHeaders` | No | Optional headers including `PayPal-Request-Id` and `Prefer`. |
 
-**Returns:** `OrderAuthorizeResponse|error`
+Returns: `OrderAuthorizeResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:OrderAuthorizeResponse authResponse = check paypalOrders->/orders/[orderId]/authorize.post({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -332,7 +333,7 @@ orders:OrderAuthorizeResponse authResponse = check paypalOrders->/orders/[orderI
 
 Captures payment for an approved order. For CAPTURE intent orders, this completes the payment. For AUTHORIZE intent orders, use after authorization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -340,15 +341,15 @@ Captures payment for an approved order. For CAPTURE intent orders, this complete
 | `payload` | `OrderCaptureRequest` | Yes | The capture request, optionally containing a payment source. |
 | `headers` | `OrdersCaptureHeaders` | No | Optional headers including `PayPal-Request-Id` and `Prefer`. |
 
-**Returns:** `Order|error`
+Returns: `Order|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:Order capturedOrder = check paypalOrders->/orders/[orderId]/capture.post({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -379,7 +380,7 @@ orders:Order capturedOrder = check paypalOrders->/orders/[orderId]/capture.post(
 
 </details>
 
-#### Shipment Tracking
+#### Shipment tracking
 
 <details>
 <summary>Add tracking information for an order</summary>
@@ -388,7 +389,7 @@ orders:Order capturedOrder = check paypalOrders->/orders/[orderId]/capture.post(
 
 Adds tracking information for a captured order, including carrier, tracking number, and shipment status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -396,9 +397,9 @@ Adds tracking information for a captured order, including carrier, tracking numb
 | `payload` | `OrderTrackerRequest` | Yes | Tracker details including `capture_id`, `tracking_number`, and `carrier`. |
 | `headers` | `OrdersTrackCreateHeaders` | No | Optional headers including `PayPal-Auth-Assertion`. |
 
-**Returns:** `Order|error`
+Returns: `Order|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:Order trackedOrder = check paypalOrders->/orders/[orderId]/track.post({
@@ -409,7 +410,7 @@ orders:Order trackedOrder = check paypalOrders->/orders/[orderId]/track.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -443,7 +444,7 @@ orders:Order trackedOrder = check paypalOrders->/orders/[orderId]/track.post({
 
 Updates tracking information for an existing tracker, such as changing the tracking status to CANCELLED.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -451,9 +452,9 @@ Updates tracking information for an existing tracker, such as changing the track
 | `trackerId` | `string` | Yes | The tracker ID (format: `orderId-captureId`). |
 | `payload` | `PatchRequest (Patch[])` | Yes | Array of JSON Patch operations to apply to the tracker. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check paypalOrders->/orders/[orderId]/trackers/[trackerId].patch([

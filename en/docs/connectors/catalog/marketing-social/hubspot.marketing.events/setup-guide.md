@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 credentials required to use the HubSpot Marketing Events connector.
@@ -8,7 +11,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 - A HubSpot account with Marketing Hub access. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 - A HubSpot developer account. If you do not have one, [create a developer account](https://developers.hubspot.com/get-started).
 
-## Step 1: Create a HubSpot App
+## Step 1: Create a HubSpot app
 
 1. Log in to your [HubSpot developer account](https://app.hubspot.com/developer).
 2. Click **Apps** in the top navigation.
@@ -16,7 +19,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 4. Under **App Info**, fill in the **Public app name** (e.g., `Ballerina Marketing Events Integration`).
 5. Optionally add a description and logo.
 
-## Step 2: Configure OAuth Settings
+## Step 2: Configure OAuth settings
 
 1. Navigate to the **Auth** tab of your app.
 2. Under **Redirect URLs**, add a redirect URL (e.g., `https://localhost/callback`).
@@ -29,7 +32,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 The Client ID and Client Secret are displayed at the top of the Auth tab as soon as the app is created.
 :::
 
-## Step 3: Authorize the App and Get a Refresh Token
+## Step 3: Authorize the app and get a refresh token
 
 1. Construct the following authorization URL, replacing the placeholders:
 

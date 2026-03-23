@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -26,7 +27,7 @@ Provides full CRUD access to SAP S/4HANA Sales Orders and all associated sub-ent
 | `secureSocket` | `http:ClientSecureSocket` | `()` | SSL/TLS configuration for secure connections. |
 | `proxy` | `ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.api_sales_order_srv as salesorder;
@@ -48,7 +49,7 @@ salesorder:Client salesOrderClient = check new (
 
 ### Operations
 
-#### Sales Order CRUD
+#### Sales order CRUD
 
 <details>
 <summary>listA_SalesOrders</summary>
@@ -57,16 +58,16 @@ salesorder:Client salesOrderClient = check new (
 
 Retrieves a collection of sales orders, supporting OData query options for filtering, sorting, and field selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListA_SalesOrdersQueries` | No | OData query parameters: `$filter`, `$select`, `$expand`, `$orderby`, `$top`, `$skip`, `$inlinecount`. |
 
-**Returns:** `CollectionOfA_SalesOrderWrapper|error`
+Returns: `CollectionOfA_SalesOrderWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:CollectionOfA_SalesOrderWrapper result = check salesOrderClient->listA_SalesOrders(
@@ -78,7 +79,7 @@ salesorder:CollectionOfA_SalesOrderWrapper result = check salesOrderClient->list
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -116,16 +117,16 @@ salesorder:CollectionOfA_SalesOrderWrapper result = check salesOrderClient->list
 
 Creates a new sales order with the provided header-level fields.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateA_SalesOrder` | Yes | Sales order header fields such as type, sales organization, distribution channel, and sold-to party. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `A_SalesOrderWrapper|error`
+Returns: `A_SalesOrderWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderWrapper created = check salesOrderClient->createA_SalesOrder({
@@ -137,7 +138,7 @@ salesorder:A_SalesOrderWrapper created = check salesOrderClient->createA_SalesOr
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -166,7 +167,7 @@ salesorder:A_SalesOrderWrapper created = check salesOrderClient->createA_SalesOr
 
 Retrieves a single sales order by its document number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -174,9 +175,9 @@ Retrieves a single sales order by its document number.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderQueries` | No | OData query parameters: `$select`, `$expand`. |
 
-**Returns:** `A_SalesOrderWrapper|error`
+Returns: `A_SalesOrderWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderWrapper salesOrder = check salesOrderClient->getA_SalesOrder(
@@ -187,7 +188,7 @@ salesorder:A_SalesOrderWrapper salesOrder = check salesOrderClient->getA_SalesOr
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -215,7 +216,7 @@ salesorder:A_SalesOrderWrapper salesOrder = check salesOrderClient->getA_SalesOr
 
 Updates header-level fields of an existing sales order using a PATCH request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -223,9 +224,9 @@ Updates header-level fields of an existing sales order using a PATCH request.
 | `payload` | `A_SalesOrder` | Yes | Fields to update on the sales order header. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. Include `If-Match` with the ETag value to enable optimistic locking. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response updateResp = check salesOrderClient->updateA_SalesOrder(
@@ -249,16 +250,16 @@ http:Response updateResp = check salesOrderClient->updateA_SalesOrder(
 
 Deletes a sales order by its document number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `SalesOrder` | `string` | Yes | The sales order document number to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. Include `If-Match` with the ETag value. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response deleteResp = check salesOrderClient->deleteA_SalesOrder(
@@ -271,7 +272,7 @@ http:Response deleteResp = check salesOrderClient->deleteA_SalesOrder(
 
 </details>
 
-#### Sales Order Item Management
+#### Sales order item management
 
 <details>
 <summary>listA_SalesOrderItems</summary>
@@ -280,16 +281,16 @@ http:Response deleteResp = check salesOrderClient->deleteA_SalesOrder(
 
 Retrieves all sales order items across orders, with optional OData filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListA_SalesOrderItemsQueries` | No | OData query parameters for filtering and field selection. |
 
-**Returns:** `CollectionOfA_SalesOrderItemWrapper|error`
+Returns: `CollectionOfA_SalesOrderItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:CollectionOfA_SalesOrderItemWrapper items = check salesOrderClient->listA_SalesOrderItems(
@@ -300,7 +301,7 @@ salesorder:CollectionOfA_SalesOrderItemWrapper items = check salesOrderClient->l
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -331,7 +332,7 @@ salesorder:CollectionOfA_SalesOrderItemWrapper items = check salesOrderClient->l
 
 Creates a new line item under an existing sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -339,9 +340,9 @@ Creates a new line item under an existing sales order.
 | `payload` | `CreateA_SalesOrderItem` | Yes | Item fields including material, quantity, plant, and storage location. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `A_SalesOrderItemWrapper|error`
+Returns: `A_SalesOrderItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderItemWrapper newItem = check salesOrderClient->createItemOfA_SalesOrder(
@@ -355,7 +356,7 @@ salesorder:A_SalesOrderItemWrapper newItem = check salesOrderClient->createItemO
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -383,7 +384,7 @@ salesorder:A_SalesOrderItemWrapper newItem = check salesOrderClient->createItemO
 
 Retrieves a specific sales order item by order number and item number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -392,9 +393,9 @@ Retrieves a specific sales order item by order number and item number.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderItemQueries` | No | OData query parameters: `$select`, `$expand`. |
 
-**Returns:** `A_SalesOrderItemWrapper|error`
+Returns: `A_SalesOrderItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderItemWrapper item = check salesOrderClient->getA_SalesOrderItem(
@@ -403,7 +404,7 @@ salesorder:A_SalesOrderItemWrapper item = check salesOrderClient->getA_SalesOrde
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -435,7 +436,7 @@ salesorder:A_SalesOrderItemWrapper item = check salesOrderClient->getA_SalesOrde
 
 Updates fields of a specific sales order item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -444,9 +445,9 @@ Updates fields of a specific sales order item.
 | `payload` | `A_SalesOrderItem` | Yes | Fields to update on the item. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->updateA_SalesOrderItem(
@@ -468,7 +469,7 @@ http:Response resp = check salesOrderClient->updateA_SalesOrderItem(
 
 Removes a line item from a sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -476,9 +477,9 @@ Removes a line item from a sales order.
 | `SalesOrderItem` | `string` | Yes | The item number to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->deleteA_SalesOrderItem(
@@ -501,16 +502,16 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderItem(
 
 Lists all partner functions assigned to sales order headers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListA_SalesOrderHeaderPartnersQueries` | No | OData query parameters for filtering and field selection. |
 
-**Returns:** `CollectionOfA_SalesOrderHeaderPartnerWrapper|error`
+Returns: `CollectionOfA_SalesOrderHeaderPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:CollectionOfA_SalesOrderHeaderPartnerWrapper partners = check salesOrderClient->listA_SalesOrderHeaderPartners(
@@ -520,7 +521,7 @@ salesorder:CollectionOfA_SalesOrderHeaderPartnerWrapper partners = check salesOr
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -554,7 +555,7 @@ salesorder:CollectionOfA_SalesOrderHeaderPartnerWrapper partners = check salesOr
 
 Adds a partner function assignment to a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -562,9 +563,9 @@ Adds a partner function assignment to a sales order header.
 | `payload` | `CreateA_SalesOrderHeaderPartner` | Yes | Partner function code and the customer or vendor number. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `A_SalesOrderHeaderPartnerWrapper|error`
+Returns: `A_SalesOrderHeaderPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderHeaderPartnerWrapper partner = check salesOrderClient->createPartnerOfA_SalesOrder(
@@ -576,7 +577,7 @@ salesorder:A_SalesOrderHeaderPartnerWrapper partner = check salesOrderClient->cr
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -600,7 +601,7 @@ salesorder:A_SalesOrderHeaderPartnerWrapper partner = check salesOrderClient->cr
 
 Retrieves a specific partner function entry from a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -609,9 +610,9 @@ Retrieves a specific partner function entry from a sales order header.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderHeaderPartnerQueries` | No | OData query parameters: `$select`, `$expand`. |
 
-**Returns:** `A_SalesOrderHeaderPartnerWrapper|error`
+Returns: `A_SalesOrderHeaderPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderHeaderPartnerWrapper partner = check salesOrderClient->getA_SalesOrderHeaderPartner(
@@ -620,7 +621,7 @@ salesorder:A_SalesOrderHeaderPartnerWrapper partner = check salesOrderClient->ge
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -645,7 +646,7 @@ salesorder:A_SalesOrderHeaderPartnerWrapper partner = check salesOrderClient->ge
 
 Removes a partner function assignment from a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -653,9 +654,9 @@ Removes a partner function assignment from a sales order header.
 | `PartnerFunction` | `string` | Yes | The partner function code to remove. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->deleteA_SalesOrderHeaderPartner(
@@ -669,7 +670,7 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderHeaderPartner(
 
 </details>
 
-#### Pricing Elements
+#### Pricing elements
 
 <details>
 <summary>getA_SalesOrderHeaderPrElement</summary>
@@ -678,7 +679,7 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderHeaderPartner(
 
 Retrieves a specific pricing condition element from a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -688,9 +689,9 @@ Retrieves a specific pricing condition element from a sales order header.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderHeaderPrElementQueries` | No | OData query parameters: `$select`. |
 
-**Returns:** `A_SalesOrderHeaderPrElementWrapper|error`
+Returns: `A_SalesOrderHeaderPrElementWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderHeaderPrElementWrapper prElement = check salesOrderClient->getA_SalesOrderHeaderPrElement(
@@ -700,7 +701,7 @@ salesorder:A_SalesOrderHeaderPrElementWrapper prElement = check salesOrderClient
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -729,7 +730,7 @@ salesorder:A_SalesOrderHeaderPrElementWrapper prElement = check salesOrderClient
 
 Adds a pricing condition element to a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -737,9 +738,9 @@ Adds a pricing condition element to a sales order header.
 | `payload` | `CreateA_SalesOrderHeaderPrElement` | Yes | Pricing element fields including condition type, rate, and currency. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `A_SalesOrderHeaderPrElementWrapper|error`
+Returns: `A_SalesOrderHeaderPrElementWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderHeaderPrElementWrapper prElement = check salesOrderClient->createPricingElementOfA_SalesOrder(
@@ -752,7 +753,7 @@ salesorder:A_SalesOrderHeaderPrElementWrapper prElement = check salesOrderClient
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -778,7 +779,7 @@ salesorder:A_SalesOrderHeaderPrElementWrapper prElement = check salesOrderClient
 
 Removes a pricing condition element from a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -787,9 +788,9 @@ Removes a pricing condition element from a sales order header.
 | `PricingProcedureCounter` | `string` | Yes | The counter within the step. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->deleteA_SalesOrderHeaderPrElement(
@@ -804,7 +805,7 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderHeaderPrElement(
 
 </details>
 
-#### Schedule Lines
+#### Schedule lines
 
 <details>
 <summary>listA_SalesOrderScheduleLines</summary>
@@ -813,16 +814,16 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderHeaderPrElement(
 
 Retrieves schedule lines across all sales order items, with optional OData filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListA_SalesOrderScheduleLinesQueries` | No | OData query parameters for filtering and field selection. |
 
-**Returns:** `CollectionOfA_SalesOrderScheduleLineWrapper|error`
+Returns: `CollectionOfA_SalesOrderScheduleLineWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:CollectionOfA_SalesOrderScheduleLineWrapper scheduleLines = check salesOrderClient->listA_SalesOrderScheduleLines(
@@ -832,7 +833,7 @@ salesorder:CollectionOfA_SalesOrderScheduleLineWrapper scheduleLines = check sal
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -863,7 +864,7 @@ salesorder:CollectionOfA_SalesOrderScheduleLineWrapper scheduleLines = check sal
 
 Retrieves a specific schedule line for a sales order item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -873,9 +874,9 @@ Retrieves a specific schedule line for a sales order item.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderScheduleLineQueries` | No | OData query parameters: `$select`. |
 
-**Returns:** `A_SalesOrderScheduleLineWrapper|error`
+Returns: `A_SalesOrderScheduleLineWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderScheduleLineWrapper scheduleLine = check salesOrderClient->getA_SalesOrderScheduleLine(
@@ -885,7 +886,7 @@ salesorder:A_SalesOrderScheduleLineWrapper scheduleLine = check salesOrderClient
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -913,7 +914,7 @@ salesorder:A_SalesOrderScheduleLineWrapper scheduleLine = check salesOrderClient
 
 Creates a new schedule line for a sales order item, specifying a delivery date and quantity.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -922,9 +923,9 @@ Creates a new schedule line for a sales order item, specifying a delivery date a
 | `payload` | `CreateA_SalesOrderScheduleLine` | Yes | Schedule line fields including requested delivery date and quantity. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `A_SalesOrderScheduleLineWrapper|error`
+Returns: `A_SalesOrderScheduleLineWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderScheduleLineWrapper scheduleLine = check salesOrderClient->createScheduleLineOfA_SalesOrderItem(
@@ -938,7 +939,7 @@ salesorder:A_SalesOrderScheduleLineWrapper scheduleLine = check salesOrderClient
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -964,7 +965,7 @@ salesorder:A_SalesOrderScheduleLineWrapper scheduleLine = check salesOrderClient
 
 Updates delivery date or quantity fields on an existing schedule line.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -974,9 +975,9 @@ Updates delivery date or quantity fields on an existing schedule line.
 | `payload` | `A_SalesOrderScheduleLine` | Yes | Fields to update on the schedule line. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->updateA_SalesOrderScheduleLine(
@@ -999,7 +1000,7 @@ http:Response resp = check salesOrderClient->updateA_SalesOrderScheduleLine(
 
 Removes a schedule line from a sales order item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1008,9 +1009,9 @@ Removes a schedule line from a sales order item.
 | `ScheduleLine` | `string` | Yes | The schedule line number to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->deleteA_SalesOrderScheduleLine(
@@ -1034,16 +1035,16 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderScheduleLine(
 
 Retrieves text elements associated with sales order headers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListA_SalesOrderTextsQueries` | No | OData query parameters for filtering and field selection. |
 
-**Returns:** `CollectionOfA_SalesOrderTextWrapper|error`
+Returns: `CollectionOfA_SalesOrderTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:CollectionOfA_SalesOrderTextWrapper texts = check salesOrderClient->listA_SalesOrderTexts(
@@ -1053,7 +1054,7 @@ salesorder:CollectionOfA_SalesOrderTextWrapper texts = check salesOrderClient->l
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1081,7 +1082,7 @@ salesorder:CollectionOfA_SalesOrderTextWrapper texts = check salesOrderClient->l
 
 Creates a text element on a sales order header for a specific language and text ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1089,9 +1090,9 @@ Creates a text element on a sales order header for a specific language and text 
 | `payload` | `CreateA_SalesOrderText` | Yes | Text content, language code, and long text ID. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `A_SalesOrderTextWrapper|error`
+Returns: `A_SalesOrderTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderTextWrapper text = check salesOrderClient->createTextOfA_SalesOrder(
@@ -1104,7 +1105,7 @@ salesorder:A_SalesOrderTextWrapper text = check salesOrderClient->createTextOfA_
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1128,7 +1129,7 @@ salesorder:A_SalesOrderTextWrapper text = check salesOrderClient->createTextOfA_
 
 Retrieves a specific text element from a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1138,9 +1139,9 @@ Retrieves a specific text element from a sales order header.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderTextQueries` | No | OData query parameters: `$select`. |
 
-**Returns:** `A_SalesOrderTextWrapper|error`
+Returns: `A_SalesOrderTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderTextWrapper text = check salesOrderClient->getA_SalesOrderText(
@@ -1150,7 +1151,7 @@ salesorder:A_SalesOrderTextWrapper text = check salesOrderClient->getA_SalesOrde
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1174,7 +1175,7 @@ salesorder:A_SalesOrderTextWrapper text = check salesOrderClient->getA_SalesOrde
 
 Removes a text element from a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1183,9 +1184,9 @@ Removes a text element from a sales order header.
 | `LongTextID` | `string` | Yes | Text object identifier to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->deleteA_SalesOrderText(
@@ -1200,7 +1201,7 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderText(
 
 </details>
 
-#### Billing Plans
+#### Billing plans
 
 <details>
 <summary>getBillingPlanOfA_SalesOrder</summary>
@@ -1209,7 +1210,7 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderText(
 
 Retrieves the billing plan associated with a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1217,9 +1218,9 @@ Retrieves the billing plan associated with a sales order header.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetBillingPlanOfA_SalesOrderQueries` | No | OData query parameters: `$select`, `$expand`. |
 
-**Returns:** `A_SalesOrderBillingPlanWrapper|error`
+Returns: `A_SalesOrderBillingPlanWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderBillingPlanWrapper billingPlan = check salesOrderClient->getBillingPlanOfA_SalesOrder(
@@ -1227,7 +1228,7 @@ salesorder:A_SalesOrderBillingPlanWrapper billingPlan = check salesOrderClient->
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1252,7 +1253,7 @@ salesorder:A_SalesOrderBillingPlanWrapper billingPlan = check salesOrderClient->
 
 Retrieves a specific billing plan item from a sales order header billing plan.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1262,9 +1263,9 @@ Retrieves a specific billing plan item from a sales order header billing plan.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderBillingPlanItemQueries` | No | OData query parameters: `$select`. |
 
-**Returns:** `A_SalesOrderBillingPlanItemWrapper|error`
+Returns: `A_SalesOrderBillingPlanItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderBillingPlanItemWrapper bpItem = check salesOrderClient->getA_SalesOrderBillingPlanItem(
@@ -1274,7 +1275,7 @@ salesorder:A_SalesOrderBillingPlanItemWrapper bpItem = check salesOrderClient->g
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1302,7 +1303,7 @@ salesorder:A_SalesOrderBillingPlanItemWrapper bpItem = check salesOrderClient->g
 
 Adds a new item to an existing sales order header billing plan.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1311,9 +1312,9 @@ Adds a new item to an existing sales order header billing plan.
 | `payload` | `CreateA_SalesOrderBillingPlanItem` | Yes | Billing plan item fields including billing date and value. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `A_SalesOrderBillingPlanItemWrapper|error`
+Returns: `A_SalesOrderBillingPlanItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderBillingPlanItemWrapper bpItem = check salesOrderClient->createBillingPlanItemOfA_SalesOrderBillingPlan(
@@ -1327,7 +1328,7 @@ salesorder:A_SalesOrderBillingPlanItemWrapper bpItem = check salesOrderClient->c
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1353,7 +1354,7 @@ salesorder:A_SalesOrderBillingPlanItemWrapper bpItem = check salesOrderClient->c
 
 Removes a billing plan item from a sales order header billing plan.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1362,9 +1363,9 @@ Removes a billing plan item from a sales order header billing plan.
 | `BillingPlanItem` | `string` | Yes | The billing plan item number to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->deleteA_SalesOrderBillingPlanItem(
@@ -1379,7 +1380,7 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderBillingPlanItem(
 
 </details>
 
-#### Related Objects
+#### Related objects
 
 <details>
 <summary>getA_SalesOrderRelatedObject</summary>
@@ -1388,7 +1389,7 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderBillingPlanItem(
 
 Retrieves a specific related object linked to a sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1397,9 +1398,9 @@ Retrieves a specific related object linked to a sales order.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderRelatedObjectQueries` | No | OData query parameters: `$select`. |
 
-**Returns:** `A_SalesOrderRelatedObjectWrapper|error`
+Returns: `A_SalesOrderRelatedObjectWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderRelatedObjectWrapper relObj = check salesOrderClient->getA_SalesOrderRelatedObject(
@@ -1408,7 +1409,7 @@ salesorder:A_SalesOrderRelatedObjectWrapper relObj = check salesOrderClient->get
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1433,7 +1434,7 @@ salesorder:A_SalesOrderRelatedObjectWrapper relObj = check salesOrderClient->get
 
 Links an external object (e.g., CRM lead, project) to a sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1441,9 +1442,9 @@ Links an external object (e.g., CRM lead, project) to a sales order.
 | `payload` | `CreateA_SalesOrderRelatedObject` | Yes | Related object type and its external identifier. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `A_SalesOrderRelatedObjectWrapper|error`
+Returns: `A_SalesOrderRelatedObjectWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderRelatedObjectWrapper relObj = check salesOrderClient->createRelatedObjectOfA_SalesOrder(
@@ -1455,7 +1456,7 @@ salesorder:A_SalesOrderRelatedObjectWrapper relObj = check salesOrderClient->cre
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1479,7 +1480,7 @@ salesorder:A_SalesOrderRelatedObjectWrapper relObj = check salesOrderClient->cre
 
 Removes a related object link from a sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1487,9 +1488,9 @@ Removes a related object link from a sales order.
 | `SDDocRelatedObjectSequenceNmbr` | `string` | Yes | The sequence number of the related object to remove. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->deleteA_SalesOrderRelatedObject(
@@ -1503,7 +1504,7 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderRelatedObject(
 
 </details>
 
-#### Process Flow
+#### Process flow
 
 <details>
 <summary>getA_SalesOrderPrecdgProcFlow</summary>
@@ -1512,7 +1513,7 @@ http:Response resp = check salesOrderClient->deleteA_SalesOrderRelatedObject(
 
 Retrieves a preceding document in the process flow of a sales order (e.g., the originating quotation or contract).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1521,9 +1522,9 @@ Retrieves a preceding document in the process flow of a sales order (e.g., the o
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderPrecdgProcFlowQueries` | No | OData query parameters: `$select`. |
 
-**Returns:** `A_SalesOrderPrecdgProcFlowWrapper|error`
+Returns: `A_SalesOrderPrecdgProcFlowWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderPrecdgProcFlowWrapper precedingDoc = check salesOrderClient->getA_SalesOrderPrecdgProcFlow(
@@ -1532,7 +1533,7 @@ salesorder:A_SalesOrderPrecdgProcFlowWrapper precedingDoc = check salesOrderClie
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1557,7 +1558,7 @@ salesorder:A_SalesOrderPrecdgProcFlowWrapper precedingDoc = check salesOrderClie
 
 Retrieves a subsequent document in the process flow of a sales order (e.g., a delivery or invoice).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1566,9 +1567,9 @@ Retrieves a subsequent document in the process flow of a sales order (e.g., a de
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SalesOrderSubsqntProcFlowQueries` | No | OData query parameters: `$select`. |
 
-**Returns:** `A_SalesOrderSubsqntProcFlowWrapper|error`
+Returns: `A_SalesOrderSubsqntProcFlowWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SalesOrderSubsqntProcFlowWrapper subsequentDoc = check salesOrderClient->getA_SalesOrderSubsqntProcFlow(
@@ -1577,7 +1578,7 @@ salesorder:A_SalesOrderSubsqntProcFlowWrapper subsequentDoc = check salesOrderCl
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1595,7 +1596,7 @@ salesorder:A_SalesOrderSubsqntProcFlowWrapper subsequentDoc = check salesOrderCl
 
 </details>
 
-#### Payment Plan Items
+#### Payment plan items
 
 <details>
 <summary>getA_SlsOrdPaymentPlanItemDetails</summary>
@@ -1604,7 +1605,7 @@ salesorder:A_SalesOrderSubsqntProcFlowWrapper subsequentDoc = check salesOrderCl
 
 Retrieves payment plan item details for a sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1613,9 +1614,9 @@ Retrieves payment plan item details for a sales order.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetA_SlsOrdPaymentPlanItemDetailsQueries` | No | OData query parameters: `$select`. |
 
-**Returns:** `A_SlsOrdPaymentPlanItemDetailsWrapper|error`
+Returns: `A_SlsOrdPaymentPlanItemDetailsWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SlsOrdPaymentPlanItemDetailsWrapper paymentItem = check salesOrderClient->getA_SlsOrdPaymentPlanItemDetails(
@@ -1624,7 +1625,7 @@ salesorder:A_SlsOrdPaymentPlanItemDetailsWrapper paymentItem = check salesOrderC
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1651,7 +1652,7 @@ salesorder:A_SlsOrdPaymentPlanItemDetailsWrapper paymentItem = check salesOrderC
 
 Creates payment plan item details for a sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1659,9 +1660,9 @@ Creates payment plan item details for a sales order.
 | `payload` | `CreateA_SlsOrdPaymentPlanItemDetails` | Yes | Payment plan item fields including due date and discount terms. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `A_SlsOrdPaymentPlanItemDetailsWrapper|error`
+Returns: `A_SlsOrdPaymentPlanItemDetailsWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesorder:A_SlsOrdPaymentPlanItemDetailsWrapper paymentItem = check salesOrderClient->createPaymentPlanItemDetailsOfA_SalesOrder(
@@ -1674,7 +1675,7 @@ salesorder:A_SlsOrdPaymentPlanItemDetailsWrapper paymentItem = check salesOrderC
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1699,7 +1700,7 @@ salesorder:A_SlsOrdPaymentPlanItemDetailsWrapper paymentItem = check salesOrderC
 
 Removes payment plan item details from a sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1707,9 +1708,9 @@ Removes payment plan item details from a sales order.
 | `PaymentPlanItem` | `string` | Yes | The payment plan item number to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response resp = check salesOrderClient->deleteA_SlsOrdPaymentPlanItemDetails(

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -31,7 +32,7 @@ OCC v2 REST API — product catalog, carts, orders, customers, B2B procurement, 
 | `cache` | `http:CacheConfig` | `()` | HTTP caching configuration. |
 | `poolConfig` | `http:PoolConfiguration` | `()` | Connection pool configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.commerce.webservices as sapCommerce;
@@ -55,7 +56,7 @@ sapCommerce:Client sapCommerceClient = check new (
 
 ### Operations
 
-#### Base Sites & Configuration
+#### Base sites & configuration
 
 <details>
 <summary>getBaseSites</summary>
@@ -64,22 +65,22 @@ sapCommerce:Client sapCommerceClient = check new (
 
 Retrieves the list of available base sites.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetBaseSitesQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `BaseSiteList|xml|error`
+Returns: `BaseSiteList|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:BaseSiteList|xml baseSites = check sapCommerceClient->getBaseSites({}, {fields: "DEFAULT"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"baseSites": [{"uid": "electronics", "name": "Electronics Site", "channel": "B2C", "defaultLanguage": {"isocode": "en"}}, {"uid": "powertools", "name": "Powertools Site", "channel": "B2B"}]}
@@ -96,22 +97,22 @@ sapCommerce:BaseSiteList|xml baseSites = check sapCommerceClient->getBaseSites({
 
 Retrieves a list of countries for the given base site.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `baseSiteId` | `string` | Yes | Base site identifier. |
 | `queries` | `GetCountriesQueries` | No | Query parameters including `fields` and `type` (SHIPPING or BILLING). |
 
-**Returns:** `CountryList|xml|error`
+Returns: `CountryList|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:CountryList|xml countries = check sapCommerceClient->getCountries("electronics", {}, {fields: "DEFAULT"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"countries": [{"isocode": "US", "name": "United States"}, {"isocode": "DE", "name": "Germany"}, {"isocode": "JP", "name": "Japan"}]}
@@ -128,22 +129,22 @@ sapCommerce:CountryList|xml countries = check sapCommerceClient->getCountries("e
 
 Retrieves a list of available currencies for the given base site.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `baseSiteId` | `string` | Yes | Base site identifier. |
 | `queries` | `GetCurrenciesQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `CurrencyList|xml|error`
+Returns: `CurrencyList|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:CurrencyList|xml currencies = check sapCommerceClient->getCurrencies("electronics", {}, {fields: "DEFAULT"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"currencies": [{"isocode": "USD", "name": "US Dollar", "symbol": "$", "active": true}, {"isocode": "EUR", "name": "Euro", "symbol": "€", "active": true}]}
@@ -153,7 +154,7 @@ sapCommerce:CurrencyList|xml currencies = check sapCommerceClient->getCurrencies
 
 </details>
 
-#### Product Catalog
+#### Product catalog
 
 <details>
 <summary>getCatalogs</summary>
@@ -162,22 +163,22 @@ sapCommerce:CurrencyList|xml currencies = check sapCommerceClient->getCurrencies
 
 Retrieves a list of catalogs for the given base site.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `baseSiteId` | `string` | Yes | Base site identifier. |
 | `queries` | `GetCatalogsQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `CatalogList|xml|error`
+Returns: `CatalogList|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:CatalogList|xml catalogs = check sapCommerceClient->getCatalogs("electronics", {}, {fields: "FULL"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"catalogs": [{"id": "electronicsProductCatalog", "name": "Electronics Product Catalog", "catalogVersions": [{"id": "Online", "active": true}, {"id": "Staged", "active": false}]}]}
@@ -194,7 +195,7 @@ sapCommerce:CatalogList|xml catalogs = check sapCommerceClient->getCatalogs("ele
 
 Retrieves information about a specific catalog version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -203,9 +204,9 @@ Retrieves information about a specific catalog version.
 | `catalogVersionId` | `string` | Yes | Catalog version identifier (e.g., `"Online"`). |
 | `queries` | `GetCatalogVersionQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `CatalogVersion|xml|error`
+Returns: `CatalogVersion|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:CatalogVersion|xml catalogVersion = check sapCommerceClient->getCatalogVersion(
@@ -213,7 +214,7 @@ sapCommerce:CatalogVersion|xml catalogVersion = check sapCommerceClient->getCata
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "Online", "lastModifiedTime": "2024-01-15T10:30:00Z", "categories": [{"id": "cameras", "name": "Cameras"}, {"id": "smartphones", "name": "Smartphones"}]}
@@ -230,7 +231,7 @@ sapCommerce:CatalogVersion|xml catalogVersion = check sapCommerceClient->getCata
 
 Retrieves a list of products for a category.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -238,9 +239,9 @@ Retrieves a list of products for a category.
 | `categoryId` | `string` | Yes | Category identifier. |
 | `queries` | `GetProductsByCategoryQueries` | No | Query parameters including `pageSize`, `currentPage`, `sort`, `query`, and `fields`. |
 
-**Returns:** `ProductSearchPage|xml|error`
+Returns: `ProductSearchPage|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:ProductSearchPage|xml products = check sapCommerceClient->getProductsByCategory(
@@ -248,7 +249,7 @@ sapCommerce:ProductSearchPage|xml products = check sapCommerceClient->getProduct
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pagination": {"pageSize": 25, "currentPage": 0, "totalResults": 42, "totalPages": 2}, "products": [{"code": "1382080", "name": "EOS 450D", "price": {"value": 574.88, "currencyIso": "USD"}, "stock": {"stockLevelStatus": "inStock"}}], "sorts": [{"code": "name-asc", "name": "Name (ascending)", "selected": true}]}
@@ -267,16 +268,16 @@ sapCommerce:ProductSearchPage|xml products = check sapCommerceClient->getProduct
 
 Retrieves a list of products with search and filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `baseSiteId` | `string` | Yes | Base site identifier. |
 | `queries` | `GetProductsQueries` | No | Query parameters including `query`, `pageSize`, `currentPage`, `sort`, and `fields`. |
 
-**Returns:** `ProductSearchPage|xml|error`
+Returns: `ProductSearchPage|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:ProductSearchPage|xml searchResults = check sapCommerceClient->getProducts(
@@ -284,7 +285,7 @@ sapCommerce:ProductSearchPage|xml searchResults = check sapCommerceClient->getPr
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pagination": {"pageSize": 10, "currentPage": 0, "totalResults": 15}, "products": [{"code": "1382080", "name": "EOS 450D", "summary": "Digital SLR camera"}, {"code": "2934302", "name": "PowerShot A480", "summary": "Compact digital camera"}]}
@@ -301,7 +302,7 @@ sapCommerce:ProductSearchPage|xml searchResults = check sapCommerceClient->getPr
 
 Retrieves details for a specific product.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -309,9 +310,9 @@ Retrieves details for a specific product.
 | `productCode` | `string` | Yes | Product identifier. |
 | `queries` | `GetProductQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `Product|xml|error`
+Returns: `Product|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:Product|xml product = check sapCommerceClient->getProduct(
@@ -319,7 +320,7 @@ sapCommerce:Product|xml product = check sapCommerceClient->getProduct(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"code": "1382080", "name": "EOS 450D", "description": "12.2 megapixel CMOS sensor", "price": {"value": 574.88, "currencyIso": "USD", "formattedValue": "$574.88"}, "stock": {"stockLevel": 241, "stockLevelStatus": "inStock"}, "averageRating": 4.5, "numberOfReviews": 12, "purchasable": true, "categories": [{"code": "cameras", "name": "Cameras"}]}
@@ -336,7 +337,7 @@ sapCommerce:Product|xml product = check sapCommerceClient->getProduct(
 
 Retrieves the reviews of a product.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -344,9 +345,9 @@ Retrieves the reviews of a product.
 | `productCode` | `string` | Yes | Product identifier. |
 | `queries` | `GetProductReviewsQueries` | No | Query parameters including `fields` and `maxCount`. |
 
-**Returns:** `ReviewList|xml|error`
+Returns: `ReviewList|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:ReviewList|xml reviews = check sapCommerceClient->getProductReviews(
@@ -354,7 +355,7 @@ sapCommerce:ReviewList|xml reviews = check sapCommerceClient->getProductReviews(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"reviews": [{"id": "8796093055001", "headline": "Great camera", "comment": "Excellent image quality for the price.", "rating": 5.0, "alias": "PhotoFan", "date": "2024-03-10T14:22:00Z"}]}
@@ -371,7 +372,7 @@ sapCommerce:ReviewList|xml reviews = check sapCommerceClient->getProductReviews(
 
 Creates a customer review for a product.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -380,9 +381,9 @@ Creates a customer review for a product.
 | `payload` | `Review` | Yes | Review data including `headline`, `comment`, `rating`, and `alias`. |
 | `queries` | `CreateProductReviewQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `Review|xml|error`
+Returns: `Review|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:Review|xml review = check sapCommerceClient->createProductReview(
@@ -392,7 +393,7 @@ sapCommerce:Review|xml review = check sapCommerceClient->createProductReview(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "8796093055002", "headline": "Great camera", "comment": "Excellent image quality.", "rating": 5.0, "alias": "PhotoFan", "date": "2024-06-15T09:30:00Z"}
@@ -402,7 +403,7 @@ sapCommerce:Review|xml review = check sapCommerceClient->createProductReview(
 
 </details>
 
-#### Customer Management
+#### Customer management
 
 <details>
 <summary>createUser</summary>
@@ -411,7 +412,7 @@ sapCommerce:Review|xml review = check sapCommerceClient->createProductReview(
 
 Registers a new customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -419,9 +420,9 @@ Registers a new customer.
 | `payload` | `UserSignUp` | Yes | User registration data including `uid`, `firstName`, `lastName`, and `password`. |
 | `queries` | `CreateUserQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `User|xml|error`
+Returns: `User|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:User|xml user = check sapCommerceClient->createUser(
@@ -431,7 +432,7 @@ sapCommerce:User|xml user = check sapCommerceClient->createUser(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"uid": "john.doe@example.com", "name": "John Doe", "firstName": "John", "lastName": "Doe", "currency": {"isocode": "USD"}, "language": {"isocode": "en"}}
@@ -448,7 +449,7 @@ sapCommerce:User|xml user = check sapCommerceClient->createUser(
 
 Retrieves the customer profile.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -456,9 +457,9 @@ Retrieves the customer profile.
 | `userId` | `string` | Yes | User identifier or `'current'` for the authenticated user. |
 | `queries` | `GetUserQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `User|xml|error`
+Returns: `User|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:User|xml user = check sapCommerceClient->getUser(
@@ -466,7 +467,7 @@ sapCommerce:User|xml user = check sapCommerceClient->getUser(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"uid": "john.doe@example.com", "name": "John Doe", "firstName": "John", "lastName": "Doe", "displayUid": "john.doe@example.com", "currency": {"isocode": "USD"}, "language": {"isocode": "en"}}
@@ -483,7 +484,7 @@ sapCommerce:User|xml user = check sapCommerceClient->getUser(
 
 Retrieves the addresses of a customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -491,9 +492,9 @@ Retrieves the addresses of a customer.
 | `userId` | `string` | Yes | User identifier. |
 | `queries` | `GetAddressesQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `AddressList|xml|error`
+Returns: `AddressList|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:AddressList|xml addresses = check sapCommerceClient->getAddresses(
@@ -501,7 +502,7 @@ sapCommerce:AddressList|xml addresses = check sapCommerceClient->getAddresses(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"addresses": [{"id": "8796093710359", "firstName": "John", "lastName": "Doe", "line1": "123 Main St", "town": "New York", "postalCode": "10001", "country": {"isocode": "US"}, "defaultAddress": true}]}
@@ -518,7 +519,7 @@ sapCommerce:AddressList|xml addresses = check sapCommerceClient->getAddresses(
 
 Creates a new address for a customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -527,9 +528,9 @@ Creates a new address for a customer.
 | `payload` | `Address` | Yes | Address data including `firstName`, `lastName`, `line1`, `town`, `postalCode`, and `country`. |
 | `queries` | `CreateAddressQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `Address|xml|error`
+Returns: `Address|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:Address|xml address = check sapCommerceClient->createAddress(
@@ -546,7 +547,7 @@ sapCommerce:Address|xml address = check sapCommerceClient->createAddress(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "8796093710359", "firstName": "John", "lastName": "Doe", "line1": "123 Main St", "town": "New York", "postalCode": "10001", "country": {"isocode": "US"}, "defaultAddress": false}
@@ -556,7 +557,7 @@ sapCommerce:Address|xml address = check sapCommerceClient->createAddress(
 
 </details>
 
-#### Cart Management
+#### Cart management
 
 <details>
 <summary>createCart</summary>
@@ -565,7 +566,7 @@ sapCommerce:Address|xml address = check sapCommerceClient->createAddress(
 
 Creates or restores a cart for a user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -573,9 +574,9 @@ Creates or restores a cart for a user.
 | `userId` | `string` | Yes | User identifier or `'current'` / `'anonymous'`. |
 | `queries` | `CreateCartQueries` | No | Query parameters including `fields`, `oldCartId`, and `toMergeCartGuid`. |
 
-**Returns:** `Cart|xml|error`
+Returns: `Cart|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:Cart|xml cart = check sapCommerceClient->createCart(
@@ -583,7 +584,7 @@ sapCommerce:Cart|xml cart = check sapCommerceClient->createCart(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"code": "00001001", "guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890", "totalItems": 0, "totalPrice": {"value": 0.0, "currencyIso": "USD", "formattedValue": "$0.00"}}
@@ -600,7 +601,7 @@ sapCommerce:Cart|xml cart = check sapCommerceClient->createCart(
 
 Retrieves all carts of a customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -608,9 +609,9 @@ Retrieves all carts of a customer.
 | `userId` | `string` | Yes | User identifier. |
 | `queries` | `GetCartsQueries` | No | Query parameters including `fields`, `savedCartsOnly`, `currentPage`, and `pageSize`. |
 
-**Returns:** `CartList|xml|error`
+Returns: `CartList|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:CartList|xml carts = check sapCommerceClient->getCarts(
@@ -618,7 +619,7 @@ sapCommerce:CartList|xml carts = check sapCommerceClient->getCarts(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"carts": [{"code": "00001001", "totalItems": 2, "totalPrice": {"value": 1149.76, "currencyIso": "USD", "formattedValue": "$1,149.76"}}]}
@@ -635,7 +636,7 @@ sapCommerce:CartList|xml carts = check sapCommerceClient->getCarts(
 
 Retrieves a specific cart.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -644,9 +645,9 @@ Retrieves a specific cart.
 | `userId` | `string` | Yes | User identifier. |
 | `queries` | `GetCartQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `Cart|xml|error`
+Returns: `Cart|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:Cart|xml cart = check sapCommerceClient->getCart(
@@ -654,7 +655,7 @@ sapCommerce:Cart|xml cart = check sapCommerceClient->getCart(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"code": "00001001", "totalItems": 2, "totalPrice": {"value": 1149.76, "currencyIso": "USD"}, "entries": [{"entryNumber": 0, "product": {"code": "1382080", "name": "EOS 450D"}, "quantity": 2, "totalPrice": {"value": 1149.76}}], "deliveryMode": {"code": "standard-gross"}}
@@ -673,7 +674,7 @@ sapCommerce:Cart|xml cart = check sapCommerceClient->getCart(
 
 Creates an order from the current cart.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -681,9 +682,9 @@ Creates an order from the current cart.
 | `userId` | `string` | Yes | User identifier. |
 | `queries` | `PlaceOrderQueries` | No | Query parameters including `cartId`, `termsChecked`, `securityCode`, and `fields`. |
 
-**Returns:** `Order|xml|error`
+Returns: `Order|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:Order|xml placedOrder = check sapCommerceClient->placeOrder(
@@ -692,7 +693,7 @@ sapCommerce:Order|xml placedOrder = check sapCommerceClient->placeOrder(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"code": "00002001", "status": "CREATED", "statusDisplay": "created", "created": "2024-06-15T14:30:00Z", "totalPrice": {"value": 1149.76, "currencyIso": "USD", "formattedValue": "$1,149.76"}, "entries": [{"entryNumber": 0, "product": {"code": "1382080", "name": "EOS 450D"}, "quantity": 2}]}
@@ -709,7 +710,7 @@ sapCommerce:Order|xml placedOrder = check sapCommerceClient->placeOrder(
 
 Retrieves the order history for a customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -717,9 +718,9 @@ Retrieves the order history for a customer.
 | `userId` | `string` | Yes | User identifier. |
 | `queries` | `GetOrdersQueries` | No | Query parameters including `pageSize`, `currentPage`, `sort`, `statuses`, and `fields`. |
 
-**Returns:** `OrderHistoryList|xml|error`
+Returns: `OrderHistoryList|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:OrderHistoryList|xml orders = check sapCommerceClient->getOrders(
@@ -727,7 +728,7 @@ sapCommerce:OrderHistoryList|xml orders = check sapCommerceClient->getOrders(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"orders": [{"code": "00002001", "status": "COMPLETED", "statusDisplay": "completed", "placed": "2024-06-15T14:30:00Z", "total": {"value": 1149.76, "currencyIso": "USD"}}], "pagination": {"pageSize": 10, "currentPage": 0, "totalResults": 1}}
@@ -744,7 +745,7 @@ sapCommerce:OrderHistoryList|xml orders = check sapCommerceClient->getOrders(
 
 Retrieves a specific order by code or GUID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -752,9 +753,9 @@ Retrieves a specific order by code or GUID.
 | `code` | `string` | Yes | Order GUID or order code. |
 | `queries` | `GetOrderQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `Order|xml|error`
+Returns: `Order|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:Order|xml retrievedOrder = check sapCommerceClient->getOrder(
@@ -762,7 +763,7 @@ sapCommerce:Order|xml retrievedOrder = check sapCommerceClient->getOrder(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"code": "00002001", "status": "COMPLETED", "statusDisplay": "completed", "created": "2024-06-15T14:30:00Z", "totalPrice": {"value": 1149.76, "currencyIso": "USD"}, "deliveryAddress": {"firstName": "John", "lastName": "Doe", "line1": "123 Main St", "town": "New York"}, "entries": [{"entryNumber": 0, "product": {"code": "1382080", "name": "EOS 450D"}, "quantity": 2}]}
@@ -772,7 +773,7 @@ sapCommerce:Order|xml retrievedOrder = check sapCommerceClient->getOrder(
 
 </details>
 
-#### Store Locator
+#### Store locator
 
 <details>
 <summary>getStoreLocations</summary>
@@ -781,16 +782,16 @@ sapCommerce:Order|xml retrievedOrder = check sapCommerceClient->getOrder(
 
 Retrieves store locations with optional geo-search.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `baseSiteId` | `string` | Yes | Base site identifier. |
 | `queries` | `GetStoreLocationsQueries` | No | Query parameters including `query`, `latitude`, `longitude`, `radius`, `pageSize`, and `fields`. |
 
-**Returns:** `StoreFinderSearchPage|xml|error`
+Returns: `StoreFinderSearchPage|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:StoreFinderSearchPage|xml stores = check sapCommerceClient->getStoreLocations(
@@ -799,7 +800,7 @@ sapCommerce:StoreFinderSearchPage|xml stores = check sapCommerceClient->getStore
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"stores": [{"name": "Manhattan Store", "displayName": "Manhattan Electronics", "address": {"line1": "456 Broadway", "town": "New York", "postalCode": "10013", "country": {"isocode": "US"}}, "geoPoint": {"latitude": 40.7209, "longitude": -73.9984}}], "pagination": {"pageSize": 10, "totalResults": 3}}
@@ -816,7 +817,7 @@ sapCommerce:StoreFinderSearchPage|xml stores = check sapCommerceClient->getStore
 
 Retrieves details for a specific store location.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -824,9 +825,9 @@ Retrieves details for a specific store location.
 | `storeId` | `string` | Yes | Store identifier (store name). |
 | `queries` | `GetStoreLocationQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `PointOfService|xml|error`
+Returns: `PointOfService|xml|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:PointOfService|xml store = check sapCommerceClient->getStoreLocation(
@@ -834,7 +835,7 @@ sapCommerce:PointOfService|xml store = check sapCommerceClient->getStoreLocation
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "Manhattan Store", "displayName": "Manhattan Electronics", "address": {"line1": "456 Broadway", "town": "New York", "postalCode": "10013", "country": {"isocode": "US"}, "phone": "+1-212-555-0100"}, "geoPoint": {"latitude": 40.7209, "longitude": -73.9984}, "openingHours": {"weekDayOpeningList": [{"weekDay": "Mon", "openingTime": {"formattedHour": "09:00 AM"}, "closingTime": {"formattedHour": "09:00 PM"}}]}}
@@ -844,7 +845,7 @@ sapCommerce:PointOfService|xml store = check sapCommerceClient->getStoreLocation
 
 </details>
 
-#### Support Tickets
+#### Support tickets
 
 <details>
 <summary>getTicketCategories</summary>
@@ -853,16 +854,16 @@ sapCommerce:PointOfService|xml store = check sapCommerceClient->getStoreLocation
 
 Retrieves the available ticket categories.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `baseSiteId` | `string` | Yes | Base site identifier. |
 | `queries` | `GetTicketCategoriesQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `TicketCategoryList|error`
+Returns: `TicketCategoryList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:TicketCategoryList categories = check sapCommerceClient->getTicketCategories(
@@ -870,7 +871,7 @@ sapCommerce:TicketCategoryList categories = check sapCommerceClient->getTicketCa
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ticketCategories": [{"id": "COMPLAINT", "name": "Product Complaint"}, {"id": "RETURNS", "name": "Product Returns"}, {"id": "ENQUIRY", "name": "General Enquiry"}]}
@@ -887,7 +888,7 @@ sapCommerce:TicketCategoryList categories = check sapCommerceClient->getTicketCa
 
 Creates a new support ticket for a customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -896,9 +897,9 @@ Creates a new support ticket for a customer.
 | `payload` | `TicketStarter` | Yes | Ticket data including `subject`, `message`, `ticketCategory`, and `associatedTo`. |
 | `queries` | `CreateTicketQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `Ticket|error`
+Returns: `Ticket|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:Ticket ticket = check sapCommerceClient->createTicket(
@@ -913,7 +914,7 @@ sapCommerce:Ticket ticket = check sapCommerceClient->createTicket(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "TKT-000042", "subject": "Defective smartphone screen", "status": {"id": "OPEN", "name": "Open"}, "createdAt": "2024-06-15T10:00:00Z", "ticketCategory": {"id": "COMPLAINT", "name": "Product Complaint"}}
@@ -930,7 +931,7 @@ sapCommerce:Ticket ticket = check sapCommerceClient->createTicket(
 
 Adds a follow-up event or status update to an existing ticket.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -940,9 +941,9 @@ Adds a follow-up event or status update to an existing ticket.
 | `payload` | `TicketEvent` | Yes | Event data including `message`, `addedByAgent`, and optional `toStatus`. |
 | `queries` | `CreateTicketEventQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `TicketEvent|error`
+Returns: `TicketEvent|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:TicketEvent event = check sapCommerceClient->createTicketEvent(
@@ -956,7 +957,7 @@ sapCommerce:TicketEvent event = check sapCommerceClient->createTicketEvent(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"code": "EVT-001", "message": "Escalating to technical team for warranty replacement.", "author": "support.agent@company.com", "addedByAgent": true, "createdAt": "2024-06-15T11:30:00Z"}
@@ -966,7 +967,7 @@ sapCommerce:TicketEvent event = check sapCommerceClient->createTicketEvent(
 
 </details>
 
-#### B2B Procurement
+#### B2B procurement
 
 <details>
 <summary>createCostCenter</summary>
@@ -975,7 +976,7 @@ sapCommerce:TicketEvent event = check sapCommerceClient->createTicketEvent(
 
 Creates a new cost center for B2B organizational budgeting.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -983,9 +984,9 @@ Creates a new cost center for B2B organizational budgeting.
 | `payload` | `B2BCostCenter` | Yes | Cost center data including `code`, `name`, `activeFlag`, and `currency`. |
 | `queries` | `CreateCostCenterQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `B2BCostCenter|error`
+Returns: `B2BCostCenter|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:B2BCostCenter costCenter = check sapCommerceClient->createCostCenter(
@@ -1000,7 +1001,7 @@ sapCommerce:B2BCostCenter costCenter = check sapCommerceClient->createCostCenter
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"code": "CC-MKTG-2024", "name": "Marketing Department Cost Center 2024", "activeFlag": true, "currency": {"isocode": "USD", "name": "US Dollar", "symbol": "$"}}
@@ -1017,7 +1018,7 @@ sapCommerce:B2BCostCenter costCenter = check sapCommerceClient->createCostCenter
 
 Associates a budget with a cost center.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1025,9 +1026,9 @@ Associates a budget with a cost center.
 | `costCenterCode` | `string` | Yes | Cost center code to which the budget will be added. |
 | `queries` | `DoAddBudgetToCostCenterQueries` | No | Query parameters including `budgetCode` and `fields`. |
 
-**Returns:** `B2BSelectionData|error`
+Returns: `B2BSelectionData|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:B2BSelectionData budgetAssignment = check sapCommerceClient->doAddBudgetToCostCenter(
@@ -1036,7 +1037,7 @@ sapCommerce:B2BSelectionData budgetAssignment = check sapCommerceClient->doAddBu
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "BUDGET-MKTG-2024", "active": true, "selected": true, "normalizedCode": "budget-mktg-2024"}
@@ -1053,7 +1054,7 @@ sapCommerce:B2BSelectionData budgetAssignment = check sapCommerceClient->doAddBu
 
 Creates a quote request from an existing cart.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1062,9 +1063,9 @@ Creates a quote request from an existing cart.
 | `payload` | `QuoteStarter` | Yes | Quote starter data including `cartId`. |
 | `queries` | `CreateQuoteQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `Quote|error`
+Returns: `Quote|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sapCommerce:Quote quote = check sapCommerceClient->createQuote(
@@ -1074,7 +1075,7 @@ sapCommerce:Quote quote = check sapCommerceClient->createQuote(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"code": "QT-000001", "state": "BUYER_DRAFT", "version": 1, "name": "Quote QT-000001", "creationTime": "2024-06-15T09:00:00Z", "totalPrice": {"value": 2450.00, "currencyIso": "USD"}}

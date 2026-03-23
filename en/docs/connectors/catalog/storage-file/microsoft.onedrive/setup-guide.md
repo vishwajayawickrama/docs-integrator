@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through registering an application in Microsoft Entra ID (Azure AD) and obtaining the OAuth 2.0 credentials required to use the Microsoft OneDrive connector.
@@ -8,7 +11,7 @@ This guide walks you through registering an application in Microsoft Entra ID (A
 - A Microsoft account with OneDrive access. If you do not have one, [sign up for a free Microsoft account](https://signup.live.com/).
 - Access to the [Microsoft Entra admin center](https://entra.microsoft.com/) (Azure portal) to register an application.
 
-## Step 1: Register an Application in Microsoft Entra ID
+## Step 1: Register an application in Microsoft entra ID
 
 1. Sign in to the [Microsoft Entra admin center](https://entra.microsoft.com/).
 2. Navigate to **Identity** > **Applications** > **App registrations**.
@@ -18,12 +21,12 @@ This guide walks you through registering an application in Microsoft Entra ID (A
 6. Under **Redirect URI**, select **Web** and enter `https://login.microsoftonline.com/common/oauth2/nativeclient` (or your own redirect URI).
 7. Click **Register**.
 
-## Step 2: Get the Client ID
+## Step 2: Get the client ID
 
-1. After registration, you are taken to the application's **Overview** page.
+1. After registration, you are taken to the application's Overview page.
 2. Copy the **Application (client) ID** — this is your `clientId`.
 
-## Step 3: Create a Client Secret
+## Step 3: Create a client secret
 
 1. In the left menu, click **Certificates & secrets**.
 2. Under **Client secrets**, click **New client secret**.
@@ -35,7 +38,7 @@ This guide walks you through registering an application in Microsoft Entra ID (A
 The client secret value is shown only once. Copy it immediately and store it securely. You cannot retrieve it later.
 :::
 
-## Step 4: Configure API Permissions
+## Step 4: Configure API permissions
 
 1. In the left menu, click **API permissions**.
 2. Click **Add a permission** > **Microsoft Graph** > **Delegated permissions**.
@@ -52,7 +55,7 @@ The client secret value is shown only once. Copy it immediately and store it sec
 The `offline_access` scope is required to obtain a refresh token for long-lived access.
 :::
 
-## Step 5: Generate a Refresh Token
+## Step 5: Generate a refresh token
 
 Use the OAuth 2.0 Authorization Code flow to obtain a refresh token:
 

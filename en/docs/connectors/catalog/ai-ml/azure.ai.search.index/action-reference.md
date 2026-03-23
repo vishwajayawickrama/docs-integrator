@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Perform search, document lookup, indexing, autocomplete, and suggestion operatio
 | `cache` | `http:CacheConfig` | `{}` | HTTP cache configuration. |
 | `validation` | `boolean` | `true` | Enable or disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/azure.ai.search.index as index;
@@ -52,16 +53,16 @@ index:Client azureSearchClient = check new (string `${serviceUrl}/indexes/${inde
 
 Searches for documents in the index using query parameters. Supports full-text search, filters, facets, highlighting, ordering, and scoring.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `DocumentsSearchGetHeaders` | No | Request headers including `api-key` for authentication and optional `x-ms-client-request-id`. |
 | `queries` | `DocumentsSearchGetQueries` | Yes | Query parameters including `api-version` (required), `search`, `$filter`, `$select`, `$orderby`, `$top`, `$skip`, `$count`, `queryType`, `searchMode`, and more. |
 
-**Returns:** `SearchDocumentsResult|error`
+Returns: `SearchDocumentsResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 index:DocumentsSearchGetHeaders headers = {"api-key": apiKey};
@@ -73,7 +74,7 @@ index:SearchDocumentsResult result = check azureSearchClient->documentsSearchGet
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -104,7 +105,7 @@ index:SearchDocumentsResult result = check azureSearchClient->documentsSearchGet
 
 Searches for documents using a POST request body. Supports all search features including vector search and semantic search.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -112,9 +113,9 @@ Searches for documents using a POST request body. Supports all search features i
 | `headers` | `DocumentsSearchPostHeaders` | No | Request headers including `api-key` for authentication. |
 | `queries` | `DocumentsSearchPostQueries` | Yes | Query parameters including `api-version` (required). |
 
-**Returns:** `SearchDocumentsResult|error`
+Returns: `SearchDocumentsResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 index:DocumentsSearchPostHeaders headers = {"api-key": apiKey};
@@ -132,7 +133,7 @@ index:SearchDocumentsResult result = check azureSearchClient->documentsSearchPos
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -153,7 +154,7 @@ index:SearchDocumentsResult result = check azureSearchClient->documentsSearchPos
 
 </details>
 
-#### Document Retrieval
+#### Document retrieval
 
 <details>
 <summary>documentsGet</summary>
@@ -162,7 +163,7 @@ index:SearchDocumentsResult result = check azureSearchClient->documentsSearchPos
 
 Retrieves a specific document from the index by its unique key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -170,9 +171,9 @@ Retrieves a specific document from the index by its unique key.
 | `headers` | `DocumentsGetHeaders` | No | Request headers including `api-key` for authentication. |
 | `queries` | `DocumentsGetQueries` | Yes | Query parameters including `api-version` (required) and optional `$select` to limit returned fields. |
 
-**Returns:** `LookupDocument|error`
+Returns: `LookupDocument|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 index:DocumentsGetHeaders headers = {"api-key": apiKey};
@@ -181,7 +182,7 @@ index:LookupDocument doc = check azureSearchClient->documentsGet("doc-001", head
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -203,16 +204,16 @@ index:LookupDocument doc = check azureSearchClient->documentsGet("doc-001", head
 
 Returns the total number of documents in the search index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `DocumentsCountHeaders` | No | Request headers including `api-key` for authentication. |
 | `queries` | `DocumentsCountQueries` | Yes | Query parameters including `api-version` (required). |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 index:DocumentsCountHeaders headers = {"api-key": apiKey};
@@ -221,7 +222,7 @@ int count = check azureSearchClient->documentsCount(headers,
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 1542
@@ -231,7 +232,7 @@ int count = check azureSearchClient->documentsCount(headers,
 
 </details>
 
-#### Document Indexing
+#### Document indexing
 
 <details>
 <summary>documentsIndex</summary>
@@ -240,7 +241,7 @@ int count = check azureSearchClient->documentsCount(headers,
 
 Uploads, merges, or deletes documents in a batch operation. Each action in the batch specifies the operation type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -248,9 +249,9 @@ Uploads, merges, or deletes documents in a batch operation. Each action in the b
 | `headers` | `DocumentsIndexHeaders` | No | Request headers including `api-key` for authentication. |
 | `queries` | `DocumentsIndexQueries` | Yes | Query parameters including `api-version` (required). |
 
-**Returns:** `IndexDocumentsResult|error`
+Returns: `IndexDocumentsResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 index:DocumentsIndexHeaders headers = {"api-key": apiKey};
@@ -267,7 +268,7 @@ index:IndexDocumentsResult result = check azureSearchClient->documentsIndex(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -292,16 +293,16 @@ index:IndexDocumentsResult result = check azureSearchClient->documentsIndex(
 
 Retrieves search suggestions based on partial query input using query parameters. Requires a pre-configured suggester on the index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `DocumentsSuggestGetHeaders` | No | Request headers including `api-key` for authentication. |
 | `queries` | `DocumentsSuggestGetQueries` | Yes | Query parameters including `api-version` (required), `search` (required), `suggesterName` (required), and optional `$filter`, `$select`, `$orderby`, `$top`. |
 
-**Returns:** `SuggestDocumentsResult|error`
+Returns: `SuggestDocumentsResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 index:DocumentsSuggestGetHeaders headers = {"api-key": apiKey};
@@ -314,7 +315,7 @@ index:SuggestDocumentsResult result = check azureSearchClient->documentsSuggestG
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -336,7 +337,7 @@ index:SuggestDocumentsResult result = check azureSearchClient->documentsSuggestG
 
 Retrieves search suggestions using a POST request body. Requires a pre-configured suggester on the index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -344,9 +345,9 @@ Retrieves search suggestions using a POST request body. Requires a pre-configure
 | `headers` | `DocumentsSuggestPostHeaders` | No | Request headers including `api-key` for authentication. |
 | `queries` | `DocumentsSuggestPostQueries` | Yes | Query parameters including `api-version` (required). |
 
-**Returns:** `SuggestDocumentsResult|error`
+Returns: `SuggestDocumentsResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 index:DocumentsSuggestPostHeaders headers = {"api-key": apiKey};
@@ -363,7 +364,7 @@ index:SuggestDocumentsResult result = check azureSearchClient->documentsSuggestP
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -387,16 +388,16 @@ index:SuggestDocumentsResult result = check azureSearchClient->documentsSuggestP
 
 Completes partial query terms using query parameters. Requires a pre-configured suggester on the index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `DocumentsAutocompleteGetHeaders` | No | Request headers including `api-key` for authentication. |
 | `queries` | `DocumentsAutocompleteGetQueries` | Yes | Query parameters including `api-version` (required), `search` (required), `suggesterName` (required), and optional `autocompleteMode`, `$filter`, `fuzzy`, `$top`. |
 
-**Returns:** `AutocompleteResult|error`
+Returns: `AutocompleteResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 index:DocumentsAutocompleteGetHeaders headers = {"api-key": apiKey};
@@ -408,7 +409,7 @@ index:AutocompleteResult result = check azureSearchClient->documentsAutocomplete
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -430,7 +431,7 @@ index:AutocompleteResult result = check azureSearchClient->documentsAutocomplete
 
 Completes partial query terms using a POST request body. Requires a pre-configured suggester on the index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -438,9 +439,9 @@ Completes partial query terms using a POST request body. Requires a pre-configur
 | `headers` | `DocumentsAutocompletePostHeaders` | No | Request headers including `api-key` for authentication. |
 | `queries` | `DocumentsAutocompletePostQueries` | Yes | Query parameters including `api-version` (required). |
 
-**Returns:** `AutocompleteResult|error`
+Returns: `AutocompleteResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 index:DocumentsAutocompletePostHeaders headers = {"api-key": apiKey};
@@ -456,7 +457,7 @@ index:AutocompleteResult result = check azureSearchClient->documentsAutocomplete
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

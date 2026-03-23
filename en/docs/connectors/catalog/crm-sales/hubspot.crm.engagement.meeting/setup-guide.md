@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a HubSpot developer app and obtaining the OAuth 2.0 credentials required to use the HubSpot CRM Engagement Meeting connector.
@@ -7,12 +10,12 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 
 - A HubSpot account with CRM access. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 
-## Step 1: Create a HubSpot Developer Account
+## Step 1: Create a HubSpot developer account
 
 1. Go to [HubSpot Developer](https://developers.hubspot.com/) and sign up or log in.
 2. Once logged in, you will land on the developer dashboard.
 
-## Step 2: Create a Developer App
+## Step 2: Create a developer app
 
 1. In the developer dashboard, click **Apps** in the top navigation.
 2. Click **Create app**.
@@ -28,7 +31,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 The scopes you select determine what data the connector can access. Add additional scopes as needed for your use case.
 :::
 
-## Step 3: Get the Client ID and Client Secret
+## Step 3: Get the client ID and client secret
 
 1. In the **Auth** tab of your app, locate the **Client ID** and **Client Secret** fields.
 2. Copy the **Client ID** — this is your `clientId`.
@@ -39,7 +42,7 @@ Store the Client ID and Client Secret securely. Do not commit them to source con
 Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 4: Authorize and Generate a Refresh Token
+## Step 4: Authorize and generate a refresh token
 
 1. Construct the authorization URL, replacing `<YOUR_CLIENT_ID>` and `<YOUR_REDIRECT_URI>`:
 

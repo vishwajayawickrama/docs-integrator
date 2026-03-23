@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -36,7 +37,7 @@ Provides access to sold-to party determination records for sales scheduling agre
 | `proxy` | `http:ProxyConfig` | `()` | HTTP proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable or disable response payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.api_sd_sa_soldtopartydetn as soldToParty;
@@ -53,7 +54,7 @@ soldToParty:Client sapClient = check new (
 
 ### Operations
 
-#### Sold-to Party Determination
+#### Sold-to party determination
 
 <details>
 <summary>listA_DelivSchedSoldToPartyDetns</summary>
@@ -62,16 +63,16 @@ soldToParty:Client sapClient = check new (
 
 Retrieves a collection of all delivery scheduling sold-to party determination records, with optional OData query parameters for filtering, sorting, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include in the request. |
 | `queries` | `ListA_DelivSchedSoldToPartyDetnsQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$inlinecount`, `$select`. |
 
-**Returns:** `CollectionOfA_DelivSchedSoldToPartyDetnWrapper|error`
+Returns: `CollectionOfA_DelivSchedSoldToPartyDetnWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 soldToParty:CollectionOfA_DelivSchedSoldToPartyDetnWrapper result =
@@ -80,7 +81,7 @@ soldToParty:CollectionOfA_DelivSchedSoldToPartyDetnWrapper result =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -115,7 +116,7 @@ soldToParty:CollectionOfA_DelivSchedSoldToPartyDetnWrapper result =
 
 Retrieves a specific sold-to party determination record by its composite key consisting of Supplier, PartnerDescription, and UnloadingPointName.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -125,9 +126,9 @@ Retrieves a specific sold-to party determination record by its composite key con
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include in the request. |
 | `queries` | `GetA_DelivSchedSoldToPartyDetnQueries` | No | OData query options: `$select` to limit returned fields. |
 
-**Returns:** `A_DelivSchedSoldToPartyDetnWrapper|error`
+Returns: `A_DelivSchedSoldToPartyDetnWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 soldToParty:A_DelivSchedSoldToPartyDetnWrapper result =
@@ -138,7 +139,7 @@ soldToParty:A_DelivSchedSoldToPartyDetnWrapper result =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -162,16 +163,16 @@ soldToParty:A_DelivSchedSoldToPartyDetnWrapper result =
 
 Sends a grouped OData batch HTTP request to execute multiple operations in a single round-trip to the SAP S/4HANA server.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `http:Request` | Yes | An `http:Request` object containing the multipart batch body formatted according to OData batch request conventions. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include in the batch request. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Request batchRequest = new;
@@ -186,7 +187,7 @@ batchRequest.setTextPayload(
 http:Response batchResponse = check sapClient->performBatchOperation(batchRequest);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP/1.1 200 OK

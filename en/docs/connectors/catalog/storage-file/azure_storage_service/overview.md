@@ -6,7 +6,7 @@ description: "Overview of the ballerinax/azure_storage_service connector for WSO
 Azure Storage Service provides scalable cloud storage for blobs (binary large objects) and file shares on Microsoft Azure. The Ballerina `ballerinax/azure_storage_service` connector (v4.3.3) exposes two sub-modules — `blobs` for working with Azure Blob Storage containers and blob objects, and `files` for managing Azure File Shares — enabling seamless integration of Azure storage into Ballerina-based applications.
 
 
-## Key Features
+## Key features
 
 - Blob CRUD operations — upload, download, delete, and copy block blobs, page blobs, and append blobs
 - Large blob upload via chunked block staging (`putBlock` + `putBlockList`) and a high-level `uploadLargeBlob` helper
@@ -30,14 +30,14 @@ Actions are operations you invoke on Azure Storage from your integration — lis
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## Azure Storage Service Connector Documentation
+## Azure storage service connector documentation
 
 * **[Azure Storage Service Connector Setup Guide](setup-guide.md)**: This guide walks you through creating an Azure Storage account and obtaining the credentials required to use the Azure Storage Service connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

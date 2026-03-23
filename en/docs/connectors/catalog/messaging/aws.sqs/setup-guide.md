@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up an AWS account and obtaining the credentials required to use the AWS SQS connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up an AWS account and obtaining the credent
 
 - An active AWS account. If you do not have one, [sign up for an AWS account](https://aws.amazon.com/free/).
 
-## Step 1: Create an IAM User
+## Step 1: Create an IAM user
 
 1. Log in to the [AWS Management Console](https://console.aws.amazon.com/).
 2. Navigate to **IAM** (Identity and Access Management) by searching for it in the top search bar.
@@ -21,7 +24,7 @@ This guide walks you through setting up an AWS account and obtaining the credent
 For production use, follow the principle of least privilege and create a custom IAM policy that grants only the specific SQS actions your application needs.
 :::
 
-## Step 2: Generate Access Keys
+## Step 2: Generate access keys
 
 1. In the IAM console, click on the user you just created.
 2. Go to the **Security credentials** tab.
@@ -39,7 +42,7 @@ Store the Access Key ID and Secret Access Key securely. Do not commit them to so
 Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 3: Create an SQS Queue
+## Step 3: Create an SQS queue
 
 1. Navigate to the [Amazon SQS console](https://console.aws.amazon.com/sqs/).
 2. Click **Create queue**.
@@ -55,7 +58,7 @@ Use Ballerina's `configurable` feature and a `Config.toml` file to supply them a
 The queue URL has the format `https://sqs.<region>.amazonaws.com/<account-id>/<queue-name>`. You can also retrieve it programmatically using the `getQueueUrl` operation.
 :::
 
-## Step 4: Note Your AWS Region
+## Step 4: Note your AWS region
 
 Identify the AWS region where your queue is created (e.g., `us-east-1`, `eu-west-1`).
 You will need to specify this region when configuring the Ballerina connector.

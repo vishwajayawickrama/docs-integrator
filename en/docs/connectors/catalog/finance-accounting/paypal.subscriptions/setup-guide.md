@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a PayPal Developer application and obtaining the OAuth 2.0 Client ID and Client Secret required to use the PayPal Subscriptions connector.
@@ -7,12 +10,12 @@ This guide walks you through creating a PayPal Developer application and obtaini
 
 - A PayPal account. If you do not have one, [sign up at paypal.com](https://www.paypal.com/us/webapps/mpp/account-selection).
 
-## Step 1: Access the PayPal Developer Dashboard
+## Step 1: Access the PayPal developer dashboard
 
 1. Go to [developer.paypal.com](https://developer.paypal.com/) and log in with your PayPal credentials.
 2. Click **Dashboard** in the top navigation bar to open the developer portal.
 
-## Step 2: Create a REST API Application
+## Step 2: Create a REST API application
 
 1. In the Dashboard, navigate to **My Apps & Credentials**.
 2. Select the environment tab: **Sandbox** (for development and testing) or **Live** (for production).
@@ -25,7 +28,7 @@ This guide walks you through creating a PayPal Developer application and obtaini
 Start with the Sandbox environment during development. The sandbox has its own set of credentials and test accounts separate from production.
 :::
 
-## Step 3: Retrieve Client ID and Client Secret
+## Step 3: Retrieve client ID and client secret
 
 1. After the app is created, you are taken to the app detail page.
 2. Under **Credentials**, copy the **Client ID** — this is your `clientId`.
@@ -35,7 +38,7 @@ Start with the Sandbox environment during development. The sandbox has its own s
 Store your Client ID and Client Secret securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 4: Enable Subscriptions Permissions for the App
+## Step 4: Enable subscriptions permissions for the app
 
 1. On the app detail page, scroll down to the **Features** section.
 2. Verify that **Subscriptions** is enabled in the app's feature list.
@@ -45,7 +48,7 @@ Store your Client ID and Client Secret securely. Do not commit them to source co
 Enabling Subscriptions in the Live environment may require additional business verification by PayPal before the feature becomes available.
 :::
 
-## Step 5: Switch to Live Credentials for Production
+## Step 5: Switch to live credentials for production
 
 When you are ready to go live:
 

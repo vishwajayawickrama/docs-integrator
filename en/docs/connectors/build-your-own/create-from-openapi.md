@@ -16,15 +16,15 @@ APIs power many of the digital services we use daily, such as notifications, SMS
 - An OpenAPI specification file (JSON or YAML) for the target API
 - WSO2 Integrator IDE installed and configured
 
-## Generate a Connector
+## Generate a connector
 
 Follow these steps to generate a custom connector from an OpenAPI spec:
 
-### Step 1: Open the Flow Diagram
+### Step 1: Open the flow diagram
 
 Open your integration project in the Automation diagram view.
 
-### Step 2: Add a New Connection
+### Step 2: Add a new connection
 
 Click the **+** icon positioned between the **Start** and **Error Handler** nodes on your flow line. From the right-side palette, choose **Add Connection**.
 
@@ -32,7 +32,7 @@ Click the **+** icon positioned between the **Start** and **Error Handler** node
 
 In the **Add Connection** overlay, select **OpenAPI** under the **Connect via API Specification** section.
 
-### Step 4: Configure the Connector
+### Step 4: Configure the connector
 
 In the **Connector Configuration** form, fill in the following:
 
@@ -41,7 +41,7 @@ In the **Connector Configuration** form, fill in the following:
 | **Connector Name** | A descriptive name for your connector | `stackOverflow` |
 | **Import Specification File** | Browse and upload your OpenAPI definition file | `stack-overflow-api.yaml` |
 
-### Step 5: Save and Review
+### Step 5: Save and review
 
 Click **Save Connector** to generate the connector from your OpenAPI spec. Review the connection details displayed on the following screen to verify everything looks correct.
 
@@ -53,7 +53,7 @@ Click **Save Connection** to complete the setup. Your custom connector is now re
 Make sure your OpenAPI specification is valid and well-structured before importing. You can validate your spec using tools like [Swagger Editor](https://editor.swagger.io/).
 :::
 
-## What's Next
+## What's next
 
 Once your connector is generated, you can use it just like any pre-built connector — drag it into your integration flow, configure its operations, and map data between services.
 

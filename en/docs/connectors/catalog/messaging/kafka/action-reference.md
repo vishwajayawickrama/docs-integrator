@@ -1,3 +1,6 @@
+---
+title: Actions
+---
 # Actions
 
 The `ballerinax/kafka` package exposes the following clients:
@@ -36,7 +39,7 @@ Publishes messages to Kafka topics with configurable serialization, compression,
 | `securityProtocol` | `SecurityProtocol` | `PROTOCOL_PLAINTEXT` | Security protocol (`"PLAINTEXT"`, `"SASL_PLAINTEXT"`, `"SASL_SSL"`, `"SSL"`). |
 | `additionalProperties` | `map&lt;string&gt;?` | `()` | Additional Kafka producer properties not covered by named fields. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/kafka;
@@ -50,22 +53,22 @@ kafka:Producer producer = check new (kafka:DEFAULT_URL, {
 
 ### Operations
 
-#### Produce Messages
+#### Produce messages
 
 <details>
 <summary>send</summary>
 
 Sends a message to a Kafka topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `producerRecord` | `AnydataProducerRecord` | Yes | The record containing the topic, key, value, and optional headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->send({
@@ -82,15 +85,15 @@ check producer->send({
 
 Sends a message and returns the record metadata (partition, offset, timestamp).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `producerRecord` | `AnydataProducerRecord` | Yes | The record containing the topic, key, value, and optional headers. |
 
-**Returns:** `kafka:RecordMetadata|error`
+Returns: `kafka:RecordMetadata|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 kafka:RecordMetadata metadata = check producer->sendWithMetadata({
@@ -99,7 +102,7 @@ kafka:RecordMetadata metadata = check producer->sendWithMetadata({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"topic": "test-kafka-topic", "partition": 0, "offset": 42, "timestamp": 1700000000000, "serializedKeySize": -1, "serializedValueSize": 11}
@@ -112,14 +115,14 @@ kafka:RecordMetadata metadata = check producer->sendWithMetadata({
 
 Flushes all buffered messages, blocking until all sends are complete.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->'flush();
@@ -127,28 +130,28 @@ check producer->'flush();
 
 </details>
 
-#### Topic Metadata
+#### Topic metadata
 
 <details>
 <summary>getTopicPartitions</summary>
 
 Returns the partition metadata for a given topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topic` | `string` | Yes | The Kafka topic name. |
 
-**Returns:** `kafka:TopicPartition[]|error`
+Returns: `kafka:TopicPartition[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 kafka:TopicPartition[] partitions = check producer->getTopicPartitions("test-kafka-topic");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"topic": "test-kafka-topic", "partition": 0}, {"topic": "test-kafka-topic", "partition": 1}, {"topic": "test-kafka-topic", "partition": 2}]
@@ -163,14 +166,14 @@ kafka:TopicPartition[] partitions = check producer->getTopicPartitions("test-kaf
 
 Closes the producer and releases all resources.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->close();
@@ -209,7 +212,7 @@ Subscribes to Kafka topics and polls for messages with manual offset management.
 | `validation` | `boolean` | `true` | Enable constraint validation on deserialized records. |
 | `decoupleProcessing` | `boolean` | `false` | Decouple record processing from polling for improved throughput. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/kafka;
@@ -223,22 +226,22 @@ kafka:Consumer consumer = check new (kafka:DEFAULT_URL, {
 
 ### Operations
 
-#### Subscribe & Assign
+#### Subscribe & assign
 
 <details>
 <summary>subscribe</summary>
 
 Subscribes the consumer to one or more topics.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topics` | `string|string[]` | Yes | Topic name(s) to subscribe to. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->subscribe(["topic-1", "topic-2"]);
@@ -251,15 +254,15 @@ check consumer->subscribe(["topic-1", "topic-2"]);
 
 Subscribes to all topics matching a regex pattern.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `regex` | `string` | Yes | Regular expression pattern for topic names. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->subscribeWithPattern("order-.*");
@@ -272,14 +275,14 @@ check consumer->subscribeWithPattern("order-.*");
 
 Unsubscribes from all currently subscribed topics.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->unsubscribe();
@@ -292,15 +295,15 @@ check consumer->unsubscribe();
 
 Manually assigns specific topic-partitions to this consumer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `partitions` | `TopicPartition[]` | Yes | Array of topic-partition pairs to assign. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->assign([{topic: "test-topic", partition: 0}]);
@@ -308,23 +311,23 @@ check consumer->assign([{topic: "test-topic", partition: 0}]);
 
 </details>
 
-#### Poll Messages
+#### Poll messages
 
 <details>
 <summary>poll</summary>
 
 Polls for consumer records, returning full record metadata including key, value, offset, and headers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `timeout` | `decimal` | Yes | Maximum time in seconds to block waiting for records. |
 | `T` | `typedesc&lt;AnydataConsumerRecord[]&gt;` | No | Expected consumer record array type for deserialization. |
 
-**Returns:** `T|error`
+Returns: `T|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 kafka:BytesConsumerRecord[] records = check consumer->poll(1);
@@ -333,7 +336,7 @@ foreach var rec in records {
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"key": "order-1", "value": [72, 101, 108, 108, 111], "timestamp": 1700000000000, "offset": {"partition": {"topic": "test-kafka-topic", "partition": 0}, "offset": 42}, "headers": {}}]
@@ -346,22 +349,22 @@ foreach var rec in records {
 
 Polls for message payloads only, without record metadata.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `timeout` | `decimal` | Yes | Maximum time in seconds to block waiting for records. |
 | `T` | `typedesc&lt;anydata[]&gt;` | No | Expected payload array type for deserialization. |
 
-**Returns:** `T|error`
+Returns: `T|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] payloads = check consumer->pollPayload(1);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["Hello World, Ballerina", "Order received", "Payment processed"]
@@ -369,21 +372,21 @@ string[] payloads = check consumer->pollPayload(1);
 
 </details>
 
-#### Offset Management
+#### Offset management
 
 <details>
 <summary>commit</summary>
 
 Commits the current offsets for all subscribed partitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->'commit();
@@ -396,16 +399,16 @@ check consumer->'commit();
 
 Commits specific offsets for specific partitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `offsets` | `PartitionOffset[]` | Yes | Array of partition-offset pairs to commit. |
 | `duration` | `decimal` | Yes | Timeout in seconds for the commit operation. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->commitOffset(
@@ -421,15 +424,15 @@ check consumer->commitOffset(
 
 Seeks to a specific offset in a topic-partition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `offset` | `PartitionOffset` | Yes | The partition and offset to seek to. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->seek({
@@ -445,15 +448,15 @@ check consumer->seek({
 
 Seeks to the beginning of the specified partitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `partitions` | `TopicPartition[]` | Yes | Partitions to seek to the beginning. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->seekToBeginning([{topic: "test-topic", partition: 0}]);
@@ -466,15 +469,15 @@ check consumer->seekToBeginning([{topic: "test-topic", partition: 0}]);
 
 Seeks to the end of the specified partitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `partitions` | `TopicPartition[]` | Yes | Partitions to seek to the end. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->seekToEnd([{topic: "test-topic", partition: 0}]);
@@ -487,16 +490,16 @@ check consumer->seekToEnd([{topic: "test-topic", partition: 0}]);
 
 Returns the last committed offset for a partition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `partition` | `TopicPartition` | Yes | The topic-partition to query. |
 | `duration` | `decimal` | Yes | Timeout in seconds. |
 
-**Returns:** `kafka:PartitionOffset|error?`
+Returns: `kafka:PartitionOffset|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 kafka:PartitionOffset? offset = check consumer->getCommittedOffset(
@@ -504,7 +507,7 @@ kafka:PartitionOffset? offset = check consumer->getCommittedOffset(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"partition": {"topic": "test-topic", "partition": 0}, "offset": 99}
@@ -517,16 +520,16 @@ kafka:PartitionOffset? offset = check consumer->getCommittedOffset(
 
 Returns the current position (next fetch offset) for a partition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `partition` | `TopicPartition` | Yes | The topic-partition to query. |
 | `duration` | `decimal` | Yes | Timeout in seconds. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int position = check consumer->getPositionOffset(
@@ -534,7 +537,7 @@ int position = check consumer->getPositionOffset(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 100
@@ -542,27 +545,27 @@ int position = check consumer->getPositionOffset(
 
 </details>
 
-#### Partition Management
+#### Partition management
 
 <details>
 <summary>getAssignment</summary>
 
 Returns the set of partitions currently assigned to this consumer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `kafka:TopicPartition[]|error`
+Returns: `kafka:TopicPartition[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 kafka:TopicPartition[] assigned = check consumer->getAssignment();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"topic": "test-kafka-topic", "partition": 0}, {"topic": "test-kafka-topic", "partition": 1}]
@@ -575,20 +578,20 @@ kafka:TopicPartition[] assigned = check consumer->getAssignment();
 
 Returns the current topic subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] topics = check consumer->getSubscription();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["test-kafka-topic", "order-topic"]
@@ -601,22 +604,22 @@ string[] topics = check consumer->getSubscription();
 
 Returns the partition metadata for a topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topic` | `string` | Yes | The Kafka topic name. |
 | `duration` | `decimal` | Yes | Timeout in seconds. |
 
-**Returns:** `kafka:TopicPartition[]|error`
+Returns: `kafka:TopicPartition[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 kafka:TopicPartition[] partitions = check consumer->getTopicPartitions("test-topic", 10);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"topic": "test-topic", "partition": 0}, {"topic": "test-topic", "partition": 1}, {"topic": "test-topic", "partition": 2}]
@@ -629,15 +632,15 @@ kafka:TopicPartition[] partitions = check consumer->getTopicPartitions("test-top
 
 Pauses consumption from the specified partitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `partitions` | `TopicPartition[]` | Yes | Partitions to pause. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->pause([{topic: "test-topic", partition: 0}]);
@@ -650,15 +653,15 @@ check consumer->pause([{topic: "test-topic", partition: 0}]);
 
 Resumes consumption from previously paused partitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `partitions` | `TopicPartition[]` | Yes | Partitions to resume. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->resume([{topic: "test-topic", partition: 0}]);
@@ -671,20 +674,20 @@ check consumer->resume([{topic: "test-topic", partition: 0}]);
 
 Returns the set of partitions currently paused.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `kafka:TopicPartition[]|error`
+Returns: `kafka:TopicPartition[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 kafka:TopicPartition[] paused = check consumer->getPausedPartitions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"topic": "test-topic", "partition": 0}]
@@ -697,21 +700,21 @@ kafka:TopicPartition[] paused = check consumer->getPausedPartitions();
 
 Returns all topics available on the Kafka cluster.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `duration` | `decimal` | Yes | Timeout in seconds. |
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] availableTopics = check consumer->getAvailableTopics(10);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["test-kafka-topic", "order-topic", "payment-topic", "__consumer_offsets"]
@@ -724,16 +727,16 @@ string[] availableTopics = check consumer->getAvailableTopics(10);
 
 Returns the earliest available offsets for the given partitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `partitions` | `TopicPartition[]` | Yes | Partitions to query. |
 | `duration` | `decimal` | Yes | Timeout in seconds. |
 
-**Returns:** `kafka:PartitionOffset[]|error`
+Returns: `kafka:PartitionOffset[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 kafka:PartitionOffset[] beginOffsets = check consumer->getBeginningOffsets(
@@ -741,7 +744,7 @@ kafka:PartitionOffset[] beginOffsets = check consumer->getBeginningOffsets(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"partition": {"topic": "test-topic", "partition": 0}, "offset": 0}]
@@ -754,16 +757,16 @@ kafka:PartitionOffset[] beginOffsets = check consumer->getBeginningOffsets(
 
 Returns the end offsets (next-to-be-written) for the given partitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `partitions` | `TopicPartition[]` | Yes | Partitions to query. |
 | `duration` | `decimal` | Yes | Timeout in seconds. |
 
-**Returns:** `kafka:PartitionOffset[]|error`
+Returns: `kafka:PartitionOffset[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 kafka:PartitionOffset[] endOffsets = check consumer->getEndOffsets(
@@ -771,7 +774,7 @@ kafka:PartitionOffset[] endOffsets = check consumer->getEndOffsets(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"partition": {"topic": "test-topic", "partition": 0}, "offset": 1523}]
@@ -786,15 +789,15 @@ kafka:PartitionOffset[] endOffsets = check consumer->getEndOffsets(
 
 Closes the consumer and releases all resources.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `duration` | `decimal` | Yes | Timeout in seconds to wait for graceful shutdown. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->close(15);

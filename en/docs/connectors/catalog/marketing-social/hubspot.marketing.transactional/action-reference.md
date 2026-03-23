@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -27,7 +28,7 @@ Send transactional emails and manage SMTP API tokens via the HubSpot Marketing A
 | `secureSocket` | `ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `proxy` | `ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.marketing.transactional;
@@ -48,7 +49,7 @@ transactional:Client hubspotClient = check new ({
 
 ### Operations
 
-#### Transactional Email
+#### Transactional email
 
 <details>
 <summary>Send a single transactional email</summary>
@@ -57,16 +58,16 @@ transactional:Client hubspotClient = check new ({
 
 Asynchronously send a transactional email. The email content is based on a template created in HubSpot, identified by `emailId`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicSingleSendRequestEgg` | Yes | The email send request containing the email ID, recipient, and optional custom properties. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EmailSendStatusView|error`
+Returns: `EmailSendStatusView|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 transactional:EmailSendStatusView response = check hubspotClient->post single\-email/send(
@@ -84,7 +85,7 @@ transactional:EmailSendStatusView response = check hubspotClient->post single\-e
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -98,7 +99,7 @@ transactional:EmailSendStatusView response = check hubspotClient->post single\-e
 
 </details>
 
-#### SMTP Token Management
+#### SMTP token management
 
 <details>
 <summary>Query SMTP API tokens</summary>
@@ -107,7 +108,7 @@ transactional:EmailSendStatusView response = check hubspotClient->post single\-e
 
 Query SMTP API tokens by campaign name or email campaign ID. Returns a paginated list of tokens.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -117,9 +118,9 @@ Query SMTP API tokens by campaign name or email campaign ID. Returns a paginated
 | `limit` | `int:Signed32?` | No | Maximum number of tokens to return. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponseSmtpApiTokenViewForwardPaging|error`
+Returns: `CollectionResponseSmtpApiTokenViewForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 transactional:CollectionResponseSmtpApiTokenViewForwardPaging response = check hubspotClient->get smtp\-tokens(
@@ -127,7 +128,7 @@ transactional:CollectionResponseSmtpApiTokenViewForwardPaging response = check h
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -155,16 +156,16 @@ transactional:CollectionResponseSmtpApiTokenViewForwardPaging response = check h
 
 Create a new SMTP API token for sending transactional emails via SMTP.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SmtpApiTokenRequestEgg` | Yes | Token creation request with campaign name and contact creation preference. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `SmtpApiTokenView|error`
+Returns: `SmtpApiTokenView|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 transactional:SmtpApiTokenView response = check hubspotClient->post smtp\-tokens(
@@ -175,7 +176,7 @@ transactional:SmtpApiTokenView response = check hubspotClient->post smtp\-tokens
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -200,22 +201,22 @@ transactional:SmtpApiTokenView response = check hubspotClient->post smtp\-tokens
 
 Retrieve a single SMTP API token by its token ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `tokenId` | `string` | Yes | The ID of the SMTP token to retrieve. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `SmtpApiTokenView|error`
+Returns: `SmtpApiTokenView|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 transactional:SmtpApiTokenView response = check hubspotClient->get smtp\-tokens/["token-001"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -239,22 +240,22 @@ transactional:SmtpApiTokenView response = check hubspotClient->get smtp\-tokens/
 
 Reset the password for an existing SMTP API token. The new password is returned in the response.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `tokenId` | `string` | Yes | The ID of the SMTP token whose password should be reset. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `SmtpApiTokenView|error`
+Returns: `SmtpApiTokenView|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 transactional:SmtpApiTokenView response = check hubspotClient->post smtp\-tokens/["token-001"]/password\-reset;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -279,16 +280,16 @@ transactional:SmtpApiTokenView response = check hubspotClient->post smtp\-tokens
 
 Delete (archive) an existing SMTP API token by its token ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `tokenId` | `string` | Yes | The ID of the SMTP token to delete. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->delete smtp\-tokens/["token-001"];

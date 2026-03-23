@@ -13,7 +13,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 - A HubSpot developer account. If you do not have one, [sign up for free](https://developers.hubspot.com/get-started).
 - A HubSpot account with Marketing Hub access to manage marketing emails.
 
-## Create a HubSpot Developer App
+## Create a HubSpot developer app
 
 1. Log in to the [HubSpot Developer Portal](https://developers.hubspot.com/).
 2. Navigate to **Apps** in the top navigation.
@@ -21,7 +21,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 4. Fill in the **App Info** tab with a name and description for your application.
 
 
-## Configure OAuth Scopes
+## Configure OAuth scopes
 
 1. Go to the **Auth** tab of your app.
 2. Under **Scopes**, add the following required scopes:
@@ -33,7 +33,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 For publish and send operations, you may need additional scopes such as `marketing-email` depending on your HubSpot subscription tier.
 :::
 
-## Install the App on Your HubSpot Account
+## Install the app on your HubSpot account
 
 1. Copy the **Install URL** from the Auth tab, or construct it manually:
 
@@ -46,7 +46,7 @@ For publish and send operations, you may need additional scopes such as `marketi
 4. After authorization, HubSpot redirects to your redirect URI with a `code` query parameter. Copy the `code` value.
 
 
-## Generate a Refresh Token
+## Generate a refresh token
 
 Exchange the authorization code for tokens using a POST request:
 
@@ -68,6 +68,6 @@ The response contains `access_token` and `refresh_token`. Copy the `refresh_toke
 Store the Client ID, Client Secret, and Refresh Token securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

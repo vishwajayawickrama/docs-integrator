@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -27,7 +28,7 @@ Microsoft Graph v1.0 API — drive and item CRUD, content management, sharing, s
 | `secureSocket` | `ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `proxy` | `ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/microsoft.onedrive;
@@ -50,7 +51,7 @@ onedrive:Client oneDrive = check new (
 
 ### Operations
 
-#### Drive Management
+#### Drive management
 
 <details>
 <summary>listDrive</summary>
@@ -59,22 +60,22 @@ onedrive:Client oneDrive = check new (
 
 Retrieves the list of drives available to the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `ListDriveQueries` | No | OData query parameters (`$select`, `$filter`, `$top`, `$skip`, `$orderby`, `$expand`, `$count`). |
 
-**Returns:** `DriveCollectionResponse|error`
+Returns: `DriveCollectionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveCollectionResponse drives = check oneDrive->listDrive();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -110,7 +111,7 @@ onedrive:DriveCollectionResponse drives = check oneDrive->listDrive();
 
 Retrieves the properties and relationships of a specific drive by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -118,15 +119,15 @@ Retrieves the properties and relationships of a specific drive by ID.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetDriveQueries` | No | OData query parameters (`$select`, `$expand`). |
 
-**Returns:** `Drive|error`
+Returns: `Drive|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:Drive drive = check oneDrive->getDrive("b!xGz3a2VHOkqJRsBv0AAAA");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -152,16 +153,16 @@ onedrive:Drive drive = check oneDrive->getDrive("b!xGz3a2VHOkqJRsBv0AAAA");
 
 Creates a new drive with the specified properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Drive` | Yes | The drive resource to create. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Drive|error`
+Returns: `Drive|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:Drive newDrive = check oneDrive->createDrive({
@@ -170,7 +171,7 @@ onedrive:Drive newDrive = check oneDrive->createDrive({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -191,7 +192,7 @@ onedrive:Drive newDrive = check oneDrive->createDrive({
 
 Updates the properties of a drive.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -199,9 +200,9 @@ Updates the properties of a drive.
 | `payload` | `Drive` | Yes | The drive properties to update. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Drive|error`
+Returns: `Drive|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:Drive updated = check oneDrive->updateDrive("b!xGz3a2VHOkqJRsBv0AAAA", {
@@ -209,7 +210,7 @@ onedrive:Drive updated = check oneDrive->updateDrive("b!xGz3a2VHOkqJRsBv0AAAA", 
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -230,16 +231,16 @@ onedrive:Drive updated = check oneDrive->updateDrive("b!xGz3a2VHOkqJRsBv0AAAA", 
 
 Deletes a drive by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `driveId` | `string` | Yes | The unique identifier of the drive. |
 | `headers` | `DeleteDriveHeaders` | No | Optional HTTP headers including `If-Match`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check oneDrive->deleteDrive("b!xGz3a2VHOkqJRsBv0AAAA");
@@ -258,7 +259,7 @@ check oneDrive->deleteDrive("b!xGz3a2VHOkqJRsBv0AAAA");
 
 Lists the drive items (files and folders) in a drive.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -266,15 +267,15 @@ Lists the drive items (files and folders) in a drive.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `ListItemQueries` | No | OData query parameters. |
 
-**Returns:** `DriveItemCollectionResponse|error`
+Returns: `DriveItemCollectionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItemCollectionResponse items = check oneDrive->listItem(driveId);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -306,7 +307,7 @@ onedrive:DriveItemCollectionResponse items = check oneDrive->listItem(driveId);
 
 Retrieves the metadata for a drive item by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -315,15 +316,15 @@ Retrieves the metadata for a drive item by its ID.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetItemQueries` | No | OData query parameters. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem item = check oneDrive->getItem(driveId, "01BYE5RZ6QN3ZWBTUFOFD3GSPGOHDJD36K");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -347,7 +348,7 @@ onedrive:DriveItem item = check oneDrive->getItem(driveId, "01BYE5RZ6QN3ZWBTUFOF
 
 Creates a new drive item in the specified drive.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -355,9 +356,9 @@ Creates a new drive item in the specified drive.
 | `payload` | `DriveItem` | Yes | The drive item resource to create. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem newItem = check oneDrive->createItem(driveId, {
@@ -366,7 +367,7 @@ onedrive:DriveItem newItem = check oneDrive->createItem(driveId, {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -388,7 +389,7 @@ onedrive:DriveItem newItem = check oneDrive->createItem(driveId, {
 
 Updates the metadata of an existing drive item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -397,9 +398,9 @@ Updates the metadata of an existing drive item.
 | `payload` | `DriveItem` | Yes | The updated drive item properties. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem updated = check oneDrive->updateItem(driveId, driveItemId, {
@@ -407,7 +408,7 @@ onedrive:DriveItem updated = check oneDrive->updateItem(driveId, driveItemId, {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -428,7 +429,7 @@ onedrive:DriveItem updated = check oneDrive->updateItem(driveId, driveItemId, {
 
 Deletes a drive item (file or folder) by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -436,9 +437,9 @@ Deletes a drive item (file or folder) by its ID.
 | `driveItemId` | `string` | Yes | The unique identifier of the drive item. |
 | `headers` | `DeleteItemHeaders` | No | Optional HTTP headers including `If-Match`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check oneDrive->deleteItem(driveId, "01BYE5RZ7XHKK5MN2BOVAL2MCSITPQHBWP");
@@ -448,7 +449,7 @@ check oneDrive->deleteItem(driveId, "01BYE5RZ7XHKK5MN2BOVAL2MCSITPQHBWP");
 
 </details>
 
-#### Item Content
+#### Item content
 
 <details>
 <summary>getItemsContent</summary>
@@ -457,7 +458,7 @@ check oneDrive->deleteItem(driveId, "01BYE5RZ7XHKK5MN2BOVAL2MCSITPQHBWP");
 
 Downloads the content (bytes) of a drive item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -466,15 +467,15 @@ Downloads the content (bytes) of a drive item.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetItemsContentQueries` | No | OData query parameters. |
 
-**Returns:** `byte[]|error`
+Returns: `byte[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] content = check oneDrive->getItemsContent(driveId, driveItemId);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [80, 75, 3, 4, 20, 0, 6, ...]
@@ -491,7 +492,7 @@ byte[] content = check oneDrive->getItemsContent(driveId, driveItemId);
 
 Uploads or replaces the content of a drive item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -500,16 +501,16 @@ Uploads or replaces the content of a drive item.
 | `payload` | `byte[]` | Yes | The file content as a byte array. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] fileContent = check io:fileReadBytes("files/document.pdf");
 onedrive:DriveItem item = check oneDrive->setItemsContent(driveId, driveItemId, fileContent);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -531,7 +532,7 @@ onedrive:DriveItem item = check oneDrive->setItemsContent(driveId, driveItemId, 
 
 Deletes the content stream of a drive item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -539,9 +540,9 @@ Deletes the content stream of a drive item.
 | `driveItemId` | `string` | Yes | The unique identifier of the drive item. |
 | `headers` | `DeleteItemsContentHeaders` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check oneDrive->deleteItemsContent(driveId, driveItemId);
@@ -551,7 +552,7 @@ check oneDrive->deleteItemsContent(driveId, driveItemId);
 
 </details>
 
-#### Children Management
+#### Children management
 
 <details>
 <summary>listChildren</summary>
@@ -560,7 +561,7 @@ check oneDrive->deleteItemsContent(driveId, driveItemId);
 
 Lists the child items (files and folders) of a drive item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -569,15 +570,15 @@ Lists the child items (files and folders) of a drive item.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `ListChildrenQueries` | No | OData query parameters. |
 
-**Returns:** `DriveItemCollectionResponse|error`
+Returns: `DriveItemCollectionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItemCollectionResponse children = check oneDrive->listChildren(driveId, folderId);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -599,7 +600,7 @@ onedrive:DriveItemCollectionResponse children = check oneDrive->listChildren(dri
 
 Creates a new child item (file or folder) under the specified parent item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -608,9 +609,9 @@ Creates a new child item (file or folder) under the specified parent item.
 | `payload` | `DriveItem` | Yes | The child drive item to create. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem folder = check oneDrive->createChildren(driveId, parentId, {
@@ -619,7 +620,7 @@ onedrive:DriveItem folder = check oneDrive->createChildren(driveId, parentId, {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -640,7 +641,7 @@ onedrive:DriveItem folder = check oneDrive->createChildren(driveId, parentId, {
 
 Creates a new child item under the root folder of the drive.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -648,9 +649,9 @@ Creates a new child item under the root folder of the drive.
 | `payload` | `DriveItem` | Yes | The child drive item to create. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem folder = check oneDrive->createChildrenInRoot(driveId, {
@@ -659,7 +660,7 @@ onedrive:DriveItem folder = check oneDrive->createChildrenInRoot(driveId, {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -680,7 +681,7 @@ onedrive:DriveItem folder = check oneDrive->createChildrenInRoot(driveId, {
 
 Uploads file content to a specific path relative to the drive root.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -689,9 +690,9 @@ Uploads file content to a specific path relative to the drive root.
 | `payload` | `byte[]` | Yes | The file content as a byte array. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] fileContent = check io:fileReadBytes("files/github.png");
@@ -700,7 +701,7 @@ onedrive:DriveItem item = check oneDrive->setChildrenContentByPath(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -722,7 +723,7 @@ onedrive:DriveItem item = check oneDrive->setChildrenContentByPath(
 
 Downloads content of a file at a specific path relative to the drive root.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -731,15 +732,15 @@ Downloads content of a file at a specific path relative to the drive root.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetChildrenContentByPathQueries` | No | OData query parameters. |
 
-**Returns:** `byte[]|error`
+Returns: `byte[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] content = check oneDrive->getChildrenContentByPath(driveId, "/Documents/report.pdf");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [37, 80, 68, 70, 45, 49, 46, ...]
@@ -749,7 +750,7 @@ byte[] content = check oneDrive->getChildrenContentByPath(driveId, "/Documents/r
 
 </details>
 
-#### Root Operations
+#### Root operations
 
 <details>
 <summary>getRoot</summary>
@@ -758,7 +759,7 @@ byte[] content = check oneDrive->getChildrenContentByPath(driveId, "/Documents/r
 
 Retrieves the root folder of a drive.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -766,15 +767,15 @@ Retrieves the root folder of a drive.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetRootQueries` | No | OData query parameters. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem root = check oneDrive->getRoot(driveId);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -797,7 +798,7 @@ onedrive:DriveItem root = check oneDrive->getRoot(driveId);
 
 Lists children of the root folder of a drive.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -805,15 +806,15 @@ Lists children of the root folder of a drive.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `ListChildrenInRootQueries` | No | OData query parameters. |
 
-**Returns:** `DriveItemCollectionResponse|error`
+Returns: `DriveItemCollectionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItemCollectionResponse rootItems = check oneDrive->listChildrenInRoot(driveId);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -835,7 +836,7 @@ onedrive:DriveItemCollectionResponse rootItems = check oneDrive->listChildrenInR
 
 Retrieves a drive item by its path relative to the drive root.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -844,15 +845,15 @@ Retrieves a drive item by its path relative to the drive root.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetItemByPathQueries` | No | OData query parameters. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem item = check oneDrive->getItemByPath(driveId, "/Documents/report.pdf");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -871,7 +872,7 @@ onedrive:DriveItem item = check oneDrive->getItemByPath(driveId, "/Documents/rep
 
 </details>
 
-#### Search & Discovery
+#### Search & discovery
 
 <details>
 <summary>search</summary>
@@ -880,7 +881,7 @@ onedrive:DriveItem item = check oneDrive->getItemByPath(driveId, "/Documents/rep
 
 Searches for drive items matching a query string within a specific item's hierarchy.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -889,15 +890,15 @@ Searches for drive items matching a query string within a specific item's hierar
 | `q` | `string?` | No | The search query text. |
 | `queries` | `SearchQueries` | No | OData query parameters. |
 
-**Returns:** `CollectionOfDriveItem|error`
+Returns: `CollectionOfDriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:CollectionOfDriveItem results = check oneDrive->search(driveId, driveItemId, q = "quarterly report");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -919,7 +920,7 @@ onedrive:CollectionOfDriveItem results = check oneDrive->search(driveId, driveIt
 
 Lists recently accessed drive items for the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -927,15 +928,15 @@ Lists recently accessed drive items for the authenticated user.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `RecentQueries` | No | OData query parameters. |
 
-**Returns:** `CollectionOfDriveItem_1|error`
+Returns: `CollectionOfDriveItem_1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:CollectionOfDriveItem_1 recentItems = check oneDrive->recent(driveId);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -957,7 +958,7 @@ onedrive:CollectionOfDriveItem_1 recentItems = check oneDrive->recent(driveId);
 
 Lists drive items that have been shared with the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -965,15 +966,15 @@ Lists drive items that have been shared with the authenticated user.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `SharedWithMeQueries` | No | OData query parameters. |
 
-**Returns:** `CollectionOfDriveItem_1|error`
+Returns: `CollectionOfDriveItem_1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:CollectionOfDriveItem_1 shared = check oneDrive->sharedWithMe(driveId);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -992,7 +993,7 @@ onedrive:CollectionOfDriveItem_1 shared = check oneDrive->sharedWithMe(driveId);
 
 </details>
 
-#### Sharing & Permissions
+#### Sharing & permissions
 
 <details>
 <summary>createLink</summary>
@@ -1001,7 +1002,7 @@ onedrive:CollectionOfDriveItem_1 shared = check oneDrive->sharedWithMe(driveId);
 
 Creates a sharing link for a drive item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1010,9 +1011,9 @@ Creates a sharing link for a drive item.
 | `payload` | `DriveItemIdMicrosoftGraphCreateLinkBody` | Yes | Link creation parameters including type, scope, password, and expiration. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Permission|error`
+Returns: `Permission|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:Permission link = check oneDrive->createLink(driveId, driveItemId, {
@@ -1021,7 +1022,7 @@ onedrive:Permission link = check oneDrive->createLink(driveId, driveItemId, {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1046,7 +1047,7 @@ onedrive:Permission link = check oneDrive->createLink(driveId, driveItemId, {
 
 Sends a sharing invitation for a drive item to specified recipients.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1055,9 +1056,9 @@ Sends a sharing invitation for a drive item to specified recipients.
 | `payload` | `DriveItemIdMicrosoftGraphInviteBody` | Yes | Invitation parameters including recipients, roles, and message. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `CollectionOfPermission|error`
+Returns: `CollectionOfPermission|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:CollectionOfPermission perms = check oneDrive->invite(driveId, driveItemId, {
@@ -1069,7 +1070,7 @@ onedrive:CollectionOfPermission perms = check oneDrive->invite(driveId, driveIte
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1089,7 +1090,7 @@ onedrive:CollectionOfPermission perms = check oneDrive->invite(driveId, driveIte
 
 </details>
 
-#### Item Actions
+#### Item actions
 
 <details>
 <summary>copy</summary>
@@ -1098,7 +1099,7 @@ onedrive:CollectionOfPermission perms = check oneDrive->invite(driveId, driveIte
 
 Creates a copy of a drive item in a new location.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1107,9 +1108,9 @@ Creates a copy of a drive item in a new location.
 | `payload` | `DriveItemIdMicrosoftGraphCopyBody` | Yes | Copy parameters including destination `parentReference` and optional new `name`. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem copied = check oneDrive->copy(driveId, driveItemId, {
@@ -1118,7 +1119,7 @@ onedrive:DriveItem copied = check oneDrive->copy(driveId, driveItemId, {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1140,7 +1141,7 @@ onedrive:DriveItem copied = check oneDrive->copy(driveId, driveItemId, {
 
 Checks in a checked-out drive item, making it available to others.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1149,9 +1150,9 @@ Checks in a checked-out drive item, making it available to others.
 | `payload` | `DriveItemIdMicrosoftGraphCheckinBody` | Yes | Check-in parameters including optional comment. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check oneDrive->checkin(driveId, driveItemId, {
@@ -1170,7 +1171,7 @@ check oneDrive->checkin(driveId, driveItemId, {
 
 Checks out a drive item, preventing others from editing it.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1178,9 +1179,9 @@ Checks out a drive item, preventing others from editing it.
 | `driveItemId` | `string` | Yes | The unique identifier of the drive item. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check oneDrive->checkout(driveId, driveItemId);
@@ -1197,7 +1198,7 @@ check oneDrive->checkout(driveId, driveItemId);
 
 Creates an upload session for uploading large files in byte ranges.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1206,15 +1207,15 @@ Creates an upload session for uploading large files in byte ranges.
 | `payload` | `DriveItemIdMicrosoftGraphCreateUploadSessionBody` | Yes | Upload session creation parameters. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `UploadSession|error`
+Returns: `UploadSession|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:UploadSession session = check oneDrive->createUploadSession(driveId, driveItemId, {});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1235,7 +1236,7 @@ onedrive:UploadSession session = check oneDrive->createUploadSession(driveId, dr
 
 Follows a drive item to receive notifications about changes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1243,15 +1244,15 @@ Follows a drive item to receive notifications about changes.
 | `driveItemId` | `string` | Yes | The unique identifier of the drive item. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem followed = check oneDrive->follow(driveId, driveItemId);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1272,7 +1273,7 @@ onedrive:DriveItem followed = check oneDrive->follow(driveId, driveItemId);
 
 Unfollows a drive item to stop receiving change notifications.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1280,9 +1281,9 @@ Unfollows a drive item to stop receiving change notifications.
 | `driveItemId` | `string` | Yes | The unique identifier of the drive item. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check oneDrive->unfollow(driveId, driveItemId);
@@ -1299,7 +1300,7 @@ check oneDrive->unfollow(driveId, driveItemId);
 
 Permanently deletes a drive item, bypassing the recycle bin.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1307,9 +1308,9 @@ Permanently deletes a drive item, bypassing the recycle bin.
 | `driveItemId` | `string` | Yes | The unique identifier of the drive item. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check oneDrive->permanentDelete(driveId, driveItemId);
@@ -1326,7 +1327,7 @@ check oneDrive->permanentDelete(driveId, driveItemId);
 
 Restores a drive item that was previously deleted.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1335,15 +1336,15 @@ Restores a drive item that was previously deleted.
 | `payload` | `DriveItemIdMicrosoftGraphRestoreBody` | Yes | Restore parameters including optional `parentReference` and `name`. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DriveItem|error`
+Returns: `DriveItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:DriveItem restored = check oneDrive->restore(driveId, driveItemId, {});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1364,7 +1365,7 @@ onedrive:DriveItem restored = check oneDrive->restore(driveId, driveItemId, {});
 
 Generates a preview URL for a drive item (embeddable viewer).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1373,15 +1374,15 @@ Generates a preview URL for a drive item (embeddable viewer).
 | `payload` | `DriveItemIdMicrosoftGraphPreviewBody` | Yes | Preview parameters including optional page number and zoom level. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ItemPreviewInfo|error`
+Returns: `ItemPreviewInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 onedrive:ItemPreviewInfo preview = check oneDrive->preview(driveId, driveItemId, {});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

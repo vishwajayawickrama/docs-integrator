@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through configuring the SAP S/4HANA Communication Arrangement for the Sold-to-Party Assignment of Sales Scheduling Agreement Integration API and obtaining the credentials required to use the connector.
@@ -7,7 +10,7 @@ This guide walks you through configuring the SAP S/4HANA Communication Arrangeme
 
 - An active SAP S/4HANA Cloud tenant with administrator access.
 
-## Step 1: Find the Communication Scenario
+## Step 1: Find the communication scenario
 
 1. Log in to your SAP S/4HANA Cloud tenant.
 2. Navigate to **Communication Management** from the home screen.
@@ -19,7 +22,7 @@ This guide walks you through configuring the SAP S/4HANA Communication Arrangeme
 The exact scenario ID may vary by S/4HANA Cloud release. Search by the descriptive name if the ID differs.
 :::
 
-## Step 2: Create a Communication System
+## Step 2: Create a communication system
 
 1. If you do not already have a Communication System configured for your external application, open the **Communication Systems** app.
 2. Click **New** and provide a unique system ID and name.
@@ -27,7 +30,7 @@ The exact scenario ID may vary by S/4HANA Cloud release. Search by the descripti
 4. Under **Users for Inbound Communication**, add an inbound user or create a new one with a username and password.
 5. Save the Communication System.
 
-## Step 3: Configure the Communication Arrangement
+## Step 3: Configure the communication arrangement
 
 1. Back in the **Communication Arrangements** app, select the scenario identified in Step 1.
 2. Provide a unique **Arrangement Name**.
@@ -43,7 +46,7 @@ The exact scenario ID may vary by S/4HANA Cloud release. Search by the descripti
 The hostname portion `<unique-id>-api.s4hana.cloud.sap` is what you supply to the Ballerina client's `hostname` parameter. Copy it from the API URL in the arrangement details.
 :::
 
-## Step 4: Retrieve Inbound Communication Credentials
+## Step 4: Retrieve inbound communication credentials
 
 1. In the saved Communication Arrangement, expand the **Inbound Communication** section.
 2. Note the **User Name** configured for inbound communication.

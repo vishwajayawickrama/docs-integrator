@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -14,7 +15,7 @@ The `ballerinax/ai.azure` package exposes the following clients:
 
 ---
 
-## OpenAI Model Provider
+## OpenAI model provider
 
 Provides chat completion and structured generation using Azure-hosted OpenAI language models.
 
@@ -30,7 +31,7 @@ Provides chat completion and structured generation using Azure-hosted OpenAI lan
 | `temperature` | `decimal` | `0.7` | Controls randomness in the model's output. Lower values produce more deterministic results. |
 | `connectionConfig` | `ConnectionConfig` | `{}` | Additional HTTP connection configuration (HTTP version, timeout, retry, SSL, proxy, etc.). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/ai;
@@ -51,7 +52,7 @@ final ai:ModelProvider azureModel = check new azure:OpenAiModelProvider(
 
 ### Operations
 
-#### Chat Completion
+#### Chat completion
 
 <details>
 <summary>chat</summary>
@@ -60,7 +61,7 @@ final ai:ModelProvider azureModel = check new azure:OpenAiModelProvider(
 
 Sends a list of chat messages to the Azure OpenAI model and returns an assistant response. Supports tool/function calling when tool definitions are provided.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -68,9 +69,9 @@ Sends a list of chat messages to the Azure OpenAI model and returns an assistant
 | `tools` | `ai:ChatCompletionFunctions[]` | Yes | Tool definitions available for the model to invoke. Pass `[]` if no tools are needed. |
 | `stop` | `string?` | No | A stop sequence that causes the model to stop generating. Defaults to `()`. |
 
-**Returns:** `ai:ChatAssistantMessage|ai:Error`
+Returns: `ai:ChatAssistantMessage|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:ChatMessage[] chatMessages = [
@@ -79,7 +80,7 @@ ai:ChatMessage[] chatMessages = [
 ai:ChatAssistantMessage response = check azureModel->chat(chatMessages, tools = []);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"role": "assistant", "content": "The capital of France is Paris.", "toolCalls": null}
@@ -89,7 +90,7 @@ ai:ChatAssistantMessage response = check azureModel->chat(chatMessages, tools = 
 
 </details>
 
-#### Structured Generation
+#### Structured generation
 
 <details>
 <summary>generate</summary>
@@ -98,16 +99,16 @@ ai:ChatAssistantMessage response = check azureModel->chat(chatMessages, tools = 
 
 Sends a natural language prompt to the model and returns a typed Ballerina value matching the specified type descriptor. Uses tool-based extraction internally to produce structured output.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `prompt` | `ai:Prompt` | Yes | A tagged template literal prompt that can include text and interpolated values. |
 | `td` | `typedesc<anydata>` | No | Type descriptor specifying the expected return type (e.g., `int`, `string`, a record type). Inferred from the call site. |
 
-**Returns:** `td|ai:Error`
+Returns: `td|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Review record {|
@@ -121,7 +122,7 @@ Review result = check azureModel->generate(`Rate this blog out of 10.
     Content: "Ballerina is a cloud-native programming language..."`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"title": "Ballerina for Integration", "rating": 8, "summary": "A well-written introduction to Ballerina's integration capabilities."}
@@ -133,7 +134,7 @@ Review result = check azureModel->generate(`Rate this blog out of 10.
 
 ---
 
-## Embedding Provider
+## Embedding provider
 
 Generates text embeddings using Azure-hosted OpenAI embedding models.
 
@@ -147,7 +148,7 @@ Generates text embeddings using Azure-hosted OpenAI embedding models.
 | `deploymentId` | `string` | Required | The deployment ID of the embedding model. |
 | `config` | `ConnectionConfig` | `{}` | Additional HTTP connection configuration (HTTP version, timeout, retry, SSL, proxy, etc.). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/ai;
@@ -168,7 +169,7 @@ final ai:EmbeddingProvider embeddingProvider = check new azure:EmbeddingProvider
 
 ### Operations
 
-#### Embedding Operations
+#### Embedding operations
 
 <details>
 <summary>embed</summary>
@@ -177,15 +178,15 @@ final ai:EmbeddingProvider embeddingProvider = check new azure:EmbeddingProvider
 
 Generates an embedding vector for a single text chunk.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `chunk` | `ai:Chunk` | Yes | The chunk containing the text content to embed. Must be a `TextDocument` or `TextChunk`. |
 
-**Returns:** `ai:Embedding|ai:Error`
+Returns: `ai:Embedding|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:TextChunk chunk = {
@@ -194,7 +195,7 @@ ai:TextChunk chunk = {
 ai:Embedding embedding = check embeddingProvider->embed(chunk);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "vec-001", "embedding": [0.0023, -0.0091, 0.0152, -0.0034, 0.0087], "chunk": {"content": "Ballerina is an open-source programming language for cloud-native integration."}}
@@ -211,15 +212,15 @@ ai:Embedding embedding = check embeddingProvider->embed(chunk);
 
 Generates embedding vectors for multiple text chunks in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `chunks` | `ai:Chunk[]` | Yes | An array of chunks to be converted into embeddings. |
 
-**Returns:** `ai:Embedding[]|ai:Error`
+Returns: `ai:Embedding[]|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:TextChunk[] chunks = [
@@ -229,7 +230,7 @@ ai:TextChunk[] chunks = [
 ai:Embedding[] embeddings = check embeddingProvider->batchEmbed(chunks);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -244,7 +245,7 @@ ai:Embedding[] embeddings = check embeddingProvider->batchEmbed(chunks);
 
 ---
 
-## AI Search Knowledge Base
+## AI search knowledge base
 
 Implements the ai:KnowledgeBase interface for Azure AI Search — document ingestion, vector retrieval, and deletion.
 
@@ -264,7 +265,7 @@ Implements the ai:KnowledgeBase interface for Azure AI Search — document inges
 | `indexClientConnectionConfig` | `index:ConnectionConfig` | `{}` | HTTP connection configuration for the index client. |
 | `semanticConfigurationName` | `string?` | `()` | The name of the semantic search configuration to use for hybrid or semantic queries. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/ai;
@@ -297,7 +298,7 @@ final ai:KnowledgeBase knowledgeBase = check new azure:AiSearchKnowledgeBase(
 
 ### Operations
 
-#### Document Operations
+#### Document operations
 
 <details>
 <summary>ingest</summary>
@@ -306,15 +307,15 @@ final ai:KnowledgeBase knowledgeBase = check new azure:AiSearchKnowledgeBase(
 
 Ingests documents or chunks into the Azure AI Search index. Automatically chunks documents (if enabled), generates embeddings (if an embedding model is provided), and uploads to the index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `documents` | `ai:Chunk[]\|ai:Document[]\|ai:Document` | Yes | One or more documents or pre-chunked content to ingest into the knowledge base. |
 
-**Returns:** `ai:Error?`
+Returns: `ai:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:TextDocument[] documents = [
@@ -341,7 +342,7 @@ check knowledgeBase->ingest(documents);
 
 Queries the Azure AI Search index and returns the top matching results based on vector similarity and/or semantic search.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -349,15 +350,15 @@ Queries the Azure AI Search index and returns the top matching results based on 
 | `maxLimit` | `int` | No | The maximum number of results to return. Defaults to `10`. |
 | `filters` | `ai:MetadataFilters?` | No | Optional metadata filters to narrow the search results. |
 
-**Returns:** `ai:QueryMatch[]|ai:Error`
+Returns: `ai:QueryMatch[]|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:QueryMatch[] results = check knowledgeBase->retrieve("cloud-native programming", maxLimit = 5);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -391,15 +392,15 @@ ai:QueryMatch[] results = check knowledgeBase->retrieve("cloud-native programmin
 
 Deletes documents from the Azure AI Search index that match the specified metadata filters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `filters` | `ai:MetadataFilters` | Yes | Metadata filters identifying the documents to delete. |
 
-**Returns:** `ai:Error?`
+Returns: `ai:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check knowledgeBase->deleteByFilter({

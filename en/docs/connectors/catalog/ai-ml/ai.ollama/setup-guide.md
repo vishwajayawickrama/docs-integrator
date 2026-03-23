@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through installing and running an Ollama server locally so the Ballerina connector can communicate with it.
@@ -22,7 +25,7 @@ This guide walks you through installing and running an Ollama server locally so 
 On Linux, the install script sets up Ollama as a systemd service that starts automatically.
 :::
 
-## Step 2: Start the Ollama Server
+## Step 2: Start the Ollama server
 
 1. Open a terminal and run:
     ```
@@ -35,7 +38,7 @@ On Linux, the install script sets up Ollama as a systemd service that starts aut
 On macOS, launching the Ollama application from the Applications folder automatically starts the server. You do not need to run `ollama serve` separately.
 :::
 
-## Step 3: Pull a Model
+## Step 3: Pull a model
 
 1. Pull the model you want to use. For example, to download Llama 2:
     ```
@@ -51,7 +54,7 @@ On macOS, launching the Ollama application from the Applications folder automati
 Start with smaller models like `llama2` or `mistral` for faster downloads and lower resource usage. Larger models like `llama2:70b` require significantly more RAM and disk space.
 :::
 
-## Step 4: Verify the Setup
+## Step 4: Verify the setup
 
 1. Test the model by running a quick prompt:
     ```

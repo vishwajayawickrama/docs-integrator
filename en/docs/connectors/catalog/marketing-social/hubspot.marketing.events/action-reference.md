@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Marketing Events API v3 — event CRUD, attendance, analytics, list associations
 | `compression` | `http:Compression` | `COMPRESSION_AUTO` | HTTP compression configuration. |
 | `validation` | `boolean` | `true` | Enable/disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.marketing.events as hsmktevents;
@@ -49,7 +50,7 @@ hsmktevents:Client mktEventsClient = check new ({
 
 ### Operations
 
-#### Event CRUD (External IDs)
+#### Event CRUD (external iDs)
 
 <details>
 <summary>postEventsCreate</summary>
@@ -58,16 +59,16 @@ hsmktevents:Client mktEventsClient = check new ({
 
 Creates a new marketing event.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MarketingEventCreateRequestParams` | Yes | Marketing event creation parameters including `externalAccountId`, `externalEventId`, `eventName`, `eventOrganizer`, and optional fields. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `MarketingEventDefaultResponse|error`
+Returns: `MarketingEventDefaultResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->postEventsCreate({
@@ -81,7 +82,7 @@ hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->post
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"eventName": "Ballerina Integration Summit 2026", "eventOrganizer": "WSO2", "externalAccountId": "app-12345", "externalEventId": "webinar-2026-03", "eventType": "WEBINAR", "startDateTime": "2026-06-15T09:00:00Z", "endDateTime": "2026-06-15T17:00:00Z"}
@@ -98,16 +99,16 @@ hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->post
 
 Retrieves a marketing event by its external account ID and external event ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `externalEventId` | `string` | Yes | The external event identifier. |
 | `queries` | `GetEventsExternalEventIdGetDetailsQueries` | Yes | Query parameters including `externalAccountId`. |
 
-**Returns:** `MarketingEventPublicReadResponse|error`
+Returns: `MarketingEventPublicReadResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:MarketingEventPublicReadResponse event = check mktEventsClient->getEventsExternalEventIdGetDetails(
@@ -116,7 +117,7 @@ hsmktevents:MarketingEventPublicReadResponse event = check mktEventsClient->getE
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"eventName": "Ballerina Integration Summit 2026", "eventOrganizer": "WSO2", "externalAccountId": "app-12345", "externalEventId": "webinar-2026-03", "eventType": "WEBINAR", "startDateTime": "2026-06-15T09:00:00Z", "endDateTime": "2026-06-15T17:00:00Z"}
@@ -133,16 +134,16 @@ hsmktevents:MarketingEventPublicReadResponse event = check mktEventsClient->getE
 
 Creates or updates a marketing event by external event ID. If the event exists, it is updated; otherwise, a new event is created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `externalEventId` | `string` | Yes | The external event identifier. |
 | `payload` | `MarketingEventCreateRequestParams` | Yes | Marketing event parameters. |
 
-**Returns:** `MarketingEventPublicDefaultResponse|error`
+Returns: `MarketingEventPublicDefaultResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:MarketingEventPublicDefaultResponse response = check mktEventsClient->putEventsExternalEventIdUpsert(
@@ -156,7 +157,7 @@ hsmktevents:MarketingEventPublicDefaultResponse response = check mktEventsClient
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"eventName": "Ballerina Integration Summit 2026 — Updated", "eventOrganizer": "WSO2", "externalAccountId": "app-12345", "externalEventId": "webinar-2026-03"}
@@ -173,7 +174,7 @@ hsmktevents:MarketingEventPublicDefaultResponse response = check mktEventsClient
 
 Updates an existing marketing event by external event ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -181,9 +182,9 @@ Updates an existing marketing event by external event ID.
 | `payload` | `MarketingEventUpdateRequestParams` | Yes | Fields to update. |
 | `queries` | `PatchEventsExternalEventIdUpdateQueries` | No | Query parameters including `externalAccountId`. |
 
-**Returns:** `MarketingEventPublicDefaultResponse|error`
+Returns: `MarketingEventPublicDefaultResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:MarketingEventPublicDefaultResponse response = check mktEventsClient->patchEventsExternalEventIdUpdate(
@@ -193,7 +194,7 @@ hsmktevents:MarketingEventPublicDefaultResponse response = check mktEventsClient
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"eventName": "Updated Webinar Title", "eventOrganizer": "WSO2", "externalAccountId": "app-12345", "externalEventId": "webinar-2026-03"}
@@ -210,16 +211,16 @@ hsmktevents:MarketingEventPublicDefaultResponse response = check mktEventsClient
 
 Deletes a marketing event by external event ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `externalEventId` | `string` | Yes | The external event identifier. |
 | `queries` | `DeleteEventsExternalEventIdArchiveQueries` | Yes | Query parameters including `externalAccountId`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mktEventsClient->deleteEventsExternalEventIdArchive(
@@ -232,7 +233,7 @@ check mktEventsClient->deleteEventsExternalEventIdArchive(
 
 </details>
 
-#### Event CRUD (Object ID)
+#### Event CRUD (object ID)
 
 <details>
 <summary>get</summary>
@@ -241,21 +242,21 @@ check mktEventsClient->deleteEventsExternalEventIdArchive(
 
 Retrieves all marketing events with optional pagination and filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetQueries` | No | Query parameters for pagination (`limit`, `after`) and filtering. |
 
-**Returns:** `CollectionResponseMarketingEventPublicReadResponseV2ForwardPaging|error`
+Returns: `CollectionResponseMarketingEventPublicReadResponseV2ForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check mktEventsClient->get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"results": [{"id": "12345", "properties": {"hs_marketing_event_name": "Webinar 2026", "hs_marketing_event_type": "WEBINAR"}}], "paging": {"next": {"after": "12345"}}}
@@ -272,21 +273,21 @@ var response = check mktEventsClient->get();
 
 Retrieves a marketing event by its internal HubSpot object ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectId` | `string` | Yes | The HubSpot internal object ID of the marketing event. |
 
-**Returns:** `MarketingEventPublicReadResponseV2|error`
+Returns: `MarketingEventPublicReadResponseV2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:MarketingEventPublicReadResponseV2 event = check mktEventsClient->getObjectId("12345");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "12345", "properties": {"hs_marketing_event_name": "Ballerina Integration Summit 2026", "hs_marketing_event_type": "WEBINAR", "hs_marketing_event_organizer": "WSO2"}}
@@ -303,16 +304,16 @@ hsmktevents:MarketingEventPublicReadResponseV2 event = check mktEventsClient->ge
 
 Updates a marketing event by its internal HubSpot object ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectId` | `string` | Yes | The HubSpot internal object ID. |
 | `payload` | `MarketingEventPublicUpdateRequestV2` | Yes | Fields to update. |
 
-**Returns:** `MarketingEventPublicDefaultResponseV2|error`
+Returns: `MarketingEventPublicDefaultResponseV2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:MarketingEventPublicDefaultResponseV2 response = check mktEventsClient->patchObjectId(
@@ -325,7 +326,7 @@ hsmktevents:MarketingEventPublicDefaultResponseV2 response = check mktEventsClie
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "12345", "properties": {"hs_marketing_event_name": "Updated Event Name"}}
@@ -342,15 +343,15 @@ hsmktevents:MarketingEventPublicDefaultResponseV2 response = check mktEventsClie
 
 Deletes a marketing event by its internal HubSpot object ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectId` | `string` | Yes | The HubSpot internal object ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mktEventsClient->deleteObjectId("12345");
@@ -360,7 +361,7 @@ check mktEventsClient->deleteObjectId("12345");
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>postEventsUpsertBatchUpsert</summary>
@@ -369,15 +370,15 @@ check mktEventsClient->deleteObjectId("12345");
 
 Batch creates or updates multiple marketing events using external IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputMarketingEventCreateRequestParams` | Yes | Batch input containing an array of marketing event creation parameters. |
 
-**Returns:** `BatchResponseMarketingEventPublicDefaultResponse|error`
+Returns: `BatchResponseMarketingEventPublicDefaultResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:BatchResponseMarketingEventPublicDefaultResponse response = check mktEventsClient->postEventsUpsertBatchUpsert({
@@ -398,7 +399,7 @@ hsmktevents:BatchResponseMarketingEventPublicDefaultResponse response = check mk
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"status": "COMPLETE", "results": [{"eventName": "Event One", "externalEventId": "event-001"}, {"eventName": "Event Two", "externalEventId": "event-002"}]}
@@ -415,15 +416,15 @@ hsmktevents:BatchResponseMarketingEventPublicDefaultResponse response = check mk
 
 Batch updates multiple marketing events by their internal object IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputMarketingEventPublicUpdateRequestFullV2` | Yes | Batch input containing an array of update requests with object IDs. |
 
-**Returns:** `BatchResponseMarketingEventPublicDefaultResponseV2|BatchResponseMarketingEventPublicDefaultResponseV2WithErrors|error`
+Returns: `BatchResponseMarketingEventPublicDefaultResponseV2|BatchResponseMarketingEventPublicDefaultResponseV2WithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check mktEventsClient->postBatchUpdate({
@@ -440,7 +441,7 @@ var response = check mktEventsClient->postBatchUpdate({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"status": "COMPLETE", "results": [{"id": "12345", "properties": {"hs_marketing_event_name": "Updated Event One"}}, {"id": "12346", "properties": {"hs_marketing_event_name": "Updated Event Two"}}]}
@@ -457,15 +458,15 @@ var response = check mktEventsClient->postBatchUpdate({
 
 Batch deletes multiple marketing events by their internal object IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputMarketingEventPublicObjectIdDeleteRequest` | Yes | Batch input containing object IDs to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mktEventsClient->postBatchArchive({
@@ -484,15 +485,15 @@ check mktEventsClient->postBatchArchive({
 
 Batch deletes multiple marketing events by their external identifiers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputMarketingEventExternalUniqueIdentifier` | Yes | Batch input containing external account ID and external event ID pairs. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response response = check mktEventsClient->postEventsDeleteBatchArchive({
@@ -503,7 +504,7 @@ http:Response response = check mktEventsClient->postEventsDeleteBatchArchive({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 204 No Content
@@ -513,7 +514,7 @@ http:Response response = check mktEventsClient->postEventsDeleteBatchArchive({
 
 </details>
 
-#### Event Lifecycle
+#### Event lifecycle
 
 <details>
 <summary>postEventsExternalEventIdCompleteComplete</summary>
@@ -522,7 +523,7 @@ http:Response response = check mktEventsClient->postEventsDeleteBatchArchive({
 
 Marks a marketing event as completed, setting its start and end date/time.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -530,9 +531,9 @@ Marks a marketing event as completed, setting its start and end date/time.
 | `payload` | `MarketingEventCompleteRequestParams` | Yes | Completion parameters including `startDateTime` and `endDateTime`. |
 | `queries` | `PostEventsExternalEventIdCompleteCompleteQueries` | No | Query parameters including `externalAccountId`. |
 
-**Returns:** `MarketingEventDefaultResponse|error`
+Returns: `MarketingEventDefaultResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->postEventsExternalEventIdCompleteComplete(
@@ -545,7 +546,7 @@ hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->post
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"eventName": "Ballerina Integration Summit 2026", "externalEventId": "webinar-2026-03", "startDateTime": "2026-06-15T09:00:00Z", "endDateTime": "2026-06-15T17:00:00Z"}
@@ -562,16 +563,16 @@ hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->post
 
 Marks a marketing event as cancelled.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `externalEventId` | `string` | Yes | The external event identifier. |
 | `queries` | `PostEventsExternalEventIdCancelCancelQueries` | No | Query parameters including `externalAccountId`. |
 
-**Returns:** `MarketingEventDefaultResponse|error`
+Returns: `MarketingEventDefaultResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->postEventsExternalEventIdCancelCancel(
@@ -580,7 +581,7 @@ hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->post
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"eventName": "Ballerina Integration Summit 2026", "externalEventId": "webinar-2026-03", "eventCancelled": true}
@@ -590,7 +591,7 @@ hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->post
 
 </details>
 
-#### Attendance by Contact ID
+#### Attendance by contact ID
 
 <details>
 <summary>postAttendanceExternalEventIdSubscriberStateCreateRecordByContactIds</summary>
@@ -599,7 +600,7 @@ hsmktevents:MarketingEventDefaultResponse response = check mktEventsClient->post
 
 Records participant attendance by contact IDs using external event identifiers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -608,9 +609,9 @@ Records participant attendance by contact IDs using external event identifiers.
 | `payload` | `BatchInputMarketingEventSubscriber` | Yes | Batch of contact IDs with optional interaction timestamps. |
 | `queries` | `PostAttendanceExternalEventIdSubscriberStateCreateRecordByContactIdsQueries` | No | Query parameters including `externalAccountId`. |
 
-**Returns:** `BatchResponseSubscriberVidResponse|error`
+Returns: `BatchResponseSubscriberVidResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:BatchResponseSubscriberVidResponse response = check mktEventsClient->postAttendanceExternalEventIdSubscriberStateCreateRecordByContactIds(
@@ -626,7 +627,7 @@ hsmktevents:BatchResponseSubscriberVidResponse response = check mktEventsClient-
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"status": "COMPLETE", "results": [{"vid": 101, "status": "register"}, {"vid": 102, "status": "register"}]}
@@ -643,7 +644,7 @@ hsmktevents:BatchResponseSubscriberVidResponse response = check mktEventsClient-
 
 Records participant attendance by contact IDs using the internal marketing event object ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -651,9 +652,9 @@ Records participant attendance by contact IDs using the internal marketing event
 | `subscriberState` | `string` | Yes | Subscriber state: `register`, `attend`, `cancel`, or `noshow`. |
 | `payload` | `BatchInputMarketingEventSubscriber` | Yes | Batch of contact IDs with optional interaction timestamps. |
 
-**Returns:** `BatchResponseSubscriberVidResponse|error`
+Returns: `BatchResponseSubscriberVidResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:BatchResponseSubscriberVidResponse response = check mktEventsClient->postObjectIdAttendanceSubscriberStateCreate(
@@ -665,7 +666,7 @@ hsmktevents:BatchResponseSubscriberVidResponse response = check mktEventsClient-
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"status": "COMPLETE", "results": [{"vid": 101, "status": "attend"}]}
@@ -675,7 +676,7 @@ hsmktevents:BatchResponseSubscriberVidResponse response = check mktEventsClient-
 
 </details>
 
-#### Attendance by Email
+#### Attendance by email
 
 <details>
 <summary>postAttendanceExternalEventIdSubscriberStateEmailCreateRecordByContactEmails</summary>
@@ -684,7 +685,7 @@ hsmktevents:BatchResponseSubscriberVidResponse response = check mktEventsClient-
 
 Records participant attendance by email addresses using external event identifiers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -693,9 +694,9 @@ Records participant attendance by email addresses using external event identifie
 | `payload` | `BatchInputMarketingEventEmailSubscriber` | Yes | Batch of email addresses with optional interaction timestamps. |
 | `queries` | `PostAttendanceExternalEventIdSubscriberStateEmailCreateRecordByContactEmailsQueries` | No | Query parameters including `externalAccountId`. |
 
-**Returns:** `BatchResponseSubscriberEmailResponse|error`
+Returns: `BatchResponseSubscriberEmailResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:BatchResponseSubscriberEmailResponse response = check mktEventsClient->postAttendanceExternalEventIdSubscriberStateEmailCreateRecordByContactEmails(
@@ -711,7 +712,7 @@ hsmktevents:BatchResponseSubscriberEmailResponse response = check mktEventsClien
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"status": "COMPLETE", "results": [{"email": "alice@example.com", "status": "register"}, {"email": "bob@example.com", "status": "register"}]}
@@ -728,7 +729,7 @@ hsmktevents:BatchResponseSubscriberEmailResponse response = check mktEventsClien
 
 Records participant attendance by email addresses using the internal marketing event object ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -736,9 +737,9 @@ Records participant attendance by email addresses using the internal marketing e
 | `subscriberState` | `string` | Yes | Subscriber state: `register`, `attend`, `cancel`, or `noshow`. |
 | `payload` | `BatchInputMarketingEventEmailSubscriber` | Yes | Batch of email addresses with optional interaction timestamps. |
 
-**Returns:** `BatchResponseSubscriberEmailResponse|error`
+Returns: `BatchResponseSubscriberEmailResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:BatchResponseSubscriberEmailResponse response = check mktEventsClient->postObjectIdAttendanceSubscriberStateEmailCreate(
@@ -752,7 +753,7 @@ hsmktevents:BatchResponseSubscriberEmailResponse response = check mktEventsClien
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"status": "COMPLETE", "results": [{"email": "alice@example.com", "status": "attend"}]}
@@ -762,7 +763,7 @@ hsmktevents:BatchResponseSubscriberEmailResponse response = check mktEventsClien
 
 </details>
 
-#### Subscriber State Upsert
+#### Subscriber state upsert
 
 <details>
 <summary>postEventsExternalEventIdSubscriberStateUpsertUpsertByContactId</summary>
@@ -771,7 +772,7 @@ hsmktevents:BatchResponseSubscriberEmailResponse response = check mktEventsClien
 
 Records or updates subscriber state by contact ID using external event identifiers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -780,9 +781,9 @@ Records or updates subscriber state by contact ID using external event identifie
 | `payload` | `BatchInputMarketingEventSubscriber` | Yes | Batch of contact IDs with optional interaction timestamps. |
 | `queries` | `PostEventsExternalEventIdSubscriberStateUpsertUpsertByContactIdQueries` | No | Query parameters including `externalAccountId`. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response response = check mktEventsClient->postEventsExternalEventIdSubscriberStateUpsertUpsertByContactId(
@@ -795,7 +796,7 @@ http:Response response = check mktEventsClient->postEventsExternalEventIdSubscri
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 204 No Content
@@ -812,7 +813,7 @@ http:Response response = check mktEventsClient->postEventsExternalEventIdSubscri
 
 Records or updates subscriber state by email using external event identifiers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -821,9 +822,9 @@ Records or updates subscriber state by email using external event identifiers.
 | `payload` | `BatchInputMarketingEventEmailSubscriber` | Yes | Batch of email addresses with optional interaction timestamps. |
 | `queries` | `PostEventsExternalEventIdSubscriberStateEmailUpsertUpsertByContactEmailQueries` | No | Query parameters including `externalAccountId`. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response response = check mktEventsClient->postEventsExternalEventIdSubscriberStateEmailUpsertUpsertByContactEmail(
@@ -836,7 +837,7 @@ http:Response response = check mktEventsClient->postEventsExternalEventIdSubscri
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 204 No Content
@@ -846,7 +847,7 @@ http:Response response = check mktEventsClient->postEventsExternalEventIdSubscri
 
 </details>
 
-#### Participation Analytics
+#### Participation analytics
 
 <details>
 <summary>getParticipationsMarketingEventIdBreakdownGetParticipationsBreakdownByMarketingEventId</summary>
@@ -855,22 +856,22 @@ http:Response response = check mktEventsClient->postEventsExternalEventIdSubscri
 
 Retrieves a detailed participation breakdown for a marketing event by its internal event ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `marketingEventId` | `int` | Yes | The internal HubSpot marketing event ID. |
 | `queries` | `GetParticipationsMarketingEventIdBreakdownGetParticipationsBreakdownByMarketingEventIdQueries` | No | Query parameters for pagination and filtering. |
 
-**Returns:** `CollectionResponseWithTotalParticipationBreakdownForwardPaging|error`
+Returns: `CollectionResponseWithTotalParticipationBreakdownForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check mktEventsClient->getParticipationsMarketingEventIdBreakdownGetParticipationsBreakdownByMarketingEventId(12345);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total": 2, "results": [{"contactId": "101", "state": "ATTENDED", "timestamp": "2026-06-15T10:00:00Z"}, {"contactId": "102", "state": "REGISTERED", "timestamp": "2026-06-10T14:00:00Z"}]}
@@ -887,7 +888,7 @@ var response = check mktEventsClient->getParticipationsMarketingEventIdBreakdown
 
 Retrieves a detailed participation breakdown for a marketing event by external account and event IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -895,9 +896,9 @@ Retrieves a detailed participation breakdown for a marketing event by external a
 | `externalEventId` | `string` | Yes | The external event identifier. |
 | `queries` | `GetParticipationsExternalAccountIdExternalEventIdBreakdownGetParticipationsBreakdownByExternalEventIdQueries` | No | Query parameters for pagination and filtering. |
 
-**Returns:** `CollectionResponseWithTotalParticipationBreakdownForwardPaging|error`
+Returns: `CollectionResponseWithTotalParticipationBreakdownForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check mktEventsClient->getParticipationsExternalAccountIdExternalEventIdBreakdownGetParticipationsBreakdownByExternalEventId(
@@ -906,7 +907,7 @@ var response = check mktEventsClient->getParticipationsExternalAccountIdExternal
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total": 2, "results": [{"contactId": "101", "state": "ATTENDED", "timestamp": "2026-06-15T10:00:00Z"}, {"contactId": "102", "state": "REGISTERED", "timestamp": "2026-06-10T14:00:00Z"}]}
@@ -923,22 +924,22 @@ var response = check mktEventsClient->getParticipationsExternalAccountIdExternal
 
 Retrieves a participation breakdown for a specific contact across all marketing events.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `contactIdentifier` | `string` | Yes | The contact identifier (contact ID or email). |
 | `queries` | `GetParticipationsContactsContactIdentifierBreakdownGetParticipationsBreakdownByContactIdQueries` | No | Query parameters for pagination and filtering. |
 
-**Returns:** `CollectionResponseWithTotalParticipationBreakdownForwardPaging|error`
+Returns: `CollectionResponseWithTotalParticipationBreakdownForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check mktEventsClient->getParticipationsContactsContactIdentifierBreakdownGetParticipationsBreakdownByContactId("alice@example.com");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total": 1, "results": [{"eventId": "12345", "state": "ATTENDED", "timestamp": "2026-06-15T10:00:00Z"}]}
@@ -955,21 +956,21 @@ var response = check mktEventsClient->getParticipationsContactsContactIdentifier
 
 Retrieves participation counters (registered, attended, cancelled, no-shows) for a marketing event by internal ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `marketingEventId` | `int` | Yes | The internal HubSpot marketing event ID. |
 
-**Returns:** `AttendanceCounters|error`
+Returns: `AttendanceCounters|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:AttendanceCounters counters = check mktEventsClient->getParticipationsMarketingEventIdGetParticipationsCountersByMarketingEventId(12345);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"registered": 150, "attended": 120, "cancelled": 20, "noShows": 10}
@@ -986,16 +987,16 @@ hsmktevents:AttendanceCounters counters = check mktEventsClient->getParticipatio
 
 Retrieves participation counters for a marketing event by external account and event IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `externalAccountId` | `string` | Yes | The external account identifier. |
 | `externalEventId` | `string` | Yes | The external event identifier. |
 
-**Returns:** `AttendanceCounters|error`
+Returns: `AttendanceCounters|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:AttendanceCounters counters = check mktEventsClient->getParticipationsExternalAccountIdExternalEventIdGetParticipationsCountersByEventExternalId(
@@ -1004,7 +1005,7 @@ hsmktevents:AttendanceCounters counters = check mktEventsClient->getParticipatio
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"registered": 150, "attended": 120, "cancelled": 20, "noShows": 10}
@@ -1014,7 +1015,7 @@ hsmktevents:AttendanceCounters counters = check mktEventsClient->getParticipatio
 
 </details>
 
-#### List Associations
+#### List associations
 
 <details>
 <summary>getAssociationsMarketingEventIdListsGetAllByMarketingEventId</summary>
@@ -1023,21 +1024,21 @@ hsmktevents:AttendanceCounters counters = check mktEventsClient->getParticipatio
 
 Retrieves all HubSpot lists associated with a marketing event by its internal event ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `marketingEventId` | `string` | Yes | The internal HubSpot marketing event ID. |
 
-**Returns:** `CollectionResponseWithTotalPublicListNoPaging|error`
+Returns: `CollectionResponseWithTotalPublicListNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check mktEventsClient->getAssociationsMarketingEventIdListsGetAllByMarketingEventId("12345");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total": 1, "results": [{"listId": "67890", "name": "Webinar Registrants"}]}
@@ -1054,16 +1055,16 @@ var response = check mktEventsClient->getAssociationsMarketingEventIdListsGetAll
 
 Retrieves all HubSpot lists associated with a marketing event by external account and event IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `externalAccountId` | `string` | Yes | The external account identifier. |
 | `externalEventId` | `string` | Yes | The external event identifier. |
 
-**Returns:** `CollectionResponseWithTotalPublicListNoPaging|error`
+Returns: `CollectionResponseWithTotalPublicListNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check mktEventsClient->getAssociationsExternalAccountIdExternalEventIdListsGetAllByExternalAccountAndEventIds(
@@ -1072,7 +1073,7 @@ var response = check mktEventsClient->getAssociationsExternalAccountIdExternalEv
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total": 1, "results": [{"listId": "67890", "name": "Webinar Registrants"}]}
@@ -1089,16 +1090,16 @@ var response = check mktEventsClient->getAssociationsExternalAccountIdExternalEv
 
 Associates a HubSpot list with a marketing event by internal event ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `marketingEventId` | `string` | Yes | The internal HubSpot marketing event ID. |
 | `listId` | `string` | Yes | The HubSpot list ID to associate. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mktEventsClient->putAssociationsMarketingEventIdListsListIdAssociateByMarketingEventId("12345", "67890");
@@ -1115,7 +1116,7 @@ check mktEventsClient->putAssociationsMarketingEventIdListsListIdAssociateByMark
 
 Associates a HubSpot list with a marketing event by external account and event IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1123,9 +1124,9 @@ Associates a HubSpot list with a marketing event by external account and event I
 | `externalEventId` | `string` | Yes | The external event identifier. |
 | `listId` | `string` | Yes | The HubSpot list ID to associate. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mktEventsClient->putAssociationsExternalAccountIdExternalEventIdListsListIdAssociateByExternalAccountAndEventIds(
@@ -1146,16 +1147,16 @@ check mktEventsClient->putAssociationsExternalAccountIdExternalEventIdListsListI
 
 Disassociates a HubSpot list from a marketing event by internal event ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `marketingEventId` | `string` | Yes | The internal HubSpot marketing event ID. |
 | `listId` | `string` | Yes | The HubSpot list ID to disassociate. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mktEventsClient->deleteAssociationsMarketingEventIdListsListIdDisassociateByMarketingEventId("12345", "67890");
@@ -1172,7 +1173,7 @@ check mktEventsClient->deleteAssociationsMarketingEventIdListsListIdDisassociate
 
 Disassociates a HubSpot list from a marketing event by external account and event IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1180,9 +1181,9 @@ Disassociates a HubSpot list from a marketing event by external account and even
 | `externalEventId` | `string` | Yes | The external event identifier. |
 | `listId` | `string` | Yes | The HubSpot list ID to disassociate. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mktEventsClient->deleteAssociationsExternalAccountIdExternalEventIdListsListIdDisassociateByExternalAccountAndEventIds(
@@ -1196,7 +1197,7 @@ check mktEventsClient->deleteAssociationsExternalAccountIdExternalEventIdListsLi
 
 </details>
 
-#### Search & Discovery
+#### Search & discovery
 
 <details>
 <summary>getEventsSearchDoSearch</summary>
@@ -1205,21 +1206,21 @@ check mktEventsClient->deleteAssociationsExternalAccountIdExternalEventIdListsLi
 
 Searches for marketing events by a query string (searches external event IDs).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetEventsSearchDoSearchQueries` | No | Query parameters including `q` (search term). |
 
-**Returns:** `CollectionResponseSearchPublicResponseWrapperNoPaging|error`
+Returns: `CollectionResponseSearchPublicResponseWrapperNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check mktEventsClient->getEventsSearchDoSearch(q = "webinar");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"results": [{"id": "12345", "eventName": "Ballerina Integration Summit 2026", "externalEventId": "webinar-2026-03"}]}
@@ -1236,21 +1237,21 @@ var response = check mktEventsClient->getEventsSearchDoSearch(q = "webinar");
 
 Finds all marketing event identifiers associated with an external event ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `externalEventId` | `string` | Yes | The external event identifier. |
 
-**Returns:** `CollectionResponseWithTotalMarketingEventIdentifiersResponseNoPaging|error`
+Returns: `CollectionResponseWithTotalMarketingEventIdentifiersResponseNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check mktEventsClient->getExternalEventIdIdentifiers("webinar-2026-03");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total": 1, "results": [{"externalAccountId": "app-12345", "externalEventId": "webinar-2026-03", "objectId": "12345"}]}
@@ -1260,7 +1261,7 @@ var response = check mktEventsClient->getExternalEventIdIdentifiers("webinar-202
 
 </details>
 
-#### App Settings
+#### App settings
 
 <details>
 <summary>getAppIdSettingsGetAll</summary>
@@ -1269,21 +1270,21 @@ var response = check mktEventsClient->getExternalEventIdIdentifiers("webinar-202
 
 Retrieves the event detail settings for a HubSpot app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | `int:Signed32` | Yes | The HubSpot app ID. |
 
-**Returns:** `EventDetailSettings|error`
+Returns: `EventDetailSettings|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:EventDetailSettings settings = check mktEventsClient->getAppIdSettingsGetAll(12345);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"appId": 12345, "eventDetailsUrl": "https://example.com/events/%s"}
@@ -1300,16 +1301,16 @@ hsmktevents:EventDetailSettings settings = check mktEventsClient->getAppIdSettin
 
 Updates the event detail settings for a HubSpot app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | `int:Signed32` | Yes | The HubSpot app ID. |
 | `payload` | `EventDetailSettingsUrl` | Yes | Updated event detail settings URL. |
 
-**Returns:** `EventDetailSettings|error`
+Returns: `EventDetailSettings|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmktevents:EventDetailSettings settings = check mktEventsClient->postAppIdSettingsUpdate(
@@ -1318,7 +1319,7 @@ hsmktevents:EventDetailSettings settings = check mktEventsClient->postAppIdSetti
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"appId": 12345, "eventDetailsUrl": "https://example.com/events/%s"}

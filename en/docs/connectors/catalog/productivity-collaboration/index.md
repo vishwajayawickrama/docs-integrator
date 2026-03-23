@@ -3,11 +3,11 @@ title: "Productivity & Collaboration"
 description: "Productivity and collaboration connectors available in WSO2 Integrator."
 ---
 
-# Productivity & Collaboration Connectors
+# Productivity & Collaboration
 
 <!-- TODO: Searchable grid/table with: name, icon, 1-line description, supported operations, link to detail page -->
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -21,7 +21,7 @@ description: "Productivity and collaboration connectors available in WSO2 Integr
 | [Smartsheet](smartsheet/overview.md) | Work management platform with sheets, rows, columns, folders, workspaces, and collaboration | Create, Read, Update, Delete, Share, Search, Webhooks | API Token / OAuth 2.0 |
 | [Trello](trello/overview.md) | Project management with boards, lists, cards, checklists, and team collaboration | Create, Read, Update, Delete, Search | API Key + Token |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

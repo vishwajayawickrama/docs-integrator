@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Invokes CICS programs via ECI and manages the IBM CTG gateway connection lifecyc
 | `secureSocket` | `SecureSocket` | `()` | SSL/TLS configuration for secure connections to the CTG gateway. Omit for non-SSL connections. |
 | `enableTrace` | `boolean` | `false` | Enables application-level tracing for debugging ECI interactions. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ibm.ctg;
@@ -52,7 +53,7 @@ ctg:Client ctgClient = check new ({
 
 ### Operations
 
-#### ECI Program Execution
+#### ECI program execution
 
 <details>
 <summary>execute</summary>
@@ -62,7 +63,7 @@ ctg:Client ctgClient = check new ({
 Executes a CICS program via the ECI protocol, passing an optional COMMAREA payload and returning the response COMMAREA data as a byte array. Returns `()` (nil) if the CICS program returns no COMMAREA data.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -71,9 +72,9 @@ Executes a CICS program via the ECI protocol, passing an optional COMMAREA paylo
 | `commAreaSize` | `int` | No | Explicit size of the COMMAREA buffer in bytes. If omitted, derived from the length of `commArea`. |
 | `timeout` | `int` | No | ECI request timeout in seconds. Defaults to `10`. |
 
-**Returns:** `byte[]|Error?`
+Returns: `byte[]|Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] inputPayload = "INQUIRY INPUT DATA".toBytes();
@@ -83,7 +84,7 @@ byte[]? response = check ctgClient->execute(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [72, 101, 108, 108, 111, 32, 102, 114, 111, 109, 32, 67, 73, 67, 83, 33]
@@ -93,7 +94,7 @@ byte[]? response = check ctgClient->execute(
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
@@ -104,9 +105,9 @@ Closes the IBM CTG client connection and releases all associated resources. Shou
 
 
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check ctgClient->close();

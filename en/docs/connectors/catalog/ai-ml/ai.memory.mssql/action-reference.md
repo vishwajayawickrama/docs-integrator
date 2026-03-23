@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -12,7 +13,7 @@ The `ballerinax/ai.memory.mssql` package exposes the following clients:
 
 ---
 
-## Short Term Memory Store
+## Short term memory store
 
 Persists and retrieves key-scoped AI chat messages in a Microsoft SQL Server database.
 
@@ -29,7 +30,7 @@ Persists and retrieves key-scoped AI chat messages in a Microsoft SQL Server dat
 | `options` | `mssql:Options` | `()` | Advanced MSSQL driver options such as TLS settings. |
 | `connectionPool` | `sql:ConnectionPool` | `()` | Connection pool configuration for managing database connections. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/ai;
@@ -56,7 +57,7 @@ ai:ShortTermMemoryStore store = check new mssqlMemory:ShortTermMemoryStore(
 
 ### Operations
 
-#### Message Storage
+#### Message storage
 
 <details>
 <summary>put</summary>
@@ -66,16 +67,16 @@ ai:ShortTermMemoryStore store = check new mssqlMemory:ShortTermMemoryStore(
 Inserts one or more chat messages for the given key. A system message is upserted (replacing any existing system message), while interactive messages (user, assistant, function) are appended.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | Unique identifier for the conversation or session. |
 | `message` | `ai:ChatMessage\|ai:ChatMessage[]` | Yes | A single chat message or an array of chat messages to store. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check store->put("session-001", {role: ai:SYSTEM, content: "You are a helpful assistant."});
@@ -89,7 +90,7 @@ check store->put("session-001", [
 
 </details>
 
-#### Message Retrieval
+#### Message retrieval
 
 <details>
 <summary>getChatSystemMessage</summary>
@@ -98,21 +99,21 @@ check store->put("session-001", [
 
 Retrieves the system message stored for the given key, or `()` if none exists.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | Unique identifier for the conversation or session. |
 
-**Returns:** `ai:ChatSystemMessage|Error?`
+Returns: `ai:ChatSystemMessage|Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:ChatSystemMessage? sysMsg = check store->getChatSystemMessage("session-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"role": "system", "content": "You are a helpful assistant."}
@@ -129,21 +130,21 @@ ai:ChatSystemMessage? sysMsg = check store->getChatSystemMessage("session-001");
 
 Retrieves all interactive (user, assistant, function) messages for the given key in insertion order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | Unique identifier for the conversation or session. |
 
-**Returns:** `ai:ChatInteractiveMessage[]|Error`
+Returns: `ai:ChatInteractiveMessage[]|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:ChatInteractiveMessage[] messages = check store->getChatInteractiveMessages("session-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -164,21 +165,21 @@ ai:ChatInteractiveMessage[] messages = check store->getChatInteractiveMessages("
 Retrieves all messages for the given key. Returns a tuple starting with the system message followed by interactive messages if a system message exists, or an array of only interactive messages otherwise.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | Unique identifier for the conversation or session. |
 
-**Returns:** `[ai:ChatSystemMessage, ai:ChatInteractiveMessage...]|ai:ChatInteractiveMessage[]|Error`
+Returns: `[ai:ChatSystemMessage, ai:ChatInteractiveMessage...]|ai:ChatInteractiveMessage[]|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var allMessages = check store->getAll("session-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -192,7 +193,7 @@ var allMessages = check store->getAll("session-001");
 
 </details>
 
-#### Message Removal
+#### Message removal
 
 <details>
 <summary>removeChatSystemMessage</summary>
@@ -201,15 +202,15 @@ var allMessages = check store->getAll("session-001");
 
 Deletes the system message stored for the given key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | Unique identifier for the conversation or session. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check store->removeChatSystemMessage("session-001");
@@ -227,16 +228,16 @@ check store->removeChatSystemMessage("session-001");
 Removes interactive messages for the given key. When `count` is specified, removes only the first `count` messages (oldest first); otherwise removes all interactive messages.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | Unique identifier for the conversation or session. |
 | `count` | `int?` | No | Number of oldest interactive messages to remove. Omit to remove all. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 // Remove oldest 2 interactive messages
@@ -257,15 +258,15 @@ check store->removeChatInteractiveMessages("session-001");
 
 Removes all messages (system and interactive) stored for the given key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | Unique identifier for the conversation or session. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check store->removeAll("session-001");
@@ -275,7 +276,7 @@ check store->removeAll("session-001");
 
 </details>
 
-#### Capacity Management
+#### Capacity management
 
 <details>
 <summary>isFull</summary>
@@ -285,21 +286,21 @@ check store->removeAll("session-001");
 Returns `true` if the number of interactive messages stored for the key has reached or exceeded the configured `maxMessagesPerKey` limit.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `key` | `string` | Yes | Unique identifier for the conversation or session. |
 
-**Returns:** `boolean|Error`
+Returns: `boolean|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean full = check store->isFull("session-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 false
@@ -317,15 +318,15 @@ false
 Returns the maximum number of interactive messages allowed per key, as set during initialisation.
 
 
-**Returns:** `int`
+Returns: `int`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int capacity = store->getCapacity();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 20

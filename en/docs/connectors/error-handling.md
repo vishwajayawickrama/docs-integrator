@@ -7,22 +7,22 @@ description: Handle connection errors, operation errors, retries, and timeouts.
 
 Handle errors specific to connector operations — connection failures, authentication errors, rate limits, and timeouts.
 
-## Connection Errors vs Operation Errors
+## Connection errors vs operation errors
 
 <!-- TODO: Distinguish between error types -->
 
-## Retry Behavior
+## Retry behavior
 
 <!-- TODO: Configurable retry per connector -->
 
-## Timeout Configuration
+## Timeout configuration
 
 <!-- TODO: Connection timeout, read timeout, write timeout -->
 
-## Error Mapping
+## Error mapping
 
 <!-- TODO: Map connector errors to integration error types -->
 
-## What's Next
+## What's next
 
 - [Error Handling & Retry Patterns](/docs/develop/build/error-handling) — General error handling

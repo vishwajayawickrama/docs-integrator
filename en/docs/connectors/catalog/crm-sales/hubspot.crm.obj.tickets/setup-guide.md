@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 credentials required to use the HubSpot CRM Tickets connector.
@@ -7,7 +10,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 
 - A HubSpot developer account. If you do not have one, [sign up here](https://developers.hubspot.com/get-started).
 
-## Step 1: Create a HubSpot Developer Test Account
+## Step 1: Create a HubSpot developer test account
 
 1. Log in to your HubSpot developer account.
 2. In the left sidebar, navigate to **Test Accounts**.
@@ -18,13 +21,13 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 Developer test accounts are for development and testing only. Do not use them in production.
 :::
 
-## Step 2: Create a HubSpot App
+## Step 2: Create a HubSpot app
 
 1. In your developer account, navigate to the **Apps** section.
 2. Click **Create App**.
 3. Provide the required details, including the app name and description.
 
-## Step 3: Configure OAuth Scopes and Redirect URI
+## Step 3: Configure OAuth scopes and redirect URI
 
 1. In your app settings, navigate to the **Auth** tab.
 2. Under **Scopes**, click **Add new scope** and add the following scopes:
@@ -33,7 +36,7 @@ Developer test accounts are for development and testing only. Do not use them in
 3. Under **Redirect URLs**, add your redirect URI (e.g., `https://localhost:9090/oauth2/callback` for local development).
 4. Click **Create App** (or **Save** if updating an existing app).
 
-## Step 4: Obtain the Client ID and Client Secret
+## Step 4: Obtain the client ID and client secret
 
 1. Navigate to the **Auth** tab of your app.
 2. Copy the **Client ID** and **Client Secret** — you will need these to generate tokens.
@@ -42,7 +45,7 @@ Developer test accounts are for development and testing only. Do not use them in
 Store the Client ID and Client Secret securely. Do not commit them to source control.
 :::
 
-## Step 5: Generate the Authorization Code and Refresh Token
+## Step 5: Generate the authorization code and refresh token
 
 1. Construct the following authorization URL, replacing the placeholders with your values:
 

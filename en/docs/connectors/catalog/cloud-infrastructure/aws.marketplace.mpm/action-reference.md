@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -23,7 +24,7 @@ Interacts with the AWS Marketplace Metering Service for customer resolution and 
 | `region` | `Region` | Required | The AWS region for the Metering Service endpoint (e.g., `US_EAST_1`). |
 | `auth` | `AuthConfig` | Required | AWS authentication credentials containing `accessKeyId`, `secretAccessKey`, and optional `sessionToken`. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/aws.marketplace.mpm;
@@ -42,7 +43,7 @@ mpm:Client mpmClient = check new ({
 
 ### Operations
 
-#### Customer Resolution
+#### Customer resolution
 
 <details>
 <summary>resolveCustomer</summary>
@@ -51,21 +52,21 @@ mpm:Client mpmClient = check new ({
 
 Resolves a customer from an AWS Marketplace registration token, returning the customer identifier, AWS account ID, and product code.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `registrationToken` | `string` | Yes | The registration token provided by AWS Marketplace when a customer subscribes to your product. |
 
-**Returns:** `ResolveCustomerResponse|Error`
+Returns: `ResolveCustomerResponse|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mpm:ResolveCustomerResponse response = check mpmClient->resolveCustomer("<registration-token>");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"customerAWSAccountId": "123456789012", "customerIdentifier": "cust-abc123xyz", "productCode": "prod-example1234"}
@@ -75,7 +76,7 @@ mpm:ResolveCustomerResponse response = check mpmClient->resolveCustomer("<regist
 
 </details>
 
-#### Usage Metering
+#### Usage metering
 
 <details>
 <summary>batchMeterUsage</summary>
@@ -84,16 +85,16 @@ mpm:ResolveCustomerResponse response = check mpmClient->resolveCustomer("<regist
 
 Submits a batch of metering usage records to AWS Marketplace for billing. Accepts up to 25 usage records per request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `productCode` | `string` | Yes | The product code of your AWS Marketplace product (1–255 characters, alphanumeric and special characters). |
 | `usageRecords` | `UsageRecord[]` | No | Array of usage records to submit (max 25). Defaults to an empty array. |
 
-**Returns:** `BatchMeterUsageResponse|Error`
+Returns: `BatchMeterUsageResponse|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mpm:BatchMeterUsageResponse response = check mpmClient->batchMeterUsage(
@@ -109,7 +110,7 @@ mpm:BatchMeterUsageResponse response = check mpmClient->batchMeterUsage(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"results": [{"meteringRecordId": "mtr-12345abcde", "status": "Success", "usageRecord": {"customerIdentifier": "cust-abc123xyz", "dimension": "api_calls", "timestamp": [1700000000, 0], "quantity": 150}}], "unprocessedRecords": []}
@@ -119,7 +120,7 @@ mpm:BatchMeterUsageResponse response = check mpmClient->batchMeterUsage(
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
@@ -129,9 +130,9 @@ mpm:BatchMeterUsageResponse response = check mpmClient->batchMeterUsage(
 Closes the client connection and releases associated resources.
 
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mpmClient->close();

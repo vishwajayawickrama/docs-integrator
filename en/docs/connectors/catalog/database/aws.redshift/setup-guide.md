@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up an Amazon Redshift cluster and obtaining the JDBC connection details required to use the AWS Redshift connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up an Amazon Redshift cluster and obtaining
 
 - An active AWS account. If you do not have one, [sign up for an AWS account](https://aws.amazon.com/).
 
-## Step 1: Create a Redshift Cluster
+## Step 1: Create a Redshift cluster
 
 1. Log in to the [AWS Management Console](https://console.aws.amazon.com/).
 2. Navigate to **Amazon Redshift** from the Services menu (or search for "Redshift").
@@ -24,7 +27,7 @@ This guide walks you through setting up an Amazon Redshift cluster and obtaining
 Cluster creation may take several minutes. The cluster status must be **Available** before you can connect.
 :::
 
-## Step 2: Configure Network Access
+## Step 2: Configure network access
 
 1. In the Redshift console, select your cluster and go to the **Properties** tab.
 2. Under **Network and security**, find the **VPC security group** associated with the cluster.
@@ -36,12 +39,12 @@ Cluster creation may take several minutes. The cluster status must be **Availabl
 Do not open port 5439 to `0.0.0.0/0` in production. Restrict access to specific IP addresses or use VPC peering.
 :::
 
-## Step 3: Enable Public Accessibility (if needed)
+## Step 3: Enable public accessibility (if needed)
 
 If your Ballerina application runs outside the cluster's VPC:
 
 1. Select your cluster in the Redshift console.
-2. Click **Actions** → **Modify publicly accessible setting**.
+2. Click Actions → **Modify publicly accessible setting**.
 3. Enable **Turn on Publicly accessible**.
 4. Click **Save changes**.
 

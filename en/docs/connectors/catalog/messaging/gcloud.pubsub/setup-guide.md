@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Google Cloud project, enabling the Pub/Sub API, and generating a service account key to authenticate the connector.
@@ -8,7 +11,7 @@ This guide walks you through creating a Google Cloud project, enabling the Pub/S
 - A Google Cloud account. If you do not have one, [sign up for a free account](https://cloud.google.com/free).
 - A Google Cloud project with billing enabled.
 
-## Step 1: Enable the Pub/Sub API
+## Step 1: Enable the pub/Sub API
 
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
 2. Select your project from the project selector at the top of the page.
@@ -16,7 +19,7 @@ This guide walks you through creating a Google Cloud project, enabling the Pub/S
 4. Search for **Cloud Pub/Sub API**.
 5. Click **Cloud Pub/Sub API** and then click **Enable**.
 
-## Step 2: Create a Pub/Sub Topic
+## Step 2: Create a pub/Sub topic
 
 1. In the Google Cloud Console, navigate to **Pub/Sub** > **Topics**.
 2. Click **Create Topic**.
@@ -24,7 +27,7 @@ This guide walks you through creating a Google Cloud project, enabling the Pub/S
 4. Configure any additional settings (message retention, schema) as needed.
 5. Click **Create**.
 
-## Step 3: Create a Subscription
+## Step 3: Create a subscription
 
 1. In the Google Cloud Console, navigate to **Pub/Sub** > **Subscriptions**.
 2. Click **Create Subscription**.
@@ -38,7 +41,7 @@ This guide walks you through creating a Google Cloud project, enabling the Pub/S
 The subscription name you set here is the value you will use in the `@pubsub:ServiceConfig` annotation's `subscription` field.
 :::
 
-## Step 4: Create a Service Account and Download the Key
+## Step 4: Create a service account and download the key
 
 1. In the Google Cloud Console, navigate to **IAM & Admin** > **Service Accounts**.
 2. Click **Create Service Account**.

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Provides full access to HubSpot Feedback Submissions — list, read, search, cre
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable constraint validation on request/response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.obj.feedback as hsfeedback;
@@ -48,7 +49,7 @@ hsfeedback:Client feedbackClient = check new ({
 
 ### Operations
 
-#### Single Object Operations
+#### Single object operations
 
 <details>
 <summary>List feedback submissions</summary>
@@ -57,7 +58,7 @@ hsfeedback:Client feedbackClient = check new ({
 
 Returns a paginated list of feedback submissions. Use query parameters to filter by archived status, select specific properties, and control page size.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -68,16 +69,16 @@ Returns a paginated list of feedback submissions. Use query parameters to filter
 | `associations` | `string[]` | No | List of object types to retrieve associated IDs for. |
 | `archived` | `boolean` | No | Whether to include archived submissions. Defaults to `false`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsfeedback:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
     check feedbackClient->/.get('limit = 5, properties = ["hs_survey_channel", "hs_response_text"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -116,7 +117,7 @@ hsfeedback:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging res
 
 Retrieves a single feedback submission by its HubSpot record ID or a unique property value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -127,9 +128,9 @@ Retrieves a single feedback submission by its HubSpot record ID or a unique prop
 | `idProperty` | `string` | No | The name of a unique property to use instead of the HubSpot internal ID. |
 | `archived` | `boolean` | No | Whether to return archived submissions. Defaults to `false`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsfeedback:SimplePublicObjectWithAssociations submission =
@@ -138,7 +139,7 @@ hsfeedback:SimplePublicObjectWithAssociations submission =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -169,15 +170,15 @@ hsfeedback:SimplePublicObjectWithAssociations submission =
 
 Creates a new feedback submission record in HubSpot CRM.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SimplePublicObjectInputForCreate` | Yes | The feedback submission properties and optional associations to create. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsfeedback:SimplePublicObject created = check feedbackClient->/.post({
@@ -190,7 +191,7 @@ hsfeedback:SimplePublicObject created = check feedbackClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -220,7 +221,7 @@ hsfeedback:SimplePublicObject created = check feedbackClient->/.post({
 
 Performs a partial update on a feedback submission, modifying only the specified properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -228,9 +229,9 @@ Performs a partial update on a feedback submission, modifying only the specified
 | `payload` | `SimplePublicObjectInput` | Yes | An object containing the properties to update. |
 | `idProperty` | `string` | No | The name of a unique property to use as the identifier instead of the HubSpot ID. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsfeedback:SimplePublicObject updated = check feedbackClient->/["392813793683"].patch({
@@ -240,7 +241,7 @@ hsfeedback:SimplePublicObject updated = check feedbackClient->/["392813793683"].
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -269,15 +270,15 @@ hsfeedback:SimplePublicObject updated = check feedbackClient->/["392813793683"].
 
 Archives (soft-deletes) a feedback submission by its ID. Archived submissions can be retrieved by setting `archived=true` in list or read requests.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `feedbackSubmissionId` | `string` | Yes | The unique identifier of the feedback submission to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check feedbackClient->/["392813793683"].delete();
@@ -287,7 +288,7 @@ check feedbackClient->/["392813793683"].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Read a batch of feedback submissions</summary>
@@ -296,16 +297,16 @@ check feedbackClient->/["392813793683"].delete();
 
 Retrieves multiple feedback submissions by a list of internal IDs or unique property values in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchReadInputSimplePublicObjectId` | Yes | An object containing the list of IDs, the properties to return, and optional propertiesWithHistory. |
 | `archived` | `boolean` | No | Whether to include archived submissions. Defaults to `false`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsfeedback:BatchResponseSimplePublicObject|hsfeedback:BatchResponseSimplePublicObjectWithErrors batchResult =
@@ -319,7 +320,7 @@ hsfeedback:BatchResponseSimplePublicObject|hsfeedback:BatchResponseSimplePublicO
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -364,15 +365,15 @@ hsfeedback:BatchResponseSimplePublicObject|hsfeedback:BatchResponseSimplePublicO
 
 Creates multiple feedback submission records in a single API call.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectInputForCreate` | Yes | An object containing a list of feedback submission inputs, each with properties and optional associations. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsfeedback:BatchResponseSimplePublicObject|hsfeedback:BatchResponseSimplePublicObjectWithErrors batchCreated =
@@ -396,7 +397,7 @@ hsfeedback:BatchResponseSimplePublicObject|hsfeedback:BatchResponseSimplePublicO
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -441,15 +442,15 @@ hsfeedback:BatchResponseSimplePublicObject|hsfeedback:BatchResponseSimplePublicO
 
 Updates multiple feedback submission records by their IDs in a single API call.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInput` | Yes | An object containing a list of update inputs, each with an `id` and the properties to update. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsfeedback:BatchResponseSimplePublicObject|hsfeedback:BatchResponseSimplePublicObjectWithErrors batchUpdated =
@@ -467,7 +468,7 @@ hsfeedback:BatchResponseSimplePublicObject|hsfeedback:BatchResponseSimplePublicO
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -510,15 +511,15 @@ hsfeedback:BatchResponseSimplePublicObject|hsfeedback:BatchResponseSimplePublicO
 
 Creates or updates multiple feedback submissions based on a unique property value. If a record with the given unique property exists, it is updated; otherwise a new record is created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInputUpsert` | Yes | An object containing a list of upsert inputs, each with an `id`, `idProperty`, and properties. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsfeedback:BatchResponseSimplePublicUpsertObject|hsfeedback:BatchResponseSimplePublicUpsertObjectWithErrors upserted =
@@ -536,7 +537,7 @@ hsfeedback:BatchResponseSimplePublicUpsertObject|hsfeedback:BatchResponseSimpleP
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -571,15 +572,15 @@ hsfeedback:BatchResponseSimplePublicUpsertObject|hsfeedback:BatchResponseSimpleP
 
 Archives multiple feedback submissions by their IDs in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectId` | Yes | An object containing a list of submission IDs to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check feedbackClient->/batch/archive.post({
@@ -603,15 +604,15 @@ check feedbackClient->/batch/archive.post({
 
 Searches feedback submissions using filter groups, property conditions, sorting, and pagination. Returns submissions matching all specified criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicObjectSearchRequest` | Yes | The search request containing filter groups, sort options, pagination parameters, and property selection. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsfeedback:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResult =
@@ -633,7 +634,7 @@ hsfeedback:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResu
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

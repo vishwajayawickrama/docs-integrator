@@ -1,9 +1,12 @@
+---
+title: SAP Sales Order Analytics Connector Overview
+---
 # SAP Sales Order Analytics Connector Overview
 
 SAP S/4HANA Sales Order Analytics is an OData v4 API connector that provides programmatic access to sales order data in SAP S/4HANA Cloud. The Ballerina `ballerinax/sap.s4hana.ce_salesorder_0001` connector (v1.0.0) enables full lifecycle management of sales orders, items, partners, pricing elements, schedule lines, and texts, allowing you to integrate SAP sales order operations into your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on sales orders including creation, retrieval, update, and deletion via OData v4
 - Sales order item management with support for deep insert of items, partners, and pricing elements in a single request
@@ -25,14 +28,14 @@ Actions are operations you invoke on SAP S/4HANA from your integration — creat
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## SAP Sales Order Analytics Connector Documentation
+## SAP sales order analytics connector documentation
 
 * **[SAP Sales Order Analytics Connector Setup Guide](setup-guide.md)**: This guide walks you through configuring SAP S/4HANA Cloud to expose the Sales Order Integration API and obtaining the credentials required to use the connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

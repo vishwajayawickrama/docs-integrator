@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Manages HubSpot CRM lists, memberships, folders, search, and legacy ID mapping.
 | `validation` | <code>boolean</code> | `true` | Enable or disable constraint validation. |
 | `laxDataBinding` | <code>boolean</code> | `true` | Enable or disable lax data binding. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -58,20 +59,20 @@ final hslists:Client hubspotClient = check new ({auth});
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new list. The list can be MANUAL, DYNAMIC (filter-based), or SNAPSHOT.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>ListCreateRequest</code> | Yes | List creation payload including `objectTypeId`, `processingType`, `name`, and optional `filterBranch`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListCreateResponse|error`
+Returns: `ListCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListCreateResponse response = check hubspotClient->/.post({
@@ -81,7 +82,7 @@ hslists:ListCreateResponse response = check hubspotClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -108,11 +109,11 @@ hslists:ListCreateResponse response = check hubspotClient->/.post({
 
 <div>
 
-**Signature:** `get /[string listId]`
+Signature: `get /[string listId]`
 
 Fetches a list by its ILS ID. Optionally includes filter definitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -120,15 +121,15 @@ Fetches a list by its ILS ID. Optionally includes filter definitions.
 | `queries` | <code>GetListIdGetByIdQueries</code> | No | Query parameters. `includeFilters` (default `false`) — whether to include filter branch details. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListFetchResponse|error`
+Returns: `ListFetchResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListFetchResponse response = check hubspotClient->/["123456"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -155,11 +156,11 @@ hslists:ListFetchResponse response = check hubspotClient->/["123456"].get();
 
 <div>
 
-**Signature:** `get /object-type-id/[string objectTypeId]/name/[string listName]`
+Signature: `get /object-type-id/[string objectTypeId]/name/[string listName]`
 
 Fetches a list by its name and object type ID. The name match is not case sensitive.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -168,15 +169,15 @@ Fetches a list by its name and object type ID. The name match is not case sensit
 | `queries` | <code>GetObjectTypeIdObjectTypeIdNameListNameGetByNameQueries</code> | No | Query parameters. `includeFilters` (default `false`). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListFetchResponse|error`
+Returns: `ListFetchResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListFetchResponse response = check hubspotClient->/"object-type-id"/["0-5"]/name/["High priority tickets"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -203,26 +204,26 @@ hslists:ListFetchResponse response = check hubspotClient->/"object-type-id"/["0-
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Fetches multiple lists by their ILS IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | <code>GetGetAllQueries</code> | No | Query parameters. `listIds` — array of list IDs to fetch. `includeFilters` (default `false`). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListsByIdResponse|error`
+Returns: `ListsByIdResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListsByIdResponse response = check hubspotClient->/.get(queries = {listIds: ["123456", "789012"]});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -242,20 +243,20 @@ hslists:ListsByIdResponse response = check hubspotClient->/.get(queries = {listI
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for lists by name query, processing types, or list IDs with pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>ListSearchRequest</code> | Yes | Search parameters including `query`, `processingTypes`, `listIds`, `offset`, `count`, and `sort`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListSearchResponse|error`
+Returns: `ListSearchResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListSearchResponse response = check hubspotClient->/search.post({
@@ -265,7 +266,7 @@ hslists:ListSearchResponse response = check hubspotClient->/search.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -288,11 +289,11 @@ hslists:ListSearchResponse response = check hubspotClient->/search.post({
 
 <div>
 
-**Signature:** `put /[string listId]/update-list-name`
+Signature: `put /[string listId]/update-list-name`
 
 Updates the name of an existing list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -300,15 +301,15 @@ Updates the name of an existing list.
 | `queries` | <code>PutListIdUpdateListNameUpdateNameQueries</code> | No | Query parameters. `listName` — the new name. `includeFilters` (default `false`). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListUpdateResponse|error`
+Returns: `ListUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListUpdateResponse response = check hubspotClient->/["123456"]/"update-list-name".put(queries = {listName: "Qualified Leads"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -333,11 +334,11 @@ hslists:ListUpdateResponse response = check hubspotClient->/["123456"]/"update-l
 
 <div>
 
-**Signature:** `put /[string listId]/update-list-filters`
+Signature: `put /[string listId]/update-list-filters`
 
 Updates the filter definition of a DYNAMIC list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -346,9 +347,9 @@ Updates the filter definition of a DYNAMIC list.
 | `queries` | <code>PutListIdUpdateListFiltersUpdateListFiltersQueries</code> | No | Query parameters. `enrollObjectsInWorkflows` (default `false`). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListUpdateResponse|error`
+Returns: `ListUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListFilterUpdateRequest payload = {
@@ -376,7 +377,7 @@ hslists:ListFilterUpdateRequest payload = {
 hslists:ListUpdateResponse response = check hubspotClient->/["789012"]/"update-list-filters".put(payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -401,20 +402,20 @@ hslists:ListUpdateResponse response = check hubspotClient->/["789012"]/"update-l
 
 <div>
 
-**Signature:** `delete /[string listId]`
+Signature: `delete /[string listId]`
 
 Deletes a list by its ILS ID. The list can be restored later.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | <code>string</code> | Yes | The ILS ID of the list to delete. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["123456"].delete();
@@ -429,20 +430,20 @@ check hubspotClient->/["123456"].delete();
 
 <div>
 
-**Signature:** `put /[string listId]/restore`
+Signature: `put /[string listId]/restore`
 
 Restores a previously deleted list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | <code>string</code> | Yes | The ILS ID of the list to restore. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["123456"]/restore.put();
@@ -452,18 +453,18 @@ check hubspotClient->/["123456"]/restore.put();
 
 </details>
 
-#### Membership Management
+#### Membership management
 
 <details>
 <summary>Add records to a list</summary>
 
 <div>
 
-**Signature:** `put /[string listId]/memberships/add`
+Signature: `put /[string listId]/memberships/add`
 
 Adds records to a MANUAL or SNAPSHOT list by record IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -471,15 +472,15 @@ Adds records to a MANUAL or SNAPSHOT list by record IDs.
 | `payload` | <code>string[]</code> | Yes | Array of record IDs to add. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `MembershipsUpdateResponse|error`
+Returns: `MembershipsUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:MembershipsUpdateResponse response = check hubspotClient->/["123456"]/memberships/add.put(["85187972687", "85187972688", "85187972689"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -497,11 +498,11 @@ hslists:MembershipsUpdateResponse response = check hubspotClient->/["123456"]/me
 
 <div>
 
-**Signature:** `put /[string listId]/memberships/remove`
+Signature: `put /[string listId]/memberships/remove`
 
 Removes records from a MANUAL or SNAPSHOT list by record IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -509,15 +510,15 @@ Removes records from a MANUAL or SNAPSHOT list by record IDs.
 | `payload` | <code>string[]</code> | Yes | Array of record IDs to remove. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `MembershipsUpdateResponse|error`
+Returns: `MembershipsUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:MembershipsUpdateResponse response = check hubspotClient->/["123456"]/memberships/remove.put(["85187972687"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -535,11 +536,11 @@ hslists:MembershipsUpdateResponse response = check hubspotClient->/["123456"]/me
 
 <div>
 
-**Signature:** `put /[string listId]/memberships/add-and-remove`
+Signature: `put /[string listId]/memberships/add-and-remove`
 
 Adds and/or removes records from a MANUAL or SNAPSHOT list in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -547,9 +548,9 @@ Adds and/or removes records from a MANUAL or SNAPSHOT list in a single request.
 | `payload` | <code>MembershipChangeRequest</code> | Yes | Object with `recordIdsToAdd` and `recordIdsToRemove` arrays. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `MembershipsUpdateResponse|error`
+Returns: `MembershipsUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:MembershipsUpdateResponse response = check hubspotClient->/["123456"]/memberships/"add-and-remove".put({
@@ -558,7 +559,7 @@ hslists:MembershipsUpdateResponse response = check hubspotClient->/["123456"]/me
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -577,11 +578,11 @@ hslists:MembershipsUpdateResponse response = check hubspotClient->/["123456"]/me
 
 <div>
 
-**Signature:** `put /[string listId]/memberships/add-from/[string sourceListId]`
+Signature: `put /[string listId]/memberships/add-from/[string sourceListId]`
 
 Adds all records from a source list to a destination MANUAL or SNAPSHOT list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -589,9 +590,9 @@ Adds all records from a source list to a destination MANUAL or SNAPSHOT list.
 | `sourceListId` | <code>string</code> | Yes | The ILS ID of the source list. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["123456"]/memberships/"add-from"/["789012"].put();
@@ -606,20 +607,20 @@ check hubspotClient->/["123456"]/memberships/"add-from"/["789012"].put();
 
 <div>
 
-**Signature:** `delete /[string listId]/memberships`
+Signature: `delete /[string listId]/memberships`
 
 Removes all records from a MANUAL or SNAPSHOT list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `listId` | <code>string</code> | Yes | The ILS ID of the MANUAL or SNAPSHOT list. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["123456"]/memberships.delete();
@@ -634,11 +635,11 @@ check hubspotClient->/["123456"]/memberships.delete();
 
 <div>
 
-**Signature:** `get /[string listId]/memberships`
+Signature: `get /[string listId]/memberships`
 
 Fetches list memberships ordered by record ID, with cursor-based pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -646,15 +647,15 @@ Fetches list memberships ordered by record ID, with cursor-based pagination.
 | `queries` | <code>GetListIdMembershipsGetPageQueries</code> | No | Query parameters. `limit` (default `100`), `before`, `after` for cursor pagination. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ApiCollectionResponseJoinTimeAndRecordId|error`
+Returns: `ApiCollectionResponseJoinTimeAndRecordId|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ApiCollectionResponseJoinTimeAndRecordId response = check hubspotClient->/["123456"]/memberships.get(queries = {'limit: 50});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -676,11 +677,11 @@ hslists:ApiCollectionResponseJoinTimeAndRecordId response = check hubspotClient-
 
 <div>
 
-**Signature:** `get /[string listId]/memberships/join-order`
+Signature: `get /[string listId]/memberships/join-order`
 
 Fetches list memberships ordered by the date each record was added to the list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -688,15 +689,15 @@ Fetches list memberships ordered by the date each record was added to the list.
 | `queries` | <code>GetListIdMembershipsJoinOrderGetPageOrderedByAddedToListDateQueries</code> | No | Query parameters. `limit` (default `100`), `before`, `after` for cursor pagination. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ApiCollectionResponseJoinTimeAndRecordId|error`
+Returns: `ApiCollectionResponseJoinTimeAndRecordId|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ApiCollectionResponseJoinTimeAndRecordId response = check hubspotClient->/["789012"]/memberships/"join-order".get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -717,11 +718,11 @@ hslists:ApiCollectionResponseJoinTimeAndRecordId response = check hubspotClient-
 
 <div>
 
-**Signature:** `get /records/[string objectTypeId]/[string recordId]/memberships`
+Signature: `get /records/[string objectTypeId]/[string recordId]/memberships`
 
 Gets all lists that a specific record is a member of.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -729,15 +730,15 @@ Gets all lists that a specific record is a member of.
 | `recordId` | <code>string</code> | Yes | The ID of the record. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ApiCollectionResponseRecordListMembershipNoPaging|error`
+Returns: `ApiCollectionResponseRecordListMembershipNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ApiCollectionResponseRecordListMembershipNoPaging response = check hubspotClient->/records/["0-1"]/["85187972687"]/memberships.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -753,27 +754,27 @@ hslists:ApiCollectionResponseRecordListMembershipNoPaging response = check hubsp
 
 </details>
 
-#### Folder Operations
+#### Folder operations
 
 <details>
 <summary>Create a folder</summary>
 
 <div>
 
-**Signature:** `post /folders`
+Signature: `post /folders`
 
 Creates a new folder to organize lists.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>ListFolderCreateRequest</code> | Yes | Folder creation payload with `name` and optional `parentFolderId`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListFolderCreateResponse|error`
+Returns: `ListFolderCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListFolderCreateResponse response = check hubspotClient->/folders.post({
@@ -781,7 +782,7 @@ hslists:ListFolderCreateResponse response = check hubspotClient->/folders.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -802,26 +803,26 @@ hslists:ListFolderCreateResponse response = check hubspotClient->/folders.post({
 
 <div>
 
-**Signature:** `get /folders`
+Signature: `get /folders`
 
 Retrieves a folder and its contents by folder ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | <code>GetFoldersGetAllQueries</code> | No | Query parameters. `folderId` (default `"0"` — root folder). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListFolderFetchResponse|error`
+Returns: `ListFolderFetchResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListFolderFetchResponse response = check hubspotClient->/folders.get(queries = {folderId: "456"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -842,11 +843,11 @@ hslists:ListFolderFetchResponse response = check hubspotClient->/folders.get(que
 
 <div>
 
-**Signature:** `put /folders/[string folderId]/rename`
+Signature: `put /folders/[string folderId]/rename`
 
 Renames an existing folder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -854,15 +855,15 @@ Renames an existing folder.
 | `queries` | <code>PutFoldersFolderIdRenameRenameQueries</code> | No | Query parameters. `newFolderName` — the new name. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListFolderFetchResponse|error`
+Returns: `ListFolderFetchResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListFolderFetchResponse response = check hubspotClient->/folders/["456"]/rename.put(queries = {newFolderName: "Support Tickets Archive"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -883,11 +884,11 @@ hslists:ListFolderFetchResponse response = check hubspotClient->/folders/["456"]
 
 <div>
 
-**Signature:** `put /folders/[string folderId]/move/[string newParentFolderId]`
+Signature: `put /folders/[string folderId]/move/[string newParentFolderId]`
 
 Moves a folder to a new parent folder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -895,15 +896,15 @@ Moves a folder to a new parent folder.
 | `newParentFolderId` | <code>string</code> | Yes | The ID of the new parent folder. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `ListFolderFetchResponse|error`
+Returns: `ListFolderFetchResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:ListFolderFetchResponse response = check hubspotClient->/folders/["456"]/move/["789"].put();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -924,20 +925,20 @@ hslists:ListFolderFetchResponse response = check hubspotClient->/folders/["456"]
 
 <div>
 
-**Signature:** `put /folders/move-list`
+Signature: `put /folders/move-list`
 
 Moves a list to a specified folder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>ListMoveRequest</code> | Yes | Object with `listId` and `newFolderId`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/folders/"move-list".put({
@@ -955,20 +956,20 @@ check hubspotClient->/folders/"move-list".put({
 
 <div>
 
-**Signature:** `delete /folders/[string folderId]`
+Signature: `delete /folders/[string folderId]`
 
 Deletes a folder by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `folderId` | <code>string</code> | Yes | The ID of the folder to delete. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/folders/["456"].delete();
@@ -978,33 +979,33 @@ check hubspotClient->/folders/["456"].delete();
 
 </details>
 
-#### Legacy ID Mapping
+#### Legacy ID mapping
 
 <details>
 <summary>Translate a legacy list ID</summary>
 
 <div>
 
-**Signature:** `get /idmapping`
+Signature: `get /idmapping`
 
 Translates a single legacy list ID to the modern ILS list ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | <code>GetIdmappingTranslateLegacyListIdToListIdQueries</code> | No | Query parameters. `legacyListId` — the legacy list ID to translate. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `PublicMigrationMapping|error`
+Returns: `PublicMigrationMapping|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:PublicMigrationMapping response = check hubspotClient->/idmapping.get(queries = {legacyListId: "100"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1022,26 +1023,26 @@ hslists:PublicMigrationMapping response = check hubspotClient->/idmapping.get(qu
 
 <div>
 
-**Signature:** `post /idmapping`
+Signature: `post /idmapping`
 
 Translates multiple legacy list IDs to modern ILS list IDs in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>string[]</code> | Yes | Array of legacy list IDs to translate. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom headers. |
 
-**Returns:** `PublicBatchMigrationMapping|error`
+Returns: `PublicBatchMigrationMapping|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslists:PublicBatchMigrationMapping response = check hubspotClient->/idmapping.post(["100", "200", "300"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

@@ -7,26 +7,26 @@ description: Create and manage connections to external systems.
 
 Connections define how your integration communicates with external systems — the endpoint URL, credentials, timeouts, and pool settings.
 
-## How Connections Work
+## How connections work
 
 <!-- TODO: Connection lifecycle, visual + code -->
 
-## Creating a Connection
+## Creating a connection
 
 <!-- TODO: Step-by-step visual + code -->
 
-## Connection Parameters
+## Connection parameters
 
 <!-- TODO: Common parameters across connectors -->
 
-## Connection Pooling and Tuning
+## Connection pooling and tuning
 
 <!-- TODO: Pool size, idle timeout, max connections -->
 
-## Testing Connections
+## Testing connections
 
 <!-- TODO: Verify connectivity before running -->
 
-## What's Next
+## What's next
 
 - [Authentication Methods](authentication.md) — Secure your connections

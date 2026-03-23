@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a MySQL database and obtaining the connection credentials required to use the Ballerina MySQL connector.
@@ -9,7 +12,7 @@ This guide walks you through setting up a MySQL database and obtaining the conne
 - A database user with appropriate privileges for the operations you intend to perform.
 - For CDC: MySQL binary logging must be enabled with `ROW` format (see the CDC setup step below).
 
-## Step 1: Create a MySQL Database and User
+## Step 1: Create a MySQL database and user
 
 1. Connect to your MySQL server using the `mysql` command-line client or a GUI tool such as MySQL Workbench.
 2. Create a new database for your application:
@@ -30,7 +33,7 @@ This guide walks you through setting up a MySQL database and obtaining the conne
 For production environments, follow the principle of least privilege — grant only the specific permissions your application requires (e.g., SELECT, INSERT, UPDATE, DELETE).
 :::
 
-## Step 2: Note Your Connection Details
+## Step 2: Note your connection details
 
 Record the following information; you will need it to configure the Ballerina client:
 
@@ -40,7 +43,7 @@ Record the following information; you will need it to configure the Ballerina cl
 - **Password**: The database user's password.
 - **Database name**: The target database (e.g., `mydb`).
 
-## Step 3: Enable Binary Logging for CDC (Optional)
+## Step 3: Enable binary logging for CDC (optional)
 
 If you plan to use the Change Data Capture (CDC) listener, you must enable MySQL binary logging in `ROW` format.
 
@@ -71,7 +74,7 @@ If you plan to use the Change Data Capture (CDC) listener, you must enable MySQL
 Binary logging is required for CDC. Without it, the `mysql:CdcListener` will not receive any change events.
 :::
 
-## Step 4: Add the MySQL Driver Dependency
+## Step 4: Add the MySQL driver dependency
 
 The Ballerina MySQL connector requires the MySQL JDBC driver. The simplest approach is to import the bundled driver package:
 

@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/gcloud.pubsub` connector supports event-driven message consumption through a streaming pull mechanism. When messages arrive on a Google Cloud Pub/Sub subscription, the listener receives them in real time and invokes your service's `onMessage` callback automatically.
@@ -28,13 +31,13 @@ The listener supports the following connection strategies:
 |-------------|-------------|
 | `ListenerConfiguration` | Configuration for the Pub/Sub listener. Authenticates using a GCP service account key file. |
 
-**`ListenerConfiguration` fields:**
+`ListenerConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `auth` | `GcpCredentialConfig` | `()` | GCP service account credentials. Contains a `path` field pointing to the JSON key file. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Initialize with service account credentials:**
 
@@ -58,7 +61,7 @@ listener pubsub:Listener pubsubListener = check new (project,
 A `pubsub:Service` is a Ballerina service attached to a `pubsub:Listener`. It is annotated with `@pubsub:ServiceConfig` to bind it to a specific subscription, and implements the `onMessage` callback to process incoming messages.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -68,7 +71,7 @@ A `pubsub:Service` is a Ballerina service attached to a `pubsub:Listener`. It is
 Use `caller->ack()` to acknowledge successful processing, or `caller->nack()` to reject the message and request re-delivery.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -103,7 +106,7 @@ The `@pubsub:ServiceConfig` annotation supports additional fields for fine-tunin
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `Message`
 

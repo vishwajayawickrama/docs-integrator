@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Full Mistral REST API — chat, FIM, embeddings, OCR, moderation, agents, models
 | `compression` | `http:Compression` | `http:COMPRESSION_AUTO` | Compression setting for requests. |
 | `validation` | `boolean` | `true` | Enable or disable constraint validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/mistral;
@@ -46,7 +47,7 @@ mistral:Client mistralClient = check new ({
 
 ### Operations
 
-#### Chat & Agents
+#### Chat & agents
 
 <details>
 <summary>Create a chat completion</summary>
@@ -55,16 +56,16 @@ mistral:Client mistralClient = check new ({
 
 Generates a chat completion response from the model given a list of messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `ChatCompletionRequest` | Yes | Chat completion request with model, messages, and optional parameters. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ChatCompletionResponse|error`
+Returns: `ChatCompletionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:ChatCompletionResponse response = check mistralClient->/chat/completions.post({
@@ -75,7 +76,7 @@ mistral:ChatCompletionResponse response = check mistralClient->/chat/completions
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -112,16 +113,16 @@ mistral:ChatCompletionResponse response = check mistralClient->/chat/completions
 
 Generates a completion using a Mistral agent identified by its agent ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `AgentsCompletionRequest` | Yes | Agent completion request with agent ID and messages. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ChatCompletionResponse|error`
+Returns: `ChatCompletionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:ChatCompletionResponse response = check mistralClient->/agents/completions.post({
@@ -132,7 +133,7 @@ mistral:ChatCompletionResponse response = check mistralClient->/agents/completio
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -162,7 +163,7 @@ mistral:ChatCompletionResponse response = check mistralClient->/agents/completio
 
 </details>
 
-#### Code Completion
+#### Code completion
 
 <details>
 <summary>Create a FIM completion</summary>
@@ -171,16 +172,16 @@ mistral:ChatCompletionResponse response = check mistralClient->/agents/completio
 
 Generates a fill-in-the-middle code completion given a prompt and optional suffix.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `FIMCompletionRequest` | Yes | FIM completion request with prompt, suffix, and model. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `FIMCompletionResponse|error`
+Returns: `FIMCompletionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:FIMCompletionResponse response = check mistralClient->/fim/completions.post({
@@ -190,7 +191,7 @@ mistral:FIMCompletionResponse response = check mistralClient->/fim/completions.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -229,16 +230,16 @@ mistral:FIMCompletionResponse response = check mistralClient->/fim/completions.p
 
 Generates vector embeddings for the given input text or texts.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `EmbeddingRequest` | Yes | Embedding request with model and input text(s). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EmbeddingResponse|error`
+Returns: `EmbeddingResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:EmbeddingResponse response = check mistralClient->/embeddings.post({
@@ -247,7 +248,7 @@ mistral:EmbeddingResponse response = check mistralClient->/embeddings.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -286,16 +287,16 @@ mistral:EmbeddingResponse response = check mistralClient->/embeddings.post({
 
 Extracts text from a document or image using optical character recognition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `OCRRequest` | Yes | OCR request with document URL or image URL and optional page selection. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `OCRResponse|error`
+Returns: `OCRResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:OCRResponse response = check mistralClient->/ocr.post({
@@ -307,7 +308,7 @@ mistral:OCRResponse response = check mistralClient->/ocr.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -337,16 +338,16 @@ mistral:OCRResponse response = check mistralClient->/ocr.post({
 
 Classifies text input for content moderation using the specified model.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `ClassificationRequest` | Yes | Classification request with model and input text(s). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ClassificationResponse|error`
+Returns: `ClassificationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:ClassificationResponse response = check mistralClient->/moderations.post({
@@ -355,7 +356,7 @@ mistral:ClassificationResponse response = check mistralClient->/moderations.post
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -390,16 +391,16 @@ mistral:ClassificationResponse response = check mistralClient->/moderations.post
 
 Classifies chat conversation input for content moderation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `ChatModerationRequest` | Yes | Chat moderation request with model and chat messages. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ClassificationResponse|error`
+Returns: `ClassificationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:ClassificationResponse response = check mistralClient->/chat/moderations.post({
@@ -410,7 +411,7 @@ mistral:ClassificationResponse response = check mistralClient->/chat/moderations
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -447,21 +448,21 @@ mistral:ClassificationResponse response = check mistralClient->/chat/moderations
 
 Retrieves the list of all available models.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ModelList|error`
+Returns: `ModelList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:ModelList models = check mistralClient->/models();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -494,22 +495,22 @@ mistral:ModelList models = check mistralClient->/models();
 
 Retrieves details about a specific model by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `modelId` | `string` | Yes | The ID of the model to retrieve. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ResponseRetrieveModelV1ModelsModelIdGet|error`
+Returns: `ResponseRetrieveModelV1ModelsModelIdGet|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:ResponseRetrieveModelV1ModelsModelIdGet model = check mistralClient->/models/["mistral-large-latest"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -539,22 +540,22 @@ mistral:ResponseRetrieveModelV1ModelsModelIdGet model = check mistralClient->/mo
 
 Deletes a fine-tuned model. You cannot delete base models.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `modelId` | `string` | Yes | The ID of the fine-tuned model to delete. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DeleteModelOut|error`
+Returns: `DeleteModelOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:DeleteModelOut result = check mistralClient->/models/["ft:mistral-small:my-model:abc123"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -577,22 +578,22 @@ mistral:DeleteModelOut result = check mistralClient->/models/["ft:mistral-small:
 
 Returns a list of files owned by the user's organization, with optional filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `FilesApiRoutesListFilesQueries` | No | Optional query parameters for filtering (purpose, page, pageSize, search, source, sampleType). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ListFilesOut|error`
+Returns: `ListFilesOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:ListFilesOut files = check mistralClient->/files();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -621,16 +622,16 @@ mistral:ListFilesOut files = check mistralClient->/files();
 
 Uploads a file for use with fine-tuning or batch jobs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `MultiPartBodyParams` | Yes | Multipart body with file data and purpose. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `UploadFileOut|error`
+Returns: `UploadFileOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:UploadFileOut result = check mistralClient->/files.post({
@@ -639,7 +640,7 @@ mistral:UploadFileOut result = check mistralClient->/files.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -663,22 +664,22 @@ mistral:UploadFileOut result = check mistralClient->/files.post({
 
 Retrieves metadata for a specific file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fileId` | `string` | Yes | The ID of the file. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `RetrieveFileOut|error`
+Returns: `RetrieveFileOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:RetrieveFileOut file = check mistralClient->/files/["file-abc123"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -702,22 +703,22 @@ mistral:RetrieveFileOut file = check mistralClient->/files/["file-abc123"]();
 
 Deletes a file by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fileId` | `string` | Yes | The ID of the file to delete. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DeleteFileOut|error`
+Returns: `DeleteFileOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:DeleteFileOut result = check mistralClient->/files/["file-abc123"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -738,22 +739,22 @@ mistral:DeleteFileOut result = check mistralClient->/files/["file-abc123"].delet
 
 Downloads the raw content of a file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fileId` | `string` | Yes | The ID of the file to download. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `byte[]|error`
+Returns: `byte[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] content = check mistralClient->/files/["file-abc123"]/content();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [72, 101, 108, 108, 111]
@@ -770,7 +771,7 @@ byte[] content = check mistralClient->/files/["file-abc123"]/content();
 
 Generates a temporary signed URL for downloading a file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -778,15 +779,15 @@ Generates a temporary signed URL for downloading a file.
 | `queries` | `FilesApiRoutesGetSignedUrlQueries` | No | Optional query parameters (expiry in hours, default 24). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `FileSignedURL|error`
+Returns: `FileSignedURL|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:FileSignedURL signedUrl = check mistralClient->/files/["file-abc123"]/url();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -798,7 +799,7 @@ mistral:FileSignedURL signedUrl = check mistralClient->/files/["file-abc123"]/ur
 
 </details>
 
-#### Fine-Tuning Jobs
+#### Fine-Tuning jobs
 
 <details>
 <summary>List fine-tuning jobs</summary>
@@ -807,22 +808,22 @@ mistral:FileSignedURL signedUrl = check mistralClient->/files/["file-abc123"]/ur
 
 Returns a list of fine-tuning jobs for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `JobsApiRoutesFineTuningGetFineTuningJobsQueries` | No | Optional query parameters for filtering (model, status, page, pageSize, createdAfter, createdByMe, suffix, wandbProject, wandbName). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `JobsOut|error`
+Returns: `JobsOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:JobsOut jobs = check mistralClient->/fine_tuning/jobs();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -850,7 +851,7 @@ mistral:JobsOut jobs = check mistralClient->/fine_tuning/jobs();
 
 Creates a new fine-tuning job with the specified model, training files, and hyperparameters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -858,9 +859,9 @@ Creates a new fine-tuning job with the specified model, training files, and hype
 | `queries` | `JobsApiRoutesFineTuningCreateFineTuningJobQueries` | No | Optional query parameters (dryRun). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Response|error`
+Returns: `Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:Response response = check mistralClient->/fine_tuning/jobs.post({
@@ -874,7 +875,7 @@ mistral:Response response = check mistralClient->/fine_tuning/jobs.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -900,22 +901,22 @@ mistral:Response response = check mistralClient->/fine_tuning/jobs.post({
 
 Retrieves the details and status of a specific fine-tuning job.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the fine-tuning job. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DetailedJobOut|error`
+Returns: `DetailedJobOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:DetailedJobOut job = check mistralClient->/fine_tuning/jobs/["ftjob-abc123"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -944,22 +945,22 @@ mistral:DetailedJobOut job = check mistralClient->/fine_tuning/jobs/["ftjob-abc1
 
 Cancels a running or queued fine-tuning job.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the fine-tuning job to cancel. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DetailedJobOut|error`
+Returns: `DetailedJobOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:DetailedJobOut job = check mistralClient->/fine_tuning/jobs/["ftjob-abc123"]/cancel.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -981,22 +982,22 @@ mistral:DetailedJobOut job = check mistralClient->/fine_tuning/jobs/["ftjob-abc1
 
 Starts a fine-tuning job that was created with autoStart disabled.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the fine-tuning job to start. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DetailedJobOut|error`
+Returns: `DetailedJobOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:DetailedJobOut job = check mistralClient->/fine_tuning/jobs/["ftjob-abc123"]/start.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1011,7 +1012,7 @@ mistral:DetailedJobOut job = check mistralClient->/fine_tuning/jobs/["ftjob-abc1
 
 </details>
 
-#### Fine-Tuned Models
+#### Fine-Tuned models
 
 <details>
 <summary>Update a fine-tuned model</summary>
@@ -1020,7 +1021,7 @@ mistral:DetailedJobOut job = check mistralClient->/fine_tuning/jobs/["ftjob-abc1
 
 Updates the metadata (name or description) of a fine-tuned model.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1028,9 +1029,9 @@ Updates the metadata (name or description) of a fine-tuned model.
 | `request` | `UpdateFTModelIn` | Yes | Update payload with new name or description. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `FTModelOut|error`
+Returns: `FTModelOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:FTModelOut model = check mistralClient->/fine_tuning/models/["ft:mistral-small:my-model:abc123"].patch({
@@ -1039,7 +1040,7 @@ mistral:FTModelOut model = check mistralClient->/fine_tuning/models/["ft:mistral
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1061,22 +1062,22 @@ mistral:FTModelOut model = check mistralClient->/fine_tuning/models/["ft:mistral
 
 Archives a fine-tuned model, making it unavailable for inference.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `modelId` | `string` | Yes | The ID of the fine-tuned model to archive. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ArchiveFTModelOut|error`
+Returns: `ArchiveFTModelOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:ArchiveFTModelOut result = check mistralClient->/fine_tuning/models/["ft:mistral-small:my-model:abc123"]/archive.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1097,22 +1098,22 @@ mistral:ArchiveFTModelOut result = check mistralClient->/fine_tuning/models/["ft
 
 Unarchives a previously archived fine-tuned model, making it available for inference again.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `modelId` | `string` | Yes | The ID of the fine-tuned model to unarchive. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `UnarchiveFTModelOut|error`
+Returns: `UnarchiveFTModelOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:UnarchiveFTModelOut result = check mistralClient->/fine_tuning/models/["ft:mistral-small:my-model:abc123"]/archive.delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1126,7 +1127,7 @@ mistral:UnarchiveFTModelOut result = check mistralClient->/fine_tuning/models/["
 
 </details>
 
-#### Batch Jobs
+#### Batch jobs
 
 <details>
 <summary>List batch jobs</summary>
@@ -1135,22 +1136,22 @@ mistral:UnarchiveFTModelOut result = check mistralClient->/fine_tuning/models/["
 
 Returns a list of batch jobs for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `JobsApiRoutesBatchGetBatchJobsQueries` | No | Optional query parameters for filtering (model, status, page, pageSize, createdAfter, createdByMe, metadata). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchJobsOut|error`
+Returns: `BatchJobsOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:BatchJobsOut jobs = check mistralClient->/batch/jobs();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1181,16 +1182,16 @@ mistral:BatchJobsOut jobs = check mistralClient->/batch/jobs();
 
 Creates a new batch job for processing multiple requests asynchronously.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `BatchJobIn` | Yes | Batch job configuration including model, input files, and endpoint. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchJobOut|error`
+Returns: `BatchJobOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:BatchJobOut job = check mistralClient->/batch/jobs.post({
@@ -1201,7 +1202,7 @@ mistral:BatchJobOut job = check mistralClient->/batch/jobs.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1227,22 +1228,22 @@ mistral:BatchJobOut job = check mistralClient->/batch/jobs.post({
 
 Retrieves the details and status of a specific batch job.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the batch job. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchJobOut|error`
+Returns: `BatchJobOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:BatchJobOut job = check mistralClient->/batch/jobs/["batch-abc123"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1268,22 +1269,22 @@ mistral:BatchJobOut job = check mistralClient->/batch/jobs/["batch-abc123"]();
 
 Cancels a running or queued batch job.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the batch job to cancel. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchJobOut|error`
+Returns: `BatchJobOut|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mistral:BatchJobOut job = check mistralClient->/batch/jobs/["batch-abc123"]/cancel.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

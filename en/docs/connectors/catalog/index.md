@@ -8,9 +8,9 @@ description: "Can I connect to Y? Searchable catalog and reference for all conne
 
 Browse the full catalog of pre-built connectors for SaaS applications, databases, messaging systems, cloud services, AI/ML providers, and more.
 
-## Connector Catalog
+## Connector catalog
 
-### AI & Machine Learning
+### AI & machine learning
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -34,7 +34,7 @@ Browse the full catalog of pre-built connectors for SaaS applications, databases
 | [Pinecone](ai-ml/ai.pinecone/overview.md) | Vector database with dense, sparse, and hybrid similarity search | Add, Query, Delete | API Key |
 | [Weaviate](ai-ml/ai.weaviate/overview.md) | Vector database with semantic search, metadata filtering, and embedding storage | Add, Query, Delete | API Key |
 
-### Cloud & Infrastructure
+### Cloud & infrastructure
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -56,7 +56,7 @@ Browse the full catalog of pre-built connectors for SaaS applications, databases
 | [Zoom Meetings](communication/zoom.meetings/overview.md) | Video conferencing platform for scheduling, managing, and reporting on meetings and webinars | Create, Read, Update, Delete, List, Register, Record, Report | OAuth 2.0 |
 | [Zoom Scheduler](communication/zoom.scheduler/overview.md) | Zoom scheduling service for managing availability windows, meeting schedules, and bookings | Create, Read, Update, Delete, List, Analytics | OAuth 2.0 |
 
-### CRM & Sales
+### CRM & sales
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -108,7 +108,7 @@ Browse the full catalog of pre-built connectors for SaaS applications, databases
 | [Redis](database/redis/overview.md) | In-memory data store with string, list, set, sorted set, and hash operations | Get, Set, List, Hash, Set, Sorted Set, Key Management | Password / ACL |
 | [Snowflake](database/snowflake/overview.md) | Cloud data warehouse with SQL queries, DML/DDL execution, batch operations, and stored procedures | Query, Execute, Batch Execute, Call | Basic Auth, Key-Pair Auth |
 
-### Developer Tools
+### Developer tools
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -127,7 +127,7 @@ Browse the full catalog of pre-built connectors for SaaS applications, databases
 | [SAP Commerce](ecommerce/sap.commerce.webservices/overview.md) | E-commerce platform with product catalog, cart management, orders, and B2B procurement | Products, Carts, Orders, Customers, Stores, Tickets, Quotes | OAuth 2.0 (Client Credentials) |
 | [Shopify Admin](ecommerce/shopify.admin/overview.md) | E-commerce platform with product, order, customer, fulfillment, and webhook management | Create, Read, Update, List, Search | API Key |
 
-### ERP & Business Operations
+### ERP & business operations
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -145,7 +145,7 @@ Browse the full catalog of pre-built connectors for SaaS applications, databases
 | [SAP SD Incoterms](erp-business/sap.s4hana.api_sd_incoterms_srv/overview.md) | SAP S/4HANA OData API for reading Incoterms classification and version master data with multilingual text support | List, Read | Basic Authentication |
 | [SAP SD Sold-to-Party Determination](erp-business/sap.s4hana.api_sd_sa_soldtopartydetn/overview.md) | SAP S/4HANA OData service for querying sold-to party assignments in sales scheduling agreements | Read, List | Basic Auth |
 
-### Finance & Accounting
+### Finance & accounting
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -166,7 +166,7 @@ Browse the full catalog of pre-built connectors for SaaS applications, databases
 |-----------|-------------|------------|----------------|
 | [People HR](hrms/peoplehr/overview.md) | HR management system with employee records, holidays, salaries, vacancies, applicants, and appraisals | Create, Read, Update, Delete, Query | API Key |
 
-### Marketing & Social Media
+### Marketing & social media
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -197,7 +197,7 @@ Browse the full catalog of pre-built connectors for SaaS applications, databases
 | [RabbitMQ](messaging/rabbitmq/overview.md) | AMQP 0-9-1 message broker with queue/exchange management, pub/sub, and consumer services | Publish, Consume, Queue Declare, Exchange Declare, Bind, Ack, Nack | Username / Password |
 | [Solace](messaging/solace/overview.md) | Event broker with publish/subscribe, queuing, durable subscriptions, and listener triggers | Send, Receive, Acknowledge, Commit, Rollback | Basic Auth, Kerberos, OAuth 2.0 |
 
-### Productivity & Collaboration
+### Productivity & collaboration
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -211,14 +211,14 @@ Browse the full catalog of pre-built connectors for SaaS applications, databases
 | [Smartsheet](productivity-collaboration/smartsheet/overview.md) | Work management platform with sheets, rows, columns, folders, workspaces, and collaboration | Create, Read, Update, Delete, Share, Search, Webhooks | API Token / OAuth 2.0 |
 | [Trello](productivity-collaboration/trello/overview.md) | Project management with boards, lists, cards, checklists, and team collaboration | Create, Read, Update, Delete, Search | API Key + Token |
 
-### Security & Identity
+### Security & identity
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
 | [AWS Secrets Manager](security-identity/aws.secretmanager/overview.md) | Secrets management service for retrieving and describing AWS secrets | Describe, Get Secret Value, Batch Get | AWS Access Keys / IAM Role |
 | [SCIM](security-identity/scim/overview.md) | SCIM 2.0 identity provisioning with user, group, and bulk management operations | Create, Read, Update, Delete, Search, Bulk | OAuth 2.0 (Client Credentials) |
 
-### Storage & File Management
+### Storage & file management
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|

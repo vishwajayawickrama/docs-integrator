@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a Redis server and obtaining the connection details required to use the Redis connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up a Redis server and obtaining the connect
 
 - A running Redis server (v6.x or later recommended). You can [download Redis](https://redis.io/download) or use a managed service such as [Redis Cloud](https://redis.com/try-free/), [Amazon ElastiCache](https://aws.amazon.com/elasticache/), or [Azure Cache for Redis](https://azure.microsoft.com/en-us/products/cache).
 
-## Step 1: Install and Start Redis
+## Step 1: Install and start Redis
 
 If you are running Redis locally:
 
@@ -30,7 +33,7 @@ If you are running Redis locally:
 For macOS, you can install Redis with Homebrew: `brew install redis && brew services start redis`.
 :::
 
-## Step 2: Configure Authentication (Optional)
+## Step 2: Configure authentication (optional)
 
 By default, Redis does not require authentication. To enable it:
 
@@ -53,7 +56,7 @@ By default, Redis does not require authentication. To enable it:
 Always enable authentication for production deployments. An unprotected Redis server exposed to the internet is a serious security risk.
 :::
 
-## Step 3: Enable TLS/SSL (Optional)
+## Step 3: Enable tLS/SSL (optional)
 
 For encrypted connections:
 
@@ -73,7 +76,7 @@ For encrypted connections:
 When using TLS, connect to the `tls-port` (default 6380) instead of the standard port (6379).
 :::
 
-## Step 4: Note Your Connection Details
+## Step 4: Note your connection details
 
 Collect the following details for configuring the Ballerina client:
 

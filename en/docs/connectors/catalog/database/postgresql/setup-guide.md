@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a PostgreSQL server and configuring it for use with the Ballerina PostgreSQL connector, including optional CDC configuration.
@@ -8,7 +11,7 @@ This guide walks you through setting up a PostgreSQL server and configuring it f
 - A running PostgreSQL server (version 10 or later). If you do not have one, [download and install PostgreSQL](https://www.postgresql.org/download/).
 - A PostgreSQL user with appropriate privileges for your target database.
 
-## Step 1: Create a Database and User
+## Step 1: Create a database and user
 
 1. Connect to your PostgreSQL server using `psql` or a GUI tool such as pgAdmin.
 2. Create a database for your application:
@@ -28,7 +31,7 @@ This guide walks you through setting up a PostgreSQL server and configuring it f
 For production environments, follow the principle of least privilege — grant only the permissions your application requires.
 :::
 
-## Step 2: Create Tables and Schema
+## Step 2: Create tables and schema
 
 1. Connect to your application database.
 2. Create the tables your integration will interact with. For example:
@@ -46,7 +49,7 @@ For production environments, follow the principle of least privilege — grant o
 
 3. Verify the tables were created successfully using `\dt` in `psql`.
 
-## Step 3: Configure SSL (Optional)
+## Step 3: Configure SSL (optional)
 
 If your PostgreSQL server requires encrypted connections:
 
@@ -65,7 +68,7 @@ If your PostgreSQL server requires encrypted connections:
 The SSL mode can be configured on the connector side. Available modes include `DISABLE`, `ALLOW`, `PREFER` (default), `REQUIRE`, `VERIFY_CA`, and `VERIFY_FULL`.
 :::
 
-## Step 4: Configure CDC / Logical Replication (Optional — for triggers)
+## Step 4: Configure CDC / logical replication (optional — for triggers)
 
 If you plan to use the CDC listener for real-time change events:
 

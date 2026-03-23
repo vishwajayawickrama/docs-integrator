@@ -12,7 +12,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 
 - A HubSpot developer account. If you do not have one, [sign up at the HubSpot Developer Portal](https://developers.hubspot.com/get-started).
 
-## Create a HubSpot Developer Account and Test Account
+## Create a HubSpot developer account and test account
 
 1. Go to the [HubSpot Developer Portal](https://developers.hubspot.com/get-started) and sign up or log in.
 2. Once logged in, navigate to **Test accounts** in the left sidebar and create a developer test account if you don't already have one. This provides a sandbox environment for testing.
@@ -22,7 +22,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 A developer test account lets you test API integrations without affecting production data.
 :::
 
-## Create a HubSpot App
+## Create a HubSpot app
 
 1. In the HubSpot Developer Portal, navigate to **Apps** in the left sidebar.
 2. Click **Create app**.
@@ -42,7 +42,7 @@ A developer test account lets you test API integrations without affecting produc
 The exact scopes required depend on which object types (deals, tickets, orders) you plan to manage pipelines for. Add the appropriate read and write scopes for each object type.
 :::
 
-## Generate a Refresh Token
+## Generate a refresh token
 
 Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 
@@ -79,6 +79,6 @@ Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the tok
 Store the Client ID, Client Secret, and Refresh Token securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -32,7 +33,7 @@ Establishes a connection to the JMS broker and creates sessions.
 | `password` | `string` | `()` | Password for broker authentication. |
 | `properties` | `map<string>` | `{}` | Additional JNDI properties. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/java.jms;
@@ -47,7 +48,7 @@ jms:Connection connection = check new ({
 
 ### Operations
 
-#### Connection Lifecycle
+#### Connection lifecycle
 
 <details>
 <summary>createSession</summary>
@@ -56,21 +57,21 @@ jms:Connection connection = check new ({
 
 Creates a new JMS session with the specified acknowledgement mode.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ackMode` | `AcknowledgementMode` | No | Session acknowledgement mode. One of `AUTO_ACKNOWLEDGE`, `CLIENT_ACKNOWLEDGE`, `SESSION_TRANSACTED`, or `DUPS_OK_ACKNOWLEDGE`. |
 
-**Returns:** `jms:Session|jms:Error`
+Returns: `jms:Session|jms:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jms:Session session = check connection->createSession(jms:AUTO_ACKNOWLEDGE);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 jms:Session object
@@ -88,9 +89,9 @@ jms:Session object
 Starts the connection, enabling message delivery.
 
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check connection->start();
@@ -108,9 +109,9 @@ check connection->start();
 Temporarily stops message delivery on the connection.
 
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check connection->stop();
@@ -128,9 +129,9 @@ check connection->stop();
 Closes the connection and releases all resources.
 
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check connection->close();
@@ -153,7 +154,7 @@ Manages transactions and creates message producers and consumers.
 | `connection` | `jms:Connection` | Required | The JMS connection to create the session from. |
 | `ackMode` | `AcknowledgementMode` | `AUTO_ACKNOWLEDGE` | Session acknowledgement mode. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/java.jms;
@@ -164,7 +165,7 @@ jms:Session session = check connection->createSession(jms:AUTO_ACKNOWLEDGE);
 
 ### Operations
 
-#### Producer and Consumer Creation
+#### Producer and consumer creation
 
 <details>
 <summary>createProducer</summary>
@@ -173,21 +174,21 @@ jms:Session session = check connection->createSession(jms:AUTO_ACKNOWLEDGE);
 
 Creates a message producer, optionally bound to a default destination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `Destination?` | No | Default destination for the producer. If omitted, a destination must be specified per message. |
 
-**Returns:** `jms:MessageProducer|jms:Error`
+Returns: `jms:MessageProducer|jms:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jms:MessageProducer producer = check session.createProducer();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 jms:MessageProducer object
@@ -204,7 +205,7 @@ jms:MessageProducer object
 
 Creates a message consumer for the specified destination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -214,9 +215,9 @@ Creates a message consumer for the specified destination.
 | `noLocal` | `boolean` | No | If true, messages published by this connection's producers are not delivered. |
 | `subscriberName` | `string` | No | Subscription name, required for durable and shared-durable consumers. |
 
-**Returns:** `jms:MessageConsumer|jms:Error`
+Returns: `jms:MessageConsumer|jms:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jms:MessageConsumer consumer = check session.createConsumer(
@@ -224,7 +225,7 @@ jms:MessageConsumer consumer = check session.createConsumer(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 jms:MessageConsumer object
@@ -234,7 +235,7 @@ jms:MessageConsumer object
 
 </details>
 
-#### Transaction Control
+#### Transaction control
 
 <details>
 <summary>commit</summary>
@@ -244,9 +245,9 @@ jms:MessageConsumer object
 Commits all messages sent or received in the current transaction.
 
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check session->commit();
@@ -264,9 +265,9 @@ check session->commit();
 Rolls back all messages sent or received in the current transaction.
 
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check session->rollback();
@@ -276,7 +277,7 @@ check session->rollback();
 
 </details>
 
-#### Subscription Management
+#### Subscription management
 
 <details>
 <summary>unsubscribe</summary>
@@ -285,15 +286,15 @@ check session->rollback();
 
 Removes a durable subscription by its subscription identifier.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `subscriptionId` | `string` | Yes | The name of the durable subscription to remove. |
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check session->unsubscribe("my-durable-sub");
@@ -311,9 +312,9 @@ check session->unsubscribe("my-durable-sub");
 Closes the session and releases resources.
 
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check session->close();
@@ -325,7 +326,7 @@ check session->close();
 
 ---
 
-## Message Producer
+## Message producer
 
 Sends messages to JMS queues and topics.
 
@@ -336,7 +337,7 @@ Sends messages to JMS queues and topics.
 | `session` | `jms:Session` | Required | The JMS session used to create this producer. |
 | `destination` | `Destination?` | `()` | Default destination. If set, `send` uses this destination. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/java.jms;
@@ -347,7 +348,7 @@ jms:MessageProducer producer = check session.createProducer();
 
 ### Operations
 
-#### Send Operations
+#### Send operations
 
 <details>
 <summary>send</summary>
@@ -356,15 +357,15 @@ jms:MessageProducer producer = check session.createProducer();
 
 Sends a message to the producer's default destination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `Message` | Yes | The JMS message to send. Content can be `string`, `map<Value>`, or `byte[]`. |
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->send({
@@ -383,16 +384,16 @@ check producer->send({
 
 Sends a message to a specified destination, overriding the default.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `destination` | `Destination` | Yes | The target queue or topic. |
 | `message` | `Message` | Yes | The JMS message to send. |
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->sendTo(
@@ -413,9 +414,9 @@ check producer->sendTo(
 Closes the producer and releases resources.
 
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->close();
@@ -427,7 +428,7 @@ check producer->close();
 
 ---
 
-## Message Consumer
+## Message consumer
 
 Receives and acknowledges messages from JMS queues and topics.
 
@@ -441,7 +442,7 @@ Receives and acknowledges messages from JMS queues and topics.
 | `noLocal` | `boolean` | `false` | If true, excludes messages published by this connection's own producers. |
 | `subscriberName` | `string` | `()` | Subscription name, required for `DURABLE` and `SHARED_DURABLE` types. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/java.jms;
@@ -454,7 +455,7 @@ jms:MessageConsumer consumer = check session.createConsumer(
 
 ### Operations
 
-#### Receive Operations
+#### Receive operations
 
 <details>
 <summary>receive</summary>
@@ -463,21 +464,21 @@ jms:MessageConsumer consumer = check session.createConsumer(
 
 Receives the next message from the destination, blocking until a message arrives or the timeout expires.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `timeoutMillis` | `int` | No | Maximum time to wait in milliseconds. Defaults to `10000`. |
 
-**Returns:** `jms:Message|jms:Error?`
+Returns: `jms:Message|jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jms:Message? message = check consumer->receive(5000);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"messageId": "ID:localhost-12345-1234567890", "timestamp": 1710600000000, "content": "Hello from Ballerina!", "priority": 4, "redelivered": false}
@@ -495,15 +496,15 @@ jms:Message? message = check consumer->receive(5000);
 Receives the next available message without blocking. Returns `()` if no message is available.
 
 
-**Returns:** `jms:Message|jms:Error?`
+Returns: `jms:Message|jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 jms:Message? message = check consumer->receiveNoWait();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"messageId": "ID:localhost-12345-1234567891", "timestamp": 1710600001000, "content": {"orderId": "ORD-001", "item": "Pizza"}, "priority": 4}
@@ -522,15 +523,15 @@ jms:Message? message = check consumer->receiveNoWait();
 
 Acknowledges a received message. Used when the session is in `CLIENT_ACKNOWLEDGE` mode.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `Message` | Yes | The message to acknowledge. |
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->acknowledge(message);
@@ -548,9 +549,9 @@ check consumer->acknowledge(message);
 Closes the consumer and releases resources.
 
 
-**Returns:** `jms:Error?`
+Returns: `jms:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->close();

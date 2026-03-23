@@ -12,14 +12,14 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 
 - A HubSpot account with a Developer Portal. If you do not have one, [sign up for a free HubSpot developer account](https://app.hubspot.com/signup-hubspot/developers).
 
-## Create a HubSpot App
+## Create a HubSpot app
 
 1. Log in to the [HubSpot Developer Portal](https://app.hubspot.com/developer).
 2. Click **Apps** in the top navigation, then click **Create app**.
 3. Fill in the **App Info** tab with a name and description for your app.
 
 
-## Configure OAuth Scopes
+## Configure OAuth scopes
 
 1. Navigate to the **Auth** tab of your app.
 2. Under **Scopes**, add the following required scopes:
@@ -34,7 +34,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 If you plan to manage contact list memberships, you may also need the `crm.objects.contacts.read` and `crm.objects.contacts.write` scopes.
 :::
 
-## Obtain a Refresh Token
+## Obtain a refresh token
 
 1. Construct the following authorization URL, replacing the placeholders:
 
@@ -64,7 +64,7 @@ If you plan to manage contact list memberships, you may also need the `crm.objec
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange in step 4.
 :::
 
-## Alternative — Use a Private App (API Key)
+## Alternative — use a private app (API key)
 
 If you prefer API key authentication instead of OAuth 2.0:
 
@@ -81,6 +81,6 @@ If you prefer API key authentication instead of OAuth 2.0:
 Store credentials securely. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

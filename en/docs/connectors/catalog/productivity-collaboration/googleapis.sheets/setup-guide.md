@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Google Cloud Platform project, enabling the Google Sheets API, and obtaining the OAuth 2.0 credentials required to use the Google Sheets connector.
@@ -8,20 +11,20 @@ This guide walks you through creating a Google Cloud Platform project, enabling 
 - A Google account. If you do not have one, [sign up here](https://accounts.google.com/signup).
 - Access to the [Google Cloud Platform Console](https://console.cloud.google.com/).
 
-## Step 1: Create a Google Cloud Platform Project
+## Step 1: Create a Google cloud platform project
 
 1. Open the [Google Cloud Platform Console](https://console.cloud.google.com/).
 2. Click **Select a project** in the top navigation bar and either select an existing project or click **New Project**.
 3. Give your project a name (e.g., `Ballerina Sheets Integration`) and click **Create**.
 
-## Step 2: Enable the Google Sheets API
+## Step 2: Enable the Google sheets API
 
 1. In the GCP Console, select your project.
 2. Navigate to **APIs & Services** > **Library**.
 3. Search for `Google Sheets API` and select it.
 4. Click **Enable**.
 
-## Step 3: Configure the OAuth Consent Screen
+## Step 3: Configure the OAuth consent screen
 
 1. In the left sidebar, navigate to **APIs & Services** > **OAuth consent screen**.
 2. Select **External** as the user type and click **Create**.
@@ -29,7 +32,7 @@ This guide walks you through creating a Google Cloud Platform project, enabling 
 4. Add the necessary scopes for Google Sheets API (e.g., `https://www.googleapis.com/auth/spreadsheets`).
 5. Save and continue through the remaining steps.
 
-## Step 4: Create OAuth Client Credentials
+## Step 4: Create OAuth client credentials
 
 1. In the left sidebar, click **Credentials**.
 2. Click **+ CREATE CREDENTIALS** and choose **OAuth client ID**.
@@ -43,7 +46,7 @@ This guide walks you through creating a Google Cloud Platform project, enabling 
 Store the Client ID and Client Secret securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 5: Obtain Access and Refresh Tokens
+## Step 5: Obtain access and refresh tokens
 
 Use the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground) to generate tokens:
 

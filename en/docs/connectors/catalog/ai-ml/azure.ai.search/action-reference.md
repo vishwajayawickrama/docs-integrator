@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Manages search indexes, indexers, data sources, skillsets, and synonym maps; ret
 | `validation` | `boolean` | `true` | Enable or disable constraint validation on response payloads. |
 | `laxDataBinding` | `boolean` | `true` | Enable lax data binding to ignore unknown fields in responses. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/azure.ai.search as azureSearch;
@@ -41,7 +42,7 @@ azureSearch:Client searchClient = check new (serviceUrl);
 
 ### Operations
 
-#### Index Management
+#### Index management
 
 <details>
 <summary>indexesCreate</summary>
@@ -50,7 +51,7 @@ azureSearch:Client searchClient = check new (serviceUrl);
 
 Creates a new search index with the specified field definitions and configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -58,9 +59,9 @@ Creates a new search index with the specified field definitions and configuratio
 | `headers` | `IndexesCreateHeaders` | No | Request headers. Pass `api-key` with the admin API key for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version (e.g., `"2025-09-01"`). |
 
-**Returns:** `SearchIndex|error`
+Returns: `SearchIndex|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SearchIndex index = check searchClient->indexesCreate(
@@ -77,7 +78,7 @@ azureSearch:SearchIndex index = check searchClient->indexesCreate(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -104,7 +105,7 @@ azureSearch:SearchIndex index = check searchClient->indexesCreate(
 
 Creates a new search index or updates an existing one if it already exists.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -113,9 +114,9 @@ Creates a new search index or updates an existing one if it already exists.
 | `payload` | `SearchIndex` | Yes | The full index definition. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndex|error`
+Returns: `SearchIndex|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:IndexesCreateOrUpdateHeaders upsertHeaders = {
@@ -138,7 +139,7 @@ azureSearch:SearchIndex index = check searchClient->indexesCreateOrUpdate(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -164,7 +165,7 @@ azureSearch:SearchIndex index = check searchClient->indexesCreateOrUpdate(
 
 Retrieves the definition of a search index by name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -172,9 +173,9 @@ Retrieves the definition of a search index by name.
 | `headers` | `IndexesGetHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndex|error`
+Returns: `SearchIndex|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SearchIndex index = check searchClient->indexesGet(
@@ -184,7 +185,7 @@ azureSearch:SearchIndex index = check searchClient->indexesGet(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -208,7 +209,7 @@ azureSearch:SearchIndex index = check searchClient->indexesGet(
 
 Lists all search indexes defined in the service.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -216,9 +217,9 @@ Lists all search indexes defined in the service.
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 | `$select` | `string` | No | Comma-separated list of fields to include in the response (e.g., `"name,etag"`). |
 
-**Returns:** `ListIndexesResult|error`
+Returns: `ListIndexesResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:ListIndexesResult result = check searchClient->indexesList(
@@ -227,7 +228,7 @@ azureSearch:ListIndexesResult result = check searchClient->indexesList(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -249,7 +250,7 @@ azureSearch:ListIndexesResult result = check searchClient->indexesList(
 
 Returns document count and storage usage statistics for a specific index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -257,9 +258,9 @@ Returns document count and storage usage statistics for a specific index.
 | `headers` | `IndexesGetStatisticsHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `GetIndexStatisticsResult|error`
+Returns: `GetIndexStatisticsResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:GetIndexStatisticsResult stats = check searchClient->indexesGetStatistics(
@@ -269,7 +270,7 @@ azureSearch:GetIndexStatisticsResult stats = check searchClient->indexesGetStati
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -290,7 +291,7 @@ azureSearch:GetIndexStatisticsResult stats = check searchClient->indexesGetStati
 
 Shows how an analyzer or tokenizer breaks a text string into tokens, useful for debugging analyzer configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -299,9 +300,9 @@ Shows how an analyzer or tokenizer breaks a text string into tokens, useful for 
 | `headers` | `IndexesAnalyzeHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `AnalyzeResult|error`
+Returns: `AnalyzeResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:AnalyzeResult result = check searchClient->indexesAnalyze(
@@ -312,7 +313,7 @@ azureSearch:AnalyzeResult result = check searchClient->indexesAnalyze(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -336,7 +337,7 @@ azureSearch:AnalyzeResult result = check searchClient->indexesAnalyze(
 
 Deletes a search index and all documents it contains.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -344,9 +345,9 @@ Deletes a search index and all documents it contains.
 | `headers` | `IndexesDeleteHeaders` | No | Request headers. Pass `api-key` for authentication. Optional `If-Match` for optimistic concurrency control. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check searchClient->indexesDelete(
@@ -360,7 +361,7 @@ check searchClient->indexesDelete(
 
 </details>
 
-#### Indexer Management
+#### Indexer management
 
 <details>
 <summary>indexersCreate</summary>
@@ -369,7 +370,7 @@ check searchClient->indexesDelete(
 
 Creates a new indexer that crawls a data source and populates a search index on a schedule.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -377,9 +378,9 @@ Creates a new indexer that crawls a data source and populates a search index on 
 | `headers` | `IndexersCreateHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexer|error`
+Returns: `SearchIndexer|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SearchIndexer indexer = check searchClient->indexersCreate(
@@ -394,7 +395,7 @@ azureSearch:SearchIndexer indexer = check searchClient->indexersCreate(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -418,7 +419,7 @@ azureSearch:SearchIndexer indexer = check searchClient->indexersCreate(
 
 Creates or updates an indexer, including its schedule, skillset linkage, field mappings, and execution parameters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -427,9 +428,9 @@ Creates or updates an indexer, including its schedule, skillset linkage, field m
 | `payload` | `SearchIndexer` | Yes | The full indexer definition. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexer|error`
+Returns: `SearchIndexer|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:IndexersCreateOrUpdateHeaders upsertHeaders = {
@@ -461,7 +462,7 @@ azureSearch:SearchIndexer indexer = check searchClient->indexersCreateOrUpdate(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -486,7 +487,7 @@ azureSearch:SearchIndexer indexer = check searchClient->indexersCreateOrUpdate(
 
 Retrieves an indexer definition by name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -494,9 +495,9 @@ Retrieves an indexer definition by name.
 | `headers` | `IndexersGetHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexer|error`
+Returns: `SearchIndexer|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SearchIndexer indexer = check searchClient->indexersGet(
@@ -506,7 +507,7 @@ azureSearch:SearchIndexer indexer = check searchClient->indexersGet(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -529,16 +530,16 @@ azureSearch:SearchIndexer indexer = check searchClient->indexersGet(
 
 Lists all indexers defined in the search service.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `IndexersListHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `ListIndexersResult|error`
+Returns: `ListIndexersResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:ListIndexersResult result = check searchClient->indexersList(
@@ -547,7 +548,7 @@ azureSearch:ListIndexersResult result = check searchClient->indexersList(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -569,7 +570,7 @@ azureSearch:ListIndexersResult result = check searchClient->indexersList(
 
 Triggers an indexer to run immediately, outside of its scheduled interval.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -577,9 +578,9 @@ Triggers an indexer to run immediately, outside of its scheduled interval.
 | `headers` | `IndexersRunHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check searchClient->indexersRun(
@@ -600,7 +601,7 @@ check searchClient->indexersRun(
 
 Resets the change tracking state of an indexer, causing it to fully re-index all source documents on the next run.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -608,9 +609,9 @@ Resets the change tracking state of an indexer, causing it to fully re-index all
 | `headers` | `IndexersResetHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check searchClient->indexersReset(
@@ -631,7 +632,7 @@ check searchClient->indexersReset(
 
 Returns the current status, last execution result, and execution history of an indexer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -639,9 +640,9 @@ Returns the current status, last execution result, and execution history of an i
 | `headers` | `IndexersGetStatusHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexerStatus|error`
+Returns: `SearchIndexerStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SearchIndexerStatus status = check searchClient->indexersGetStatus(
@@ -651,7 +652,7 @@ azureSearch:SearchIndexerStatus status = check searchClient->indexersGetStatus(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -682,7 +683,7 @@ azureSearch:SearchIndexerStatus status = check searchClient->indexersGetStatus(
 
 Deletes an indexer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -690,9 +691,9 @@ Deletes an indexer.
 | `headers` | `IndexersDeleteHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check searchClient->indexersDelete(
@@ -706,7 +707,7 @@ check searchClient->indexersDelete(
 
 </details>
 
-#### Data Source Management
+#### Data source management
 
 <details>
 <summary>dataSourcesCreate</summary>
@@ -715,7 +716,7 @@ check searchClient->indexersDelete(
 
 Creates a new data source connection to an external data store.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -723,9 +724,9 @@ Creates a new data source connection to an external data store.
 | `headers` | `DataSourcesCreateHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexerDataSource|error`
+Returns: `SearchIndexerDataSource|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SearchIndexerDataSource dataSource = check searchClient->dataSourcesCreate(
@@ -740,7 +741,7 @@ azureSearch:SearchIndexerDataSource dataSource = check searchClient->dataSources
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -763,7 +764,7 @@ azureSearch:SearchIndexerDataSource dataSource = check searchClient->dataSources
 
 Creates or updates a data source connection, including change and deletion detection policies.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -772,9 +773,9 @@ Creates or updates a data source connection, including change and deletion detec
 | `payload` | `SearchIndexerDataSource` | Yes | The full data source definition. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexerDataSource|error`
+Returns: `SearchIndexerDataSource|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:DataSourcesCreateOrUpdateHeaders upsertHeaders = {
@@ -799,7 +800,7 @@ azureSearch:SearchIndexerDataSource dataSource = check searchClient->dataSources
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -826,7 +827,7 @@ azureSearch:SearchIndexerDataSource dataSource = check searchClient->dataSources
 
 Retrieves a data source definition by name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -834,9 +835,9 @@ Retrieves a data source definition by name.
 | `headers` | `DataSourcesGetHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexerDataSource|error`
+Returns: `SearchIndexerDataSource|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SearchIndexerDataSource dataSource = check searchClient->dataSourcesGet(
@@ -846,7 +847,7 @@ azureSearch:SearchIndexerDataSource dataSource = check searchClient->dataSources
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -869,16 +870,16 @@ azureSearch:SearchIndexerDataSource dataSource = check searchClient->dataSources
 
 Lists all data source connections defined in the search service.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `DataSourcesListHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `ListDataSourcesResult|error`
+Returns: `ListDataSourcesResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:ListDataSourcesResult result = check searchClient->dataSourcesList(
@@ -887,7 +888,7 @@ azureSearch:ListDataSourcesResult result = check searchClient->dataSourcesList(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -909,7 +910,7 @@ azureSearch:ListDataSourcesResult result = check searchClient->dataSourcesList(
 
 Deletes a data source connection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -917,9 +918,9 @@ Deletes a data source connection.
 | `headers` | `DataSourcesDeleteHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check searchClient->dataSourcesDelete(
@@ -933,7 +934,7 @@ check searchClient->dataSourcesDelete(
 
 </details>
 
-#### Skillset Management
+#### Skillset management
 
 <details>
 <summary>skillsetsCreate</summary>
@@ -942,7 +943,7 @@ check searchClient->dataSourcesDelete(
 
 Creates a new skillset containing a pipeline of cognitive enrichment skills applied during indexing.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -950,9 +951,9 @@ Creates a new skillset containing a pipeline of cognitive enrichment skills appl
 | `headers` | `SkillsetsCreateHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexerSkillset|error`
+Returns: `SearchIndexerSkillset|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SearchIndexerSkillset skillset = check searchClient->skillsetsCreate(
@@ -982,7 +983,7 @@ azureSearch:SearchIndexerSkillset skillset = check searchClient->skillsetsCreate
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1007,7 +1008,7 @@ azureSearch:SearchIndexerSkillset skillset = check searchClient->skillsetsCreate
 
 Creates or updates a skillset.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1016,9 +1017,9 @@ Creates or updates a skillset.
 | `payload` | `SearchIndexerSkillset` | Yes | The full skillset definition. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexerSkillset|error`
+Returns: `SearchIndexerSkillset|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SkillsetsCreateOrUpdateHeaders upsertHeaders = {
@@ -1043,7 +1044,7 @@ azureSearch:SearchIndexerSkillset skillset = check searchClient->skillsetsCreate
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1066,7 +1067,7 @@ azureSearch:SearchIndexerSkillset skillset = check searchClient->skillsetsCreate
 
 Retrieves a skillset definition by name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1074,9 +1075,9 @@ Retrieves a skillset definition by name.
 | `headers` | `SkillsetsGetHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SearchIndexerSkillset|error`
+Returns: `SearchIndexerSkillset|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SearchIndexerSkillset skillset = check searchClient->skillsetsGet(
@@ -1086,7 +1087,7 @@ azureSearch:SearchIndexerSkillset skillset = check searchClient->skillsetsGet(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1110,16 +1111,16 @@ azureSearch:SearchIndexerSkillset skillset = check searchClient->skillsetsGet(
 
 Lists all skillsets defined in the search service.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `SkillsetsListHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `ListSkillsetsResult|error`
+Returns: `ListSkillsetsResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:ListSkillsetsResult result = check searchClient->skillsetsList(
@@ -1128,7 +1129,7 @@ azureSearch:ListSkillsetsResult result = check searchClient->skillsetsList(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1150,7 +1151,7 @@ azureSearch:ListSkillsetsResult result = check searchClient->skillsetsList(
 
 Deletes a skillset.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1158,9 +1159,9 @@ Deletes a skillset.
 | `headers` | `SkillsetsDeleteHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check searchClient->skillsetsDelete(
@@ -1174,7 +1175,7 @@ check searchClient->skillsetsDelete(
 
 </details>
 
-#### Synonym Map Management
+#### Synonym map management
 
 <details>
 <summary>synonymMapsCreate</summary>
@@ -1183,7 +1184,7 @@ check searchClient->skillsetsDelete(
 
 Creates a new synonym map used to expand or substitute search terms.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1191,9 +1192,9 @@ Creates a new synonym map used to expand or substitute search terms.
 | `headers` | `SynonymMapsCreateHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SynonymMap|error`
+Returns: `SynonymMap|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SynonymMap synonymMap = check searchClient->synonymMapsCreate(
@@ -1207,7 +1208,7 @@ azureSearch:SynonymMap synonymMap = check searchClient->synonymMapsCreate(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1229,7 +1230,7 @@ azureSearch:SynonymMap synonymMap = check searchClient->synonymMapsCreate(
 
 Creates or updates a synonym map.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1238,9 +1239,9 @@ Creates or updates a synonym map.
 | `payload` | `SynonymMap` | Yes | The full synonym map definition. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SynonymMap|error`
+Returns: `SynonymMap|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SynonymMapsCreateOrUpdateHeaders upsertHeaders = {
@@ -1259,7 +1260,7 @@ azureSearch:SynonymMap synonymMap = check searchClient->synonymMapsCreateOrUpdat
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1281,7 +1282,7 @@ azureSearch:SynonymMap synonymMap = check searchClient->synonymMapsCreateOrUpdat
 
 Retrieves a synonym map definition by name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1289,9 +1290,9 @@ Retrieves a synonym map definition by name.
 | `headers` | `SynonymMapsGetHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `SynonymMap|error`
+Returns: `SynonymMap|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:SynonymMap synonymMap = check searchClient->synonymMapsGet(
@@ -1301,7 +1302,7 @@ azureSearch:SynonymMap synonymMap = check searchClient->synonymMapsGet(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1323,16 +1324,16 @@ azureSearch:SynonymMap synonymMap = check searchClient->synonymMapsGet(
 
 Lists all synonym maps defined in the search service.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `SynonymMapsListHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `ListSynonymMapsResult|error`
+Returns: `ListSynonymMapsResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:ListSynonymMapsResult result = check searchClient->synonymMapsList(
@@ -1341,7 +1342,7 @@ azureSearch:ListSynonymMapsResult result = check searchClient->synonymMapsList(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1363,7 +1364,7 @@ azureSearch:ListSynonymMapsResult result = check searchClient->synonymMapsList(
 
 Deletes a synonym map.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1371,9 +1372,9 @@ Deletes a synonym map.
 | `headers` | `SynonymMapsDeleteHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check searchClient->synonymMapsDelete(
@@ -1396,16 +1397,16 @@ check searchClient->synonymMapsDelete(
 
 Returns service-level counters and limits including index count, document count, storage size, and service tier quotas.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `GetServiceStatisticsHeaders` | No | Request headers. Pass `api-key` for authentication. |
 | `apiVersion` | `string` | Yes | Azure AI Search REST API version. |
 
-**Returns:** `ServiceStatistics|error`
+Returns: `ServiceStatistics|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azureSearch:ServiceStatistics stats = check searchClient->getServiceStatistics(
@@ -1414,7 +1415,7 @@ azureSearch:ServiceStatistics stats = check searchClient->getServiceStatistics(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

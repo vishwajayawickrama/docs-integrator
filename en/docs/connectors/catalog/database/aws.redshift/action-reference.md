@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Connects to an Amazon Redshift cluster via JDBC for SQL queries, DML/DDL executi
 | `options` | `Options?` | `()` | Redshift-specific JDBC options including SSL mode and custom properties. |
 | `connectionPool` | `sql:ConnectionPool?` | `()` | Connection pool configuration. Uses the global shared pool if not specified. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/aws.redshift;
@@ -49,7 +50,7 @@ redshift:Client redshiftClient = check new (
 
 ### Operations
 
-#### Query Operations
+#### Query operations
 
 <details>
 <summary>query</summary>
@@ -58,16 +59,16 @@ redshift:Client redshiftClient = check new (
 
 Executes a SOQL-style parameterized query and returns results as a stream of typed records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The parameterized SQL query to execute. |
 | `rowType` | `typedesc<record {}>` | No | Expected return record type for each row. |
 
-**Returns:** `stream<rowType, sql:Error?>`
+Returns: `stream<rowType, sql:Error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type User record {|
@@ -83,7 +84,7 @@ check from User user in resultStream
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "John Doe", "email": "john@example.com", "state": "CA"}
@@ -101,16 +102,16 @@ check from User user in resultStream
 
 Executes a parameterized query that is expected to return at most one row.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The parameterized SQL query to execute. |
 | `returnType` | `typedesc<anydata>` | No | Expected return type for the single result row. |
 
-**Returns:** `returnType|sql:Error`
+Returns: `returnType|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Album record {|
@@ -123,7 +124,7 @@ type Album record {|
 Album album = check redshiftClient->queryRow(`SELECT * FROM Albums WHERE id = ${"1"}`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "1", "title": "Blue Train", "artist": "John Coltrane", "price": 56.99}
@@ -133,7 +134,7 @@ Album album = check redshiftClient->queryRow(`SELECT * FROM Albums WHERE id = ${
 
 </details>
 
-#### DML & DDL Operations
+#### DML & DDL operations
 
 <details>
 <summary>execute</summary>
@@ -142,15 +143,15 @@ Album album = check redshiftClient->queryRow(`SELECT * FROM Albums WHERE id = ${
 
 Executes a DML or DDL statement such as INSERT, UPDATE, DELETE, or CREATE TABLE.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The parameterized SQL statement to execute. |
 
-**Returns:** `sql:ExecutionResult|sql:Error`
+Returns: `sql:ExecutionResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ExecutionResult result = check redshiftClient->execute(
@@ -158,7 +159,7 @@ sql:ExecutionResult result = check redshiftClient->execute(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"affectedRowCount": 1, "lastInsertId": null}
@@ -175,15 +176,15 @@ sql:ExecutionResult result = check redshiftClient->execute(
 
 Executes multiple parameterized DML statements as a batch for efficient bulk operations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQueries` | `sql:ParameterizedQuery[]` | Yes | Array of parameterized SQL statements to execute in a batch. |
 
-**Returns:** `sql:ExecutionResult[]|sql:Error`
+Returns: `sql:ExecutionResult[]|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ParameterizedQuery[] insertQueries = [
@@ -193,7 +194,7 @@ sql:ParameterizedQuery[] insertQueries = [
 sql:ExecutionResult[] results = check redshiftClient->batchExecute(insertQueries);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"affectedRowCount": 1, "lastInsertId": null}, {"affectedRowCount": 1, "lastInsertId": null}]
@@ -203,7 +204,7 @@ sql:ExecutionResult[] results = check redshiftClient->batchExecute(insertQueries
 
 </details>
 
-#### Stored Procedures
+#### Stored procedures
 
 <details>
 <summary>call</summary>
@@ -212,22 +213,22 @@ sql:ExecutionResult[] results = check redshiftClient->batchExecute(insertQueries
 
 Calls a stored procedure, optionally returning result sets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedCallQuery` | Yes | The parameterized stored procedure call query. |
 | `rowTypes` | `typedesc<record {}>[]` | No | Expected record types for each result set returned by the procedure. |
 
-**Returns:** `sql:ProcedureCallResult|sql:Error`
+Returns: `sql:ProcedureCallResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ProcedureCallResult callResult = check redshiftClient->call(`{CALL get_active_users()}`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"executionResult": {"affectedRowCount": -1}, "queryResult": <stream of records>}
@@ -237,7 +238,7 @@ sql:ProcedureCallResult callResult = check redshiftClient->call(`{CALL get_activ
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
@@ -247,9 +248,9 @@ sql:ProcedureCallResult callResult = check redshiftClient->call(`{CALL get_activ
 Closes the client connection and shuts down the connection pool.
 
 
-**Returns:** `sql:Error?`
+Returns: `sql:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check redshiftClient.close();

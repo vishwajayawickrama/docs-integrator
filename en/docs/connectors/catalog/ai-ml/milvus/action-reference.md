@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -33,7 +34,7 @@ Manage collections, indexes, and vector data; perform similarity search and quer
 | `proxyAddress` | `string` | `()` | Proxy server address. |
 | `secureConfig` | `SecureConfig` | `()` | TLS/SSL configuration with client and server certificate paths. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/milvus;
@@ -50,7 +51,7 @@ milvus:Client milvusClient = check new (serviceUrl, {
 
 ### Operations
 
-#### Collection Management
+#### Collection management
 
 <details>
 <summary>listCollections</summary>
@@ -60,15 +61,15 @@ milvus:Client milvusClient = check new (serviceUrl, {
 Lists the names of all collections in the connected Milvus instance.
 
 
-**Returns:** `string[]|Error`
+Returns: `string[]|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] collections = check milvusClient->listCollections();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["products", "documents", "image_embeddings"]
@@ -85,15 +86,15 @@ string[] collections = check milvusClient->listCollections();
 
 Creates a new collection with the specified name, primary field, and vector dimension.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateCollectionRequest` | Yes | Collection creation parameters including name, primary field name, and vector dimension. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check milvusClient->createCollection({
@@ -114,15 +115,15 @@ check milvusClient->createCollection({
 
 Loads a collection into memory to enable search and query operations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `collectionName` | `string` | Yes | The name of the collection to load. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check milvusClient->loadCollection("products");
@@ -132,7 +133,7 @@ check milvusClient->loadCollection("products");
 
 </details>
 
-#### Index Management
+#### Index management
 
 <details>
 <summary>createIndex</summary>
@@ -141,15 +142,15 @@ check milvusClient->loadCollection("products");
 
 Creates indexes on the specified fields of a collection for efficient search.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `CreateIndexRequest` | Yes | Index creation parameters including collection name, primary key, and field names to index. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check milvusClient->createIndex({
@@ -163,7 +164,7 @@ check milvusClient->createIndex({
 
 </details>
 
-#### Data Operations
+#### Data operations
 
 <details>
 <summary>upsert</summary>
@@ -172,15 +173,15 @@ check milvusClient->createIndex({
 
 Inserts a new vector entry or updates it if the primary key already exists.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `UpsertRequest` | Yes | Upsert parameters including collection name, vector data, optional primary key, and properties. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check milvusClient->upsert({
@@ -210,15 +211,15 @@ check milvusClient->upsert({
 
 Deletes vectors from a collection by IDs or a filter expression. Returns the number of deleted entries.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `DeleteRequest` | Yes | Delete parameters including collection name and either IDs or a filter expression. |
 
-**Returns:** `int|Error`
+Returns: `int|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int deletedCount = check milvusClient->delete({
@@ -227,7 +228,7 @@ int deletedCount = check milvusClient->delete({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -237,7 +238,7 @@ int deletedCount = check milvusClient->delete({
 
 </details>
 
-#### Search & Query
+#### Search & query
 
 <details>
 <summary>search</summary>
@@ -246,15 +247,15 @@ int deletedCount = check milvusClient->delete({
 
 Performs a similarity search on vector data and returns the top-K most similar results.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `SearchRequest` | Yes | Search parameters including collection name, query vectors, top-K count, optional filter, and output fields. |
 
-**Returns:** `SearchResult[][]|Error`
+Returns: `SearchResult[][]|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 milvus:SearchResult[][] results = check milvusClient->search({
@@ -265,7 +266,7 @@ milvus:SearchResult[][] results = check milvusClient->search({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [[{"primaryKey": "1", "id": 1, "similarityScore": 0.98, "outputFields": null}, {"primaryKey": "5", "id": 5, "similarityScore": 0.87, "outputFields": null}, {"primaryKey": "12", "id": 12, "similarityScore": 0.76, "outputFields": null}]]
@@ -282,15 +283,15 @@ milvus:SearchResult[][] results = check milvusClient->search({
 
 Queries vectors from a collection using a filter expression and returns matching entries.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `QueryRequest` | Yes | Query parameters including collection name, filter expression, and output fields. |
 
-**Returns:** `QueryResult[][]|Error`
+Returns: `QueryResult[][]|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 milvus:QueryResult[][] results = check milvusClient->query({
@@ -300,7 +301,7 @@ milvus:QueryResult[][] results = check milvusClient->query({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [[{"name": "Wireless Headphones", "category": "Electronics"}, {"name": "Bluetooth Speaker", "category": "Electronics"}]]

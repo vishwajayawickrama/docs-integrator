@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -24,7 +25,7 @@ Manage video conferencing application settings (webhook URLs) for a HubSpot app.
 | `config` | <code>ConnectionConfig</code> | `{}` | HTTP client connection configuration. |
 | `serviceUrl` | <code>string</code> | `"https://api.hubapi.com/crm/v3/extensions/videoconferencing/settings"` | Base URL for the HubSpot videoconferencing settings API. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.extensions.videoconferencing as hsvideoconferencing;
@@ -36,33 +37,33 @@ hsvideoconferencing:Client hubspot = check new ({hapikey});
 
 ### Operations
 
-#### Settings Management
+#### Settings management
 
 <details>
 <summary>Get video conferencing settings for an app</summary>
 
 <div>
 
-**Signature:** `get /[int:Signed32 appId]`
+Signature: `get /[int:Signed32 appId]`
 
 Retrieves the video conferencing application settings (webhook URLs) currently configured for the specified app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | <code>int:Signed32</code> | Yes | The ID of the video conference application. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom headers for the request. |
 
-**Returns:** `ExternalSettings|error`
+Returns: `ExternalSettings|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsvideoconferencing:ExternalSettings settings = check hubspot->/[appIdSigned32]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -82,11 +83,11 @@ hsvideoconferencing:ExternalSettings settings = check hubspot->/[appIdSigned32](
 
 <div>
 
-**Signature:** `put /[int:Signed32 appId]`
+Signature: `put /[int:Signed32 appId]`
 
 Creates or updates the video conferencing application settings (webhook URLs) for the specified app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -94,9 +95,9 @@ Creates or updates the video conferencing application settings (webhook URLs) fo
 | `payload` | <code>ExternalSettings</code> | Yes | The video conferencing settings to save. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom headers for the request. |
 
-**Returns:** `ExternalSettings|error`
+Returns: `ExternalSettings|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsvideoconferencing:ExternalSettings settings = {
@@ -107,7 +108,7 @@ hsvideoconferencing:ExternalSettings settings = {
 hsvideoconferencing:ExternalSettings result = check hubspot->/[appIdSigned32].put(settings);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -126,20 +127,20 @@ hsvideoconferencing:ExternalSettings result = check hubspot->/[appIdSigned32].pu
 
 <div>
 
-**Signature:** `delete /[int:Signed32 appId]`
+Signature: `delete /[int:Signed32 appId]`
 
 Deletes all video conferencing application settings for the specified app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | <code>int:Signed32</code> | Yes | The ID of the video conference application. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom headers for the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspot->/[appIdSigned32].delete();

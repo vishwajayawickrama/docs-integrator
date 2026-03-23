@@ -12,7 +12,7 @@ This guide walks you through creating a HubSpot private app or OAuth app and obt
 
 - A HubSpot account with CRM access. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 
-## Create a HubSpot Developer Account (OAuth flow)
+## Create a HubSpot developer account (OAuth flow)
 
 1. Go to the [HubSpot Developer Portal](https://developers.hubspot.com/) and sign in or create a developer account.
 2. Navigate to **Apps** in the top navigation.
@@ -20,7 +20,7 @@ This guide walks you through creating a HubSpot private app or OAuth app and obt
 4. Fill in the **App name** and other basic info.
 
 
-## Configure OAuth Scopes
+## Configure OAuth scopes
 
 1. In your app settings, go to the **Auth** tab.
 2. Under **Scopes**, add the following required scopes:
@@ -35,7 +35,7 @@ This guide walks you through creating a HubSpot private app or OAuth app and obt
 The `sales-email-read` scope is required for reading email engagement data.
 :::
 
-## Obtain OAuth Tokens
+## Obtain OAuth tokens
 
 1. Construct the authorization URL:
 
@@ -65,7 +65,7 @@ The `sales-email-read` scope is required for reading email engagement data.
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange.
 :::
 
-## Alternative — Use a Private App Token
+## Alternative — use a private app token
 
 1. In your HubSpot account, click the gear icon and go to **Settings**.
 2. Navigate to **Integrations** > **Private Apps**.
@@ -81,6 +81,6 @@ Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the tok
 Private app tokens are simpler to set up than OAuth and work well for server-to-server integrations. Store the token securely and use Ballerina's `configurable` feature.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

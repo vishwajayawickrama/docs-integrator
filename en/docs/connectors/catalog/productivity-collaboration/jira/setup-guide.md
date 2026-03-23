@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating an Atlassian API token and identifying your Jira Cloud instance URL required to use the Jira connector.
@@ -7,7 +10,7 @@ This guide walks you through creating an Atlassian API token and identifying you
 
 - An Atlassian Cloud account with access to a Jira project. If you do not have one, [sign up for a free Jira account](https://www.atlassian.com/software/jira/free).
 
-## Step 1: Generate an API Token
+## Step 1: Generate an API token
 
 1. Log in to your Atlassian account at [id.atlassian.com](https://id.atlassian.com).
 2. Navigate to **Security** in the left sidebar.
@@ -20,7 +23,7 @@ This guide walks you through creating an Atlassian API token and identifying you
 The API token is shown only once. Store it securely and do not commit it to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply it at runtime.
 :::
 
-## Step 2: Identify Your Jira Cloud Instance URL
+## Step 2: Identify your Jira cloud instance URL
 
 Your Jira Cloud instance URL follows the pattern:
 
@@ -38,7 +41,7 @@ https://<your-domain>.atlassian.net/rest
 Replace `<your-domain>` with your actual Atlassian organization domain name.
 :::
 
-## Step 3: Verify Your Credentials
+## Step 3: Verify your credentials
 
 To verify your credentials work, you can make a test request to the Jira REST API:
 

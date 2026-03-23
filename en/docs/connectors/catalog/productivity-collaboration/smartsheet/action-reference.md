@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -27,7 +28,7 @@ Manages all Smartsheet resources — sheets, rows, columns, folders, workspaces,
 | `secureSocket` | `ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `proxy` | `ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/smartsheet;
@@ -43,7 +44,7 @@ smartsheet:Client smartsheetClient = check new ({
 
 ### Operations
 
-#### Sheet Management
+#### Sheet management
 
 <details>
 <summary>List Sheets</summary>
@@ -52,22 +53,22 @@ smartsheet:Client smartsheetClient = check new ({
 
 Retrieves a paginated list of all sheets the user has access to.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `ListSheetsHeaders` | No | Optional headers including `Accept` and `Authorization`. |
 | `queries` | `ListSheetsQueries` | No | Query parameters such as `page`, `pageSize`, `includeAll`, and `modifiedSince`. |
 
-**Returns:** `AlternateEmailListResponse|error`
+Returns: `AlternateEmailListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var response = check smartsheetClient->/sheets();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 2, "data": [{"id": 4583173393803140, "name": "Project Plan", "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/sheets/abc123", "createdAt": "2024-01-15T10:30:00Z", "modifiedAt": "2024-06-20T14:22:00Z"}, {"id": 2331373580117892, "name": "Budget Tracker", "accessLevel": "EDITOR", "permalink": "https://app.smartsheet.com/sheets/def456", "createdAt": "2024-03-01T08:00:00Z", "modifiedAt": "2024-06-18T09:15:00Z"}]}
@@ -84,7 +85,7 @@ var response = check smartsheetClient->/sheets();
 
 Retrieves a sheet by its ID, including columns, rows, and optional includes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -92,15 +93,15 @@ Retrieves a sheet by its ID, including columns, rows, and optional includes.
 | `headers` | `GetSheetHeaders` | No | Optional headers. |
 | `queries` | `GetSheetQueries` | No | Query parameters such as `include`, `exclude`, `columnIds`, `rowIds`, `level`, `page`, `pageSize`. |
 
-**Returns:** `FavoriteResponse|error`
+Returns: `FavoriteResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var sheet = check smartsheetClient->/sheets/[4583173393803140];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 4583173393803140, "name": "Project Plan", "version": 12, "totalRowCount": 5, "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/sheets/abc123", "columns": [{"id": 7960873114331012, "title": "Task Name", "type": "TEXT_NUMBER", "index": 0, "primary": true}, {"id": 642523719197572, "title": "Status", "type": "PICKLIST", "index": 1}], "rows": [{"id": 7670198317672324, "rowNumber": 1, "cells": [{"columnId": 7960873114331012, "value": "Kick-off Meeting", "displayValue": "Kick-off Meeting"}, {"columnId": 642523719197572, "value": "Complete", "displayValue": "Complete"}]}]}
@@ -117,16 +118,16 @@ var sheet = check smartsheetClient->/sheets/[4583173393803140];
 
 Updates sheet properties such as name and project settings.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet to update. |
 | `payload` | `UpdateSheet` | Yes | The sheet properties to update. |
 
-**Returns:** `AttachmentListResponse|error`
+Returns: `AttachmentListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140].put({
@@ -134,7 +135,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": {"id": 4583173393803140, "name": "Renamed Project Plan", "accessLevel": "OWNER"}}
@@ -151,21 +152,21 @@ var result = check smartsheetClient->/sheets/[4583173393803140].put({
 
 Deletes the specified sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet to delete. |
 
-**Returns:** `SuccessResult|error`
+Returns: `SuccessResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0}
@@ -182,7 +183,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140].delete();
 
 Copies the specified sheet to a destination folder or workspace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -190,9 +191,9 @@ Copies the specified sheet to a destination folder or workspace.
 | `payload` | `ContainerDestinationForCopy` | Yes | Destination details including `destinationType` and `destinationId`. |
 | `queries` | `CopySheetQueries` | No | Optional query parameters such as `include` (attachments, cellLinks, data, discussions, forms, ruleRecipients, rules, shares). |
 
-**Returns:** `CrossSheetReferenceListResponse|error`
+Returns: `CrossSheetReferenceListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/copy.post({
@@ -202,7 +203,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/copy.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": {"id": 1234567890123456, "name": "Project Plan Copy", "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/sheets/xyz789"}}
@@ -219,16 +220,16 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/copy.post({
 
 Moves the specified sheet to a destination folder or workspace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet to move. |
 | `payload` | `ContainerDestinationForMove` | Yes | Destination details including `destinationType` and `destinationId`. |
 
-**Returns:** `CrossSheetReferenceListResponse|error`
+Returns: `CrossSheetReferenceListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/move.post({
@@ -237,7 +238,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/move.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": {"id": 4583173393803140, "name": "Project Plan", "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/sheets/abc123"}}
@@ -247,7 +248,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/move.post({
 
 </details>
 
-#### Row Operations
+#### Row operations
 
 <details>
 <summary>Get Row</summary>
@@ -256,7 +257,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/move.post({
 
 Retrieves a specific row from a sheet by row ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -264,15 +265,15 @@ Retrieves a specific row from a sheet by row ID.
 | `rowId` | `decimal` | Yes | The ID of the row to retrieve. |
 | `queries` | `RowGetQueries` | No | Optional query parameters such as `include` and `exclude`. |
 
-**Returns:** `RowResponse|error`
+Returns: `RowResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var row = check smartsheetClient->/sheets/[4583173393803140]/rows/[7670198317672324];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 7670198317672324, "sheetId": 4583173393803140, "rowNumber": 1, "expanded": true, "createdAt": "2024-01-15T10:35:00Z", "modifiedAt": "2024-06-20T14:22:00Z", "cells": [{"columnId": 7960873114331012, "value": "Kick-off Meeting", "displayValue": "Kick-off Meeting"}, {"columnId": 642523719197572, "value": "Complete", "displayValue": "Complete"}]}
@@ -289,7 +290,7 @@ var row = check smartsheetClient->/sheets/[4583173393803140]/rows/[7670198317672
 
 Adds one or more rows to a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -297,9 +298,9 @@ Adds one or more rows to a sheet.
 | `payload` | `SheetIdRowsBody1` | Yes | Row data including cells with column IDs and values. |
 | `queries` | `RowsAddToSheetQueries` | No | Optional query parameters such as `allowPartialSuccess`. |
 
-**Returns:** `RowMoveResponse|error`
+Returns: `RowMoveResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/rows.post({
@@ -311,7 +312,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "version": 13, "result": [{"id": 2361756178769796, "sheetId": 4583173393803140, "rowNumber": 6, "cells": [{"columnId": 7960873114331012, "value": "New Task", "displayValue": "New Task"}, {"columnId": 642523719197572, "value": "Not Started", "displayValue": "Not Started"}]}]}
@@ -328,7 +329,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows.post({
 
 Updates one or more rows in a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -336,9 +337,9 @@ Updates one or more rows in a sheet.
 | `payload` | `SheetIdRowsBody` | Yes | Row data with row IDs and updated cell values. |
 | `queries` | `UpdateRowsQueries` | No | Optional query parameters such as `allowPartialSuccess`. |
 
-**Returns:** `RowCopyResponse|error`
+Returns: `RowCopyResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/rows.put({
@@ -349,7 +350,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows.put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "version": 14, "result": [{"id": 7670198317672324, "sheetId": 4583173393803140, "rowNumber": 1, "cells": [{"columnId": 7960873114331012, "value": "Kick-off Meeting", "displayValue": "Kick-off Meeting"}, {"columnId": 642523719197572, "value": "In Progress", "displayValue": "In Progress"}]}]}
@@ -366,22 +367,22 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows.put({
 
 Deletes one or more rows from a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `queries` | `DeleteRowsQueries` | Yes | Query parameters including `ids` (comma-separated row IDs) and optional `ignoreRowsNotFound`. |
 
-**Returns:** `RowListResponse|error`
+Returns: `RowListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/rows.delete(ids = "7670198317672324,2361756178769796");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": [7670198317672324, 2361756178769796]}
@@ -398,7 +399,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows.delete(ids 
 
 Copies rows from one sheet to another.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -406,9 +407,9 @@ Copies rows from one sheet to another.
 | `payload` | `CopyOrMoveRowDirective` | Yes | Includes `rowIds` to copy and `to` destination with `sheetId`. |
 | `queries` | `CopyRowsQueries` | No | Optional query parameters such as `include` (attachments, discussions). |
 
-**Returns:** `CopyOrMoveRowResult|error`
+Returns: `CopyOrMoveRowResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/rows/copy.post({
@@ -417,7 +418,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows/copy.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"destinationSheetId": 2331373580117892, "rowMappings": [{"from": 7670198317672324, "to": 5765432109876543}]}
@@ -434,7 +435,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows/copy.post({
 
 Moves rows from one sheet to another.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -442,9 +443,9 @@ Moves rows from one sheet to another.
 | `payload` | `CopyOrMoveRowDirective` | Yes | Includes `rowIds` to move and `to` destination with `sheetId`. |
 | `queries` | `MoveRowsQueries` | No | Optional query parameters such as `include` (attachments, discussions). |
 
-**Returns:** `CopyOrMoveRowResult|error`
+Returns: `CopyOrMoveRowResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/rows/move.post({
@@ -453,7 +454,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows/move.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"destinationSheetId": 2331373580117892, "rowMappings": [{"from": 7670198317672324, "to": 8901234567890123}]}
@@ -463,7 +464,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows/move.post({
 
 </details>
 
-#### Column Management
+#### Column management
 
 <details>
 <summary>List Columns</summary>
@@ -472,22 +473,22 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/rows/move.post({
 
 Retrieves all columns in a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `queries` | `ColumnsListOnSheetQueries` | No | Optional query parameters such as `include` and `level`. |
 
-**Returns:** `ColumnListResponse|error`
+Returns: `ColumnListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var columns = check smartsheetClient->/sheets/[4583173393803140]/columns();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 3, "data": [{"id": 7960873114331012, "index": 0, "title": "Task Name", "type": "TEXT_NUMBER", "primary": true}, {"id": 642523719197572, "index": 1, "title": "Status", "type": "PICKLIST", "options": ["Not Started", "In Progress", "Complete"]}, {"id": 3456789012345678, "index": 2, "title": "Due Date", "type": "DATE"}]}
@@ -504,16 +505,16 @@ var columns = check smartsheetClient->/sheets/[4583173393803140]/columns();
 
 Adds one or more columns to a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `payload` | `ColumnObjectAttributes` | Yes | Column definition including `title`, `type`, and `index`. |
 
-**Returns:** `ColumnCreateResponse|error`
+Returns: `ColumnCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/columns.post({
@@ -524,7 +525,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/columns.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": [{"id": 9876543210987654, "index": 3, "title": "Priority", "type": "PICKLIST", "options": ["High", "Medium", "Low"]}]}
@@ -541,7 +542,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/columns.post({
 
 Updates properties of a column.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -549,9 +550,9 @@ Updates properties of a column.
 | `columnId` | `decimal` | Yes | The ID of the column to update. |
 | `payload` | `ColumnObjectAttributes` | Yes | Updated column properties. |
 
-**Returns:** `ColumnUpdateResponse|error`
+Returns: `ColumnUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/columns/[642523719197572].put({
@@ -560,7 +561,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/columns/[6425237
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": {"id": 642523719197572, "index": 1, "title": "Task Status", "type": "PICKLIST", "options": ["Not Started", "In Progress", "Blocked", "Complete"]}}
@@ -577,22 +578,22 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/columns/[6425237
 
 Deletes a column from a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `columnId` | `decimal` | Yes | The ID of the column to delete. |
 
-**Returns:** `GenericResult|error`
+Returns: `GenericResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/columns/[9876543210987654].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0}
@@ -602,7 +603,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/columns/[9876543
 
 </details>
 
-#### Folder Management
+#### Folder management
 
 <details>
 <summary>Get Folder</summary>
@@ -611,22 +612,22 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/columns/[9876543
 
 Retrieves a folder by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `folderId` | `decimal` | Yes | The ID of the folder. |
 | `queries` | `GetFolderQueries` | No | Optional query parameters such as `include`. |
 
-**Returns:** `Folder|error`
+Returns: `Folder|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var folder = check smartsheetClient->/folders/[7960873114331012];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 7960873114331012, "name": "Q1 Projects", "permalink": "https://app.smartsheet.com/folders/abc123", "sheets": [{"id": 4583173393803140, "name": "Project Plan"}], "folders": []}
@@ -643,16 +644,16 @@ var folder = check smartsheetClient->/folders/[7960873114331012];
 
 Creates a subfolder within the specified folder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `folderId` | `decimal` | Yes | The parent folder ID. |
 | `payload` | `FolderIdFoldersBody` | Yes | Folder creation payload including `name`. |
 
-**Returns:** `SharedSecretResponse|error`
+Returns: `SharedSecretResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/folders/[7960873114331012]/folders.post({
@@ -660,7 +661,7 @@ var result = check smartsheetClient->/folders/[7960873114331012]/folders.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": {"id": 1122334455667788, "name": "Sprint 1"}}
@@ -677,16 +678,16 @@ var result = check smartsheetClient->/folders/[7960873114331012]/folders.post({
 
 Renames a folder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `folderId` | `decimal` | Yes | The ID of the folder to update. |
 | `payload` | `Folder` | Yes | Folder update payload including `name`. |
 
-**Returns:** `CrossSheetReferenceResponse|error`
+Returns: `CrossSheetReferenceResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/folders/[7960873114331012].put({
@@ -694,7 +695,7 @@ var result = check smartsheetClient->/folders/[7960873114331012].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": {"id": 7960873114331012, "name": "Q1 Projects (Archived)"}}
@@ -711,21 +712,21 @@ var result = check smartsheetClient->/folders/[7960873114331012].put({
 
 Deletes the specified folder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `folderId` | `decimal` | Yes | The ID of the folder to delete. |
 
-**Returns:** `GenericResult|error`
+Returns: `GenericResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/folders/[7960873114331012].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0}
@@ -735,7 +736,7 @@ var result = check smartsheetClient->/folders/[7960873114331012].delete();
 
 </details>
 
-#### Workspace Management
+#### Workspace management
 
 <details>
 <summary>List Workspaces</summary>
@@ -744,21 +745,21 @@ var result = check smartsheetClient->/folders/[7960873114331012].delete();
 
 Retrieves a list of all workspaces the user has access to.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `ListWorkspacesHeaders` | No | Optional headers. |
 
-**Returns:** `WorkspaceListResponse|error`
+Returns: `WorkspaceListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var workspaces = check smartsheetClient->/workspaces();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 2, "data": [{"id": 8520173393803140, "name": "Engineering", "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/workspaces/ws123"}, {"id": 6630283504914251, "name": "Marketing", "accessLevel": "ADMIN", "permalink": "https://app.smartsheet.com/workspaces/ws456"}]}
@@ -775,15 +776,15 @@ var workspaces = check smartsheetClient->/workspaces();
 
 Creates a new workspace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `WorkspaceListing` | Yes | Workspace creation payload including `name`. |
 
-**Returns:** `WorkspaceCreateResponse|error`
+Returns: `WorkspaceCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/workspaces.post({
@@ -791,7 +792,7 @@ var result = check smartsheetClient->/workspaces.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": {"id": 9988776655443322, "name": "Product Launch 2024", "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/workspaces/ws789"}}
@@ -808,21 +809,21 @@ var result = check smartsheetClient->/workspaces.post({
 
 Retrieves a workspace by its ID, including its contents.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `workspaceId` | `decimal` | Yes | The ID of the workspace. |
 
-**Returns:** `WorkspaceResponse|error`
+Returns: `WorkspaceResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var workspace = check smartsheetClient->/workspaces/[8520173393803140];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 8520173393803140, "name": "Engineering", "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/workspaces/ws123", "sheets": [{"id": 4583173393803140, "name": "Project Plan"}], "folders": [{"id": 7960873114331012, "name": "Q1 Projects"}]}
@@ -839,21 +840,21 @@ var workspace = check smartsheetClient->/workspaces/[8520173393803140];
 
 Deletes the specified workspace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `workspaceId` | `decimal` | Yes | The ID of the workspace to delete. |
 
-**Returns:** `GenericResult|error`
+Returns: `GenericResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/workspaces/[8520173393803140].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0}
@@ -872,22 +873,22 @@ var result = check smartsheetClient->/workspaces/[8520173393803140].delete();
 
 Retrieves the list of users and groups a sheet is shared with.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `queries` | `ListSheetSharesQueries` | No | Optional query parameters such as `include` and `page`. |
 
-**Returns:** `ShareListResponse|error`
+Returns: `ShareListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var shares = check smartsheetClient->/sheets/[4583173393803140]/shares();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 2, "data": [{"id": "AAA111BBB222", "type": "USER", "userId": 1234567890, "email": "alice@example.com", "name": "Alice Smith", "accessLevel": "OWNER"}, {"id": "CCC333DDD444", "type": "USER", "userId": 9876543210, "email": "bob@example.com", "name": "Bob Jones", "accessLevel": "EDITOR"}]}
@@ -904,7 +905,7 @@ var shares = check smartsheetClient->/sheets/[4583173393803140]/shares();
 
 Shares a sheet with specified users or groups.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -912,9 +913,9 @@ Shares a sheet with specified users or groups.
 | `payload` | `SheetIdSharesBody` | Yes | Share details including `email` and `accessLevel`. |
 | `queries` | `ShareSheetQueries` | No | Optional query parameters such as `sendEmail`. |
 
-**Returns:** `ShareResponse|error`
+Returns: `ShareResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/shares.post({
@@ -923,7 +924,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/shares.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": [{"id": "EEE555FFF666", "type": "USER", "email": "charlie@example.com", "accessLevel": "VIEWER"}]}
@@ -940,22 +941,22 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/shares.post({
 
 Removes sharing access for a user or group from a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `shareId` | `string` | Yes | The ID of the share to delete. |
 
-**Returns:** `Result|error`
+Returns: `Result|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/shares/["CCC333DDD444"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0}
@@ -974,22 +975,22 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/shares/["CCC333D
 
 Retrieves all attachments on a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `queries` | `AttachmentsListOnSheetQueries` | No | Optional pagination parameters. |
 
-**Returns:** `AttachmentVersionListResponse|error`
+Returns: `AttachmentVersionListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var attachments = check smartsheetClient->/sheets/[4583173393803140]/attachments();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 1, "data": [{"id": 5544332211009988, "name": "requirements.pdf", "attachmentType": "FILE", "mimeType": "application/pdf", "sizeInKb": 245, "createdAt": "2024-06-15T09:00:00Z", "createdBy": {"email": "alice@example.com", "name": "Alice Smith"}}]}
@@ -1006,22 +1007,22 @@ var attachments = check smartsheetClient->/sheets/[4583173393803140]/attachments
 
 Retrieves an attachment by ID, including a temporary download URL for file attachments.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `attachmentId` | `decimal` | Yes | The ID of the attachment. |
 
-**Returns:** `AttachmentResponse|error`
+Returns: `AttachmentResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var attachment = check smartsheetClient->/sheets/[4583173393803140]/attachments/[5544332211009988];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 5544332211009988, "name": "requirements.pdf", "attachmentType": "FILE", "mimeType": "application/pdf", "sizeInKb": 245, "createdAt": "2024-06-15T09:00:00Z", "url": "https://smartsheet-temp-url.example.com/download/abc123", "urlExpiresInMillis": 120000}
@@ -1038,22 +1039,22 @@ var attachment = check smartsheetClient->/sheets/[4583173393803140]/attachments/
 
 Deletes an attachment from a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `attachmentId` | `decimal` | Yes | The ID of the attachment to delete. |
 
-**Returns:** `GenericResult|error`
+Returns: `GenericResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/attachments/[5544332211009988].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0}
@@ -1063,7 +1064,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/attachments/[554
 
 </details>
 
-#### Discussions & Comments
+#### Discussions & comments
 
 <details>
 <summary>List Discussions</summary>
@@ -1072,22 +1073,22 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/attachments/[554
 
 Retrieves all discussions on a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `queries` | `DiscussionsListQueries` | No | Optional query parameters such as `include` and pagination. |
 
-**Returns:** `DiscussionCreateResponse|error`
+Returns: `DiscussionCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var discussions = check smartsheetClient->/sheets/[4583173393803140]/discussions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 1, "data": [{"id": 3344556677889900, "title": "Budget Review", "comments": [{"id": 1122334455667788, "text": "Please review the budget figures.", "createdBy": {"email": "alice@example.com", "name": "Alice Smith"}, "createdAt": "2024-06-18T10:00:00Z"}], "createdBy": {"email": "alice@example.com", "name": "Alice Smith"}}]}
@@ -1104,16 +1105,16 @@ var discussions = check smartsheetClient->/sheets/[4583173393803140]/discussions
 
 Creates a new discussion on a sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `payload` | `DiscussionCreationRequest` | Yes | Discussion details including `comment` with `text`. |
 
-**Returns:** `DiscussionAttachmentListResponse|error`
+Returns: `DiscussionAttachmentListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sheets/[4583173393803140]/discussions.post({
@@ -1121,7 +1122,7 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/discussions.post
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": {"id": 4455667788990011, "title": "Let's discuss the timeline for this project.", "comments": [{"id": 5566778899001122, "text": "Let's discuss the timeline for this project.", "createdAt": "2024-06-20T15:00:00Z"}]}}
@@ -1138,22 +1139,22 @@ var result = check smartsheetClient->/sheets/[4583173393803140]/discussions.post
 
 Retrieves a specific comment by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet. |
 | `commentId` | `decimal` | Yes | The ID of the comment. |
 
-**Returns:** `CommentResponse|error`
+Returns: `CommentResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var comment = check smartsheetClient->/sheets/[4583173393803140]/comments/[1122334455667788];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1122334455667788, "text": "Please review the budget figures.", "createdBy": {"email": "alice@example.com", "name": "Alice Smith"}, "createdAt": "2024-06-18T10:00:00Z", "modifiedAt": "2024-06-18T10:00:00Z"}
@@ -1172,21 +1173,21 @@ var comment = check smartsheetClient->/sheets/[4583173393803140]/comments/[11223
 
 Retrieves a list of all reports the user has access to.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetReportsQueries` | No | Optional query parameters such as `page` and `pageSize`. |
 
-**Returns:** `TemplateListResponse|error`
+Returns: `TemplateListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var reports = check smartsheetClient->/reports();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 1, "data": [{"id": 6677889900112233, "name": "Weekly Status Report", "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/reports/rpt123"}]}
@@ -1203,22 +1204,22 @@ var reports = check smartsheetClient->/reports();
 
 Retrieves a report by its ID, including the report data.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `reportId` | `decimal` | Yes | The ID of the report. |
 | `queries` | `GetReportQueries` | No | Optional query parameters such as `include`, `page`, `pageSize`, `level`. |
 
-**Returns:** `Report|error`
+Returns: `Report|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var report = check smartsheetClient->/reports/[6677889900112233];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 6677889900112233, "name": "Weekly Status Report", "totalRowCount": 15, "accessLevel": "OWNER", "columns": [{"virtualId": 1, "title": "Task Name", "type": "TEXT_NUMBER"}, {"virtualId": 2, "title": "Status", "type": "PICKLIST"}], "rows": [{"id": 1234, "cells": [{"virtualColumnId": 1, "value": "Review deliverables", "displayValue": "Review deliverables"}, {"virtualColumnId": 2, "value": "In Progress", "displayValue": "In Progress"}]}]}
@@ -1235,16 +1236,16 @@ var report = check smartsheetClient->/reports/[6677889900112233];
 
 Sends a report as an email to specified recipients.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `reportId` | `decimal` | Yes | The ID of the report. |
 | `payload` | `SheetEmail` | Yes | Email details including `sendTo`, `subject`, and `message`. |
 
-**Returns:** `Result|error`
+Returns: `Result|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/reports/[6677889900112233]/emails.post({
@@ -1255,7 +1256,7 @@ var result = check smartsheetClient->/reports/[6677889900112233]/emails.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0}
@@ -1265,7 +1266,7 @@ var result = check smartsheetClient->/reports/[6677889900112233]/emails.post({
 
 </details>
 
-#### User & Group Management
+#### User & group management
 
 <details>
 <summary>Get Current User</summary>
@@ -1275,15 +1276,15 @@ var result = check smartsheetClient->/reports/[6677889900112233]/emails.post({
 Retrieves information about the current authenticated user.
 
 
-**Returns:** `UserProfile|error`
+Returns: `UserProfile|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var me = check smartsheetClient->/users/me();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1234567890, "email": "alice@example.com", "firstName": "Alice", "lastName": "Smith", "admin": true, "licensedSheetCreator": true, "account": {"name": "Acme Corp", "id": 9876543210}}
@@ -1300,21 +1301,21 @@ var me = check smartsheetClient->/users/me();
 
 Retrieves a list of all users in the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListUsersQueries` | No | Optional query parameters such as `email`, `include`, `page`, `pageSize`. |
 
-**Returns:** `UserListResponse|error`
+Returns: `UserListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var users = check smartsheetClient->/users();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 3, "data": [{"id": 1234567890, "email": "alice@example.com", "firstName": "Alice", "lastName": "Smith", "admin": true, "status": "ACTIVE"}, {"id": 9876543210, "email": "bob@example.com", "firstName": "Bob", "lastName": "Jones", "admin": false, "status": "ACTIVE"}]}
@@ -1331,21 +1332,21 @@ var users = check smartsheetClient->/users();
 
 Retrieves a list of all groups in the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListGroupsQueries` | No | Optional pagination parameters. |
 
-**Returns:** `GroupResponse|error`
+Returns: `GroupResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var groups = check smartsheetClient->/groups();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 1, "data": [{"id": 5566778899001122, "name": "Engineering Team", "description": "All engineering staff", "owner": "alice@example.com", "ownerName": "Alice Smith", "memberCount": 12}]}
@@ -1365,15 +1366,15 @@ var groups = check smartsheetClient->/groups();
 Retrieves a list of all webhooks the user owns.
 
 
-**Returns:** `WebhookListResponse|error`
+Returns: `WebhookListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var webhooks = check smartsheetClient->/webhooks();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 1, "data": [{"id": "aabb1122-ccdd-3344-eeff-556677889900", "name": "Sheet Change Hook", "callbackUrl": "https://example.com/webhook", "scope": "sheet", "scopeObjectId": 4583173393803140, "events": ["*.*"], "version": 1, "status": "ENABLED"}]}
@@ -1390,15 +1391,15 @@ var webhooks = check smartsheetClient->/webhooks();
 
 Creates a new webhook to receive callbacks for events.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Webhook` | Yes | Webhook definition including `name`, `callbackUrl`, `scope`, `scopeObjectId`, and `events`. |
 
-**Returns:** `WebhookResponse|error`
+Returns: `WebhookResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/webhooks.post({
@@ -1411,7 +1412,7 @@ var result = check smartsheetClient->/webhooks.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0, "result": {"id": "ccdd3344-eeff-5566-7788-990011223344", "name": "My Sheet Webhook", "callbackUrl": "https://example.com/webhook", "scope": "sheet", "scopeObjectId": 4583173393803140, "events": ["*.*"], "version": 1, "status": "NEW_NOT_VERIFIED"}}
@@ -1428,21 +1429,21 @@ var result = check smartsheetClient->/webhooks.post({
 
 Deletes a webhook.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `webhookId` | `string` | Yes | The ID of the webhook to delete. |
 
-**Returns:** `GenericResult|error`
+Returns: `GenericResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/webhooks/["aabb1122-ccdd-3344-eeff-556677889900"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0}
@@ -1461,21 +1462,21 @@ var result = check smartsheetClient->/webhooks/["aabb1122-ccdd-3344-eeff-5566778
 
 Searches across all sheets, reports, sights, and other objects.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListSearchQueries` | Yes | Query parameters including `query` (search term) and optional filters like `include`, `scopes`. |
 
-**Returns:** `UserCreateResponse|error`
+Returns: `UserCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var results = check smartsheetClient->/search(query = "Project Plan");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"totalCount": 2, "results": [{"text": "Project Plan", "objectType": "sheet", "objectId": 4583173393803140, "parentObjectType": "workspace", "parentObjectId": 8520173393803140, "parentObjectName": "Engineering", "contextData": ["Project Plan"]}, {"text": "Project Plan Copy", "objectType": "sheet", "objectId": 1234567890123456, "parentObjectType": "folder", "parentObjectId": 7960873114331012}]}
@@ -1492,22 +1493,22 @@ var results = check smartsheetClient->/search(query = "Project Plan");
 
 Searches within a specific sheet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sheetId` | `decimal` | Yes | The ID of the sheet to search. |
 | `queries` | `ListSearchSheetQueries` | Yes | Query parameters including `query` (search term). |
 
-**Returns:** `AlternateEmailResponse|error`
+Returns: `AlternateEmailResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var results = check smartsheetClient->/search/sheets/[4583173393803140](query = "Kick-off");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"totalCount": 1, "results": [{"text": "Kick-off Meeting", "objectType": "row", "objectId": 7670198317672324, "parentObjectType": "sheet", "parentObjectId": 4583173393803140, "parentObjectName": "Project Plan"}]}
@@ -1517,7 +1518,7 @@ var results = check smartsheetClient->/search/sheets/[4583173393803140](query = 
 
 </details>
 
-#### Contacts & Server Info
+#### Contacts & server info
 
 <details>
 <summary>List Contacts</summary>
@@ -1526,21 +1527,21 @@ var results = check smartsheetClient->/search/sheets/[4583173393803140](query = 
 
 Retrieves a list of the user's Smartsheet contacts.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListContactsQueries` | No | Optional pagination parameters. |
 
-**Returns:** `ContactListResponse|error`
+Returns: `ContactListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var contacts = check smartsheetClient->/contacts();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 2, "data": [{"id": "abc123def456", "name": "Alice Smith", "email": "alice@example.com"}, {"id": "ghi789jkl012", "name": "Bob Jones", "email": "bob@example.com"}]}
@@ -1558,15 +1559,15 @@ var contacts = check smartsheetClient->/contacts();
 Retrieves Smartsheet application constants, including supported formats and feature flags.
 
 
-**Returns:** `ServerInfo|error`
+Returns: `ServerInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var serverInfo = check smartsheetClient->/serverinfo();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"formats": {"boldValues": ["none", "on"], "colorValues": ["none", "#000000", "#FFFFFF", "#FF0000", "#00FF00", "#0000FF"], "currencyValues": ["none", "USD", "EUR", "GBP"], "dateTimeFormatValues": ["LOCALE_BASED", "YYYY-MM-DD"], "fontFamilyValues": ["Arial", "Tahoma", "Times New Roman", "Verdana"]}, "featureInfo": {"symbolsVersion": 2}}
@@ -1576,7 +1577,7 @@ var serverInfo = check smartsheetClient->/serverinfo();
 
 </details>
 
-#### Sights (Dashboards)
+#### Sights (dashboards)
 
 <details>
 <summary>List Sights</summary>
@@ -1585,21 +1586,21 @@ var serverInfo = check smartsheetClient->/serverinfo();
 
 Retrieves a list of all sights (dashboards) the user has access to.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListSightsQueries` | No | Optional pagination parameters. |
 
-**Returns:** `SightListResponse|error`
+Returns: `SightListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var sights = check smartsheetClient->/sights();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 1, "data": [{"id": 7788990011223344, "name": "Project Dashboard", "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/dashboards/dash123", "createdAt": "2024-04-01T08:00:00Z", "modifiedAt": "2024-06-20T12:00:00Z"}]}
@@ -1616,21 +1617,21 @@ var sights = check smartsheetClient->/sights();
 
 Retrieves a sight (dashboard) by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sightId` | `decimal` | Yes | The ID of the sight. |
 
-**Returns:** `Sight|error`
+Returns: `Sight|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var sight = check smartsheetClient->/sights/[7788990011223344];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 7788990011223344, "name": "Project Dashboard", "accessLevel": "OWNER", "permalink": "https://app.smartsheet.com/dashboards/dash123", "widgets": [{"id": 1, "type": "METRIC", "title": "Tasks Complete"}, {"id": 2, "type": "CHART", "title": "Progress Over Time"}]}
@@ -1647,21 +1648,21 @@ var sight = check smartsheetClient->/sights/[7788990011223344];
 
 Deletes the specified sight (dashboard).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sightId` | `decimal` | Yes | The ID of the sight to delete. |
 
-**Returns:** `GenericResult|error`
+Returns: `GenericResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var result = check smartsheetClient->/sights/[7788990011223344].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "SUCCESS", "resultCode": 0}
@@ -1680,21 +1681,21 @@ var result = check smartsheetClient->/sights/[7788990011223344].delete();
 
 Retrieves a list of all templates the user has access to.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListTemplatesQueries` | No | Optional pagination parameters. |
 
-**Returns:** `TemplateListResponse|error`
+Returns: `TemplateListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var templates = check smartsheetClient->/templates();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"pageNumber": 1, "pageSize": 100, "totalPages": 1, "totalCount": 1, "data": [{"id": 2233445566778899, "name": "Project Tracker Template", "accessLevel": "VIEWER", "permalink": "https://app.smartsheet.com/templates/tmpl123"}]}
@@ -1713,21 +1714,21 @@ var templates = check smartsheetClient->/templates();
 
 Retrieves events that have occurred in the user's Smartsheet organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListEventsQueries` | Yes | Query parameters including `since` (ISO 8601 date) or `streamPosition`, and optional `maxCount`. |
 
-**Returns:** `EventStreamResponse|error`
+Returns: `EventStreamResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 var events = check smartsheetClient->/events(since = "2024-06-01T00:00:00Z", maxCount = 10);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"nextStreamPosition": "1719273600000.abc123", "moreAvailable": false, "data": [{"eventId": "evt_001", "objectType": "SHEET", "action": "UPDATE", "objectId": 4583173393803140, "userId": 1234567890, "eventTimestamp": "2024-06-20T14:22:00Z", "source": "WEB_APP"}]}

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating an Azure Service Bus namespace, a queue or topic, and obtaining the connection string required to use the ASB connector.
@@ -7,7 +10,7 @@ This guide walks you through creating an Azure Service Bus namespace, a queue or
 
 - An active Microsoft Azure account. If you do not have one, [sign up for a free Azure account](https://azure.microsoft.com/free/).
 
-## Step 1: Create an Azure Service Bus Namespace
+## Step 1: Create an Azure service bus namespace
 
 1. Log in to the [Azure Portal](https://portal.azure.com/).
 2. In the search bar, type `Service Bus` and select **Service Bus** from the results.
@@ -25,7 +28,7 @@ This guide walks you through creating an Azure Service Bus namespace, a queue or
 The **Standard** tier or higher is required if you plan to use topics and subscriptions. The **Basic** tier only supports queues.
 :::
 
-## Step 2: Create a Queue or Topic
+## Step 2: Create a queue or topic
 
 **To create a Queue:**
 
@@ -44,7 +47,7 @@ The **Standard** tier or higher is required if you plan to use topics and subscr
 5. Open the newly created topic and select **+ Subscription**.
 6. Enter a **Name** for the subscription (e.g., `my-subscription`) and click **Create**.
 
-## Step 3: Get the Connection String
+## Step 3: Get the connection string
 
 1. In your Service Bus namespace, select **Shared access policies** from the left menu under **Settings**.
 2. Click on the **RootManageSharedAccessKey** policy (or create a new policy with the required claims).

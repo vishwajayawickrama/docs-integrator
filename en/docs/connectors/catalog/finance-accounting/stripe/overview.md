@@ -1,9 +1,12 @@
+---
+title: Stripe Connector Overview
+---
 # Stripe Connector Overview
 
 Stripe is a leading online payment processing platform that simplifies the handling of financial transactions over the Internet. The Ballerina `ballerinax/stripe` connector (v2.0.1) provides programmatic access to the Stripe REST API V1, enabling seamless integration of Stripe's extensive payment processing capabilities — including customer management, payment intents, invoicing, subscriptions, products, and payouts — into your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Customer management — create, retrieve, update, delete, and list customers
 - Payment Intents for handling complex payment flows with automatic or manual confirmation
@@ -25,14 +28,14 @@ Actions are operations you invoke on Stripe from your integration — creating c
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## Stripe Connector Documentation
+## Stripe connector documentation
 
 * **[Stripe Connector Setup Guide](setup-guide.md)**: This guide walks you through creating a Stripe account and obtaining the API secret key required to authenticate with the Stripe connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

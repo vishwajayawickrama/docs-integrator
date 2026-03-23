@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -12,7 +13,7 @@ The `ballerinax/ai.pgvector` package exposes the following clients:
 
 ---
 
-## Vector Store
+## Vector store
 
 Store, search, and manage vector embeddings in PostgreSQL with pgvector.
 
@@ -30,7 +31,7 @@ Store, search, and manage vector embeddings in PostgreSQL with pgvector.
 | `connectionPool` | `sql:ConnectionPool` | `{}` | Connection pool configuration. |
 | `configs` | `Configuration` | `{}` | Vector store configuration including embedding type, vector dimension, and similarity metric. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ai.pgvector;
@@ -55,7 +56,7 @@ pgvector:VectorStore vectorStore = check new (
 
 ### Operations
 
-#### Vector Operations
+#### Vector operations
 
 <details>
 <summary>add</summary>
@@ -64,15 +65,15 @@ pgvector:VectorStore vectorStore = check new (
 
 Adds one or more vector entries with embeddings, content chunks, and optional metadata to the vector store table.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `entries` | `ai:VectorEntry[]` | Yes | Array of vector entries to add. Each entry contains an optional `id`, an `embedding` (dense, sparse, or hybrid), and a `chunk` with content and optional metadata. |
 
-**Returns:** `ai:Error?`
+Returns: `ai:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/uuid;
@@ -110,15 +111,15 @@ check vectorStore->add([
 
 Searches the vector store for entries most similar to the given embedding, with optional metadata filters and a configurable result limit.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `query` | `ai:VectorStoreQuery` | Yes | Query containing the embedding to search for, optional metadata filters, and a `topK` limit (default `10`). |
 
-**Returns:** `ai:VectorMatch[]|ai:Error`
+Returns: `ai:VectorMatch[]|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/ai;
@@ -135,7 +136,7 @@ ai:VectorMatch[] results = check vectorStore->query({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -163,15 +164,15 @@ ai:VectorMatch[] results = check vectorStore->query({
 
 Removes one or more vector entries from the store by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ids` | `string\|string[]` | Yes | A single entry ID or an array of entry IDs to delete. |
 
-**Returns:** `ai:Error?`
+Returns: `ai:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 // Delete a single entry

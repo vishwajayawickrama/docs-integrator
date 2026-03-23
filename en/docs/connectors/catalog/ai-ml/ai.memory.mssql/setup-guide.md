@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through provisioning a Microsoft SQL Server instance and creating the database and login credentials required by the AI Memory MSSQL connector.
@@ -7,7 +10,7 @@ This guide walks you through provisioning a Microsoft SQL Server instance and cr
 
 - Access to a Microsoft SQL Server instance (on-premises, Azure SQL Database, or a Docker-based SQL Server).
 
-## Step 1: Provision a SQL Server Instance
+## Step 1: Provision a SQL server instance
 
 Choose one of the following options to obtain a running SQL Server instance:
 
@@ -28,7 +31,7 @@ Choose one of the following options to obtain a running SQL Server instance:
 The `sa` account has full administrative privileges. For production workloads, create a dedicated database user with least-privilege access instead.
 :::
 
-## Step 2: Create a Database
+## Step 2: Create a database
 
 Connect to your SQL Server instance using SQL Server Management Studio (SSMS), Azure Data
 Studio, or the `sqlcmd` command-line tool, then run:
@@ -40,7 +43,7 @@ CREATE DATABASE AgentMemory;
 Replace `AgentMemory` with your preferred database name. Note this value — it maps to the
 `database` field in `DatabaseConfiguration`.
 
-## Step 3: Create a Dedicated Database User (Recommended)
+## Step 3: Create a dedicated database user (recommended)
 
 Instead of using the `sa` account, create a scoped login and user:
 
@@ -66,7 +69,7 @@ Note the login name, password, and database name — these are used in `Database
 The connector auto-creates the `ChatMessages` table on first initialisation, so the `CREATE TABLE` permission is only required once. You may revoke it after the first run if your security policy requires it.
 :::
 
-## Step 4: Configure Firewall / Network Access
+## Step 4: Configure firewall / network access
 
 Ensure the host running your Ballerina service can reach SQL Server on port `1433`:
 
@@ -77,7 +80,7 @@ Ensure the host running your Ballerina service can reach SQL Server on port `143
 - **On-premises:** Confirm the Windows Firewall or network firewall allows inbound TCP
   connections on port `1433` to the SQL Server host.
 
-## Step 5: Collect Connection Details
+## Step 5: Collect connection details
 
 Gather the following values — you will supply them as Ballerina `configurable` variables:
 

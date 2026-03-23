@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up your database and obtaining the JDBC connection details required to use the Java JDBC connector.
@@ -9,7 +12,7 @@ This guide walks you through setting up your database and obtaining the JDBC con
 - A database user account with appropriate privileges for the operations you intend to perform.
 - The JDBC driver JAR file for your target database, if it is not bundled by default.
 
-## Step 1: Create or Identify Your Database
+## Step 1: Create or identify your database
 
 1. Log in to your database server or cloud console.
 2. Create a new database (or identify an existing one) that your integration will connect to.
@@ -20,7 +23,7 @@ For example, for a MySQL database:
 - Port: `3306`
 - Database: `myappdb`
 
-## Step 2: Create a Database User
+## Step 2: Create a database user
 
 1. Create a dedicated user for your integration (recommended over using the root/admin account).
 2. Grant the user the minimum privileges required — typically `SELECT`, `INSERT`, `UPDATE`, `DELETE` on the target tables, and `EXECUTE` if calling stored procedures.
@@ -37,7 +40,7 @@ FLUSH PRIVILEGES;
 Follow the principle of least privilege — only grant the permissions your integration actually needs.
 :::
 
-## Step 3: Determine Your JDBC URL
+## Step 3: Determine your JDBC URL
 
 Construct the JDBC connection URL for your database. The format varies by database vendor:
 
@@ -53,7 +56,7 @@ Construct the JDBC connection URL for your database. The format varies by databa
 Some databases (like Snowflake) require additional properties passed via the `options.properties` field in the connector configuration rather than in the URL itself.
 :::
 
-## Step 4: Prepare the Database Schema
+## Step 4: Prepare the database schema
 
 Create the tables and stored procedures your integration will use. For example:
 
@@ -69,7 +72,7 @@ CREATE TABLE Customers (
 );
 ```
 
-## Step 5: Obtain the JDBC Driver
+## Step 5: Obtain the JDBC driver
 
 1. Download the JDBC driver JAR for your database if it is not already included.
 2. Common drivers:

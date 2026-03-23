@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide describes how to obtain and prepare a COBOL copybook schema file required by the Copybook connector.

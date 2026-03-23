@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Manage HubSpot marketing forms — create, list, retrieve, update, and archive f
 | `compression` | <code>http:Compression</code> | `COMPRESSION_AUTO` | Compression configuration for HTTP requests. |
 | `validation` | <code>boolean</code> | `true` | Enable or disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -51,27 +52,27 @@ forms:Client formsClient = check new ({
 
 ### Operations
 
-#### Form Creation
+#### Form creation
 
 <details>
 <summary>Create a form</summary>
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new marketing form with the specified field groups, configuration, display options, and legal consent settings.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>FormDefinitionCreateRequestBase</code> | Yes | The form definition to create, including name, field groups, configuration, display options, and legal consent options. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `FormDefinitionBase|error`
+Returns: `FormDefinitionBase|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 forms:FormDefinitionBase response = check formsClient->/.post({
@@ -138,7 +139,7 @@ forms:FormDefinitionBase response = check formsClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -213,18 +214,18 @@ forms:FormDefinitionBase response = check formsClient->/.post({
 
 </details>
 
-#### Form Retrieval
+#### Form retrieval
 
 <details>
 <summary>Get a form definition by ID</summary>
 
 <div>
 
-**Signature:** `get /[string formId]`
+Signature: `get /[string formId]`
 
 Retrieves a single form definition by its unique identifier. Optionally includes archived forms.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -232,15 +233,15 @@ Retrieves a single form definition by its unique identifier. Optionally includes
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetMarketingV3FormsFormIdGetByIdQueries</code> | No | Query parameters — `archived` (boolean) to include archived forms. |
 
-**Returns:** `FormDefinitionBase|error`
+Returns: `FormDefinitionBase|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 forms:FormDefinitionBase form = check formsClient->/[formId]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -320,26 +321,26 @@ forms:FormDefinitionBase form = check formsClient->/[formId]();
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Returns a paginated list of form definitions. Supports filtering by form type and archive status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetMarketingV3FormsGetPageQueries</code> | No | Query parameters — `formTypes` (array of `hubspot`, `captured`, `flow`, `blog_comment`, `all`), `archived` (boolean), `limit` (int), `after` (string cursor). |
 
-**Returns:** `CollectionResponseFormDefinitionBaseForwardPaging|error`
+Returns: `CollectionResponseFormDefinitionBaseForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 forms:CollectionResponseFormDefinitionBaseForwardPaging response = check formsClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -370,18 +371,18 @@ forms:CollectionResponseFormDefinitionBaseForwardPaging response = check formsCl
 
 </details>
 
-#### Form Updates
+#### Form updates
 
 <details>
 <summary>Replace a form definition</summary>
 
 <div>
 
-**Signature:** `put /[string formId]`
+Signature: `put /[string formId]`
 
 Performs a full replacement of a form definition. All fields in the payload will overwrite the existing form.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -389,9 +390,9 @@ Performs a full replacement of a form definition. All fields in the payload will
 | `payload` | <code>HubSpotFormDefinition</code> | Yes | The complete form definition to replace the existing one. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `FormDefinitionBase|error`
+Returns: `FormDefinitionBase|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 forms:FormDefinitionBase response = check formsClient->/[formId].put({
@@ -462,7 +463,7 @@ forms:FormDefinitionBase response = check formsClient->/[formId].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -542,11 +543,11 @@ forms:FormDefinitionBase response = check formsClient->/[formId].put({
 
 <div>
 
-**Signature:** `patch /[string formId]`
+Signature: `patch /[string formId]`
 
 Partially updates a form definition. Only the fields included in the payload are modified; all other fields remain unchanged.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -554,9 +555,9 @@ Partially updates a form definition. Only the fields included in the payload are
 | `payload` | <code>HubSpotFormDefinitionPatchRequest</code> | Yes | The fields to update — `name`, `fieldGroups`, `configuration`, `displayOptions`, `legalConsentOptions`, `archived`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `FormDefinitionBase|error`
+Returns: `FormDefinitionBase|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 forms:FormDefinitionBase response = check formsClient->/[formId].patch({
@@ -638,7 +639,7 @@ forms:FormDefinitionBase response = check formsClient->/[formId].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -689,27 +690,27 @@ forms:FormDefinitionBase response = check formsClient->/[formId].patch({
 
 </details>
 
-#### Form Archival
+#### Form archival
 
 <details>
 <summary>Archive a form definition</summary>
 
 <div>
 
-**Signature:** `delete /[string formId]`
+Signature: `delete /[string formId]`
 
 Archives (soft-deletes) a form definition. Archived forms can still be retrieved by setting the `archived` query parameter to `true`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `formId` | <code>string</code> | Yes | The unique identifier of the form to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json response = check formsClient->/[formId].delete();

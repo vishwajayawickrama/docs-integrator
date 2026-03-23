@@ -12,7 +12,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 
 - A HubSpot account. If you do not have one, [sign up for a free account](https://app.hubspot.com/signup).
 
-## Create a HubSpot App
+## Create a HubSpot app
 
 1. Log in to the [HubSpot Developer Portal](https://app.hubspot.com/).
 2. Click **Apps** in the top navigation bar.
@@ -21,7 +21,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 5. Click **Create app**.
 
 
-## Configure OAuth Scopes
+## Configure OAuth scopes
 
 1. In your app settings, navigate to the **Auth** tab.
 2. Under **Redirect URLs**, add your callback URL (e.g., `https://localhost/callback`).
@@ -33,7 +33,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 The `forms` scope is required for all form operations. Without it, API calls will return a 403 error.
 :::
 
-## Get the Client ID and Client Secret
+## Get the client ID and client secret
 
 1. In the **Auth** tab of your app, locate the **Client ID** and **Client Secret** fields.
 2. Copy the **Client ID** — this is your `clientId`.
@@ -46,7 +46,7 @@ Use Ballerina's `configurable` feature and a `Config.toml` file to supply them a
 
 :::
 
-## Authorize and Get a Refresh Token
+## Authorize and get a refresh token
 
 Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 
@@ -79,6 +79,6 @@ Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange in step 5.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

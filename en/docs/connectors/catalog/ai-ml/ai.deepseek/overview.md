@@ -1,9 +1,12 @@
+---
+title: DeepSeek Connector Overview
+---
 # DeepSeek Connector Overview
 
 DeepSeek is an AI company that provides powerful large language models for chat completion and reasoning tasks. The Ballerina `ballerinax/ai.deepseek` connector (v1.1.1) provides programmatic access to DeepSeek's LLM chat completion models, enabling you to integrate AI-powered chat and structured data generation into your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Chat completion using DeepSeek's LLM models with multi-turn conversation support
 - Structured output generation that maps LLM responses directly to Ballerina types (records, arrays, primitives)
@@ -24,14 +27,14 @@ Actions are operations you invoke on DeepSeek from your integration — sending 
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## DeepSeek Connector Documentation
+## DeepSeek connector documentation
 
 * **[DeepSeek Connector Setup Guide](setup-guide.md)**: This guide walks you through creating a DeepSeek account and obtaining the API key required to use the DeepSeek connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

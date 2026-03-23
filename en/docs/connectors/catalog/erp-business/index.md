@@ -3,11 +3,11 @@ title: "ERP & Business Operations"
 description: "ERP and business operations connectors available in WSO2 Integrator."
 ---
 
-# ERP & Business Operations Connectors
+# ERP & Business Operations
 
 <!-- TODO: Searchable grid/table with: name, icon, 1-line description, supported operations, link to detail page -->
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -25,7 +25,7 @@ description: "ERP and business operations connectors available in WSO2 Integrato
 | [SAP SD Incoterms](sap.s4hana.api_sd_incoterms_srv/overview.md) | SAP S/4HANA OData API for reading Incoterms classification and version master data with multilingual text support | List, Read | Basic Authentication |
 | [SAP SD Sold-to-Party Determination](sap.s4hana.api_sd_sa_soldtopartydetn/overview.md) | SAP S/4HANA OData service for querying sold-to party assignments in sales scheduling agreements | Read, List | Basic Auth |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

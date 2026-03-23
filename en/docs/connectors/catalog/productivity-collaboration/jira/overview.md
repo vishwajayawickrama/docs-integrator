@@ -1,9 +1,12 @@
+---
+title: Jira Connector Overview
+---
 # Jira Connector Overview
 
 Jira is Atlassian's project tracking and issue management platform used by software teams worldwide. The Ballerina `ballerinax/jira` connector (v2.0.1) provides programmatic access to the Jira Cloud REST API v3, enabling you to manage projects, issues, comments, workflows, and more from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on Jira issues including creation, retrieval, editing, deletion, and transitions
 - Project management — create, update, search, archive, and configure projects
@@ -25,14 +28,14 @@ Actions are operations you invoke on Jira from your integration — creating iss
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## Jira Connector Documentation
+## Jira connector documentation
 
 * **[Jira Connector Setup Guide](setup-guide.md)**: This guide walks you through creating an Atlassian API token and identifying your Jira Cloud instance URL required to use the Jira connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

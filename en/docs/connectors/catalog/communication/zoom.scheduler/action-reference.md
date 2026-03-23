@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Provides access to all Zoom Scheduler API operations including schedules, availa
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable constraint validation on request/response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/zoom.scheduler as zoom;
@@ -58,21 +59,21 @@ zoom:Client zoomClient = check new ({
 
 Retrieves the profile information for a specific Zoom user, including their display name, time zone, and scheduling URL.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The Zoom user ID or `"me"` for the authenticated user. |
 
-**Returns:** `InlineResponse2007|error`
+Returns: `InlineResponse2007|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse2007 user = check zoomClient->/users/["me"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -98,15 +99,15 @@ zoom:InlineResponse2007 user = check zoomClient->/users/["me"];
 
 Retrieves an analytics report for the authenticated user's scheduling activity over a specified date range.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ReportAnalyticsQueries` | No | Filter parameters including `userId`, `'from` (start date), `to` (end date), and `timeZone`. |
 
-**Returns:** `InlineResponse200|error`
+Returns: `InlineResponse200|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse200 analytics = check zoomClient->/analytics(
@@ -119,7 +120,7 @@ zoom:InlineResponse200 analytics = check zoomClient->/analytics(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -154,15 +155,15 @@ zoom:InlineResponse200 analytics = check zoomClient->/analytics(
 
 Returns a paginated list of availability schedules for the specified user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListAvailabilityQueries` | No | Optional filter parameters: `userId`, `pageSize`, `nextPageToken`. |
 
-**Returns:** `InlineResponse2001|error`
+Returns: `InlineResponse2001|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse2001 result = check zoomClient->/availability(
@@ -170,7 +171,7 @@ zoom:InlineResponse2001 result = check zoomClient->/availability(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -205,15 +206,15 @@ zoom:InlineResponse2001 result = check zoomClient->/availability(
 
 Creates a new availability schedule with specified time windows and recurrence rules.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SchedulerAvailabilityBody` | Yes | The availability schedule to create, including `name`, `timeZone`, and optionally `segmentsRecurrence` for weekly recurrence. |
 
-**Returns:** `InlineResponse201|error`
+Returns: `InlineResponse201|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse201 created = check zoomClient->/availability.post({
@@ -230,7 +231,7 @@ zoom:InlineResponse201 created = check zoomClient->/availability.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -260,21 +261,21 @@ zoom:InlineResponse201 created = check zoomClient->/availability.post({
 
 Retrieves a single availability schedule by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `availabilityId` | `string` | Yes | The unique identifier of the availability schedule to retrieve. |
 
-**Returns:** `InlineResponse2002|error`
+Returns: `InlineResponse2002|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse2002 availability = check zoomClient->/availability/["avail-001"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -302,16 +303,16 @@ zoom:InlineResponse2002 availability = check zoomClient->/availability/["avail-0
 
 Updates an existing availability schedule's name, time zone, or recurrence windows.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `availabilityId` | `string` | Yes | The unique identifier of the availability schedule to update. |
 | `payload` | `AvailabilityavailabilityIdBody` | Yes | Updated availability details. Must include `name` and `timeZone`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check zoomClient->/availability/["avail-001"].patch({
@@ -335,15 +336,15 @@ check zoomClient->/availability/["avail-001"].patch({
 
 Permanently deletes an availability schedule by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `availabilityId` | `string` | Yes | The unique identifier of the availability schedule to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check zoomClient->/availability/["avail-002"].delete();
@@ -362,15 +363,15 @@ check zoomClient->/availability/["avail-002"].delete();
 
 Returns a paginated list of meeting schedules for the specified user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListSchedulesQueries` | No | Optional filters: `userId`, `pageSize`, `nextPageToken`, `showDeleted`, `'from`, `to`, `timeZone`. |
 
-**Returns:** `InlineResponse2005|error`
+Returns: `InlineResponse2005|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse2005 result = check zoomClient->/schedules(
@@ -378,7 +379,7 @@ zoom:InlineResponse2005 result = check zoomClient->/schedules(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -412,16 +413,16 @@ zoom:InlineResponse2005 result = check zoomClient->/schedules(
 
 Creates a new meeting schedule with availability rules, duration, capacity, and optional custom fields.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SchedulerSchedulesBody` | Yes | Schedule configuration including `availabilityRules`, `capacity`, `availabilityOverride`, and optional fields like `summary`, `duration`, `slug`, `addOnType`. |
 | `queries` | `InsertScheduleQueries` | No | Optional `userId` query parameter. |
 
-**Returns:** `InlineResponse2011|error`
+Returns: `InlineResponse2011|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse2011 schedule = check zoomClient->/schedules.post(
@@ -447,7 +448,7 @@ zoom:InlineResponse2011 schedule = check zoomClient->/schedules.post(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -478,16 +479,16 @@ zoom:InlineResponse2011 schedule = check zoomClient->/schedules.post(
 
 Retrieves a single meeting schedule by its ID, including full configuration details.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `scheduleId` | `string` | Yes | The unique identifier of the schedule to retrieve. |
 | `queries` | `GetScheduleQueries` | No | Optional `userId` query parameter. |
 
-**Returns:** `InlineResponse2006|error`
+Returns: `InlineResponse2006|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse2006 schedule = check zoomClient->/schedules/["sched-001"](
@@ -495,7 +496,7 @@ zoom:InlineResponse2006 schedule = check zoomClient->/schedules/["sched-001"](
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -525,7 +526,7 @@ zoom:InlineResponse2006 schedule = check zoomClient->/schedules/["sched-001"](
 
 Updates an existing schedule's configuration such as summary, duration, capacity, or availability rules.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -533,9 +534,9 @@ Updates an existing schedule's configuration such as summary, duration, capacity
 | `payload` | `SchedulesscheduleIdBody` | Yes | Fields to update on the schedule. |
 | `queries` | `PatchScheduleQueries` | No | Optional `userId` query parameter. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check zoomClient->/schedules/["sched-001"].patch(
@@ -555,16 +556,16 @@ check zoomClient->/schedules/["sched-001"].patch(
 
 Permanently deletes a meeting schedule by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `scheduleId` | `string` | Yes | The unique identifier of the schedule to delete. |
 | `queries` | `DeleteSchedulesQueries` | No | Optional `userId` query parameter. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check zoomClient->/schedules/["sched-002"].delete(
@@ -583,15 +584,15 @@ check zoomClient->/schedules/["sched-002"].delete(
 
 Generates a one-time-use scheduling URL for a specific schedule, useful for sending to individuals for a single booking.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SchedulesSingleUseLinkBody` | Yes | Object containing the `scheduleId` for which to generate the single-use link. |
 
-**Returns:** `InlineResponse2012|error`
+Returns: `InlineResponse2012|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse2012 linkResponse = check zoomClient->/schedules/single_use_link.post({
@@ -599,7 +600,7 @@ zoom:InlineResponse2012 linkResponse = check zoomClient->/schedules/single_use_l
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -620,15 +621,15 @@ zoom:InlineResponse2012 linkResponse = check zoomClient->/schedules/single_use_l
 
 Returns a paginated list of scheduled events (bookings) with optional filters for date range, status, and search.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListScheduledEventsQueries` | No | Optional filters: `userId`, `pageSize`, `nextPageToken`, `eventType`, `showDeleted`, `search`, `'from`, `to`, `timeZone`, `orderBy`. |
 
-**Returns:** `InlineResponse2003|error`
+Returns: `InlineResponse2003|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse2003 events = check zoomClient->/events(
@@ -636,7 +637,7 @@ zoom:InlineResponse2003 events = check zoomClient->/events(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -670,16 +671,16 @@ zoom:InlineResponse2003 events = check zoomClient->/events(
 
 Retrieves a single scheduled event (booking) by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `eventId` | `string` | Yes | The unique identifier of the scheduled event. |
 | `queries` | `GetScheduledEventsQueries` | No | Optional `userId` query parameter. |
 
-**Returns:** `InlineResponse2004|error`
+Returns: `InlineResponse2004|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 zoom:InlineResponse2004 event = check zoomClient->/events/["evt-001"](
@@ -687,7 +688,7 @@ zoom:InlineResponse2004 event = check zoomClient->/events/["evt-001"](
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -716,7 +717,7 @@ zoom:InlineResponse2004 event = check zoomClient->/events/["evt-001"](
 
 Updates a scheduled event — for example, to change its status (confirm or cancel) or add meeting notes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -724,9 +725,9 @@ Updates a scheduled event — for example, to change its status (confirm or canc
 | `payload` | `EventseventIdBody` | Yes | Fields to update: `status` (`confirmed` or `cancelled`), `meetingNotes`, or `attendees`. |
 | `queries` | `PatchScheduledEventsQueries` | No | Optional `userId` query parameter. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check zoomClient->/events/["evt-001"].patch(
@@ -746,16 +747,16 @@ check zoomClient->/events/["evt-001"].patch(
 
 Permanently deletes a scheduled event by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `eventId` | `string` | Yes | The unique identifier of the scheduled event to delete. |
 | `queries` | `DeleteScheduledEventsQueries` | No | Optional `userId` query parameter. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check zoomClient->/events/["evt-001"].delete(

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -32,7 +33,7 @@ Manage association definitions and configurations between HubSpot CRM object typ
 | `validation` | <code>boolean</code> | `true` | Enable/disable payload validation. |
 | `laxDataBinding` | <code>boolean</code> | `true` | Enable/disable lax data binding. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -54,18 +55,18 @@ final hsschema:Client hubspot = check new ({auth});
 
 ### Operations
 
-#### Association Definitions (Labels)
+#### Association definitions (labels)
 
 <details>
 <summary>Read association definitions between two object types</summary>
 
 <div>
 
-**Signature:** `get [string fromObjectType]/[string toObjectType]/labels`
+Signature: `get [string fromObjectType]/[string toObjectType]/labels`
 
 Retrieves all association definitions (labels) between two specified CRM object types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -73,16 +74,16 @@ Retrieves all association definitions (labels) between two specified CRM object 
 | `toObjectType` | <code>string</code> | Yes | The target object type (e.g., `"deals"`, `"companies"`). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom HTTP headers. |
 
-**Returns:** `CollectionResponseAssociationSpecWithLabelNoPaging|error`
+Returns: `CollectionResponseAssociationSpecWithLabelNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsschema:CollectionResponseAssociationSpecWithLabelNoPaging associations =
     check hubspot->/["contacts"]/["deals"]/labels;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -110,11 +111,11 @@ hsschema:CollectionResponseAssociationSpecWithLabelNoPaging associations =
 
 <div>
 
-**Signature:** `post [string fromObjectType]/[string toObjectType]/labels`
+Signature: `post [string fromObjectType]/[string toObjectType]/labels`
 
 Creates a new user-defined association definition with a label and optional inverse label between two CRM object types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -123,9 +124,9 @@ Creates a new user-defined association definition with a label and optional inve
 | `payload` | <code>PublicAssociationDefinitionCreateRequest</code> | Yes | The association definition to create, including `name`, optional `label`, and optional `inverseLabel`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom HTTP headers. |
 
-**Returns:** `CollectionResponseAssociationSpecWithLabelNoPaging|error`
+Returns: `CollectionResponseAssociationSpecWithLabelNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsschema:PublicAssociationDefinitionCreateRequest payload = {
@@ -138,7 +139,7 @@ hsschema:CollectionResponseAssociationSpecWithLabelNoPaging result =
     check hubspot->/["companies"]/["companies"]/labels.post(payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -166,11 +167,11 @@ hsschema:CollectionResponseAssociationSpecWithLabelNoPaging result =
 
 <div>
 
-**Signature:** `put [string fromObjectType]/[string toObjectType]/labels`
+Signature: `put [string fromObjectType]/[string toObjectType]/labels`
 
 Updates the label and inverse label of an existing user-defined association definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -179,9 +180,9 @@ Updates the label and inverse label of an existing user-defined association defi
 | `payload` | <code>PublicAssociationDefinitionUpdateRequest</code> | Yes | The update payload including `associationTypeId`, `label`, and optional `inverseLabel`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsschema:PublicAssociationDefinitionUpdateRequest payload = {
@@ -202,11 +203,11 @@ check hubspot->/["companies"]/["companies"]/labels.put(payload);
 
 <div>
 
-**Signature:** `delete [string fromObjectType]/[string toObjectType]/labels/[int:Signed32 associationTypeId]`
+Signature: `delete [string fromObjectType]/[string toObjectType]/labels/[int:Signed32 associationTypeId]`
 
 Deletes a user-defined association definition by its type ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -215,9 +216,9 @@ Deletes a user-defined association definition by its type ID.
 | `associationTypeId` | <code>int:Signed32</code> | Yes | The ID of the association type to delete. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspot->/["companies"]/["companies"]/labels/[35].delete();
@@ -227,33 +228,33 @@ check hubspot->/["companies"]/["companies"]/labels/[35].delete();
 
 </details>
 
-#### Association Configurations
+#### Association configurations
 
 <details>
 <summary>Retrieve all association configurations</summary>
 
 <div>
 
-**Signature:** `get definitions/configurations/all`
+Signature: `get definitions/configurations/all`
 
 Retrieves all association definition configurations across all object types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom HTTP headers. |
 
-**Returns:** `CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging|error`
+Returns: `CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsschema:CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging configs =
     check hubspot->/definitions/configurations/all;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -283,11 +284,11 @@ hsschema:CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging 
 
 <div>
 
-**Signature:** `get definitions/configurations/[string fromObjectType]/[string toObjectType]`
+Signature: `get definitions/configurations/[string fromObjectType]/[string toObjectType]`
 
 Retrieves association configurations between two specified CRM object types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -295,16 +296,16 @@ Retrieves association configurations between two specified CRM object types.
 | `toObjectType` | <code>string</code> | Yes | The target object type. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom HTTP headers. |
 
-**Returns:** `CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging|error`
+Returns: `CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsschema:CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging configs =
     check hubspot->/definitions/configurations/["contacts"]/["contacts"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -328,11 +329,11 @@ hsschema:CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging 
 
 <div>
 
-**Signature:** `post definitions/configurations/[string fromObjectType]/[string toObjectType]/batch/create`
+Signature: `post definitions/configurations/[string fromObjectType]/[string toObjectType]/batch/create`
 
 Creates multiple association configurations in a single batch request, setting cardinality constraints.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -341,9 +342,9 @@ Creates multiple association configurations in a single batch request, setting c
 | `payload` | <code>BatchInputPublicAssociationDefinitionConfigurationCreateRequest</code> | Yes | Batch of configuration create requests, each with `typeId`, `category`, and `maxToObjectIds`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom HTTP headers. |
 
-**Returns:** `BatchResponsePublicAssociationDefinitionUserConfiguration|BatchResponsePublicAssociationDefinitionUserConfigurationWithErrors|error`
+Returns: `BatchResponsePublicAssociationDefinitionUserConfiguration|BatchResponsePublicAssociationDefinitionUserConfigurationWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsschema:BatchInputPublicAssociationDefinitionConfigurationCreateRequest payload = {
@@ -361,7 +362,7 @@ hsschema:BatchResponsePublicAssociationDefinitionUserConfiguration|
     check hubspot->/definitions/configurations/["contacts"]/["contacts"]/batch/create(payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -387,11 +388,11 @@ hsschema:BatchResponsePublicAssociationDefinitionUserConfiguration|
 
 <div>
 
-**Signature:** `post definitions/configurations/[string fromObjectType]/[string toObjectType]/batch/update`
+Signature: `post definitions/configurations/[string fromObjectType]/[string toObjectType]/batch/update`
 
 Updates multiple association configurations in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -400,9 +401,9 @@ Updates multiple association configurations in a single batch request.
 | `payload` | <code>BatchInputPublicAssociationDefinitionConfigurationUpdateRequest</code> | Yes | Batch of configuration update requests, each with `typeId`, `category`, and `maxToObjectIds`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom HTTP headers. |
 
-**Returns:** `BatchResponsePublicAssociationDefinitionConfigurationUpdateResult|BatchResponsePublicAssociationDefinitionConfigurationUpdateResultWithErrors|error`
+Returns: `BatchResponsePublicAssociationDefinitionConfigurationUpdateResult|BatchResponsePublicAssociationDefinitionConfigurationUpdateResultWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsschema:BatchInputPublicAssociationDefinitionConfigurationUpdateRequest payload = {
@@ -420,7 +421,7 @@ hsschema:BatchResponsePublicAssociationDefinitionConfigurationUpdateResult|
     check hubspot->/definitions/configurations/["contacts"]/["contacts"]/batch/update(payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -446,11 +447,11 @@ hsschema:BatchResponsePublicAssociationDefinitionConfigurationUpdateResult|
 
 <div>
 
-**Signature:** `post definitions/configurations/[string fromObjectType]/[string toObjectType]/batch/purge`
+Signature: `post definitions/configurations/[string fromObjectType]/[string toObjectType]/batch/purge`
 
 Deletes multiple association configurations in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -459,9 +460,9 @@ Deletes multiple association configurations in a single batch request.
 | `payload` | <code>BatchInputPublicAssociationSpec</code> | Yes | Batch of association specs to delete, each with `typeId` and `category`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional custom HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsschema:BatchInputPublicAssociationSpec payload = {

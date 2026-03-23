@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Manage HubSpot custom object schemas, their properties, and inter-object associa
 | `validation` | <code>boolean</code> | `true` | Enables inbound payload validation via the constraint package. |
 | `laxDataBinding` | <code>boolean</code> | `true` | When enabled, nil values are treated as optional and absent fields as nilable types. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -51,33 +52,33 @@ schemas:Client hubSpotClient = check new ({
 
 ### Operations
 
-#### Schema Operations
+#### Schema operations
 
 <details>
 <summary>Get all schemas</summary>
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieves all custom object schemas defined in the HubSpot portal. Pass `archived=true` to include archived schemas.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | <code>GetCrmObjectSchemasV3SchemasGetAllQueries</code> | No | Optional query parameters. Set `archived` to `true` to include archived schemas (default: `false`). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Additional HTTP headers to send with the request. |
 
-**Returns:** `CollectionResponseObjectSchemaNoPaging|error`
+Returns: `CollectionResponseObjectSchemaNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 schemas:CollectionResponseObjectSchemaNoPaging allSchemas = check hubSpotClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -109,20 +110,20 @@ schemas:CollectionResponseObjectSchemaNoPaging allSchemas = check hubSpotClient-
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new custom object schema in HubSpot with the provided properties, labels, and association configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>ObjectSchemaEgg</code> | Yes | The object schema definition including name, labels, properties, required fields, and associated objects. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Additional HTTP headers to send with the request. |
 
-**Returns:** `ObjectSchema|error`
+Returns: `ObjectSchema|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 schemas:ObjectSchemaEgg authorSchemaPayload = {
@@ -144,7 +145,7 @@ schemas:ObjectSchemaEgg authorSchemaPayload = {
 schemas:ObjectSchema authorSchemaResponse = check hubSpotClient->/.post(authorSchemaPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -176,26 +177,26 @@ schemas:ObjectSchema authorSchemaResponse = check hubSpotClient->/.post(authorSc
 
 <div>
 
-**Signature:** `get /[objectType]`
+Signature: `get /[objectType]`
 
 Retrieves a specific custom object schema by its fully qualified name or object type ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The fully qualified name (e.g., `p123456_author`) or object type ID (e.g., `2-3456789`) of the schema. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Additional HTTP headers to send with the request. |
 
-**Returns:** `ObjectSchema|error`
+Returns: `ObjectSchema|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 schemas:ObjectSchema productSchema = check hubSpotClient->/["test123"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -227,11 +228,11 @@ schemas:ObjectSchema productSchema = check hubSpotClient->/["test123"].get();
 
 <div>
 
-**Signature:** `patch /[objectType]`
+Signature: `patch /[objectType]`
 
 Updates attributes of an existing custom object schema such as labels, primary/secondary display properties, required fields, and searchability.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -239,9 +240,9 @@ Updates attributes of an existing custom object schema such as labels, primary/s
 | `payload` | <code>ObjectTypeDefinitionPatch</code> | Yes | The attributes to update on the schema definition. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Additional HTTP headers to send with the request. |
 
-**Returns:** `ObjectTypeDefinition|error`
+Returns: `ObjectTypeDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 schemas:ObjectTypeDefinitionPatch productSchemaPayload = {
@@ -256,7 +257,7 @@ schemas:ObjectTypeDefinitionPatch productSchemaPayload = {
 schemas:ObjectTypeDefinition updatedSchema = check hubSpotClient->/["test123"].patch(productSchemaPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -284,11 +285,11 @@ schemas:ObjectTypeDefinition updatedSchema = check hubSpotClient->/["test123"].p
 
 <div>
 
-**Signature:** `delete /[objectType]`
+Signature: `delete /[objectType]`
 
 Archives (soft-deletes) a custom object schema. Pass `archived=true` in the query to hard-delete a previously archived schema.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -296,9 +297,9 @@ Archives (soft-deletes) a custom object schema. Pass `archived=true` in the quer
 | `queries` | <code>DeleteCrmObjectSchemasV3SchemasObjectTypeArchiveQueries</code> | No | Query parameters. Set `archived` to `true` to permanently delete an already-archived schema. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Additional HTTP headers to send with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubSpotClient->/["author"].delete();
@@ -308,18 +309,18 @@ check hubSpotClient->/["author"].delete();
 
 </details>
 
-#### Association Operations
+#### Association operations
 
 <details>
 <summary>Create an association</summary>
 
 <div>
 
-**Signature:** `post /[objectType]/associations`
+Signature: `post /[objectType]/associations`
 
 Creates a new association definition between two custom object types, linking a source object type to a target object type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -327,9 +328,9 @@ Creates a new association definition between two custom object types, linking a 
 | `payload` | <code>AssociationDefinitionEgg</code> | Yes | Association definition including the from/to object type IDs and an optional name. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Additional HTTP headers to send with the request. |
 
-**Returns:** `AssociationDefinition|error`
+Returns: `AssociationDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 schemas:AssociationDefinitionEgg associationPayload = {
@@ -341,7 +342,7 @@ schemas:AssociationDefinitionEgg associationPayload = {
 schemas:AssociationDefinition association = check hubSpotClient->/book/associations.post(associationPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -363,11 +364,11 @@ schemas:AssociationDefinition association = check hubSpotClient->/book/associati
 
 <div>
 
-**Signature:** `delete /[objectType]/associations/[associationIdentifier]`
+Signature: `delete /[objectType]/associations/[associationIdentifier]`
 
 Removes a specific association definition from a custom object schema by its association ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -375,9 +376,9 @@ Removes a specific association definition from a custom object schema by its ass
 | `associationIdentifier` | <code>string</code> | Yes | The unique ID of the association definition to remove. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Additional HTTP headers to send with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubSpotClient->/["author"]/associations/["book_to_author"].delete();

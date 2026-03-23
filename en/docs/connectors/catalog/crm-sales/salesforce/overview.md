@@ -1,9 +1,12 @@
+---
+title: Salesforce Connector Overview
+---
 # Salesforce Connector Overview
 
 Salesforce is a cloud-based CRM platform that provides tools for sales, service, marketing, and more. The Ballerina `ballerinax/salesforce` connector (v8.3.0) provides programmatic access to Salesforce through the REST API, Bulk API, SOAP API, and Change Data Capture events, enabling you to integrate Salesforce data into your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on Salesforce records (sObjects) using record IDs and external IDs
 - SOQL query and SOSL search support for flexible data retrieval
@@ -44,7 +47,7 @@ Supported trigger events:
 
 See the **[Trigger Reference](trigger-reference.md)** for listener configuration, service callbacks, and the `EventData` payload structure.
 
-## Salesforce Connector Documentation
+## Salesforce connector documentation
 
 * **[Salesforce Connector Setup Guide](setup-guide.md)**: This guide walks you through creating a Salesforce Connected App and obtaining the OAuth 2.0 credentials required to use the Salesforce connector.
 
@@ -53,7 +56,7 @@ See the **[Trigger Reference](trigger-reference.md)** for listener configuration
 
 * **[Trigger Reference](trigger-reference.md)**: Reference for event-driven integration using the listener and service model.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

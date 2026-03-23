@@ -1,3 +1,6 @@
+---
+title: Actions
+---
 # Actions
 
 The `ballerinax/peoplehr` package exposes the following clients:
@@ -24,7 +27,7 @@ Provides access to the People HR REST API for managing employees, holidays, sala
 | `secureSocket` | `ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `proxy` | `ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/peoplehr;
@@ -39,22 +42,22 @@ peoplehr:Client peoplehrClient = check new ({
 
 ### Operations
 
-#### Employee Management
+#### Employee management
 
 <details>
 <summary>createNewEmployee</summary>
 
 Creates a new employee record in People HR.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `NewEmployeeRequest|json` | Yes | Details of the new employee to create. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->createNewEmployee({
@@ -69,7 +72,7 @@ peoplehr:OperationStatus result = check peoplehrClient->createNewEmployee({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The new employee has been added successfully.", "Result": null}
@@ -82,15 +85,15 @@ peoplehr:OperationStatus result = check peoplehrClient->createNewEmployee({
 
 Retrieves employee details by employee ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `EmployeeRequest` | Yes | Request containing the employee ID. |
 
-**Returns:** `EmployeeResponse|error`
+Returns: `EmployeeResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:EmployeeResponse result = check peoplehrClient->getEmployeeById({
@@ -98,7 +101,7 @@ peoplehr:EmployeeResponse result = check peoplehrClient->getEmployeeById({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -125,15 +128,15 @@ peoplehr:EmployeeResponse result = check peoplehrClient->getEmployeeById({
 
 Retrieves all employee records, optionally including leavers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AllEmployeesRequest` | Yes | Request with option to include leavers. |
 
-**Returns:** `EmployeesResponse|error`
+Returns: `EmployeesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:EmployeesResponse result = check peoplehrClient->getAllEmployees({
@@ -141,7 +144,7 @@ peoplehr:EmployeesResponse result = check peoplehrClient->getAllEmployees({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -172,15 +175,15 @@ peoplehr:EmployeesResponse result = check peoplehrClient->getAllEmployees({
 
 Updates an existing employee's details.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `EmployeeUpdateRequest|json` | Yes | Updated employee details including employee ID and reason for change. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->updateEmployee({
@@ -190,7 +193,7 @@ peoplehr:OperationStatus result = check peoplehrClient->updateEmployee({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The employee detail has been updated successfully.", "Result": null}
@@ -203,15 +206,15 @@ peoplehr:OperationStatus result = check peoplehrClient->updateEmployee({
 
 Updates an employee's ID to a new value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `EmployeeIdUpdateRequest` | Yes | Old employee ID, new employee ID, and reason for change. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->updateEmployeeId({
@@ -221,7 +224,7 @@ peoplehr:OperationStatus result = check peoplehrClient->updateEmployeeId({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The employee id has been updated successfully.", "Result": null}
@@ -234,15 +237,15 @@ peoplehr:OperationStatus result = check peoplehrClient->updateEmployeeId({
 
 Marks an employee as a leaver by their employee ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `EmployeeLeaverStatus` | Yes | Leaver details including employee ID, reason, and final employment date. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->markAsLeaverById({
@@ -252,7 +255,7 @@ peoplehr:OperationStatus result = check peoplehrClient->markAsLeaverById({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The employee has been marked as leaver successfully.", "Result": null}
@@ -267,15 +270,15 @@ peoplehr:OperationStatus result = check peoplehrClient->markAsLeaverById({
 
 Retrieves salary details for a specific employee, optionally including salary history.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SalaryDetailRequest` | Yes | Request containing employee ID and whether to include history. |
 
-**Returns:** `SalaryDetailGetResponse|error`
+Returns: `SalaryDetailGetResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:SalaryDetailGetResponse result = check peoplehrClient->getSalaryDetail({
@@ -284,7 +287,7 @@ peoplehr:SalaryDetailGetResponse result = check peoplehrClient->getSalaryDetail(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -307,22 +310,22 @@ peoplehr:SalaryDetailGetResponse result = check peoplehrClient->getSalaryDetail(
 
 </details>
 
-#### Holiday Management
+#### Holiday management
 
 <details>
 <summary>addNewHoliday</summary>
 
 Adds a new holiday record for an employee.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `NewHolidayRequest|json` | Yes | Holiday details including employee ID, dates, and duration. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->addNewHoliday({
@@ -335,7 +338,7 @@ peoplehr:OperationStatus result = check peoplehrClient->addNewHoliday({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The new holiday has been added successfully.", "Result": null}
@@ -348,15 +351,15 @@ peoplehr:OperationStatus result = check peoplehrClient->addNewHoliday({
 
 Retrieves holiday details for a specific employee, optionally filtered by date range.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `HolidayDetail` | Yes | Request containing employee ID and optional date range. |
 
-**Returns:** `HolidayGetResponse|error`
+Returns: `HolidayGetResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:HolidayGetResponse result = check peoplehrClient->getHolidayDetail({
@@ -366,7 +369,7 @@ peoplehr:HolidayGetResponse result = check peoplehrClient->getHolidayDetail({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -393,15 +396,15 @@ peoplehr:HolidayGetResponse result = check peoplehrClient->getHolidayDetail({
 
 Deletes a holiday record for a specific employee.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `HolidayDetail` | Yes | Request containing employee ID and date details of the holiday to delete. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->deleteHoliday({
@@ -411,7 +414,7 @@ peoplehr:OperationStatus result = check peoplehrClient->deleteHoliday({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The holiday has been deleted successfully.", "Result": null}
@@ -419,22 +422,22 @@ peoplehr:OperationStatus result = check peoplehrClient->deleteHoliday({
 
 </details>
 
-#### Vacancy & Applicant Management
+#### Vacancy & applicant management
 
 <details>
 <summary>createNewVacancy</summary>
 
 Creates a new vacancy in People HR.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `NewVacancy` | Yes | Vacancy details including name, description, location, and department. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->createNewVacancy({
@@ -449,7 +452,7 @@ peoplehr:OperationStatus result = check peoplehrClient->createNewVacancy({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The new vacancy has been created successfully.", "Result": null}
@@ -462,15 +465,15 @@ peoplehr:OperationStatus result = check peoplehrClient->createNewVacancy({
 
 Retrieves details of a specific vacancy by its reference.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `GetVacancyResultRequest|json` | Yes | Request containing the vacancy reference. |
 
-**Returns:** `VacancyGetResponse|error`
+Returns: `VacancyGetResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:VacancyGetResponse result = check peoplehrClient->getVacancy({
@@ -478,7 +481,7 @@ peoplehr:VacancyGetResponse result = check peoplehrClient->getVacancy({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -506,20 +509,20 @@ peoplehr:VacancyGetResponse result = check peoplehrClient->getVacancy({
 
 Retrieves all vacancies in the system.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `AllVacancies|error`
+Returns: `AllVacancies|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:AllVacancies result = check peoplehrClient->getAllVacancies();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -546,15 +549,15 @@ peoplehr:AllVacancies result = check peoplehrClient->getAllVacancies();
 
 Creates a new applicant for a vacancy.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `NewApplicant` | Yes | Applicant details including name, vacancy reference, and documents. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->createNewApplicant({
@@ -567,7 +570,7 @@ peoplehr:OperationStatus result = check peoplehrClient->createNewApplicant({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The new applicant has been created successfully.", "Result": null}
@@ -580,15 +583,15 @@ peoplehr:OperationStatus result = check peoplehrClient->createNewApplicant({
 
 Uploads a document for an applicant.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `NewDocument` | Yes | Document details including applicant ID, document name, description, and base64-encoded file content. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->uploadApplicantDocument({
@@ -599,7 +602,7 @@ peoplehr:OperationStatus result = check peoplehrClient->uploadApplicantDocument(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The document has been uploaded successfully.", "Result": null}
@@ -612,15 +615,15 @@ peoplehr:OperationStatus result = check peoplehrClient->uploadApplicantDocument(
 
 Checks whether a duplicate applicant exists for a given vacancy.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ApplicantInformation` | Yes | Applicant information including first name, last name, and vacancy reference. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->checkDuplicateApplicant({
@@ -631,7 +634,7 @@ peoplehr:OperationStatus result = check peoplehrClient->checkDuplicateApplicant(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "No duplicate applicant found.", "Result": null}
@@ -646,15 +649,15 @@ peoplehr:OperationStatus result = check peoplehrClient->checkDuplicateApplicant(
 
 Executes a saved query by name and returns the results.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `QueryResultGetRequest` | Yes | Request containing the query name. |
 
-**Returns:** `QueryDetail|error`
+Returns: `QueryDetail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:QueryDetail result = check peoplehrClient->getQueryByName({
@@ -662,7 +665,7 @@ peoplehr:QueryDetail result = check peoplehrClient->getQueryByName({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -685,15 +688,15 @@ peoplehr:QueryDetail result = check peoplehrClient->getQueryByName({
 
 Validates whether the provided user credentials are correct.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AuthenticationInfo` | Yes | User email address and password to verify. |
 
-**Returns:** `AuthenticationResponse|error`
+Returns: `AuthenticationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:AuthenticationResponse result = check peoplehrClient->checkAuthentication({
@@ -702,7 +705,7 @@ peoplehr:AuthenticationResponse result = check peoplehrClient->checkAuthenticati
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -715,27 +718,27 @@ peoplehr:AuthenticationResponse result = check peoplehrClient->checkAuthenticati
 
 </details>
 
-#### Custom Screens
+#### Custom screens
 
 <details>
 <summary>getEmployeeScreenDetail</summary>
 
 Retrieves all employee custom screen details.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `EmployeeScreenDetailResponse|error`
+Returns: `EmployeeScreenDetailResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:EmployeeScreenDetailResponse result = check peoplehrClient->getEmployeeScreenDetail();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -760,15 +763,15 @@ peoplehr:EmployeeScreenDetailResponse result = check peoplehrClient->getEmployee
 
 Retrieves employee custom screen details filtered by employee ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ScreenDetailByEmployeeIDRequest` | Yes | Request containing employee ID and screen ID. |
 
-**Returns:** `EmployeeScreenDetailResponse|error`
+Returns: `EmployeeScreenDetailResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:EmployeeScreenDetailResponse result = check peoplehrClient->getEmployeeScreenDetailByEmployeeID({
@@ -777,7 +780,7 @@ peoplehr:EmployeeScreenDetailResponse result = check peoplehrClient->getEmployee
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -802,15 +805,15 @@ peoplehr:EmployeeScreenDetailResponse result = check peoplehrClient->getEmployee
 
 Retrieves employee custom screen details filtered by transaction ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ScreenDetailByTransactionIDRequest` | Yes | Request containing employee ID, screen ID, and transaction ID. |
 
-**Returns:** `EmployeeScreenDetailResponse|error`
+Returns: `EmployeeScreenDetailResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:EmployeeScreenDetailResponse result = check peoplehrClient->getEmployeeScreenDetailByTransactionID({
@@ -820,7 +823,7 @@ peoplehr:EmployeeScreenDetailResponse result = check peoplehrClient->getEmployee
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -845,15 +848,15 @@ peoplehr:EmployeeScreenDetailResponse result = check peoplehrClient->getEmployee
 
 Adds a new custom screen transaction for an employee.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `NewCustomScreenTransactionDetails` | Yes | New custom screen transaction details including employee ID, screen ID, and custom columns. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->addNewCustomScreenTransaction({
@@ -867,7 +870,7 @@ peoplehr:OperationStatus result = check peoplehrClient->addNewCustomScreenTransa
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The custom screen transaction has been added successfully.", "Result": null}
@@ -880,15 +883,15 @@ peoplehr:OperationStatus result = check peoplehrClient->addNewCustomScreenTransa
 
 Updates an existing custom screen transaction.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExistingCustomScreenTransactionDetails` | Yes | Updated custom screen transaction details including transaction ID. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->updateCustomScreenTransaction({
@@ -902,7 +905,7 @@ peoplehr:OperationStatus result = check peoplehrClient->updateCustomScreenTransa
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The custom screen transaction has been updated successfully.", "Result": null}
@@ -915,15 +918,15 @@ peoplehr:OperationStatus result = check peoplehrClient->updateCustomScreenTransa
 
 Deletes a custom screen transaction by transaction ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ScreenDetailByTransactionIDRequest` | Yes | Request containing employee ID, screen ID, and transaction ID. |
 
-**Returns:** `OperationStatus|error`
+Returns: `OperationStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:OperationStatus result = check peoplehrClient->DeleteCustomScreenTransaction({
@@ -933,7 +936,7 @@ peoplehr:OperationStatus result = check peoplehrClient->DeleteCustomScreenTransa
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"isError": false, "Status": 0, "Message": "The custom screen transaction has been deleted successfully.", "Result": null}
@@ -948,15 +951,15 @@ peoplehr:OperationStatus result = check peoplehrClient->DeleteCustomScreenTransa
 
 Retrieves appraisal details for a specific employee within a date range.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AppraisalDetailsRequest` | Yes | Request containing employee ID and date range. |
 
-**Returns:** `AppraisalDetailsResponse|error`
+Returns: `AppraisalDetailsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:AppraisalDetailsResponse result = check peoplehrClient->getAppraisalDetailsByEmployeeID({
@@ -966,7 +969,7 @@ peoplehr:AppraisalDetailsResponse result = check peoplehrClient->getAppraisalDet
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -993,15 +996,15 @@ peoplehr:AppraisalDetailsResponse result = check peoplehrClient->getAppraisalDet
 
 Retrieves appraisal details by a specific appraisal ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AppraisalDetailsByAppraisalIDRequest` | Yes | Request containing employee ID and appraisal ID. |
 
-**Returns:** `AppraisalDetailsResponse|error`
+Returns: `AppraisalDetailsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 peoplehr:AppraisalDetailsResponse result = check peoplehrClient->getAppraisalDetailsByAppraisalID({
@@ -1010,7 +1013,7 @@ peoplehr:AppraisalDetailsResponse result = check peoplehrClient->getAppraisalDet
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

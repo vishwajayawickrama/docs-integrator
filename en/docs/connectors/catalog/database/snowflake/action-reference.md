@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -31,7 +32,7 @@ Executes SQL queries, DML/DDL statements, batch operations, and stored procedure
 | `options` | `Options?` | `()` | Additional JDBC datasource options. |
 | `connectionPool` | `sql:ConnectionPool?` | `()` | Connection pool configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/snowflake;
@@ -48,7 +49,7 @@ snowflake:Client snowflakeClient = check new (accountIdentifier, user, password,
 
 ### Operations
 
-#### Query Operations
+#### Query operations
 
 <details>
 <summary>query</summary>
@@ -57,16 +58,16 @@ snowflake:Client snowflakeClient = check new (accountIdentifier, user, password,
 
 Executes a SQL query and returns the results as a stream of records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query to execute. |
 | `rowType` | `typedesc<record {}>` | No | Expected return record type for each row. |
 
-**Returns:** `stream<rowType, sql:Error?>`
+Returns: `stream<rowType, sql:Error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Employee record {
@@ -83,7 +84,7 @@ stream<Employee, sql:Error?> employees = snowflakeClient->query(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -103,16 +104,16 @@ stream<Employee, sql:Error?> employees = snowflakeClient->query(
 
 Executes a SQL query that returns at most one row.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query to execute. |
 | `returnType` | `typedesc<anydata>` | No | Expected return type. |
 
-**Returns:** `returnType|sql:Error`
+Returns: `returnType|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Employee record {
@@ -130,7 +131,7 @@ Employee employee = check snowflakeClient->queryRow(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"employee_id": 1, "first_name": "John", "last_name": "Smith", "email": "john.smith@example.com", "phone": "555-1234", "job_title": "Software Engineer"}
@@ -140,7 +141,7 @@ Employee employee = check snowflakeClient->queryRow(
 
 </details>
 
-#### DML & DDL Operations
+#### DML & DDL operations
 
 <details>
 <summary>execute</summary>
@@ -149,15 +150,15 @@ Employee employee = check snowflakeClient->queryRow(
 
 Executes a DDL or DML SQL statement and returns execution metadata.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL statement to execute. |
 
-**Returns:** `sql:ExecutionResult|sql:Error`
+Returns: `sql:ExecutionResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ExecutionResult result = check snowflakeClient->execute(
@@ -166,7 +167,7 @@ sql:ExecutionResult result = check snowflakeClient->execute(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"affectedRowCount": 1, "lastInsertId": null}
@@ -183,15 +184,15 @@ sql:ExecutionResult result = check snowflakeClient->execute(
 
 Executes multiple parameterized SQL statements in a single batch.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQueries` | `sql:ParameterizedQuery[]` | Yes | Array of parameterized SQL statements. |
 
-**Returns:** `sql:ExecutionResult[]|sql:Error`
+Returns: `sql:ExecutionResult[]|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ParameterizedQuery[] insertQueries = [
@@ -204,7 +205,7 @@ sql:ParameterizedQuery[] insertQueries = [
 sql:ExecutionResult[] results = check snowflakeClient->batchExecute(insertQueries);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -217,7 +218,7 @@ sql:ExecutionResult[] results = check snowflakeClient->batchExecute(insertQuerie
 
 </details>
 
-#### Stored Procedures
+#### Stored procedures
 
 <details>
 <summary>call</summary>
@@ -226,16 +227,16 @@ sql:ExecutionResult[] results = check snowflakeClient->batchExecute(insertQuerie
 
 Invokes a stored procedure, optionally returning result sets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedCallQuery` | Yes | The stored procedure call query. |
 | `rowTypes` | `typedesc<record {}>[]` | No | Expected record types for result sets. |
 
-**Returns:** `sql:ProcedureCallResult|sql:Error`
+Returns: `sql:ProcedureCallResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ProcedureCallResult result = check snowflakeClient->call(
@@ -243,7 +244,7 @@ sql:ProcedureCallResult result = check snowflakeClient->call(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"executionResult": {"affectedRowCount": -1, "lastInsertId": null}, "queryResult": null}
@@ -253,7 +254,7 @@ sql:ProcedureCallResult result = check snowflakeClient->call(
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
@@ -263,9 +264,9 @@ sql:ProcedureCallResult result = check snowflakeClient->call(
 Closes the client connection and releases the connection pool resources.
 
 
-**Returns:** `sql:Error?`
+Returns: `sql:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snowflakeClient.close();
@@ -277,7 +278,7 @@ check snowflakeClient.close();
 
 ---
 
-## Advanced Client
+## Advanced client
 
 Executes SQL operations with support for both basic and key-pair authentication.
 
@@ -290,7 +291,7 @@ Executes SQL operations with support for both basic and key-pair authentication.
 | `options` | `Options?` | `()` | Additional JDBC datasource options. |
 | `connectionPool` | `sql:ConnectionPool?` | `()` | Connection pool configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/snowflake;
@@ -312,7 +313,7 @@ snowflake:AdvancedClient snowflakeClient = check new (accountIdentifier, {
 
 ### Operations
 
-#### Query Operations
+#### Query operations
 
 <details>
 <summary>query</summary>
@@ -321,16 +322,16 @@ snowflake:AdvancedClient snowflakeClient = check new (accountIdentifier, {
 
 Executes a SQL query and returns the results as a stream of records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query to execute. |
 | `rowType` | `typedesc<record {}>` | No | Expected return record type for each row. |
 
-**Returns:** `stream<rowType, sql:Error?>`
+Returns: `stream<rowType, sql:Error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Employee record {
@@ -345,7 +346,7 @@ stream<Employee, sql:Error?> employees = snowflakeClient->query(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -364,16 +365,16 @@ stream<Employee, sql:Error?> employees = snowflakeClient->query(
 
 Executes a SQL query that returns at most one row.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query to execute. |
 | `returnType` | `typedesc<anydata>` | No | Expected return type. |
 
-**Returns:** `returnType|sql:Error`
+Returns: `returnType|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check snowflakeClient->queryRow(
@@ -381,7 +382,7 @@ int count = check snowflakeClient->queryRow(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 5
@@ -391,7 +392,7 @@ int count = check snowflakeClient->queryRow(
 
 </details>
 
-#### DML & DDL Operations
+#### DML & DDL operations
 
 <details>
 <summary>execute</summary>
@@ -400,15 +401,15 @@ int count = check snowflakeClient->queryRow(
 
 Executes a DDL or DML SQL statement and returns execution metadata.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL statement to execute. |
 
-**Returns:** `sql:ExecutionResult|sql:Error`
+Returns: `sql:ExecutionResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int id = 3;
@@ -418,7 +419,7 @@ sql:ExecutionResult result = check snowflakeClient->execute(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"affectedRowCount": 1, "lastInsertId": null}
@@ -435,15 +436,15 @@ sql:ExecutionResult result = check snowflakeClient->execute(
 
 Executes multiple parameterized SQL statements in a single batch.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQueries` | `sql:ParameterizedQuery[]` | Yes | Array of parameterized SQL statements. |
 
-**Returns:** `sql:ExecutionResult[]|sql:Error`
+Returns: `sql:ExecutionResult[]|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int[] idsToDelete = [7, 8];
@@ -453,7 +454,7 @@ sql:ParameterizedQuery[] deleteQueries = from int id in idsToDelete
 sql:ExecutionResult[] results = check snowflakeClient->batchExecute(deleteQueries);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -466,7 +467,7 @@ sql:ExecutionResult[] results = check snowflakeClient->batchExecute(deleteQuerie
 
 </details>
 
-#### Stored Procedures
+#### Stored procedures
 
 <details>
 <summary>call</summary>
@@ -475,16 +476,16 @@ sql:ExecutionResult[] results = check snowflakeClient->batchExecute(deleteQuerie
 
 Invokes a stored procedure, optionally returning result sets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedCallQuery` | Yes | The stored procedure call query. |
 | `rowTypes` | `typedesc<record {}>[]` | No | Expected record types for result sets. |
 
-**Returns:** `sql:ProcedureCallResult|sql:Error`
+Returns: `sql:ProcedureCallResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ProcedureCallResult result = check snowflakeClient->call(
@@ -492,7 +493,7 @@ sql:ProcedureCallResult result = check snowflakeClient->call(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"executionResult": {"affectedRowCount": -1, "lastInsertId": null}, "queryResult": null}
@@ -502,7 +503,7 @@ sql:ProcedureCallResult result = check snowflakeClient->call(
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
@@ -512,9 +513,9 @@ sql:ProcedureCallResult result = check snowflakeClient->call(
 Closes the client connection and releases the connection pool resources.
 
 
-**Returns:** `sql:Error?`
+Returns: `sql:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check snowflakeClient.close();

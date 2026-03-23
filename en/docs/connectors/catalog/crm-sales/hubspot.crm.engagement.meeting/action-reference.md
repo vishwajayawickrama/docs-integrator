@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ HubSpot Meetings API v3 — meeting CRUD, batch operations, and search.
 | `compression` | `http:Compression` | `http:COMPRESSION_AUTO` | Content compression setting. |
 | `validation` | `boolean` | `true` | Enable or disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.engagement.meeting as hsmeetings;
@@ -60,23 +61,23 @@ hsmeetings:Client meetingsClient = check new ({
 
 Retrieves a paginated list of meeting engagements with optional property and association filters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetCrmV3ObjectsMeetingsGetPageQueries` | No | Query parameters including `limit`, `after`, `properties`, `associations`, and `archived`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmeetings:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
     check meetingsClient->/.get(queries = {'limit: 10, properties: ["hs_meeting_title", "hs_meeting_start_time"]});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -115,16 +116,16 @@ hsmeetings:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging res
 
 Creates a new meeting engagement with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SimplePublicObjectInputForCreate` | Yes | Meeting properties and associations. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmeetings:SimplePublicObject meeting = check meetingsClient->/.post({
@@ -153,7 +154,7 @@ hsmeetings:SimplePublicObject meeting = check meetingsClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -187,7 +188,7 @@ hsmeetings:SimplePublicObject meeting = check meetingsClient->/.post({
 
 Retrieves a single meeting engagement by its ID, with optional property and association expansion.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -195,16 +196,16 @@ Retrieves a single meeting engagement by its ID, with optional property and asso
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetCrmV3ObjectsMeetingsMeetingIdGetByIdQueries` | No | Query parameters including `properties`, `associations`, and `archived`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmeetings:SimplePublicObjectWithAssociations meeting =
     check meetingsClient->/[meetingId].get(queries = {properties: ["hs_meeting_title", "hs_meeting_start_time"]});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -233,7 +234,7 @@ hsmeetings:SimplePublicObjectWithAssociations meeting =
 
 Updates properties of an existing meeting engagement.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -242,9 +243,9 @@ Updates properties of an existing meeting engagement.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `PatchCrmV3ObjectsMeetingsMeetingIdUpdateQueries` | No | Query parameters including optional `idProperty`. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmeetings:SimplePublicObject updated = check meetingsClient->/[meetingId].patch({
@@ -255,7 +256,7 @@ hsmeetings:SimplePublicObject updated = check meetingsClient->/[meetingId].patch
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -284,16 +285,16 @@ hsmeetings:SimplePublicObject updated = check meetingsClient->/[meetingId].patch
 
 Archives (soft-deletes) a meeting engagement by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `meetingId` | `string` | Yes | The HubSpot meeting ID. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check meetingsClient->/[meetingId].delete();
@@ -303,7 +304,7 @@ check meetingsClient->/[meetingId].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Batch create meetings</summary>
@@ -312,16 +313,16 @@ check meetingsClient->/[meetingId].delete();
 
 Creates multiple meeting engagements in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectInputForCreate` | Yes | Array of meeting inputs with properties and associations. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmeetings:BatchResponseSimplePublicObject|hsmeetings:BatchResponseSimplePublicObjectWithErrors response =
@@ -349,7 +350,7 @@ hsmeetings:BatchResponseSimplePublicObject|hsmeetings:BatchResponseSimplePublicO
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -394,7 +395,7 @@ hsmeetings:BatchResponseSimplePublicObject|hsmeetings:BatchResponseSimplePublicO
 
 Reads multiple meeting engagements by their IDs in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -402,9 +403,9 @@ Reads multiple meeting engagements by their IDs in a single request.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `PostCrmV3ObjectsMeetingsBatchReadReadQueries` | No | Query parameters including `archived`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmeetings:BatchResponseSimplePublicObject|hsmeetings:BatchResponseSimplePublicObjectWithErrors response =
@@ -415,7 +416,7 @@ hsmeetings:BatchResponseSimplePublicObject|hsmeetings:BatchResponseSimplePublicO
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -448,16 +449,16 @@ hsmeetings:BatchResponseSimplePublicObject|hsmeetings:BatchResponseSimplePublicO
 
 Updates properties of multiple meeting engagements in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInput` | Yes | Array of meeting IDs and properties to update. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmeetings:BatchResponseSimplePublicObject|hsmeetings:BatchResponseSimplePublicObjectWithErrors response =
@@ -479,7 +480,7 @@ hsmeetings:BatchResponseSimplePublicObject|hsmeetings:BatchResponseSimplePublicO
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -511,16 +512,16 @@ hsmeetings:BatchResponseSimplePublicObject|hsmeetings:BatchResponseSimplePublicO
 
 Archives (soft-deletes) multiple meeting engagements in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectId` | Yes | Array of meeting IDs to archive. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check meetingsClient->/batch/archive.post({
@@ -539,16 +540,16 @@ check meetingsClient->/batch/archive.post({
 
 Creates or updates multiple meeting engagements in a single request based on a unique identifier.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInputUpsert` | Yes | Array of meeting inputs with IDs and properties for upsert. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmeetings:BatchResponseSimplePublicUpsertObject|hsmeetings:BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -566,7 +567,7 @@ hsmeetings:BatchResponseSimplePublicUpsertObject|hsmeetings:BatchResponseSimpleP
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -603,16 +604,16 @@ hsmeetings:BatchResponseSimplePublicUpsertObject|hsmeetings:BatchResponseSimpleP
 
 Searches meeting engagements using filters, query strings, and sorting criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicObjectSearchRequest` | Yes | Search request with filters, query, sorts, properties, and pagination. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmeetings:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -633,7 +634,7 @@ hsmeetings:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

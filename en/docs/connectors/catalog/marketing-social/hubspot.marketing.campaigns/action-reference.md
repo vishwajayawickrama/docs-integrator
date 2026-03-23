@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Manage HubSpot marketing campaigns — CRUD, batch operations, asset association
 | `circuitBreaker` | <code>http:CircuitBreakerConfig</code> | `()` | Circuit breaker configuration for fault tolerance. |
 | `validation` | <code>boolean</code> | `true` | Enable or disable constraint validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.marketing.campaigns;
@@ -56,27 +57,27 @@ campaigns:Client campaignsClient = check new ({
 
 <div>
 
-**Signature:** `get .`
+Signature: `get .`
 
 Searches for campaigns with optional filtering by name, sorting, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 | `queries` | <code>GetMarketingV3CampaignsQueries</code> | No | Query parameters — `limit` (default 50), `name`, `sort` (default `hs_name`), `after`, `properties`. |
 
-**Returns:** `CollectionResponseWithTotalPublicCampaignForwardPaging|error`
+Returns: `CollectionResponseWithTotalPublicCampaignForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:CollectionResponseWithTotalPublicCampaignForwardPaging results =
     check campaignsClient->/.();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -118,20 +119,20 @@ campaigns:CollectionResponseWithTotalPublicCampaignForwardPaging results =
 
 <div>
 
-**Signature:** `post .`
+Signature: `post .`
 
 Creates a new marketing campaign with the specified properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicCampaignInput</code> | Yes | Campaign properties (e.g., `hs_name`, `hs_goal`, `hs_start_date`, `hs_end_date`). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 
-**Returns:** `PublicCampaign|error`
+Returns: `PublicCampaign|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:PublicCampaign campaign = check campaignsClient->/.post({
@@ -144,7 +145,7 @@ campaigns:PublicCampaign campaign = check campaignsClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -169,11 +170,11 @@ campaigns:PublicCampaign campaign = check campaignsClient->/.post({
 
 <div>
 
-**Signature:** `get [string campaignGuid]`
+Signature: `get [string campaignGuid]`
 
 Retrieves a single campaign by its GUID, optionally including associated assets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -181,16 +182,16 @@ Retrieves a single campaign by its GUID, optionally including associated assets.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 | `queries` | <code>GetMarketingV3CampaignsCampaignGuidQueries</code> | No | Query parameters — `startDate`, `endDate`, `properties`. |
 
-**Returns:** `PublicCampaignWithAssets|error`
+Returns: `PublicCampaignWithAssets|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:PublicCampaignWithAssets campaign =
     check campaignsClient->/["campaignGuid"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -214,11 +215,11 @@ campaigns:PublicCampaignWithAssets campaign =
 
 <div>
 
-**Signature:** `patch [string campaignGuid]`
+Signature: `patch [string campaignGuid]`
 
 Updates an existing campaign's properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -226,9 +227,9 @@ Updates an existing campaign's properties.
 | `payload` | <code>PublicCampaignInput</code> | Yes | Updated campaign properties. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 
-**Returns:** `PublicCampaign|error`
+Returns: `PublicCampaign|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:PublicCampaign updated = check campaignsClient->/["campaignGuid"].patch({
@@ -238,7 +239,7 @@ campaigns:PublicCampaign updated = check campaignsClient->/["campaignGuid"].patc
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -261,20 +262,20 @@ campaigns:PublicCampaign updated = check campaignsClient->/["campaignGuid"].patc
 
 <div>
 
-**Signature:** `delete [string campaignGuid]`
+Signature: `delete [string campaignGuid]`
 
 Deletes a campaign by its GUID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignGuid` | <code>string</code> | Yes | The UUID of the campaign to delete. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check campaignsClient->/["campaignGuid"].delete();
@@ -284,27 +285,27 @@ check campaignsClient->/["campaignGuid"].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of campaigns</summary>
 
 <div>
 
-**Signature:** `post batch/create`
+Signature: `post batch/create`
 
 Creates multiple campaigns in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputPublicCampaignInput</code> | Yes | Array of campaign inputs to create. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 
-**Returns:** `BatchResponsePublicCampaign|BatchResponsePublicCampaignWithErrors|error`
+Returns: `BatchResponsePublicCampaign|BatchResponsePublicCampaignWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:BatchResponsePublicCampaign|campaigns:BatchResponsePublicCampaignWithErrors result =
@@ -316,7 +317,7 @@ campaigns:BatchResponsePublicCampaign|campaigns:BatchResponsePublicCampaignWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -349,11 +350,11 @@ campaigns:BatchResponsePublicCampaign|campaigns:BatchResponsePublicCampaignWithE
 
 <div>
 
-**Signature:** `post batch/read`
+Signature: `post batch/read`
 
 Reads multiple campaigns by their IDs in a single request, optionally including assets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -361,9 +362,9 @@ Reads multiple campaigns by their IDs in a single request, optionally including 
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 | `queries` | <code>PostMarketingV3CampaignsBatchReadQueries</code> | No | Query parameters — `startDate`, `endDate`, `properties`. |
 
-**Returns:** `BatchResponsePublicCampaignWithAssets|BatchResponsePublicCampaignWithAssetsWithErrors|error`
+Returns: `BatchResponsePublicCampaignWithAssets|BatchResponsePublicCampaignWithAssetsWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:BatchResponsePublicCampaignWithAssets|campaigns:BatchResponsePublicCampaignWithAssetsWithErrors result =
@@ -375,7 +376,7 @@ campaigns:BatchResponsePublicCampaignWithAssets|campaigns:BatchResponsePublicCam
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -410,20 +411,20 @@ campaigns:BatchResponsePublicCampaignWithAssets|campaigns:BatchResponsePublicCam
 
 <div>
 
-**Signature:** `post batch/update`
+Signature: `post batch/update`
 
 Updates multiple campaigns in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputPublicCampaignBatchUpdateItem</code> | Yes | Array of campaign update items with IDs and updated properties. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 
-**Returns:** `BatchResponsePublicCampaign|BatchResponsePublicCampaignWithErrors|error`
+Returns: `BatchResponsePublicCampaign|BatchResponsePublicCampaignWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:BatchResponsePublicCampaign|campaigns:BatchResponsePublicCampaignWithErrors result =
@@ -435,7 +436,7 @@ campaigns:BatchResponsePublicCampaign|campaigns:BatchResponsePublicCampaignWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -468,20 +469,20 @@ campaigns:BatchResponsePublicCampaign|campaigns:BatchResponsePublicCampaignWithE
 
 <div>
 
-**Signature:** `post batch/archive`
+Signature: `post batch/archive`
 
 Deletes multiple campaigns in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputPublicCampaignDeleteInput</code> | Yes | Array of campaign IDs to delete. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check campaignsClient->/batch/archive.post({
@@ -496,18 +497,18 @@ check campaignsClient->/batch/archive.post({
 
 </details>
 
-#### Asset Management
+#### Asset management
 
 <details>
 <summary>List assets</summary>
 
 <div>
 
-**Signature:** `get [string campaignGuid]/assets/[string assetType]`
+Signature: `get [string campaignGuid]/assets/[string assetType]`
 
 Lists assets of a specific type associated with a campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -516,16 +517,16 @@ Lists assets of a specific type associated with a campaign.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 | `queries` | <code>GetMarketingV3CampaignsCampaignGuidAssetsAssetTypeQueries</code> | No | Query parameters — `startDate`, `endDate`, `limit` (default 10), `after`. |
 
-**Returns:** `CollectionResponsePublicCampaignAssetForwardPaging|error`
+Returns: `CollectionResponsePublicCampaignAssetForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:CollectionResponsePublicCampaignAssetForwardPaging assets =
     check campaignsClient->/[campaignGuid]/assets/["EXTERNAL_WEB_URL"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -548,11 +549,11 @@ campaigns:CollectionResponsePublicCampaignAssetForwardPaging assets =
 
 <div>
 
-**Signature:** `put [string campaignGuid]/assets/[string assetType]/[string assetId]`
+Signature: `put [string campaignGuid]/assets/[string assetType]/[string assetId]`
 
 Associates an asset with a campaign. Only supports FORM, OBJECT_LIST, and EXTERNAL_WEB_URL asset types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -561,9 +562,9 @@ Associates an asset with a campaign. Only supports FORM, OBJECT_LIST, and EXTERN
 | `assetId` | <code>string</code> | Yes | The ID of the asset to associate (or a URL for `EXTERNAL_WEB_URL`). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check campaignsClient->/[campaignGuid]/assets/["EXTERNAL_WEB_URL"]/["https://example.com/landing-page"].put();
@@ -578,11 +579,11 @@ check campaignsClient->/[campaignGuid]/assets/["EXTERNAL_WEB_URL"]/["https://exa
 
 <div>
 
-**Signature:** `delete [string campaignGuid]/assets/[string assetType]/[string assetId]`
+Signature: `delete [string campaignGuid]/assets/[string assetType]/[string assetId]`
 
 Removes the association between an asset and a campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -591,9 +592,9 @@ Removes the association between an asset and a campaign.
 | `assetId` | <code>string</code> | Yes | The ID of the asset to disassociate. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check campaignsClient->/[campaignGuid]/assets/["EXTERNAL_WEB_URL"]/["https://example.com/landing-page"].delete();
@@ -610,11 +611,11 @@ check campaignsClient->/[campaignGuid]/assets/["EXTERNAL_WEB_URL"]/["https://exa
 
 <div>
 
-**Signature:** `get [string campaignGuid]/reports/metrics`
+Signature: `get [string campaignGuid]/reports/metrics`
 
 Retrieves aggregated metrics for a campaign including sessions, new contacts, and influenced contacts.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -622,16 +623,16 @@ Retrieves aggregated metrics for a campaign including sessions, new contacts, an
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 | `queries` | <code>GetMarketingV3CampaignsCampaignGuidReportsMetricsQueries</code> | No | Query parameters — `startDate` (default `2006-01-01`), `endDate` (default current date). |
 
-**Returns:** `MetricsCounters|error`
+Returns: `MetricsCounters|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:MetricsCounters metrics =
     check campaignsClient->/[campaignGuid]/reports/metrics;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -651,11 +652,11 @@ campaigns:MetricsCounters metrics =
 
 <div>
 
-**Signature:** `get [string campaignGuid]/reports/revenue`
+Signature: `get [string campaignGuid]/reports/revenue`
 
 Retrieves revenue attribution data for a campaign with a configurable attribution model.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -663,9 +664,9 @@ Retrieves revenue attribution data for a campaign with a configurable attributio
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 | `queries` | <code>GetMarketingV3CampaignsCampaignGuidReportsRevenueQueries</code> | No | Query parameters — `attributionModel` (default `LINEAR`, options: `FIRST_INTERACTION`, `LAST_INTERACTION`, `FULL_PATH`, `U_SHAPED`, `W_SHAPED`, `TIME_DECAY`, `J_SHAPED`, `INVERSE_J_SHAPED`), `startDate`, `endDate`. |
 
-**Returns:** `RevenueAttributionAggregate|error`
+Returns: `RevenueAttributionAggregate|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:RevenueAttributionAggregate revenue =
@@ -674,7 +675,7 @@ campaigns:RevenueAttributionAggregate revenue =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -695,11 +696,11 @@ campaigns:RevenueAttributionAggregate revenue =
 
 <div>
 
-**Signature:** `get [string campaignGuid]/reports/contacts/[string contactType]`
+Signature: `get [string campaignGuid]/reports/contacts/[string contactType]`
 
 Retrieves contact IDs associated with a campaign by attribution type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -708,16 +709,16 @@ Retrieves contact IDs associated with a campaign by attribution type.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 | `queries` | <code>GetMarketingV3CampaignsCampaignGuidReportsContactsContactTypeQueries</code> | No | Query parameters — `startDate`, `endDate`, `limit` (default 100), `after`. |
 
-**Returns:** `CollectionResponseContactReferenceForwardPaging|error`
+Returns: `CollectionResponseContactReferenceForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:CollectionResponseContactReferenceForwardPaging contacts =
     check campaignsClient->/[campaignGuid]/reports/contacts/["influencedContacts"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -743,27 +744,27 @@ campaigns:CollectionResponseContactReferenceForwardPaging contacts =
 
 <div>
 
-**Signature:** `get [string campaignGuid]/budget/totals`
+Signature: `get [string campaignGuid]/budget/totals`
 
 Retrieves the budget totals for a campaign including total budget, spend, and remaining budget.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `campaignGuid` | <code>string</code> | Yes | The UUID of the campaign. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional request headers. |
 
-**Returns:** `PublicBudgetTotals|error`
+Returns: `PublicBudgetTotals|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 campaigns:PublicBudgetTotals budget =
     check campaignsClient->/[campaignGuid]/budget/totals;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

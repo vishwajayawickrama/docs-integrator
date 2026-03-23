@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ HubSpot Notes API — note CRUD, batch operations, and search.
 | `compression` | <code>http:Compression</code> | `AUTO` | Response compression mode. |
 | `validation` | <code>boolean</code> | `true` | Enable/disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.engagement.notes as hsnotes;
@@ -51,27 +52,27 @@ hsnotes:Client notesClient = check new ({
 
 ### Operations
 
-#### Single Note Operations
+#### Single note operations
 
 <details>
 <summary>Create a note</summary>
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new engagement note with the specified properties and optional associations to other CRM objects.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | Note properties and associations. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Custom HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsnotes:SimplePublicObject note = check notesClient->/.post({
@@ -95,7 +96,7 @@ hsnotes:SimplePublicObject note = check notesClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -122,11 +123,11 @@ hsnotes:SimplePublicObject note = check notesClient->/.post({
 
 <div>
 
-**Signature:** `get /[string noteId]`
+Signature: `get /[string noteId]`
 
 Retrieves a single engagement note by its ID, optionally including associations and property history.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -135,15 +136,15 @@ Retrieves a single engagement note by its ID, optionally including associations 
 | `associations` | <code>string[]</code> | No | Association types to include. |
 | `archived` | <code>boolean</code> | No | Whether to return archived notes. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsnotes:SimplePublicObjectWithAssociations note = check notesClient->/["55037676923"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -170,11 +171,11 @@ hsnotes:SimplePublicObjectWithAssociations note = check notesClient->/["55037676
 
 <div>
 
-**Signature:** `patch /[string noteId]`
+Signature: `patch /[string noteId]`
 
 Updates the properties of an existing engagement note by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -182,9 +183,9 @@ Updates the properties of an existing engagement note by its ID.
 | `payload` | <code>SimplePublicObjectInput</code> | Yes | Properties to update. |
 | `idProperty` | <code>string</code> | No | The property to use as the unique identifier. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsnotes:SimplePublicObject updated = check notesClient->/["55037676923"].patch({
@@ -194,7 +195,7 @@ hsnotes:SimplePublicObject updated = check notesClient->/["55037676923"].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -221,19 +222,19 @@ hsnotes:SimplePublicObject updated = check notesClient->/["55037676923"].patch({
 
 <div>
 
-**Signature:** `delete /[string noteId]`
+Signature: `delete /[string noteId]`
 
 Archives (soft-deletes) an engagement note by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `noteId` | <code>string</code> | Yes | The ID of the note to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check notesClient->/["55037676923"].delete();
@@ -248,11 +249,11 @@ check notesClient->/["55037676923"].delete();
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Lists all engagement notes with optional filtering, pagination, and association expansion.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -262,15 +263,15 @@ Lists all engagement notes with optional filtering, pagination, and association 
 | `associations` | <code>string[]</code> | No | Association types to include. |
 | `archived` | <code>boolean</code> | No | Whether to return archived notes. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsnotes:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging notes = check notesClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -306,19 +307,19 @@ hsnotes:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging notes 
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for engagement notes using filters, query text, sorting, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search criteria including filters, sorts, query, and pagination. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsnotes:CollectionResponseWithTotalSimplePublicObjectForwardPaging results = check notesClient->/search.post({
@@ -338,7 +339,7 @@ hsnotes:CollectionResponseWithTotalSimplePublicObjectForwardPaging results = che
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -366,26 +367,26 @@ hsnotes:CollectionResponseWithTotalSimplePublicObjectForwardPaging results = che
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of notes</summary>
 
 <div>
 
-**Signature:** `post /batch/create`
+Signature: `post /batch/create`
 
 Creates multiple engagement notes in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | Array of note inputs with properties and associations. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsnotes:BatchResponseSimplePublicObject|hsnotes:BatchResponseSimplePublicObjectWithErrors batchResult =
@@ -409,7 +410,7 @@ hsnotes:BatchResponseSimplePublicObject|hsnotes:BatchResponseSimplePublicObjectW
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -452,20 +453,20 @@ hsnotes:BatchResponseSimplePublicObject|hsnotes:BatchResponseSimplePublicObjectW
 
 <div>
 
-**Signature:** `post /batch/read`
+Signature: `post /batch/read`
 
 Reads multiple engagement notes by their internal IDs or unique property values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchReadInputSimplePublicObjectId</code> | Yes | Batch of note IDs and properties to retrieve. |
 | `archived` | <code>boolean</code> | No | Whether to return archived notes. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsnotes:BatchResponseSimplePublicObject|hsnotes:BatchResponseSimplePublicObjectWithErrors batchRead =
@@ -479,7 +480,7 @@ hsnotes:BatchResponseSimplePublicObject|hsnotes:BatchResponseSimplePublicObjectW
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -520,19 +521,19 @@ hsnotes:BatchResponseSimplePublicObject|hsnotes:BatchResponseSimplePublicObjectW
 
 <div>
 
-**Signature:** `post /batch/update`
+Signature: `post /batch/update`
 
 Updates multiple engagement notes by their internal IDs or unique property values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | Array of note IDs and properties to update. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsnotes:BatchResponseSimplePublicObject|hsnotes:BatchResponseSimplePublicObjectWithErrors batchUpdate =
@@ -554,7 +555,7 @@ hsnotes:BatchResponseSimplePublicObject|hsnotes:BatchResponseSimplePublicObjectW
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -595,19 +596,19 @@ hsnotes:BatchResponseSimplePublicObject|hsnotes:BatchResponseSimplePublicObjectW
 
 <div>
 
-**Signature:** `post /batch/upsert`
+Signature: `post /batch/upsert`
 
 Creates or updates a batch of engagement notes by unique property values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | Array of note data for upsert operations. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsnotes:BatchResponseSimplePublicUpsertObject|hsnotes:BatchResponseSimplePublicUpsertObjectWithErrors upsertResult =
@@ -624,7 +625,7 @@ hsnotes:BatchResponseSimplePublicUpsertObject|hsnotes:BatchResponseSimplePublicU
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -656,19 +657,19 @@ hsnotes:BatchResponseSimplePublicUpsertObject|hsnotes:BatchResponseSimplePublicU
 
 <div>
 
-**Signature:** `post /batch/archive`
+Signature: `post /batch/archive`
 
 Archives (soft-deletes) multiple engagement notes by their IDs in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | Array of note IDs to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check notesClient->/batch/archive.post({

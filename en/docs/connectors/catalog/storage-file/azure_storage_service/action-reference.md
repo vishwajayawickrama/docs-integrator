@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -20,7 +21,7 @@ Available clients:
 
 ---
 
-## Blob Client
+## Blob client
 
 Perform blob CRUD operations, block staging, page blob range writes, and append blob operations.
 
@@ -33,7 +34,7 @@ Perform blob CRUD operations, block staging, page blob range writes, and append 
 | `authorizationMethod` | <code>AuthorizationMethod</code> | Required | Authorization method — `"accessKey"` or `"SAS"`. |
 | `httpVersion` | <code>http:HttpVersion</code> | `http:HTTP_1_1` | HTTP protocol version used by the underlying HTTP client. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/azure_storage_service.blobs as azure_blobs;
@@ -50,7 +51,7 @@ azure_blobs:BlobClient blobClient = check new ({
 
 ### Operations
 
-#### Blob Operations
+#### Blob operations
 
 <details>
 <summary>Gets list of containers of a storage account</summary>
@@ -59,7 +60,7 @@ azure_blobs:BlobClient blobClient = check new ({
 
 Gets the list of containers in the Azure Storage account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -67,15 +68,15 @@ Gets the list of containers in the Azure Storage account.
 | `marker` | <code>string?</code> | No | Continuation token from a previous response's `nextMarker`. |
 | `prefix` | <code>string?</code> | No | Filter to return only containers whose name begins with this prefix. |
 
-**Returns:** `ListContainerResult|Error`
+Returns: `ListContainerResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ListContainerResult result = check blobClient->listContainers();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -114,7 +115,7 @@ azure_blobs:ListContainerResult result = check blobClient->listContainers();
 
 Gets the list of blobs (with metadata and properties) from a container.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -123,15 +124,15 @@ Gets the list of blobs (with metadata and properties) from a container.
 | `marker` | <code>string?</code> | No | Continuation token from a previous response's `nextMarker`. |
 | `prefix` | <code>string?</code> | No | Filter to return only blobs whose name begins with this prefix. |
 
-**Returns:** `ListBlobResult|Error`
+Returns: `ListBlobResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ListBlobResult result = check blobClient->listBlobs("sample-container");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -172,7 +173,7 @@ azure_blobs:ListBlobResult result = check blobClient->listBlobs("sample-containe
 
 Downloads a blob from a container as a byte array.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -180,16 +181,16 @@ Downloads a blob from a container as a byte array.
 | `blobName` | <code>string</code> | Yes | Name of the blob to retrieve. |
 | `byteRange` | <code>ByteRange?</code> | No | Optional byte range to retrieve a partial blob. If omitted, the entire blob is returned. |
 
-**Returns:** `BlobResult|Error`
+Returns: `BlobResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:BlobResult result = check blobClient->getBlob("sample-container", "hello.txt");
 byte[] content = result.blobContent;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -217,23 +218,23 @@ byte[] content = result.blobContent;
 
 Gets the user-defined metadata for a blob.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `containerName` | <code>string</code> | Yes | Name of the container. |
 | `blobName` | <code>string</code> | Yes | Name of the blob. |
 
-**Returns:** `BlobMetadataResult|Error`
+Returns: `BlobMetadataResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:BlobMetadataResult result = check blobClient->getBlobMetadata(
     "sample-container", "hello.txt");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -262,23 +263,23 @@ azure_blobs:BlobMetadataResult result = check blobClient->getBlobMetadata(
 
 Gets system properties for a blob (ETag, content type, lease status, etc.).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `containerName` | <code>string</code> | Yes | Name of the container. |
 | `blobName` | <code>string</code> | Yes | Name of the blob. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ResponseHeaders headers = check blobClient->getBlobProperties(
     "sample-container", "hello.txt");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -299,7 +300,7 @@ azure_blobs:ResponseHeaders headers = check blobClient->getBlobProperties(
 
 Uploads a blob to a container as a byte array. Supports BlockBlob, PageBlob, and AppendBlob types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -310,9 +311,9 @@ Uploads a blob to a container as a byte array. Supports BlockBlob, PageBlob, and
 | `properties` | <code>Properties?</code> | No | Optional content type, encoding, MD5, and metadata. |
 | `pageBlobLength` | <code>int?</code> | No | Required for PageBlob — specifies the size in bytes. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] content = "hello".toBytes();
@@ -320,7 +321,7 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlob(
     "sample-container", "hello.txt", "BlockBlob", content);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -341,7 +342,7 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlob(
 
 Creates a new block blob where the content is read from a given URL.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -350,9 +351,9 @@ Creates a new block blob where the content is read from a given URL.
 | `sourceBlobURL` | <code>string</code> | Yes | Public or SAS-signed URL of the source blob. |
 | `properties` | <code>Properties?</code> | No | Optional blob properties to set. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ResponseHeaders result = check blobClient->putBlobFromURL(
@@ -360,7 +361,7 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlobFromURL(
     "https://otherstorage.blob.core.windows.net/data/file.txt?sv=...");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -381,23 +382,23 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlobFromURL(
 
 Deletes a blob from a container.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `containerName` | <code>string</code> | Yes | Name of the container. |
 | `blobName` | <code>string</code> | Yes | Name of the blob to delete. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ResponseHeaders result = check blobClient->deleteBlob(
     "sample-container", "hello.txt");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -418,7 +419,7 @@ azure_blobs:ResponseHeaders result = check blobClient->deleteBlob(
 
 Copies a blob from a source URL to a destination blob in the specified container.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -426,9 +427,9 @@ Copies a blob from a source URL to a destination blob in the specified container
 | `blobName` | <code>string</code> | Yes | Name of the destination blob. |
 | `sourceBlobURL` | <code>string</code> | Yes | URL of the source blob to copy from. |
 
-**Returns:** `CopyBlobResult|Error`
+Returns: `CopyBlobResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:CopyBlobResult result = check blobClient->copyBlob(
@@ -436,7 +437,7 @@ azure_blobs:CopyBlobResult result = check blobClient->copyBlob(
     "https://myaccount.blob.core.windows.net/sample-container/hello.txt");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -463,7 +464,7 @@ azure_blobs:CopyBlobResult result = check blobClient->copyBlob(
 
 Sets user-defined metadata on a blob. Replaces all existing metadata.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -471,9 +472,9 @@ Sets user-defined metadata on a blob. Replaces all existing metadata.
 | `blobName` | <code>string</code> | Yes | Name of the blob. |
 | `metadata` | <code>map&lt;string&gt;</code> | Yes | Name-value pairs to set as blob metadata. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ResponseHeaders result = check blobClient->setBlobMetadata(
@@ -481,7 +482,7 @@ azure_blobs:ResponseHeaders result = check blobClient->setBlobMetadata(
     {"owner": "integration-team", "env": "production"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -502,7 +503,7 @@ azure_blobs:ResponseHeaders result = check blobClient->setBlobMetadata(
 
 Uploads a large file to a container by splitting it into 50 MB blocks using `putBlock` and `putBlockList`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -511,9 +512,9 @@ Uploads a large file to a container by splitting it into 50 MB blocks using `put
 | `filePath` | <code>string</code> | Yes | Local filesystem path of the file to upload. |
 | `properties` | <code>Properties?</code> | No | Optional content type, encoding, and metadata. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check blobClient->uploadLargeBlob(
@@ -524,7 +525,7 @@ check blobClient->uploadLargeBlob(
 
 </details>
 
-#### Block Operations
+#### Block operations
 
 <details>
 <summary>Commits a new block to be committed as part of a blob</summary>
@@ -533,7 +534,7 @@ check blobClient->uploadLargeBlob(
 
 Commits a new block to be staged as part of a block blob.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -542,9 +543,9 @@ Commits a new block to be staged as part of a block blob.
 | `blockId` | <code>string</code> | Yes | Identifier for the block (max 64 bytes when base64-encoded). |
 | `content` | <code>byte[]</code> | Yes | Raw bytes for this block. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] chunk = "first-chunk".toBytes();
@@ -552,7 +553,7 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlock(
     "sample-container", "assembled.txt", "block-001", chunk);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -573,7 +574,7 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlock(
 
 Commits a list of previously uploaded block IDs as a blob.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -582,9 +583,9 @@ Commits a list of previously uploaded block IDs as a blob.
 | `blockIdList` | <code>string[]</code> | Yes | Ordered list of block IDs that make up the final blob. |
 | `properties` | <code>Properties?</code> | No | Optional blob properties. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ResponseHeaders result = check blobClient->putBlockList(
@@ -592,7 +593,7 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlockList(
     ["block-001", "block-002", "block-003"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -613,7 +614,7 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlockList(
 
 Stages a block for a blob where the block content is read from a URL.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -623,9 +624,9 @@ Stages a block for a blob where the block content is read from a URL.
 | `sourceBlobURL` | <code>string</code> | Yes | URL of the source blob to copy block content from. |
 | `byteRange` | <code>ByteRange?</code> | No | Optional byte range within the source blob. If omitted, the entire blob content is used. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ResponseHeaders result = check blobClient->putBlockFromURL(
@@ -633,7 +634,7 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlockFromURL(
     "https://source.blob.core.windows.net/data/source.txt?sv=...");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -654,23 +655,23 @@ azure_blobs:ResponseHeaders result = check blobClient->putBlockFromURL(
 
 Gets the list of blocks committed and uncommitted for a block blob.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `containerName` | <code>string</code> | Yes | Name of the container. |
 | `blobName` | <code>string</code> | Yes | Name of the blob. |
 
-**Returns:** `BlockListResult|Error`
+Returns: `BlockListResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:BlockListResult result = check blobClient->getBlockList(
     "sample-container", "assembled.txt");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -695,7 +696,7 @@ azure_blobs:BlockListResult result = check blobClient->getBlockList(
 
 </details>
 
-#### Page Blob Operations
+#### Page blob operations
 
 <details>
 <summary>Updates or adds a new page Blob</summary>
@@ -704,7 +705,7 @@ azure_blobs:BlockListResult result = check blobClient->getBlockList(
 
 Updates or clears a range of pages in a page blob.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -714,9 +715,9 @@ Updates or clears a range of pages in a page blob.
 | `byteRange` | <code>ByteRange</code> | Yes | Byte range to update (must be 512-byte aligned). |
 | `content` | <code>byte[]?</code> | No | Page content to write (required for `update` operation). |
 
-**Returns:** `PutPageResult|Error`
+Returns: `PutPageResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] pageContent = array:create(512, 0);
@@ -725,7 +726,7 @@ azure_blobs:PutPageResult result = check blobClient->putPage(
     {startByte: 0, endByte: 511}, pageContent);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -751,7 +752,7 @@ azure_blobs:PutPageResult result = check blobClient->putPage(
 
 Gets the list of valid page ranges for a page blob.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -759,16 +760,16 @@ Gets the list of valid page ranges for a page blob.
 | `blobName` | <code>string</code> | Yes | Name of the page blob. |
 | `byteRange` | <code>ByteRange?</code> | No | Optional byte range to limit which page ranges are returned. |
 
-**Returns:** `PageRangeResult|Error`
+Returns: `PageRangeResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:PageRangeResult result = check blobClient->getPageRanges(
     "sample-container", "disk.vhd");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -790,7 +791,7 @@ azure_blobs:PageRangeResult result = check blobClient->getPageRanges(
 
 </details>
 
-#### Append Blob Operations
+#### Append blob operations
 
 <details>
 <summary>Commits a new block of data to the end of an append blob</summary>
@@ -799,7 +800,7 @@ azure_blobs:PageRangeResult result = check blobClient->getPageRanges(
 
 Commits a new block of data to the end of an existing append blob.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -807,9 +808,9 @@ Commits a new block of data to the end of an existing append blob.
 | `blobName` | <code>string</code> | Yes | Name of the append blob. |
 | `block` | <code>byte[]</code> | Yes | Content of the block to append. |
 
-**Returns:** `AppendBlockResult|error`
+Returns: `AppendBlockResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] logEntry = "2025-01-01T10:12:00Z INFO Service started\n".toBytes();
@@ -817,7 +818,7 @@ azure_blobs:AppendBlockResult result = check blobClient->appendBlock(
     "sample-container", "app.log", logEntry);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -844,7 +845,7 @@ azure_blobs:AppendBlockResult result = check blobClient->appendBlock(
 
 Commits a block of data to the end of an append blob where content is read from a URL.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -852,9 +853,9 @@ Commits a block of data to the end of an append blob where content is read from 
 | `blobName` | <code>string</code> | Yes | Name of the append blob. |
 | `sourceBlobURL` | <code>string</code> | Yes | URL of the source blob to append content from. |
 
-**Returns:** `AppendBlockResult|Error`
+Returns: `AppendBlockResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:AppendBlockResult result = check blobClient->appendBlockFromURL(
@@ -862,7 +863,7 @@ azure_blobs:AppendBlockResult result = check blobClient->appendBlockFromURL(
     "https://source.blob.core.windows.net/logs/today.log?sv=...");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -884,7 +885,7 @@ azure_blobs:AppendBlockResult result = check blobClient->appendBlockFromURL(
 
 ---
 
-## Blob Management Client
+## Blob management client
 
 Manage containers and query storage account-level information.
 
@@ -897,7 +898,7 @@ Manage containers and query storage account-level information.
 | `authorizationMethod` | <code>AuthorizationMethod</code> | Required | Authorization method — `"accessKey"` or `"SAS"`. |
 | `httpVersion` | <code>http:HttpVersion</code> | `http:HTTP_1_1` | HTTP protocol version used by the underlying HTTP client. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/azure_storage_service.blobs as azure_blobs;
@@ -914,7 +915,7 @@ azure_blobs:ManagementClient managementClient = check new ({
 
 ### Operations
 
-#### Container Management
+#### Container management
 
 <details>
 <summary>Create a container in the azure storage account</summary>
@@ -923,7 +924,7 @@ azure_blobs:ManagementClient managementClient = check new ({
 
 Creates a new container in the Azure Storage account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -932,16 +933,16 @@ Creates a new container in the Azure Storage account.
 | `metadata` | <code>map&lt;string&gt;?</code> | No | Name-value pairs to associate with the container as metadata. |
 | `clientRequestId` | <code>string?</code> | No | Client-generated opaque value recorded in storage analytics logs. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ResponseHeaders result = check managementClient->createContainer(
     "my-new-container");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -962,7 +963,7 @@ azure_blobs:ResponseHeaders result = check managementClient->createContainer(
 
 Deletes a container and all blobs it contains.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -970,16 +971,16 @@ Deletes a container and all blobs it contains.
 | `clientRequestId` | <code>string?</code> | No | Client-generated opaque value for analytics logging. |
 | `leaseId` | <code>string?</code> | No | Active lease ID for the container, if applicable. |
 
-**Returns:** `ResponseHeaders|Error`
+Returns: `ResponseHeaders|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ResponseHeaders result = check managementClient->deleteContainer(
     "my-old-container");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1000,7 +1001,7 @@ azure_blobs:ResponseHeaders result = check managementClient->deleteContainer(
 
 Gets system properties for a container (ETag, lease status, public access, etc.).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1008,16 +1009,16 @@ Gets system properties for a container (ETag, lease status, public access, etc.)
 | `clientRequestId` | <code>string?</code> | No | Client-generated opaque value for analytics logging. |
 | `leaseId` | <code>string?</code> | No | Active lease ID for the container, if applicable. |
 
-**Returns:** `ContainerPropertiesResult|Error`
+Returns: `ContainerPropertiesResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ContainerPropertiesResult result = check managementClient->getContainerProperties(
     "sample-container");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1047,7 +1048,7 @@ azure_blobs:ContainerPropertiesResult result = check managementClient->getContai
 
 Gets user-defined metadata for a container.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1055,16 +1056,16 @@ Gets user-defined metadata for a container.
 | `clientRequestId` | <code>string?</code> | No | Client-generated opaque value for analytics logging. |
 | `leaseId` | <code>string?</code> | No | Active lease ID for the container, if applicable. |
 
-**Returns:** `ContainerMetadataResult|Error`
+Returns: `ContainerMetadataResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ContainerMetadataResult result = check managementClient->getContainerMetadata(
     "sample-container");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1090,7 +1091,7 @@ azure_blobs:ContainerMetadataResult result = check managementClient->getContaine
 
 Gets the permissions (ACL) for a container. Only supported with access key authorization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1098,16 +1099,16 @@ Gets the permissions (ACL) for a container. Only supported with access key autho
 | `clientRequestId` | <code>string?</code> | No | Client-generated opaque value for analytics logging. |
 | `leaseId` | <code>string?</code> | No | Active lease ID for the container, if applicable. |
 
-**Returns:** `ContainerACLResult|Error`
+Returns: `ContainerACLResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:ContainerACLResult result = check managementClient->getContainerACL(
     "sample-container");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1126,7 +1127,7 @@ azure_blobs:ContainerACLResult result = check managementClient->getContainerACL(
 
 </details>
 
-#### Account & Service Information
+#### Account & service information
 
 <details>
 <summary>Get Account Information of the azure storage account</summary>
@@ -1135,21 +1136,21 @@ azure_blobs:ContainerACLResult result = check managementClient->getContainerACL(
 
 Gets account-level information including SKU name, kind, and hierarchical namespace status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `clientRequestId` | <code>string?</code> | No | Client-generated opaque value for analytics logging. |
 
-**Returns:** `AccountInformationResult|Error`
+Returns: `AccountInformationResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:AccountInformationResult result = check managementClient->getAccountInformation();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1175,21 +1176,21 @@ azure_blobs:AccountInformationResult result = check managementClient->getAccount
 
 Gets the properties of the Blob service for the storage account (logging, metrics, CORS, etc.).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `clientRequestId` | <code>string?</code> | No | Client-generated opaque value for analytics logging. |
 
-**Returns:** `BlobServicePropertiesResult|Error`
+Returns: `BlobServicePropertiesResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_blobs:BlobServicePropertiesResult result = check managementClient->getBlobServiceProperties();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1221,7 +1222,7 @@ azure_blobs:BlobServicePropertiesResult result = check managementClient->getBlob
 
 ---
 
-## File Client
+## File client
 
 Manage files and directories within Azure File Shares.
 
@@ -1234,7 +1235,7 @@ Manage files and directories within Azure File Shares.
 | `authorizationMethod` | <code>AuthorizationMethod</code> | Required | Authorization method — `"accessKey"` or `"SAS"`. |
 | `httpVersion` | <code>http:HttpVersion</code> | `http:HTTP_1_1` | HTTP protocol version used by the underlying HTTP client. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/azure_storage_service.files as azure_files;
@@ -1251,7 +1252,7 @@ azure_files:FileClient fileClient = check new ({
 
 ### Operations
 
-#### File Operations
+#### File operations
 
 <details>
 <summary>Upload a file directly to the fileshare</summary>
@@ -1260,7 +1261,7 @@ azure_files:FileClient fileClient = check new ({
 
 Uploads a local file directly to an Azure File Share by creating the file entry and writing content in one step.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1269,9 +1270,9 @@ Uploads a local file directly to an Azure File Share by creating the file entry 
 | `azureFileName` | <code>string</code> | Yes | Name of the file to create in Azure. |
 | `azureDirectoryPath` | <code>string?</code> | No | Directory path within the file share. If omitted, the file is placed at the root. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check fileClient->directUpload(
@@ -1291,7 +1292,7 @@ check fileClient->directUpload(
 
 Downloads a file from an Azure File Share to a local path.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1300,9 +1301,9 @@ Downloads a file from an Azure File Share to a local path.
 | `localFilePath` | <code>string</code> | Yes | Local filesystem path (including filename) to write the downloaded file. |
 | `azureDirectoryPath` | <code>string?</code> | No | Directory path within the file share. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check fileClient->getFile(
@@ -1322,7 +1323,7 @@ check fileClient->getFile(
 
 Downloads a file (or a byte range) from an Azure File Share as a byte array.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1331,9 +1332,9 @@ Downloads a file (or a byte range) from an Azure File Share as a byte array.
 | `azureDirectoryPath` | <code>string?</code> | No | Directory path within the file share. |
 | `range` | <code>ContentRange?</code> | No | Optional byte range to fetch only a portion of the file. |
 
-**Returns:** `byte[]|Error`
+Returns: `byte[]|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] content = check fileClient->getFileAsByteArray(
@@ -1341,7 +1342,7 @@ byte[] content = check fileClient->getFileAsByteArray(
     fileName = "report.pdf");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [37, 80, 68, 70, 45, 49, 46, 52]
@@ -1358,7 +1359,7 @@ byte[] content = check fileClient->getFileAsByteArray(
 
 Deletes a file from an Azure File Share.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1366,9 +1367,9 @@ Deletes a file from an Azure File Share.
 | `fileName` | <code>string</code> | Yes | Name of the file to delete. |
 | `azureDirectoryPath` | <code>string?</code> | No | Directory path within the file share. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check fileClient->deleteFile(
@@ -1387,7 +1388,7 @@ check fileClient->deleteFile(
 
 Copies a file to another location within the same file share.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1396,9 +1397,9 @@ Copies a file to another location within the same file share.
 | `destFileName` | <code>string</code> | Yes | Name for the destination file. |
 | `destDirectoryPath` | <code>string?</code> | No | Directory path for the destination file. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check fileClient->copyFile(
@@ -1419,7 +1420,7 @@ check fileClient->copyFile(
 
 Gets user-defined metadata for a file in an Azure File Share.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1427,9 +1428,9 @@ Gets user-defined metadata for a file in an Azure File Share.
 | `fileName` | <code>string</code> | Yes | Name of the file. |
 | `azureDirectoryPath` | <code>string?</code> | No | Directory path within the file share. |
 
-**Returns:** `FileMetadataResult|Error`
+Returns: `FileMetadataResult|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_files:FileMetadataResult result = check fileClient->getFileMetadata(
@@ -1437,7 +1438,7 @@ azure_files:FileMetadataResult result = check fileClient->getFileMetadata(
     fileName = "report.pdf");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1458,7 +1459,7 @@ azure_files:FileMetadataResult result = check fileClient->getFileMetadata(
 
 Gets the list of valid byte ranges (uploaded regions) for a file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1466,9 +1467,9 @@ Gets the list of valid byte ranges (uploaded regions) for a file.
 | `fileName` | <code>string</code> | Yes | Name of the file. |
 | `azureDirectoryPath` | <code>string?</code> | No | Directory path within the file share. |
 
-**Returns:** `RangeList|Error`
+Returns: `RangeList|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_files:RangeList ranges = check fileClient->listRange(
@@ -1476,7 +1477,7 @@ azure_files:RangeList ranges = check fileClient->listRange(
     fileName = "report.pdf");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1491,7 +1492,7 @@ azure_files:RangeList ranges = check fileClient->listRange(
 
 </details>
 
-#### Directory Operations
+#### Directory operations
 
 <details>
 <summary>Lists directories within the share or specified directory</summary>
@@ -1500,7 +1501,7 @@ azure_files:RangeList ranges = check fileClient->listRange(
 
 Lists directories within an Azure File Share or a specified subdirectory.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1508,16 +1509,16 @@ Lists directories within an Azure File Share or a specified subdirectory.
 | `azureDirectoryPath` | <code>string?</code> | No | Directory path to list subdirectories within. If omitted, lists the root. |
 | `uriParameters` | <code>GetFileListURIParameters</code> | No | Optional URI parameters (e.g., `prefix`, `maxresults`). |
 
-**Returns:** `DirectoryList|Error`
+Returns: `DirectoryList|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_files:DirectoryList directories = check fileClient->getDirectoryList(
     fileShareName = "myfileshare");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1539,7 +1540,7 @@ azure_files:DirectoryList directories = check fileClient->getDirectoryList(
 
 Lists files within an Azure File Share or a specified directory.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1547,9 +1548,9 @@ Lists files within an Azure File Share or a specified directory.
 | `azureDirectoryPath` | <code>string?</code> | No | Directory path to list files within. If omitted, lists the root. |
 | `uriParameters` | <code>GetFileListURIParameters</code> | No | Optional URI parameters (e.g., `prefix`, `maxresults`). |
 
-**Returns:** `FileList|Error`
+Returns: `FileList|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_files:FileList files = check fileClient->getFileList(
@@ -1557,7 +1558,7 @@ azure_files:FileList files = check fileClient->getFileList(
     azureDirectoryPath = "reports");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1579,7 +1580,7 @@ azure_files:FileList files = check fileClient->getFileList(
 
 Creates a directory in an Azure File Share.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1587,9 +1588,9 @@ Creates a directory in an Azure File Share.
 | `newDirectoryName` | <code>string</code> | Yes | Name of the new directory. |
 | `azureDirectoryPath` | <code>string?</code> | No | Parent directory path. If omitted, the directory is created at the root. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check fileClient->createDirectory(
@@ -1609,7 +1610,7 @@ check fileClient->createDirectory(
 
 Deletes a directory from an Azure File Share. Only supported for empty directories.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1617,9 +1618,9 @@ Deletes a directory from an Azure File Share. Only supported for empty directori
 | `directoryName` | <code>string</code> | Yes | Name of the directory to delete. |
 | `azureDirectoryPath` | <code>string?</code> | No | Parent directory path of the directory to delete. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check fileClient->deleteDirectory(
@@ -1633,7 +1634,7 @@ check fileClient->deleteDirectory(
 
 ---
 
-## File Management Client
+## File management client
 
 Manage Azure File Shares and configure file service properties.
 
@@ -1646,7 +1647,7 @@ Manage Azure File Shares and configure file service properties.
 | `authorizationMethod` | <code>AuthorizationMethod</code> | Required | Authorization method — `"accessKey"` or `"SAS"`. |
 | `httpVersion` | <code>http:HttpVersion</code> | `http:HTTP_1_1` | HTTP protocol version used by the underlying HTTP client. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/azure_storage_service.files as azure_files;
@@ -1663,7 +1664,7 @@ azure_files:ManagementClient fileManagementClient = check new ({
 
 ### Operations
 
-#### File Share Management
+#### File share management
 
 <details>
 <summary>Creates a new share in a storage account</summary>
@@ -1672,16 +1673,16 @@ azure_files:ManagementClient fileManagementClient = check new ({
 
 Creates a new file share in the Azure Storage account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fileShareName` | <code>string</code> | Yes | Name for the new file share. |
 | `fileShareRequestHeaders` | <code>RequestHeaders?</code> | No | Optional headers including quota (share size in GiB) and metadata. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check fileManagementClient->createShare("myfileshare");
@@ -1698,15 +1699,15 @@ check fileManagementClient->createShare("myfileshare");
 
 Deletes a file share and all files and directories it contains.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fileShareName` | <code>string</code> | Yes | Name of the file share to delete. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check fileManagementClient->deleteShare("old-fileshare");
@@ -1723,21 +1724,21 @@ check fileManagementClient->deleteShare("old-fileshare");
 
 Lists all file shares in the Azure Storage account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `uriParameters` | <code>ListShareURIParameters</code> | No | Optional URI parameters (e.g., `prefix`, `maxresults`, `include`). |
 
-**Returns:** `SharesList|Error`
+Returns: `SharesList|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_files:SharesList result = check fileManagementClient->listShares();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1776,22 +1777,22 @@ azure_files:SharesList result = check fileManagementClient->listShares();
 
 Gets all user-defined metadata and system properties of a file share.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fileShareName` | <code>string</code> | Yes | Name of the file share. |
 
-**Returns:** `FileServicePropertiesList|Error`
+Returns: `FileServicePropertiesList|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_files:FileServicePropertiesList result = check fileManagementClient->getShareProperties(
     "myfileshare");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1809,7 +1810,7 @@ azure_files:FileServicePropertiesList result = check fileManagementClient->getSh
 
 </details>
 
-#### File Service Properties
+#### File service properties
 
 <details>
 <summary>Gets the File service properties for the storage account</summary>
@@ -1819,15 +1820,15 @@ azure_files:FileServicePropertiesList result = check fileManagementClient->getSh
 Gets the properties of the Azure File service for the storage account (metrics, CORS, protocol settings).
 
 
-**Returns:** `FileServicePropertiesList|Error`
+Returns: `FileServicePropertiesList|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_files:FileServicePropertiesList result = check fileManagementClient->getFileServiceProperties();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1862,15 +1863,15 @@ azure_files:FileServicePropertiesList result = check fileManagementClient->getFi
 
 Sets the properties of the Azure File service for the storage account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `fileServicePropertiesList` | <code>FileServicePropertiesList</code> | Yes | The desired file service properties to configure. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 azure_files:RetentionPolicyType retentionPolicy = {Enabled: "true", Days: "7"};

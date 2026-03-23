@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through the server-side configuration required to connect the IBM CTG connector to your IBM CICS Transaction Gateway and CICS server.
@@ -9,7 +12,7 @@ This guide walks you through the server-side configuration required to connect t
 - IBM CTG Java client libraries (`ctgclient-9.3.jar`, `ccf2-9.3.jar`, `cicsjee-9.3.jar`) sourced from your IBM CTG installation — these proprietary JARs must be provided separately and are not distributed with the connector.
 - A CICS user ID and password with permission to execute the target CICS programs on the CICS server.
 
-## Step 1: Identify the CTG Gateway Host and Port
+## Step 1: Identify the CTG gateway host and port
 
 Obtain the hostname or IP address and port number of your IBM CICS Transaction Gateway daemon:
 
@@ -21,7 +24,7 @@ Obtain the hostname or IP address and port number of your IBM CICS Transaction G
 The CTG gateway host and port are set by your IBM system administrator in the CTG gateway configuration file. Ensure that firewall rules allow inbound connections on the configured port from your integration host.
 :::
 
-## Step 2: Identify the CICS Server Name
+## Step 2: Identify the CICS server name
 
 The CICS server name is the logical name of the CICS region registered with the CTG gateway:
 
@@ -29,7 +32,7 @@ The CICS server name is the logical name of the CICS region registered with the 
 2. In the CTG gateway configuration file (`ctg.ini`), this value appears under the `[Server]` section as the `Name` parameter.
 3. Note this value — it is required as the `cicsServer` parameter in the connector configuration.
 
-## Step 3: Set Up CICS User Credentials
+## Step 3: Set up CICS user credentials
 
 The connector authenticates with the CICS server using a CICS user ID and password:
 
@@ -41,7 +44,7 @@ The connector authenticates with the CICS server using a CICS user ID and passwo
 Use a dedicated service account user ID for integration purposes rather than a personal user ID. Store the credentials securely and do not commit them to source control.
 :::
 
-## Step 4: Configure SSL (Optional)
+## Step 4: Configure SSL (optional)
 
 If your CTG gateway is configured to require SSL/TLS connections, prepare the following:
 
@@ -55,7 +58,7 @@ If your CTG gateway is configured to require SSL/TLS connections, prepare the fo
 SSL configuration requires the CTG gateway to be set up with matching SSL certificates on the server side. Consult your IBM CTG documentation for server-side SSL configuration details.
 :::
 
-## Step 5: Obtain IBM CTG Java Client Libraries
+## Step 5: Obtain IBM CTG Java client libraries
 
 The connector requires proprietary IBM CTG Java libraries that are not redistributed with the connector package:
 

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up your SAP S/4HANA system to allow API access by creating a Communication System and Communication Arrangement.
@@ -7,11 +10,11 @@ This guide walks you through setting up your SAP S/4HANA system to allow API acc
 
 - An active SAP S/4HANA Cloud instance or access to an SAP system with OData APIs enabled. If you do not have one, contact your SAP administrator or [explore SAP trial options](https://www.sap.com/products/erp/s4hana.html).
 
-## Step 1: Log In to Your S/4HANA Dashboard
+## Step 1: Log in to your s/4HANA dashboard
 
 1. Sign in to your S/4HANA dashboard using your administrator credentials.
 
-## Step 2: Create a Communication System
+## Step 2: Create a communication system
 
 1. Under the **Communication Management** section, click on **Display Communications Scenario**.
 2. In the top right corner of the screen, click **New**.
@@ -25,7 +28,7 @@ This guide walks you through setting up your SAP S/4HANA system to allow API acc
 Record the Communication User credentials (username and password) — you will need them to configure the Ballerina client.
 :::
 
-## Step 3: Create a Communication Arrangement
+## Step 3: Create a communication arrangement
 
 1. Under the **Communication Management** section, click on **Display Communications Scenario**.
 2. In the search bar, type the name of the API scenario you want to use (e.g., `Sales Order Integration`) and select the corresponding scenario from the results.
@@ -34,7 +37,7 @@ Record the Communication User credentials (username and password) — you will n
 5. Choose the **Communication System** you created in the previous step from the dropdown menu.
 6. Click **Save**.
 
-## Step 4: Obtain the API Hostname
+## Step 4: Obtain the API hostname
 
 After saving the Communication Arrangement, the API hostname will be displayed in the top right corner of the screen. It follows the format:
 

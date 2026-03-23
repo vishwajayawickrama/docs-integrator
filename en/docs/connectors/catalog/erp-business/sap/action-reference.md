@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -32,7 +33,7 @@ HTTP client for SAP APIs with built-in CSRF token authentication.
 | `poolConfig` | `PoolConfiguration` | `()` | Connection pool configuration. |
 | `validation` | `boolean` | `true` | Enables inbound payload validation provided by the constraint package. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap;
@@ -51,7 +52,7 @@ sap:Client sapClient = check new (string `https://${hostname}/sap/opu/odata/sap/
 
 ### Operations
 
-#### Read Operations
+#### Read operations
 
 <details>
 <summary>get</summary>
@@ -60,7 +61,7 @@ sap:Client sapClient = check new (string `https://${hostname}/sap/opu/odata/sap/
 
 Sends an HTTP GET request to the specified SAP API path. Used to retrieve data such as entity collections or individual records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -68,15 +69,15 @@ Sends an HTTP GET request to the specified SAP API path. Used to retrieve data s
 | `headers` | `map<string\|string[]>?` | No | Optional HTTP headers. |
 | `targetType` | `typedesc<TargetType>` | No | Expected return type for data binding. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json salesOrders = check sapClient->get("/A_SalesOrder");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -105,16 +106,16 @@ json salesOrders = check sapClient->get("/A_SalesOrder");
 
 Sends an HTTP HEAD request to the specified SAP API path. Returns only headers, useful for checking resource existence or metadata.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `path` | `string` | Yes | Resource path. |
 | `headers` | `map<string\|string[]>?` | No | Optional HTTP headers. |
 
-**Returns:** `http:Response|ClientError`
+Returns: `http:Response|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response headResponse = check sapClient->head("/A_SalesOrder('1000000')");
@@ -132,7 +133,7 @@ int statusCode = headResponse.statusCode;
 
 Sends an HTTP OPTIONS request to discover the allowed methods and capabilities of the target SAP API endpoint.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -140,9 +141,9 @@ Sends an HTTP OPTIONS request to discover the allowed methods and capabilities o
 | `headers` | `map<string\|string[]>?` | No | Optional HTTP headers. |
 | `targetType` | `typedesc<TargetType>` | No | Expected return type. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response optionsResponse = check sapClient->options("/A_SalesOrder");
@@ -153,7 +154,7 @@ string? allowedMethods = check optionsResponse.getHeader("Allow");
 
 </details>
 
-#### Create Operations
+#### Create operations
 
 <details>
 <summary>post</summary>
@@ -162,7 +163,7 @@ string? allowedMethods = check optionsResponse.getHeader("Allow");
 
 Sends an HTTP POST request to the specified SAP API path. Used to create new entities. CSRF token is automatically fetched and included.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -172,9 +173,9 @@ Sends an HTTP POST request to the specified SAP API path. Used to create new ent
 | `mediaType` | `string?` | No | MIME type of the request entity. |
 | `targetType` | `typedesc<TargetType>` | No | Expected return type. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json newOrder = {
@@ -187,7 +188,7 @@ json newOrder = {
 json createdOrder = check sapClient->post("/A_SalesOrder", newOrder);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -205,7 +206,7 @@ json createdOrder = check sapClient->post("/A_SalesOrder", newOrder);
 
 </details>
 
-#### Update Operations
+#### Update operations
 
 <details>
 <summary>put</summary>
@@ -214,7 +215,7 @@ json createdOrder = check sapClient->post("/A_SalesOrder", newOrder);
 
 Sends an HTTP PUT request to the specified SAP API path. Used to fully replace an existing entity. CSRF token is automatically included.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -224,9 +225,9 @@ Sends an HTTP PUT request to the specified SAP API path. Used to fully replace a
 | `mediaType` | `string?` | No | MIME type of the request entity. |
 | `targetType` | `typedesc<TargetType>` | No | Expected return type. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json updatedOrder = {
@@ -251,7 +252,7 @@ http:Response putResponse = check sapClient->put("/A_SalesOrder('1000042')", upd
 
 Sends an HTTP PATCH request to the specified SAP API path. Used to partially update an existing entity. CSRF token is automatically included.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -261,9 +262,9 @@ Sends an HTTP PATCH request to the specified SAP API path. Used to partially upd
 | `mediaType` | `string?` | No | MIME type of the request entity. |
 | `targetType` | `typedesc<TargetType>` | No | Expected return type. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json partialUpdate = {
@@ -276,7 +277,7 @@ http:Response patchResponse = check sapClient->patch("/A_SalesOrder('1000042')",
 
 </details>
 
-#### Delete Operations
+#### Delete operations
 
 <details>
 <summary>delete</summary>
@@ -285,7 +286,7 @@ http:Response patchResponse = check sapClient->patch("/A_SalesOrder('1000042')",
 
 Sends an HTTP DELETE request to the specified SAP API path. Used to remove an existing entity. CSRF token is automatically included.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -295,9 +296,9 @@ Sends an HTTP DELETE request to the specified SAP API path. Used to remove an ex
 | `mediaType` | `string?` | No | MIME type of the request entity. |
 | `targetType` | `typedesc<TargetType>` | No | Expected return type. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response deleteResponse = check sapClient->delete("/A_SalesOrder('1000042')");
@@ -307,7 +308,7 @@ http:Response deleteResponse = check sapClient->delete("/A_SalesOrder('1000042')
 
 </details>
 
-#### Resource Function Style
+#### Resource function style
 
 <details>
 <summary>GET resource accessor</summary>
@@ -316,7 +317,7 @@ http:Response deleteResponse = check sapClient->delete("/A_SalesOrder('1000042')
 
 Resource function style for HTTP GET requests. Allows path segments as part of the resource accessor syntax and supports query parameters via the `params` spread field.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -325,15 +326,15 @@ Resource function style for HTTP GET requests. Allows path segments as part of t
 | `targetType` | `typedesc<TargetType>` | No | Expected return type. |
 | `params` | `QueryParams` | No | Query parameters as a record with `string|string[]` fields. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json salesOrderList = check sapClient->/A_SalesOrder();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -361,7 +362,7 @@ json salesOrderList = check sapClient->/A_SalesOrder();
 
 Resource function style for HTTP POST requests. Allows path segments as part of the resource accessor syntax. CSRF token is handled automatically.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -372,9 +373,9 @@ Resource function style for HTTP POST requests. Allows path segments as part of 
 | `targetType` | `typedesc<TargetType>` | No | Expected return type. |
 | `params` | `QueryParams` | No | Query parameters. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json newOrder = {
@@ -387,7 +388,7 @@ json newOrder = {
 json result = check sapClient->/A_SalesOrder.post(newOrder);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -411,7 +412,7 @@ json result = check sapClient->/A_SalesOrder.post(newOrder);
 
 Resource function style for HTTP PATCH requests. CSRF token is handled automatically.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -421,9 +422,9 @@ Resource function style for HTTP PATCH requests. CSRF token is handled automatic
 | `targetType` | `typedesc<TargetType>` | No | Expected return type. |
 | `params` | `QueryParams` | No | Query parameters. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string salesOrderId = "1000042";
@@ -443,7 +444,7 @@ http:Response patchResp = check sapClient->/A_SalesOrder(salesOrderId).patch({
 
 Resource function style for HTTP DELETE requests. CSRF token is handled automatically.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -453,9 +454,9 @@ Resource function style for HTTP DELETE requests. CSRF token is handled automati
 | `targetType` | `typedesc<TargetType>` | No | Expected return type. |
 | `params` | `QueryParams` | No | Query parameters. |
 
-**Returns:** `targetType|ClientError`
+Returns: `targetType|ClientError`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string salesOrderId = "1000042";

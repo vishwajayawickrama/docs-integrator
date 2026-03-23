@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through obtaining a Mailchimp API key required to use the Mailchimp Marketing connector.
@@ -7,7 +10,7 @@ This guide walks you through obtaining a Mailchimp API key required to use the M
 
 - An active Mailchimp account. If you do not have one, [sign up for a free account](https://login.mailchimp.com/signup/).
 
-## Step 1: Generate an API Key
+## Step 1: Generate an API key
 
 1. Log in to your Mailchimp account at [https://login.mailchimp.com](https://login.mailchimp.com).
 2. Click your profile icon in the bottom-left corner and select **Account & billing**.
@@ -24,7 +27,7 @@ Store your API key securely. Do not commit it to source control. Use Ballerina's
 The API key includes a data center suffix (e.g., `-us21`). This suffix determines which Mailchimp server to use.
 :::
 
-## Step 2: Determine Your Server Prefix
+## Step 2: Determine your server prefix
 
 The Mailchimp API requires requests to be sent to a data-center-specific URL. Your server prefix is the suffix of your API key.
 

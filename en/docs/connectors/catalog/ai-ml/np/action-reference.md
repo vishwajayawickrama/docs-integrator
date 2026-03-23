@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -13,7 +14,7 @@ The `ballerinax/np` package exposes the following clients:
 
 ---
 
-## OpenAI Model Provider
+## OpenAI model provider
 
 Implements the `np:ModelProvider` interface for OpenAI Chat Completions, enabling Ballerina `natural` expression blocks to send prompts to an OpenAI model and receive parsed, strongly-typed responses.
 
@@ -24,7 +25,7 @@ Implements the `np:ModelProvider` interface for OpenAI Chat Completions, enablin
 | `connectionConfig` | `openai.chat:ConnectionConfig` | Required | OpenAI connection configuration. Set `connectionConfig.auth.token` to your OpenAI API key. |
 | `serviceUrl` | `string?` | `()` | OpenAI Chat API base URL. Leave empty to use the default OpenAI endpoint. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/np.openai;
@@ -45,7 +46,7 @@ final openai:ModelProvider openAI = check new ({
 
 ### Operations
 
-#### Natural Language Processing
+#### Natural language processing
 
 <details>
 <summary>call</summary>
@@ -55,16 +56,16 @@ final openai:ModelProvider openAI = check new ({
 Sends a prompt to the OpenAI Chat Completions API and parses the text response into the expected Ballerina type. This remote function is invoked automatically by the Ballerina runtime when a `natural (model) { ... }` expression is evaluated — users do not call it directly. The prompt includes the user's natural-language instruction along with a JSON schema derived from the return type, guiding the model to produce a structured response.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `prompt` | `np:Prompt` | Yes | The structured prompt built by the Ballerina runtime from the `natural` expression, including the user message and the JSON schema of the expected return type. |
 | `expectedResponseTypedesc` | `typedesc<anydata>` | Yes | Type descriptor of the expected return type. Used to generate the JSON schema appended to the prompt and to parse the LLM response. |
 
-**Returns:** `anydata|error`
+Returns: `anydata|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/np;
@@ -88,7 +89,7 @@ isolated function getAuthorDetails(string month, int count, np:ModelProvider mod
 Author author = check getAuthorDetails("July", 5, openAI);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -110,7 +111,7 @@ Author author = check getAuthorDetails("July", 5, openAI);
 
 ---
 
-## Azure OpenAI Model Provider
+## Azure OpenAI model provider
 
 Implements the `np:ModelProvider` interface for Azure OpenAI Chat Completions, enabling Ballerina `natural` expression blocks to send prompts to an Azure-hosted OpenAI deployment and receive parsed, strongly-typed responses.
 
@@ -121,7 +122,7 @@ Implements the `np:ModelProvider` interface for Azure OpenAI Chat Completions, e
 | `serviceUrl` | `string` | Required | Azure OpenAI resource endpoint URL (e.g., `https://<resource-name>.openai.azure.com/`). |
 | `connectionConfig` | `azure.openai.chat:ConnectionConfig` | Required | Azure OpenAI connection configuration. Set `connectionConfig.auth.apiKey` to your Azure OpenAI API key. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/np.azure.openai as azureOpenAI;
@@ -147,7 +148,7 @@ final azureOpenAI:ModelProvider azureOpenAIModel = check new (
 
 ### Operations
 
-#### Natural Language Processing
+#### Natural language processing
 
 <details>
 <summary>call</summary>
@@ -157,16 +158,16 @@ final azureOpenAI:ModelProvider azureOpenAIModel = check new (
 Sends a prompt to the Azure OpenAI Chat Completions API and parses the text response into the expected Ballerina type. This remote function is invoked automatically by the Ballerina runtime when a `natural (model) { ... }` expression is evaluated — users do not call it directly. The prompt includes the user's natural-language instruction along with a JSON schema derived from the return type, guiding the model to produce a structured response.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `prompt` | `np:Prompt` | Yes | The structured prompt built by the Ballerina runtime from the `natural` expression, including the user message and the JSON schema of the expected return type. |
 | `expectedResponseTypedesc` | `typedesc<anydata>` | Yes | Type descriptor of the expected return type. Used to generate the JSON schema appended to the prompt and to parse the LLM response. |
 
-**Returns:** `anydata|error`
+Returns: `anydata|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/np;
@@ -188,7 +189,7 @@ ProductRecommendation recommendation = check getRecommendation(
     "home office setup", azureOpenAIModel);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

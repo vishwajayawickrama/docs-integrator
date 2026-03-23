@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Provides full CRUD access to SAP S/4HANA sales orders and all related entities v
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable constraint validation on request and response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.ce_salesorder_0001;
@@ -46,7 +47,7 @@ ce_salesorder_0001:Client salesOrderClient = check new (
 
 ### Operations
 
-#### Sales Order Management
+#### Sales order management
 
 <details>
 <summary>createSalesOrder</summary>
@@ -55,16 +56,16 @@ ce_salesorder_0001:Client salesOrderClient = check new (
 
 Creates a new sales order in SAP S/4HANA, optionally with nested items, partners, pricing elements, and texts in a single deep-insert request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateSalesOrder` | Yes | Sales order data including type, sales organization, distribution channel, and optional nested entities. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `SalesOrder|error`
+Returns: `SalesOrder|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrder newOrder = check salesOrderClient->createSalesOrder({
@@ -77,7 +78,7 @@ ce_salesorder_0001:SalesOrder newOrder = check salesOrderClient->createSalesOrde
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -106,16 +107,16 @@ ce_salesorder_0001:SalesOrder newOrder = check salesOrderClient->createSalesOrde
 
 Retrieves a collection of sales orders, with support for OData v4 filtering, sorting, pagination, and field selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListSalesOrdersQueries` | No | OData query options including `$filter`, `$orderby`, `$top`, `$skip`, `$select`, and `$expand`. |
 
-**Returns:** `CollectionOfSalesOrder|error`
+Returns: `CollectionOfSalesOrder|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:CollectionOfSalesOrder result = check salesOrderClient->listSalesOrders(
@@ -127,7 +128,7 @@ ce_salesorder_0001:CollectionOfSalesOrder result = check salesOrderClient->listS
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -162,7 +163,7 @@ ce_salesorder_0001:CollectionOfSalesOrder result = check salesOrderClient->listS
 
 Retrieves a single sales order by its identifier, with optional field selection and expansion of related entities.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -170,9 +171,9 @@ Retrieves a single sales order by its identifier, with optional field selection 
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetSalesOrderQueries` | No | OData query options including `$select` and `$expand`. |
 
-**Returns:** `SalesOrder|error`
+Returns: `SalesOrder|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrder order = check salesOrderClient->getSalesOrder(
@@ -181,7 +182,7 @@ ce_salesorder_0001:SalesOrder order = check salesOrderClient->getSalesOrder(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -211,7 +212,7 @@ ce_salesorder_0001:SalesOrder order = check salesOrderClient->getSalesOrder(
 
 Updates selected fields on an existing sales order header using a partial update (PATCH).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -219,9 +220,9 @@ Updates selected fields on an existing sales order header using a partial update
 | `payload` | `UpdateSalesOrder` | Yes | Fields to update; only supplied fields are modified. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check salesOrderClient->patchSalesOrder(
@@ -234,7 +235,7 @@ http:Response _ = check salesOrderClient->patchSalesOrder(
 
 </details>
 
-#### Sales Order Item Management
+#### Sales order item management
 
 <details>
 <summary>createItemOfSalesOrder</summary>
@@ -243,7 +244,7 @@ http:Response _ = check salesOrderClient->patchSalesOrder(
 
 Adds a new item to an existing sales order, specifying material, quantity, and optional sub-entities.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -251,9 +252,9 @@ Adds a new item to an existing sales order, specifying material, quantity, and o
 | `payload` | `CreateSalesOrderItem` | Yes | Item data including item number, material, quantity, and unit. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `SalesOrderItem|error`
+Returns: `SalesOrderItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrderItem newItem = check salesOrderClient->createItemOfSalesOrder(
@@ -267,7 +268,7 @@ ce_salesorder_0001:SalesOrderItem newItem = check salesOrderClient->createItemOf
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -294,7 +295,7 @@ ce_salesorder_0001:SalesOrderItem newItem = check salesOrderClient->createItemOf
 
 Retrieves all items belonging to a specific sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -302,15 +303,15 @@ Retrieves all items belonging to a specific sales order.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListItemsOfSalesOrderQueries` | No | OData query options. |
 
-**Returns:** `CollectionOfSalesOrderItem|error`
+Returns: `CollectionOfSalesOrderItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:CollectionOfSalesOrderItem items = check salesOrderClient->listItemsOfSalesOrder("1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -350,7 +351,7 @@ ce_salesorder_0001:CollectionOfSalesOrderItem items = check salesOrderClient->li
 
 Retrieves a single sales order item by order number and item number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -359,15 +360,15 @@ Retrieves a single sales order item by order number and item number.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetSalesOrderItemQueries` | No | OData query options including `$select` and `$expand`. |
 
-**Returns:** `SalesOrderItem|error`
+Returns: `SalesOrderItem|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrderItem item = check salesOrderClient->getSalesOrderItem("1234567890", "000010");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -396,7 +397,7 @@ ce_salesorder_0001:SalesOrderItem item = check salesOrderClient->getSalesOrderIt
 
 Updates selected fields on an existing sales order item using a partial update (PATCH).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -405,9 +406,9 @@ Updates selected fields on an existing sales order item using a partial update (
 | `payload` | `UpdateSalesOrderItem` | Yes | Fields to update on the item; only supplied fields are modified. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check salesOrderClient->patchSalesOrderItem(
@@ -428,7 +429,7 @@ http:Response _ = check salesOrderClient->patchSalesOrderItem(
 
 Removes an item from a sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -436,9 +437,9 @@ Removes an item from a sales order.
 | `salesOrderItem` | `string` | Yes | The item number to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check salesOrderClient->deleteSalesOrderItem("1234567890", "000010");
@@ -448,7 +449,7 @@ http:Response _ = check salesOrderClient->deleteSalesOrderItem("1234567890", "00
 
 </details>
 
-#### Partner Management
+#### Partner management
 
 <details>
 <summary>createPartnerOfSalesOrder</summary>
@@ -457,7 +458,7 @@ http:Response _ = check salesOrderClient->deleteSalesOrderItem("1234567890", "00
 
 Assigns a partner function (e.g., ship-to party, bill-to party) to a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -465,9 +466,9 @@ Assigns a partner function (e.g., ship-to party, bill-to party) to a sales order
 | `payload` | `CreateSalesOrderPartner` | Yes | Partner data including the function code and the customer or supplier ID. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `SalesOrderPartner|error`
+Returns: `SalesOrderPartner|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrderPartner partner = check salesOrderClient->createPartnerOfSalesOrder(
@@ -476,7 +477,7 @@ ce_salesorder_0001:SalesOrderPartner partner = check salesOrderClient->createPar
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -500,7 +501,7 @@ ce_salesorder_0001:SalesOrderPartner partner = check salesOrderClient->createPar
 
 Retrieves all partner function assignments for a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -508,15 +509,15 @@ Retrieves all partner function assignments for a sales order header.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListPartnersOfSalesOrderQueries` | No | OData query options. |
 
-**Returns:** `CollectionOfSalesOrderPartner|error`
+Returns: `CollectionOfSalesOrderPartner|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:CollectionOfSalesOrderPartner partners = check salesOrderClient->listPartnersOfSalesOrder("1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -539,7 +540,7 @@ ce_salesorder_0001:CollectionOfSalesOrderPartner partners = check salesOrderClie
 
 Retrieves a specific partner function entry from a sales order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -548,15 +549,15 @@ Retrieves a specific partner function entry from a sales order.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetSalesOrderPartnerQueries` | No | OData query options. |
 
-**Returns:** `SalesOrderPartner|error`
+Returns: `SalesOrderPartner|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrderPartner partner = check salesOrderClient->getSalesOrderPartner("1234567890", "WE");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -580,7 +581,7 @@ ce_salesorder_0001:SalesOrderPartner partner = check salesOrderClient->getSalesO
 
 Removes a partner function assignment from a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -588,9 +589,9 @@ Removes a partner function assignment from a sales order header.
 | `PartnerFunction` | `string` | Yes | The partner function code to remove. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check salesOrderClient->deleteSalesOrderPartner("1234567890", "WE");
@@ -600,7 +601,7 @@ http:Response _ = check salesOrderClient->deleteSalesOrderPartner("1234567890", 
 
 </details>
 
-#### Pricing Element Management
+#### Pricing element management
 
 <details>
 <summary>createPricingElementOfSalesOrder</summary>
@@ -609,7 +610,7 @@ http:Response _ = check salesOrderClient->deleteSalesOrderPartner("1234567890", 
 
 Adds a pricing condition element to a sales order header, specifying condition type and rate.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -617,9 +618,9 @@ Adds a pricing condition element to a sales order header, specifying condition t
 | `payload` | `CreateSalesOrderPricingElement` | Yes | Pricing element data including procedure step, counter, condition type, and rate. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `SalesOrderPricingElement|error`
+Returns: `SalesOrderPricingElement|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrderPricingElement pricingEl = check salesOrderClient->createPricingElementOfSalesOrder(
@@ -634,7 +635,7 @@ ce_salesorder_0001:SalesOrderPricingElement pricingEl = check salesOrderClient->
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -660,7 +661,7 @@ ce_salesorder_0001:SalesOrderPricingElement pricingEl = check salesOrderClient->
 
 Retrieves all pricing condition elements associated with a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -668,15 +669,15 @@ Retrieves all pricing condition elements associated with a sales order header.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListPricingElementsOfSalesOrderQueries` | No | OData query options. |
 
-**Returns:** `CollectionOfSalesOrderPricingElement|error`
+Returns: `CollectionOfSalesOrderPricingElement|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:CollectionOfSalesOrderPricingElement elements = check salesOrderClient->listPricingElementsOfSalesOrder("1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -714,7 +715,7 @@ ce_salesorder_0001:CollectionOfSalesOrderPricingElement elements = check salesOr
 
 Retrieves a specific pricing condition element from a sales order by step and counter.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -724,9 +725,9 @@ Retrieves a specific pricing condition element from a sales order by step and co
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetSalesOrderPricingElementQueries` | No | OData query options. |
 
-**Returns:** `SalesOrderPricingElement|error`
+Returns: `SalesOrderPricingElement|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrderPricingElement element = check salesOrderClient->getSalesOrderPricingElement(
@@ -734,7 +735,7 @@ ce_salesorder_0001:SalesOrderPricingElement element = check salesOrderClient->ge
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -762,7 +763,7 @@ ce_salesorder_0001:SalesOrderPricingElement element = check salesOrderClient->ge
 
 Removes a pricing condition element from a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -771,9 +772,9 @@ Removes a pricing condition element from a sales order header.
 | `PricingProcedureCounter` | `string` | Yes | The pricing procedure counter to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check salesOrderClient->deleteSalesOrderPricingElement("1234567890", "010", "01");
@@ -783,7 +784,7 @@ http:Response _ = check salesOrderClient->deleteSalesOrderPricingElement("123456
 
 </details>
 
-#### Schedule Line Management
+#### Schedule line management
 
 <details>
 <summary>listScheduleLinesOfSalesOrderItem</summary>
@@ -792,7 +793,7 @@ http:Response _ = check salesOrderClient->deleteSalesOrderPricingElement("123456
 
 Retrieves all schedule lines for a sales order item, showing planned delivery quantities and dates.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -801,9 +802,9 @@ Retrieves all schedule lines for a sales order item, showing planned delivery qu
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListScheduleLinesOfSalesOrderItemQueries` | No | OData query options. |
 
-**Returns:** `CollectionOfSalesOrderScheduleLine|error`
+Returns: `CollectionOfSalesOrderScheduleLine|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:CollectionOfSalesOrderScheduleLine scheduleLines = check salesOrderClient->listScheduleLinesOfSalesOrderItem(
@@ -811,7 +812,7 @@ ce_salesorder_0001:CollectionOfSalesOrderScheduleLine scheduleLines = check sale
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -841,7 +842,7 @@ ce_salesorder_0001:CollectionOfSalesOrderScheduleLine scheduleLines = check sale
 
 Retrieves a specific schedule line for a sales order item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -851,9 +852,9 @@ Retrieves a specific schedule line for a sales order item.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `GetSalesOrderScheduleLineQueries` | No | OData query options. |
 
-**Returns:** `SalesOrderScheduleLine|error`
+Returns: `SalesOrderScheduleLine|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrderScheduleLine line = check salesOrderClient->getSalesOrderScheduleLine(
@@ -861,7 +862,7 @@ ce_salesorder_0001:SalesOrderScheduleLine line = check salesOrderClient->getSale
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -881,7 +882,7 @@ ce_salesorder_0001:SalesOrderScheduleLine line = check salesOrderClient->getSale
 
 </details>
 
-#### Text Management
+#### Text management
 
 <details>
 <summary>createTextOfSalesOrder</summary>
@@ -890,7 +891,7 @@ ce_salesorder_0001:SalesOrderScheduleLine line = check salesOrderClient->getSale
 
 Adds a long-text entry to a sales order header for a specified language and text ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -898,9 +899,9 @@ Adds a long-text entry to a sales order header for a specified language and text
 | `payload` | `CreateSalesOrderText` | Yes | Text data including language code, text ID, and the text content. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `SalesOrderText|error`
+Returns: `SalesOrderText|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:SalesOrderText text = check salesOrderClient->createTextOfSalesOrder(
@@ -913,7 +914,7 @@ ce_salesorder_0001:SalesOrderText text = check salesOrderClient->createTextOfSal
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -935,7 +936,7 @@ ce_salesorder_0001:SalesOrderText text = check salesOrderClient->createTextOfSal
 
 Retrieves all text entries associated with a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -943,15 +944,15 @@ Retrieves all text entries associated with a sales order header.
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 | `queries` | `ListTextsOfSalesOrderQueries` | No | OData query options. |
 
-**Returns:** `CollectionOfSalesOrderText|error`
+Returns: `CollectionOfSalesOrderText|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ce_salesorder_0001:CollectionOfSalesOrderText texts = check salesOrderClient->listTextsOfSalesOrder("1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -983,7 +984,7 @@ ce_salesorder_0001:CollectionOfSalesOrderText texts = check salesOrderClient->li
 
 Removes a text entry from a sales order header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -992,9 +993,9 @@ Removes a text entry from a sales order header.
 | `LongTextID` | `string` | Yes | The text ID to remove. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check salesOrderClient->deleteSalesOrderText("1234567890", "EN", "0001");
@@ -1004,7 +1005,7 @@ http:Response _ = check salesOrderClient->deleteSalesOrderText("1234567890", "EN
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>performBatchOperation</summary>
@@ -1013,16 +1014,16 @@ http:Response _ = check salesOrderClient->deleteSalesOrderText("1234567890", "EN
 
 Executes multiple OData read or change requests in a single HTTP call using the OData v4 batch protocol, reducing network round-trips.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `http:Request` | Yes | An HTTP request with `multipart/mixed` content type containing the individual OData batch requests. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Request batchRequest = new;

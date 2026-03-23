@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -23,7 +24,7 @@ Interact with AWS Secrets Manager to describe and retrieve secrets.
 | `region` | `Region` | Required | The AWS region where your secrets are stored (e.g., `US_EAST_1`, `EU_WEST_1`). |
 | `auth` | `StaticAuthConfig\|EC2_IAM_ROLE\|DEFAULT_CREDENTIALS` | Required | Authentication configuration — static access key credentials, EC2 IAM role, or default AWS credential chain. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/aws.secretmanager;
@@ -42,7 +43,7 @@ secretmanager:Client secretManagerClient = check new ({
 
 ### Operations
 
-#### Secret Metadata
+#### Secret metadata
 
 <details>
 <summary>describeSecret</summary>
@@ -51,21 +52,21 @@ secretmanager:Client secretManagerClient = check new ({
 
 Retrieves metadata about a secret, including its name, ARN, description, rotation configuration, replication status, and tags. Does not return the secret value itself.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `secretId` | `SecretId` | Yes | The name or ARN of the secret (1–2048 characters). |
 
-**Returns:** `DescribeSecretResponse|Error`
+Returns: `DescribeSecretResponse|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 secretmanager:DescribeSecretResponse response = check secretManagerClient->describeSecret("prod/db/credentials");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -90,7 +91,7 @@ secretmanager:DescribeSecretResponse response = check secretManagerClient->descr
 
 </details>
 
-#### Secret Retrieval
+#### Secret retrieval
 
 <details>
 <summary>getSecretValue</summary>
@@ -99,7 +100,7 @@ secretmanager:DescribeSecretResponse response = check secretManagerClient->descr
 
 Retrieves the encrypted value of a secret. You can optionally specify a version by version ID or staging label; defaults to the `AWSCURRENT` version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -107,15 +108,15 @@ Retrieves the encrypted value of a secret. You can optionally specify a version 
 | `versionId` | `string` | No | The unique identifier of the secret version (32–64 characters). |
 | `versionStage` | `string` | No | The staging label of the version to retrieve (e.g., `AWSCURRENT`, `AWSPREVIOUS`). |
 
-**Returns:** `SecretValue|Error`
+Returns: `SecretValue|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 secretmanager:SecretValue secret = check secretManagerClient->getSecretValue("prod/db/credentials");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -139,7 +140,7 @@ secretmanager:SecretValue secret = check secretManagerClient->getSecretValue("pr
 
 Retrieves the values of up to 20 secrets in a single call. You must provide either `secretIds` or `filters`, but not both.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -148,9 +149,9 @@ Retrieves the values of up to 20 secrets in a single call. You must provide eith
 | `maxResults` | `int` | No | Maximum number of results to return (1–20). |
 | `nextToken` | `string` | No | Pagination token from a previous response (1–4096 characters). |
 
-**Returns:** `BatchGetSecretValueResponse|Error`
+Returns: `BatchGetSecretValueResponse|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 secretmanager:BatchGetSecretValueResponse response = check secretManagerClient->batchGetSecretValue(
@@ -158,7 +159,7 @@ secretmanager:BatchGetSecretValueResponse response = check secretManagerClient->
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -188,7 +189,7 @@ secretmanager:BatchGetSecretValueResponse response = check secretManagerClient->
 
 </details>
 
-#### Client Lifecycle
+#### Client lifecycle
 
 <details>
 <summary>close</summary>
@@ -198,9 +199,9 @@ secretmanager:BatchGetSecretValueResponse response = check secretManagerClient->
 Releases resources associated with the client. Call this when the client is no longer needed.
 
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check secretManagerClient->close();

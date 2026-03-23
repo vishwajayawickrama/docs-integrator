@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -27,7 +28,7 @@ Provides access to Twitter API v2 endpoints — tweets, users, DMs, bookmarks, l
 | `secureSocket` | `http:ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/twitter;
@@ -43,7 +44,7 @@ twitter:Client twitter = check new ({
 
 ### Operations
 
-#### Tweet Operations
+#### Tweet operations
 
 <details>
 <summary>Create a Tweet</summary>
@@ -52,15 +53,15 @@ twitter:Client twitter = check new ({
 
 Creates a new tweet on behalf of the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TweetCreateRequest` | Yes | The tweet content including `text` and optional fields like `reply`, `media`, `poll`, and `quote_tweet_id`. |
 
-**Returns:** `TweetCreateResponse|error`
+Returns: `TweetCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:TweetCreateResponse result = check twitter->/tweets.post(
@@ -70,7 +71,7 @@ twitter:TweetCreateResponse result = check twitter->/tweets.post(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -92,21 +93,21 @@ twitter:TweetCreateResponse result = check twitter->/tweets.post(
 
 Deletes a tweet owned by the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TweetId` | Yes | The ID of the tweet to delete. |
 
-**Returns:** `TweetDeleteResponse|error`
+Returns: `TweetDeleteResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:TweetDeleteResponse result = check twitter->/tweets/["1849041379283947520"].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -127,7 +128,7 @@ twitter:TweetDeleteResponse result = check twitter->/tweets/["184904137928394752
 
 Returns the details of a single tweet specified by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -135,9 +136,9 @@ Returns the details of a single tweet specified by its ID.
 | `tweet.fields` | `string[]?` | No | Comma-separated list of tweet fields to include (e.g., `created_at`, `public_metrics`). |
 | `expansions` | `string[]?` | No | Expansions to include (e.g., `author_id`, `attachments.media_keys`). |
 
-**Returns:** `Get2TweetsIdResponse|error`
+Returns: `Get2TweetsIdResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2TweetsIdResponse result = check twitter->/tweets/["1849041379283947520"](
@@ -145,7 +146,7 @@ twitter:Get2TweetsIdResponse result = check twitter->/tweets/["18490413792839475
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -175,7 +176,7 @@ twitter:Get2TweetsIdResponse result = check twitter->/tweets/["18490413792839475
 
 Returns tweets from the last 7 days that match a search query.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -183,9 +184,9 @@ Returns tweets from the last 7 days that match a search query.
 | `max_results` | `int?` | No | Maximum number of results per page (10–100, default 10). |
 | `tweet.fields` | `string[]?` | No | Tweet fields to include in the response. |
 
-**Returns:** `Get2TweetsSearchRecentResponse|error`
+Returns: `Get2TweetsSearchRecentResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2TweetsSearchRecentResponse result = check twitter->/tweets/search/recent(
@@ -195,7 +196,7 @@ twitter:Get2TweetsSearchRecentResponse result = check twitter->/tweets/search/re
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -225,7 +226,7 @@ twitter:Get2TweetsSearchRecentResponse result = check twitter->/tweets/search/re
 
 </details>
 
-#### User Operations
+#### User operations
 
 <details>
 <summary>Retrieve a User by ID</summary>
@@ -234,16 +235,16 @@ twitter:Get2TweetsSearchRecentResponse result = check twitter->/tweets/search/re
 
 Returns information about a user specified by their ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the user to look up. |
 | `user.fields` | `string[]?` | No | User fields to include (e.g., `created_at`, `description`, `public_metrics`). |
 
-**Returns:** `Get2UsersIdResponse|error`
+Returns: `Get2UsersIdResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2UsersIdResponse result = check twitter->/users/["123456789"](
@@ -251,7 +252,7 @@ twitter:Get2UsersIdResponse result = check twitter->/users/["123456789"](
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -281,16 +282,16 @@ twitter:Get2UsersIdResponse result = check twitter->/users/["123456789"](
 
 Returns information about a user specified by their username (handle).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `username` | `string` | Yes | The Twitter username (without the `@` symbol). |
 | `user.fields` | `string[]?` | No | User fields to include in the response. |
 
-**Returns:** `Get2UsersByUsernameUsernameResponse|error`
+Returns: `Get2UsersByUsernameUsernameResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2UsersByUsernameUsernameResponse result = check twitter->/users/by/username/["ballerinadev"](
@@ -298,7 +299,7 @@ twitter:Get2UsersByUsernameUsernameResponse result = check twitter->/users/by/us
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -329,15 +330,15 @@ twitter:Get2UsersByUsernameUsernameResponse result = check twitter->/users/by/us
 
 Returns information about the currently authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `user.fields` | `string[]?` | No | User fields to include in the response. |
 
-**Returns:** `Get2UsersMeResponse|error`
+Returns: `Get2UsersMeResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2UsersMeResponse result = check twitter->/users/me(
@@ -345,7 +346,7 @@ twitter:Get2UsersMeResponse result = check twitter->/users/me(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -376,16 +377,16 @@ twitter:Get2UsersMeResponse result = check twitter->/users/me(
 
 Causes the authenticated user to follow the target user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the authenticated user. |
 | `payload` | `UsersFollowingCreateRequest` | Yes | Request body containing `target_user_id` to follow. |
 
-**Returns:** `UsersFollowingCreateResponse|error`
+Returns: `UsersFollowingCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:UsersFollowingCreateResponse result = check twitter->/users/["123456789"]/following.post(
@@ -395,7 +396,7 @@ twitter:UsersFollowingCreateResponse result = check twitter->/users/["123456789"
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -417,16 +418,16 @@ twitter:UsersFollowingCreateResponse result = check twitter->/users/["123456789"
 
 Returns a list of users who are followers of the specified user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the user whose followers to retrieve. |
 | `max_results` | `int?` | No | Maximum number of results per page (1–1000, default 100). |
 
-**Returns:** `Get2UsersIdFollowersResponse|error`
+Returns: `Get2UsersIdFollowersResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2UsersIdFollowersResponse result = check twitter->/users/["123456789"]/followers(
@@ -434,7 +435,7 @@ twitter:Get2UsersIdFollowersResponse result = check twitter->/users/["123456789"
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -465,16 +466,16 @@ twitter:Get2UsersIdFollowersResponse result = check twitter->/users/["123456789"
 
 Causes the authenticated user to like the specified tweet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the authenticated user. |
 | `payload` | `UsersLikesCreateRequest` | Yes | Request body containing `tweet_id` to like. |
 
-**Returns:** `UsersLikesCreateResponse|error`
+Returns: `UsersLikesCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:UsersLikesCreateResponse result = check twitter->/users/["123456789"]/likes.post(
@@ -484,7 +485,7 @@ twitter:UsersLikesCreateResponse result = check twitter->/users/["123456789"]/li
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -505,16 +506,16 @@ twitter:UsersLikesCreateResponse result = check twitter->/users/["123456789"]/li
 
 Returns tweets liked by the specified user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the user whose liked tweets to retrieve. |
 | `max_results` | `int?` | No | Maximum number of results per page (10–100, default 10). |
 
-**Returns:** `Get2UsersIdLikedTweetsResponse|error`
+Returns: `Get2UsersIdLikedTweetsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2UsersIdLikedTweetsResponse result = check twitter->/users/["123456789"]/liked_tweets(
@@ -522,7 +523,7 @@ twitter:Get2UsersIdLikedTweetsResponse result = check twitter->/users/["12345678
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -551,16 +552,16 @@ twitter:Get2UsersIdLikedTweetsResponse result = check twitter->/users/["12345678
 
 Adds a tweet to the authenticated user's bookmarks.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the authenticated user. |
 | `payload` | `BookmarkAddRequest` | Yes | Request body containing `tweet_id` to bookmark. |
 
-**Returns:** `BookmarkMutationResponse|error`
+Returns: `BookmarkMutationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:BookmarkMutationResponse result = check twitter->/users/["123456789"]/bookmarks.post(
@@ -570,7 +571,7 @@ twitter:BookmarkMutationResponse result = check twitter->/users/["123456789"]/bo
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -591,16 +592,16 @@ twitter:BookmarkMutationResponse result = check twitter->/users/["123456789"]/bo
 
 Returns tweets bookmarked by the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the authenticated user. |
 | `max_results` | `int?` | No | Maximum number of results per page (1–100). |
 
-**Returns:** `Get2UsersIdBookmarksResponse|error`
+Returns: `Get2UsersIdBookmarksResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2UsersIdBookmarksResponse result = check twitter->/users/["123456789"]/bookmarks(
@@ -608,7 +609,7 @@ twitter:Get2UsersIdBookmarksResponse result = check twitter->/users/["123456789"
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -628,7 +629,7 @@ twitter:Get2UsersIdBookmarksResponse result = check twitter->/users/["123456789"
 
 </details>
 
-#### Direct Messages
+#### Direct messages
 
 <details>
 <summary>Send a DM in a one-to-one conversation</summary>
@@ -637,16 +638,16 @@ twitter:Get2UsersIdBookmarksResponse result = check twitter->/users/["123456789"
 
 Creates a new DM in a one-to-one conversation with the specified user. If no conversation exists, one is created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `participant_id` | `UserId` | Yes | The ID of the other participant. |
 | `payload` | `CreateMessageRequest` | Yes | The message content including `text` and optional `attachments`. |
 
-**Returns:** `CreateDmEventResponse|error`
+Returns: `CreateDmEventResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:CreateDmEventResponse result = check twitter->/dm_conversations/with/["987654321"]/messages.post(
@@ -656,7 +657,7 @@ twitter:CreateDmEventResponse result = check twitter->/dm_conversations/with/["9
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -678,16 +679,16 @@ twitter:CreateDmEventResponse result = check twitter->/dm_conversations/with/["9
 
 Returns DM events for the authenticated user across all conversations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `max_results` | `int?` | No | Maximum number of results per page (1–100, default 100). |
 | `dm_event.fields` | `string[]?` | No | DM event fields to include (e.g., `created_at`, `sender_id`, `text`). |
 
-**Returns:** `Get2DmEventsResponse|error`
+Returns: `Get2DmEventsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2DmEventsResponse result = check twitter->/dm_events(
@@ -696,7 +697,7 @@ twitter:Get2DmEventsResponse result = check twitter->/dm_events(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -728,16 +729,16 @@ twitter:Get2DmEventsResponse result = check twitter->/dm_events(
 
 Causes the authenticated user to retweet the specified tweet.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the authenticated user. |
 | `payload` | `UsersRetweetsCreateRequest` | Yes | Request body containing `tweet_id` to retweet. |
 
-**Returns:** `UsersRetweetsCreateResponse|error`
+Returns: `UsersRetweetsCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:UsersRetweetsCreateResponse result = check twitter->/users/["123456789"]/retweets.post(
@@ -747,7 +748,7 @@ twitter:UsersRetweetsCreateResponse result = check twitter->/users/["123456789"]
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -761,7 +762,7 @@ twitter:UsersRetweetsCreateResponse result = check twitter->/users/["123456789"]
 
 </details>
 
-#### User Timeline
+#### User timeline
 
 <details>
 <summary>Get a user's Tweets</summary>
@@ -770,7 +771,7 @@ twitter:UsersRetweetsCreateResponse result = check twitter->/users/["123456789"]
 
 Returns tweets composed by the specified user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -778,9 +779,9 @@ Returns tweets composed by the specified user.
 | `max_results` | `int?` | No | Maximum number of results per page (5–100, default 10). |
 | `tweet.fields` | `string[]?` | No | Tweet fields to include in the response. |
 
-**Returns:** `Get2UsersIdTweetsResponse|error`
+Returns: `Get2UsersIdTweetsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2UsersIdTweetsResponse result = check twitter->/users/["123456789"]/tweets(
@@ -789,7 +790,7 @@ twitter:Get2UsersIdTweetsResponse result = check twitter->/users/["123456789"]/t
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -825,7 +826,7 @@ twitter:Get2UsersIdTweetsResponse result = check twitter->/users/["123456789"]/t
 
 Returns tweets that mention the specified user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -833,9 +834,9 @@ Returns tweets that mention the specified user.
 | `max_results` | `int?` | No | Maximum number of results per page (5–100, default 10). |
 | `tweet.fields` | `string[]?` | No | Tweet fields to include in the response. |
 
-**Returns:** `Get2UsersIdMentionsResponse|error`
+Returns: `Get2UsersIdMentionsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2UsersIdMentionsResponse result = check twitter->/users/["123456789"]/mentions(
@@ -844,7 +845,7 @@ twitter:Get2UsersIdMentionsResponse result = check twitter->/users/["123456789"]
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -872,7 +873,7 @@ twitter:Get2UsersIdMentionsResponse result = check twitter->/users/["123456789"]
 
 </details>
 
-#### Mutes & Blocks
+#### Mutes & blocks
 
 <details>
 <summary>Mute a user</summary>
@@ -881,16 +882,16 @@ twitter:Get2UsersIdMentionsResponse result = check twitter->/users/["123456789"]
 
 Causes the authenticated user to mute the specified target user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the authenticated user. |
 | `payload` | `MuteUserRequest` | Yes | Request body containing `target_user_id` to mute. |
 
-**Returns:** `MuteUserMutationResponse|error`
+Returns: `MuteUserMutationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:MuteUserMutationResponse result = check twitter->/users/["123456789"]/muting.post(
@@ -900,7 +901,7 @@ twitter:MuteUserMutationResponse result = check twitter->/users/["123456789"]/mu
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -921,16 +922,16 @@ twitter:MuteUserMutationResponse result = check twitter->/users/["123456789"]/mu
 
 Causes the authenticated user to block the specified target user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `UserId` | Yes | The ID of the authenticated user. |
 | `payload` | `BlockUserRequest` | Yes | Request body containing `target_user_id` to block. |
 
-**Returns:** `BlockUserMutationResponse|error`
+Returns: `BlockUserMutationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:BlockUserMutationResponse result = check twitter->/users/["123456789"]/blocking.post(
@@ -940,7 +941,7 @@ twitter:BlockUserMutationResponse result = check twitter->/users/["123456789"]/b
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -963,15 +964,15 @@ twitter:BlockUserMutationResponse result = check twitter->/users/["123456789"]/b
 
 Creates a new list for the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ListCreateRequest` | Yes | Request body containing `name`, optional `description`, and `private` flag. |
 
-**Returns:** `ListCreateResponse|error`
+Returns: `ListCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:ListCreateResponse result = check twitter->/lists.post(
@@ -983,7 +984,7 @@ twitter:ListCreateResponse result = check twitter->/lists.post(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1005,16 +1006,16 @@ twitter:ListCreateResponse result = check twitter->/lists.post(
 
 Returns the details of a specified list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `ListId` | Yes | The ID of the list to retrieve. |
 | `list.fields` | `string[]?` | No | List fields to include (e.g., `created_at`, `member_count`, `description`). |
 
-**Returns:** `Get2ListsIdResponse|error`
+Returns: `Get2ListsIdResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 twitter:Get2ListsIdResponse result = check twitter->/lists/["1500000000000000001"](
@@ -1022,7 +1023,7 @@ twitter:Get2ListsIdResponse result = check twitter->/lists/["1500000000000000001
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

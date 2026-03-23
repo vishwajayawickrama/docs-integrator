@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up your AWS account and Amazon Redshift environment to obtain the credentials and configuration required to use the AWS Redshift Data connector.
@@ -8,7 +11,7 @@ This guide walks you through setting up your AWS account and Amazon Redshift env
 - An active AWS account. If you do not have one, [sign up for an AWS account](https://aws.amazon.com/).
 - An Amazon Redshift provisioned cluster or Redshift Serverless workgroup with a database created.
 
-## Step 1: Create an IAM User with Redshift Data API Permissions
+## Step 1: Create an IAM user with Redshift data API permissions
 
 1. Log in to the [AWS Management Console](https://console.aws.amazon.com/).
 2. Navigate to **IAM** (Identity and Access Management).
@@ -24,7 +27,7 @@ This guide walks you through setting up your AWS account and Amazon Redshift env
 For production environments, create a custom IAM policy with only the minimum required permissions instead of using full-access policies.
 :::
 
-## Step 2: Generate Access Keys
+## Step 2: Generate access keys
 
 1. In the IAM console, click on the user you just created.
 2. Go to the **Security credentials** tab.
@@ -41,7 +44,7 @@ The secret access key is shown only once. Store it securely. If lost, you must c
 Store the access key ID and secret access key securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 3: Note Your Cluster or Workgroup Details
+## Step 3: Note your cluster or workgroup details
 
 **For a provisioned Redshift cluster:**
 
@@ -62,7 +65,7 @@ Store the access key ID and secret access key securely. Do not commit them to so
 If you prefer to authenticate database access using AWS Secrets Manager, create a secret with your database credentials and note its ARN. You can then provide it as `secretArn` instead of `dbUser`.
 :::
 
-## Step 4: Identify Your AWS Region
+## Step 4: Identify your AWS region
 
 Note the AWS region where your Redshift cluster or workgroup is deployed (e.g., `us-east-1`).
 You can find this in the AWS Console URL or in the cluster/workgroup details page.

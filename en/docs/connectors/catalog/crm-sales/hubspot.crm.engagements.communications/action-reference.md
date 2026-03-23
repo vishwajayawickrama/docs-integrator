@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -27,7 +28,7 @@ Manage HubSpot communication records — CRUD, batch operations, and search.
 | `secureSocket` | <code>ClientSecureSocket</code> | `()` | SSL/TLS configuration. |
 | `proxy` | <code>ProxyConfig</code> | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.engagements.communications;
@@ -48,27 +49,27 @@ communications:Client communicationsClient = check new ({
 
 ### Operations
 
-#### Single Record Operations
+#### Single record operations
 
 <details>
 <summary>Create a communication</summary>
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new communication record with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | The communication properties and associations. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 communications:SimplePublicObject response = check communicationsClient->/.post({
@@ -93,7 +94,7 @@ communications:SimplePublicObject response = check communicationsClient->/.post(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -121,20 +122,20 @@ communications:SimplePublicObject response = check communicationsClient->/.post(
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieves a paginated list of communication records with optional property and association filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetCrmV3ObjectsCommunicationsGetPageQueries</code> | No | Query parameters including `limit`, `after`, `properties`, `associations`, `archived`, and `propertiesWithHistory`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 communications:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
@@ -146,7 +147,7 @@ communications:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -183,11 +184,11 @@ communications:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
 
 <div>
 
-**Signature:** `get /[string communicationId]`
+Signature: `get /[string communicationId]`
 
 Retrieves a single communication record by its ID, with optional properties and associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -195,9 +196,9 @@ Retrieves a single communication record by its ID, with optional properties and 
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetCrmV3ObjectsCommunicationsCommunicationIdGetByIdQueries</code> | No | Query parameters including `properties`, `associations`, `archived`, `propertiesWithHistory`, and `idProperty`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 communications:SimplePublicObjectWithAssociations response =
@@ -208,7 +209,7 @@ communications:SimplePublicObjectWithAssociations response =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -235,11 +236,11 @@ communications:SimplePublicObjectWithAssociations response =
 
 <div>
 
-**Signature:** `patch /[string communicationId]`
+Signature: `patch /[string communicationId]`
 
 Updates an existing communication record with new property values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -248,9 +249,9 @@ Updates an existing communication record with new property values.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>PatchCrmV3ObjectsCommunicationsCommunicationIdUpdateQueries</code> | No | Query parameters including `idProperty`. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 communications:SimplePublicObject response = check communicationsClient->/["67890"].patch({
@@ -260,7 +261,7 @@ communications:SimplePublicObject response = check communicationsClient->/["6789
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -287,20 +288,20 @@ communications:SimplePublicObject response = check communicationsClient->/["6789
 
 <div>
 
-**Signature:** `delete /[string communicationId]`
+Signature: `delete /[string communicationId]`
 
 Archives (soft-deletes) a communication record by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `communicationId` | <code>string</code> | Yes | The ID of the communication record to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check communicationsClient->/["67890"].delete();
@@ -310,27 +311,27 @@ check communicationsClient->/["67890"].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of messages</summary>
 
 <div>
 
-**Signature:** `post /batch/create`
+Signature: `post /batch/create`
 
 Creates multiple communication records in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | Batch input containing an array of communication records to create. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 communications:BatchResponseSimplePublicObject|communications:BatchResponseSimplePublicObjectWithErrors response =
@@ -366,7 +367,7 @@ communications:BatchResponseSimplePublicObject|communications:BatchResponseSimpl
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -409,11 +410,11 @@ communications:BatchResponseSimplePublicObject|communications:BatchResponseSimpl
 
 <div>
 
-**Signature:** `post /batch/read`
+Signature: `post /batch/read`
 
 Retrieves multiple communication records by their IDs in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -421,9 +422,9 @@ Retrieves multiple communication records by their IDs in a single batch request.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>PostCrmV3ObjectsCommunicationsBatchReadReadQueries</code> | No | Query parameters including `archived`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 communications:BatchResponseSimplePublicObject|communications:BatchResponseSimplePublicObjectWithErrors response =
@@ -437,7 +438,7 @@ communications:BatchResponseSimplePublicObject|communications:BatchResponseSimpl
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -479,20 +480,20 @@ communications:BatchResponseSimplePublicObject|communications:BatchResponseSimpl
 
 <div>
 
-**Signature:** `post /batch/update`
+Signature: `post /batch/update`
 
 Updates multiple communication records in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | Batch input containing record IDs and properties to update. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 communications:BatchResponseSimplePublicObject|communications:BatchResponseSimplePublicObjectWithErrors response =
@@ -514,7 +515,7 @@ communications:BatchResponseSimplePublicObject|communications:BatchResponseSimpl
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -557,20 +558,20 @@ communications:BatchResponseSimplePublicObject|communications:BatchResponseSimpl
 
 <div>
 
-**Signature:** `post /batch/upsert`
+Signature: `post /batch/upsert`
 
 Creates or updates multiple communication records in a single batch request based on a unique ID property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | Batch input containing records to upsert with their ID property and properties. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 communications:BatchResponseSimplePublicUpsertObject|communications:BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -587,7 +588,7 @@ communications:BatchResponseSimplePublicUpsertObject|communications:BatchRespons
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -619,20 +620,20 @@ communications:BatchResponseSimplePublicUpsertObject|communications:BatchRespons
 
 <div>
 
-**Signature:** `post /batch/archive`
+Signature: `post /batch/archive`
 
 Archives (soft-deletes) multiple communication records in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | Batch input containing an array of record IDs to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check communicationsClient->/batch/archive.post({
@@ -654,20 +655,20 @@ check communicationsClient->/batch/archive.post({
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for communication records using filters, query text, and sorting options.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search request with filters, query, sorting, properties, and pagination. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 communications:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -688,7 +689,7 @@ communications:CollectionResponseWithTotalSimplePublicObjectForwardPaging respon
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

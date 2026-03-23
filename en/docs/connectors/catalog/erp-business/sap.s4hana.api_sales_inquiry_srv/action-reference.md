@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Provides typed access to all entities exposed by the SAP S/4HANA API_SALES_INQUI
 | `proxy` | `http:ProxyConfig` | `()` | HTTP proxy configuration. |
 | `validation` | `boolean` | `true` | Enable or disable response payload validation against generated types. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.api_sales_inquiry_srv as salesinquiry;
@@ -52,7 +53,7 @@ salesinquiry:Client salesinquiryClient = check new (
 
 ### Operations
 
-#### Sales Inquiries
+#### Sales inquiries
 
 <details>
 <summary>listA_SalesInquiries</summary>
@@ -62,16 +63,16 @@ salesinquiry:Client salesinquiryClient = check new (
 Retrieves a collection of sales inquiry header records. Supports OData query options to filter, sort, and project fields.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers (e.g., SAP-Client header). |
 | `queries` | `ListA_SalesInquiriesQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$select`, `$expand`, `$inlinecount`. |
 
-**Returns:** `CollectionOfA_SalesInquiryWrapper|error`
+Returns: `CollectionOfA_SalesInquiryWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:CollectionOfA_SalesInquiryWrapper result =
@@ -85,7 +86,7 @@ salesinquiry:CollectionOfA_SalesInquiryWrapper result =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -120,7 +121,7 @@ salesinquiry:CollectionOfA_SalesInquiryWrapper result =
 Retrieves a single sales inquiry header by its document number. Use `$expand` to include related items, partners, or pricing elements in the same response.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -128,9 +129,9 @@ Retrieves a single sales inquiry header by its document number. Use `$expand` to
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `GetA_SalesInquiryQueries` | No | OData query options: `$select`, `$expand`. |
 
-**Returns:** `A_SalesInquiryWrapper|error`
+Returns: `A_SalesInquiryWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:A_SalesInquiryWrapper result =
@@ -141,7 +142,7 @@ salesinquiry:A_SalesInquiryWrapper result =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -167,7 +168,7 @@ salesinquiry:A_SalesInquiryWrapper result =
 
 </details>
 
-#### Sales Inquiry Items
+#### Sales inquiry items
 
 <details>
 <summary>listItemsOfA_SalesInquiry</summary>
@@ -177,7 +178,7 @@ salesinquiry:A_SalesInquiryWrapper result =
 Lists all line items belonging to a specific sales inquiry document. Each item represents a requested product or service with quantity and pricing information.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -185,9 +186,9 @@ Lists all line items belonging to a specific sales inquiry document. Each item r
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `ListItemsOfA_SalesInquiryQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$select`, `$expand`. |
 
-**Returns:** `CollectionOfA_SalesInquiryItemWrapper|error`
+Returns: `CollectionOfA_SalesInquiryItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:CollectionOfA_SalesInquiryItemWrapper items =
@@ -198,7 +199,7 @@ salesinquiry:CollectionOfA_SalesInquiryItemWrapper items =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -232,7 +233,7 @@ salesinquiry:CollectionOfA_SalesInquiryItemWrapper items =
 Retrieves a single sales inquiry line item identified by document number and item number.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -241,9 +242,9 @@ Retrieves a single sales inquiry line item identified by document number and ite
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `GetA_SalesInquiryItemQueries` | No | OData query options: `$select`, `$expand`. |
 
-**Returns:** `A_SalesInquiryItemWrapper|error`
+Returns: `A_SalesInquiryItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:A_SalesInquiryItemWrapper item =
@@ -255,7 +256,7 @@ salesinquiry:A_SalesInquiryItemWrapper item =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -288,16 +289,16 @@ salesinquiry:A_SalesInquiryItemWrapper item =
 Lists all sales inquiry line items across all inquiries. Useful for bulk reporting or cross-inquiry analysis with OData filters.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `ListA_SalesInquiryItemsQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$select`, `$expand`, `$inlinecount`. |
 
-**Returns:** `CollectionOfA_SalesInquiryItemWrapper|error`
+Returns: `CollectionOfA_SalesInquiryItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:CollectionOfA_SalesInquiryItemWrapper items =
@@ -311,7 +312,7 @@ salesinquiry:CollectionOfA_SalesInquiryItemWrapper items =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -346,7 +347,7 @@ salesinquiry:CollectionOfA_SalesInquiryItemWrapper items =
 Lists all business partner assignments on a sales inquiry header, such as sold-to party, ship-to party, bill-to party, and payer.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -354,16 +355,16 @@ Lists all business partner assignments on a sales inquiry header, such as sold-t
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `ListPartnersOfA_SalesInquiryQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$select`. |
 
-**Returns:** `CollectionOfA_SalesInquiryPartnerWrapper|error`
+Returns: `CollectionOfA_SalesInquiryPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:CollectionOfA_SalesInquiryPartnerWrapper partners =
     check salesinquiryClient->listPartnersOfA_SalesInquiry("10000001", {}, {});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -402,7 +403,7 @@ salesinquiry:CollectionOfA_SalesInquiryPartnerWrapper partners =
 Retrieves a specific business partner assignment on a sales inquiry header by partner function code.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -411,16 +412,16 @@ Retrieves a specific business partner assignment on a sales inquiry header by pa
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `GetA_SalesInquiryPartnerQueries` | No | OData query options: `$select`. |
 
-**Returns:** `A_SalesInquiryPartnerWrapper|error`
+Returns: `A_SalesInquiryPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:A_SalesInquiryPartnerWrapper partner =
     check salesinquiryClient->getA_SalesInquiryPartner("10000001", "AG", {}, {});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -447,7 +448,7 @@ salesinquiry:A_SalesInquiryPartnerWrapper partner =
 Lists all partner assignments at the line-item level for a given sales inquiry item.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -456,9 +457,9 @@ Lists all partner assignments at the line-item level for a given sales inquiry i
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `ListPartnersOfA_SalesInquiryItemQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$select`. |
 
-**Returns:** `CollectionOfA_SalesInquiryItemPartnerWrapper|error`
+Returns: `CollectionOfA_SalesInquiryItemPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:CollectionOfA_SalesInquiryItemPartnerWrapper itemPartners =
@@ -467,7 +468,7 @@ salesinquiry:CollectionOfA_SalesInquiryItemPartnerWrapper itemPartners =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -489,7 +490,7 @@ salesinquiry:CollectionOfA_SalesInquiryItemPartnerWrapper itemPartners =
 
 </details>
 
-#### Pricing Elements
+#### Pricing elements
 
 <details>
 <summary>listPricingElementsOfA_SalesInquiry</summary>
@@ -499,7 +500,7 @@ salesinquiry:CollectionOfA_SalesInquiryItemPartnerWrapper itemPartners =
 Lists all header-level pricing condition records for a sales inquiry, such as base prices, discounts, freight, and taxes.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -507,9 +508,9 @@ Lists all header-level pricing condition records for a sales inquiry, such as ba
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `ListPricingElementsOfA_SalesInquiryQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$select`. |
 
-**Returns:** `CollectionOfA_SalesInquiryPrcgElmntWrapper|error`
+Returns: `CollectionOfA_SalesInquiryPrcgElmntWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:CollectionOfA_SalesInquiryPrcgElmntWrapper pricing =
@@ -518,7 +519,7 @@ salesinquiry:CollectionOfA_SalesInquiryPrcgElmntWrapper pricing =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -560,7 +561,7 @@ salesinquiry:CollectionOfA_SalesInquiryPrcgElmntWrapper pricing =
 Retrieves a single header-level pricing condition record identified by inquiry document number, procedure step, and counter.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -570,9 +571,9 @@ Retrieves a single header-level pricing condition record identified by inquiry d
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `GetA_SalesInquiryPrcgElmntQueries` | No | OData query options: `$select`. |
 
-**Returns:** `A_SalesInquiryPrcgElmntWrapper|error`
+Returns: `A_SalesInquiryPrcgElmntWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:A_SalesInquiryPrcgElmntWrapper pricingElement =
@@ -581,7 +582,7 @@ salesinquiry:A_SalesInquiryPrcgElmntWrapper pricingElement =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -612,7 +613,7 @@ salesinquiry:A_SalesInquiryPrcgElmntWrapper pricingElement =
 Lists all item-level pricing condition records for a specific sales inquiry line item.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -621,9 +622,9 @@ Lists all item-level pricing condition records for a specific sales inquiry line
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 | `queries` | `ListPricingElementsOfA_SalesInquiryItemQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$select`. |
 
-**Returns:** `CollectionOfA_SalesInquiryItemPrcgElmntWrapper|error`
+Returns: `CollectionOfA_SalesInquiryItemPrcgElmntWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesinquiry:CollectionOfA_SalesInquiryItemPrcgElmntWrapper itemPricing =
@@ -632,7 +633,7 @@ salesinquiry:CollectionOfA_SalesInquiryItemPrcgElmntWrapper itemPricing =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -657,7 +658,7 @@ salesinquiry:CollectionOfA_SalesInquiryItemPrcgElmntWrapper itemPricing =
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>performBatchOperation</summary>
@@ -667,16 +668,16 @@ salesinquiry:CollectionOfA_SalesInquiryItemPrcgElmntWrapper itemPricing =
 Executes multiple OData read requests as a single HTTP batch call, reducing round-trips when you need to fetch several inquiry entities at once.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `http:Request` | Yes | An `http:Request` with `Content-Type: multipart/mixed; boundary=<boundary>` and individual GET requests in the multipart body following OData batch format. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP request headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Request batchRequest = new;
@@ -691,7 +692,7 @@ batchRequest.setTextPayload(batchBody);
 http:Response batchResponse = check salesinquiryClient->performBatchOperation(batchRequest, {});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP/1.1 200 OK

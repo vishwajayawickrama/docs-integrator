@@ -1,9 +1,12 @@
+---
+title: Confluent Avro SerDes Connector Overview
+---
 # Confluent Avro SerDes Connector Overview
 
 The Confluent Avro SerDes connector for Ballerina provides Avro serialization and deserialization using the Confluent Schema Registry wire format. It integrates with the `ballerinax/confluent.cregistry` client to automatically register schemas during serialization and retrieve them by ID during deserialization, enabling seamless Avro-encoded data exchange over Apache Kafka and other messaging systems.
 
 
-## Key Features
+## Key features
 
 - Serialize any Ballerina value (records, primitives, arrays) to Avro-encoded bytes using a provided Avro schema
 - Automatically register Avro schemas in the Confluent Schema Registry under a specified subject during serialization
@@ -24,14 +27,14 @@ Actions are module-level functions you call to serialize data to Avro bytes or d
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## Confluent Avro SerDes Connector Documentation
+## Confluent Avro serDes connector documentation
 
 * **[Confluent Avro SerDes Connector Setup Guide](setup-guide.md)**: This guide walks you through enabling the Confluent Schema Registry on Confluent Cloud and obtaining the credentials required to use the Confluent Avro SerDes connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

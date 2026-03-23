@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a HubSpot app and obtaining the credentials required to authenticate with the HubSpot CRM Leads API.
@@ -7,7 +10,7 @@ This guide walks you through creating a HubSpot app and obtaining the credential
 
 - A HubSpot account. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup-hubspot/crm).
 
-## Step 1: Create a HubSpot Developer Account
+## Step 1: Create a HubSpot developer account
 
 If you plan to use OAuth 2.0 (recommended for production), you need a HubSpot developer
 account to create a public app:
@@ -17,7 +20,7 @@ account to create a public app:
    your existing HubSpot credentials.
 3. Once logged in, navigate to **Apps** in the top navigation bar.
 
-## Step 2: Create a Private App (API Key — quickest setup)
+## Step 2: Create a private app (API key — quickest setup)
 
 For a simpler setup (ideal for development or internal integrations), create a Private App
 to obtain a token directly:
@@ -37,7 +40,7 @@ to obtain a token directly:
 The Private App access token is shown only once at creation time. Copy and store it securely before closing the dialog.
 :::
 
-## Step 3: Create a Public App for OAuth 2.0
+## Step 3: Create a public app for OAuth 2.0
 
 For OAuth 2.0 (recommended for apps used by multiple HubSpot accounts):
 
@@ -56,7 +59,7 @@ For OAuth 2.0 (recommended for apps used by multiple HubSpot accounts):
 Store the Client ID and Client Secret securely. Do not commit them to source control — use environment variables or Ballerina's `configurable` feature with a `Config.toml` file.
 :::
 
-## Step 4: Generate an OAuth 2.0 Authorization Code and Refresh Token
+## Step 4: Generate an OAuth 2.0 authorization code and refresh token
 
 To obtain a refresh token using the Authorization Code flow:
 

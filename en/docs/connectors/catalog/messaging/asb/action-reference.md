@@ -1,3 +1,6 @@
+---
+title: Actions
+---
 # Actions
 
 The `ballerinax/asb` package exposes the following clients:
@@ -12,7 +15,7 @@ For event-driven integration, see the [Trigger Reference](trigger-reference.md).
 
 ---
 
-## Message Sender
+## Message sender
 
 Send individual, batch, and scheduled messages to Azure Service Bus queues and topics.
 
@@ -25,7 +28,7 @@ Send individual, batch, and scheduled messages to Azure Service Bus queues and t
 | `topicOrQueueName` | `string` | Required | The name of the queue or topic. |
 | `amqpRetryOptions` | `AmqpRetryOptions` | `()` | Retry options for AMQP operations (maxRetries, delay, maxDelay, tryTimeout, retryMode). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/asb;
@@ -41,22 +44,22 @@ asb:MessageSender sender = check new ({
 
 ### Operations
 
-#### Send Messages
+#### Send messages
 
 <details>
 <summary>send</summary>
 
 Sends a single message to the configured queue or topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `asb:Message` | Yes | The message to send, including `body`, optional `contentType`, `messageId`, `sessionId`, `timeToLive`, and application properties. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check sender->send({
@@ -73,15 +76,15 @@ check sender->send({
 
 Sends a payload directly as the message body, inferring content type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `anydata` | Yes | The payload to send as the message body. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check sender->sendPayload("Order processed successfully");
@@ -94,15 +97,15 @@ check sender->sendPayload("Order processed successfully");
 
 Sends a batch of messages to the configured queue or topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `messageBatch` | `asb:MessageBatch` | Yes | A batch of messages to send, containing an array of `asb:Message` records. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check sender->sendBatch({
@@ -122,16 +125,16 @@ check sender->sendBatch({
 
 Schedules a message for future delivery at the specified time.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `asb:Message` | Yes | The message to schedule. |
 | `scheduledEnqueueTime` | `time:Civil` | Yes | The UTC time at which the message should become available. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int sequenceNumber = check sender->schedule(
@@ -147,15 +150,15 @@ int sequenceNumber = check sender->schedule(
 
 Cancels a previously scheduled message using its sequence number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sequenceNumber` | `int` | Yes | The sequence number returned by the `schedule` operation. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check sender->cancel(sequenceNumber);
@@ -170,14 +173,14 @@ check sender->cancel(sequenceNumber);
 
 Closes the sender connection and releases resources.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check sender->close();
@@ -187,7 +190,7 @@ check sender->close();
 
 ---
 
-## Message Receiver
+## Message receiver
 
 Receive messages from queues and subscriptions, settle messages, and manage locks.
 
@@ -201,7 +204,7 @@ Receive messages from queues and subscriptions, settle messages, and manage lock
 | `maxAutoLockRenewDuration` | `int` | `300` | Maximum duration (in seconds) to automatically renew the message lock. |
 | `amqpRetryOptions` | `AmqpRetryOptions` | `()` | Retry options for AMQP operations. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/asb;
@@ -219,22 +222,22 @@ asb:MessageReceiver receiver = check new ({
 
 ### Operations
 
-#### Receive Messages
+#### Receive messages
 
 <details>
 <summary>receive</summary>
 
 Receives a single message from the queue or subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `serverWaitTime` | `int?` | No | Maximum wait time in seconds for a message to arrive. |
 
-**Returns:** `asb:Message|error`
+Returns: `asb:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:Message message = check receiver->receive(serverWaitTime = 60);
@@ -247,16 +250,16 @@ asb:Message message = check receiver->receive(serverWaitTime = 60);
 
 Receives a single message and returns its payload directly.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `serverWaitTime` | `int?` | No | Maximum wait time in seconds for a message to arrive. |
 | `T` | `typedesc<anydata>` | No | The expected payload type. |
 
-**Returns:** `T|error`
+Returns: `T|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string payload = check receiver->receivePayload(serverWaitTime = 60);
@@ -269,16 +272,16 @@ string payload = check receiver->receivePayload(serverWaitTime = 60);
 
 Receives a batch of messages from the queue or subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `maxMessageCount` | `int` | Yes | Maximum number of messages to receive in the batch. |
 | `serverWaitTime` | `int?` | No | Maximum wait time in seconds. |
 
-**Returns:** `asb:MessageBatch|error`
+Returns: `asb:MessageBatch|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:MessageBatch batch = check receiver->receiveBatch(maxMessageCount = 10);
@@ -286,22 +289,22 @@ asb:MessageBatch batch = check receiver->receiveBatch(maxMessageCount = 10);
 
 </details>
 
-#### Message Settlement
+#### Message settlement
 
 <details>
 <summary>complete</summary>
 
 Completes a message, removing it from the queue. Used in `PEEK_LOCK` mode.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `asb:Message` | Yes | The message to complete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:Message message = check receiver->receive();
@@ -315,15 +318,15 @@ check receiver->complete(message);
 
 Abandons a message, releasing the lock so it can be received again.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `asb:Message` | Yes | The message to abandon. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check receiver->abandon(message);
@@ -336,7 +339,7 @@ check receiver->abandon(message);
 
 Moves a message to the dead-letter sub-queue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -344,9 +347,9 @@ Moves a message to the dead-letter sub-queue.
 | `deadLetterReason` | `string?` | No | The reason for dead-lettering. |
 | `deadLetterErrorDescription` | `string?` | No | A description of the error that caused dead-lettering. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check receiver->deadLetter(message,
@@ -362,15 +365,15 @@ check receiver->deadLetter(message,
 
 Defers a message so it can only be received by its sequence number later.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `asb:Message` | Yes | The message to defer. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check receiver->defer(message);
@@ -383,15 +386,15 @@ check receiver->defer(message);
 
 Receives a previously deferred message by its sequence number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sequenceNumber` | `int` | Yes | The sequence number of the deferred message. |
 
-**Returns:** `asb:Message|error`
+Returns: `asb:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:Message deferredMsg = check receiver->receiveDeferred(sequenceNumber);
@@ -399,22 +402,22 @@ asb:Message deferredMsg = check receiver->receiveDeferred(sequenceNumber);
 
 </details>
 
-#### Lock Management
+#### Lock management
 
 <details>
 <summary>renewLock</summary>
 
 Renews the lock on a message in `PEEK_LOCK` mode to extend processing time.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `asb:Message` | Yes | The message whose lock should be renewed. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check receiver->renewLock(message);
@@ -429,14 +432,14 @@ check receiver->renewLock(message);
 
 Closes the receiver connection and releases resources.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check receiver->close();
@@ -456,7 +459,7 @@ Manage Azure Service Bus entities — create, get, update, delete, and list queu
 |-------|------|---------|-------------|
 | `connectionString` | `string` | Required | The Azure Service Bus connection string with Manage rights. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/asb;
@@ -470,29 +473,29 @@ asb:Administrator admin = check new ({
 
 ### Operations
 
-#### Queue Management
+#### Queue management
 
 <details>
 <summary>createQueue</summary>
 
 Creates a new queue in the Azure Service Bus namespace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queueName` | `string` | Yes | The name of the queue to create. |
 | `queueProperties` | `CreateQueueOptions?` | No | Optional properties such as max size, TTL, lock duration, and dead-lettering settings. |
 
-**Returns:** `QueueProperties|error`
+Returns: `QueueProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:QueueProperties queue = check admin->createQueue("my-new-queue");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "my-new-queue", "status": "Active", "maxSizeInMegabytes": 1024}
@@ -505,15 +508,15 @@ asb:QueueProperties queue = check admin->createQueue("my-new-queue");
 
 Retrieves the properties of an existing queue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queueName` | `string` | Yes | The name of the queue. |
 
-**Returns:** `QueueProperties|error`
+Returns: `QueueProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:QueueProperties queue = check admin->getQueue("my-queue");
@@ -526,15 +529,15 @@ asb:QueueProperties queue = check admin->getQueue("my-queue");
 
 Updates the properties of an existing queue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queueProperties` | `QueueProperties` | Yes | The updated queue properties. |
 
-**Returns:** `QueueProperties|error`
+Returns: `QueueProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:QueueProperties queue = check admin->getQueue("my-queue");
@@ -551,15 +554,15 @@ asb:QueueProperties updated = check admin->updateQueue({
 
 Deletes a queue from the namespace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queueName` | `string` | Yes | The name of the queue to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check admin->deleteQueue("my-old-queue");
@@ -572,14 +575,14 @@ check admin->deleteQueue("my-old-queue");
 
 Lists all queues in the Azure Service Bus namespace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `QueueProperties[]|error`
+Returns: `QueueProperties[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:QueueProperties[] queues = check admin->listQueues();
@@ -592,15 +595,15 @@ asb:QueueProperties[] queues = check admin->listQueues();
 
 Checks whether a queue with the given name exists.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queueName` | `string` | Yes | The name of the queue to check. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean exists = check admin->queueExists("my-queue");
@@ -608,29 +611,29 @@ boolean exists = check admin->queueExists("my-queue");
 
 </details>
 
-#### Topic Management
+#### Topic management
 
 <details>
 <summary>createTopic</summary>
 
 Creates a new topic in the Azure Service Bus namespace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the topic to create. |
 | `topicProperties` | `CreateTopicOptions?` | No | Optional properties such as max size, TTL, and duplicate detection. |
 
-**Returns:** `TopicProperties|error`
+Returns: `TopicProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:TopicProperties topic = check admin->createTopic("my-new-topic");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "my-new-topic", "status": "Active", "maxSizeInMegabytes": 1024}
@@ -643,15 +646,15 @@ asb:TopicProperties topic = check admin->createTopic("my-new-topic");
 
 Retrieves the properties of an existing topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the topic. |
 
-**Returns:** `TopicProperties|error`
+Returns: `TopicProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:TopicProperties topic = check admin->getTopic("my-topic");
@@ -664,15 +667,15 @@ asb:TopicProperties topic = check admin->getTopic("my-topic");
 
 Updates the properties of an existing topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicProperties` | `TopicProperties` | Yes | The updated topic properties. |
 
-**Returns:** `TopicProperties|error`
+Returns: `TopicProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:TopicProperties topic = check admin->getTopic("my-topic");
@@ -689,15 +692,15 @@ asb:TopicProperties updated = check admin->updateTopic({
 
 Deletes a topic from the namespace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the topic to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check admin->deleteTopic("my-old-topic");
@@ -710,14 +713,14 @@ check admin->deleteTopic("my-old-topic");
 
 Lists all topics in the Azure Service Bus namespace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `TopicProperties[]|error`
+Returns: `TopicProperties[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:TopicProperties[] topics = check admin->listTopics();
@@ -730,15 +733,15 @@ asb:TopicProperties[] topics = check admin->listTopics();
 
 Checks whether a topic with the given name exists.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the topic to check. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean exists = check admin->topicExists("my-topic");
@@ -746,14 +749,14 @@ boolean exists = check admin->topicExists("my-topic");
 
 </details>
 
-#### Subscription Management
+#### Subscription management
 
 <details>
 <summary>createSubscription</summary>
 
 Creates a new subscription under a topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -761,15 +764,15 @@ Creates a new subscription under a topic.
 | `subscriptionName` | `string` | Yes | The name of the subscription to create. |
 | `subscriptionProperties` | `CreateSubscriptionOptions?` | No | Optional subscription properties. |
 
-**Returns:** `SubscriptionProperties|error`
+Returns: `SubscriptionProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:SubscriptionProperties sub = check admin->createSubscription("my-topic", "my-subscription");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"subscriptionName": "my-subscription", "topicName": "my-topic", "status": "Active"}
@@ -782,16 +785,16 @@ asb:SubscriptionProperties sub = check admin->createSubscription("my-topic", "my
 
 Retrieves the properties of an existing subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the parent topic. |
 | `subscriptionName` | `string` | Yes | The name of the subscription. |
 
-**Returns:** `SubscriptionProperties|error`
+Returns: `SubscriptionProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:SubscriptionProperties sub = check admin->getSubscription("my-topic", "my-subscription");
@@ -804,16 +807,16 @@ asb:SubscriptionProperties sub = check admin->getSubscription("my-topic", "my-su
 
 Updates the properties of an existing subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the parent topic. |
 | `subscriptionProperties` | `SubscriptionProperties` | Yes | The updated subscription properties. |
 
-**Returns:** `SubscriptionProperties|error`
+Returns: `SubscriptionProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:SubscriptionProperties sub = check admin->getSubscription("my-topic", "my-sub");
@@ -830,16 +833,16 @@ asb:SubscriptionProperties updated = check admin->updateSubscription("my-topic",
 
 Deletes a subscription from a topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the parent topic. |
 | `subscriptionName` | `string` | Yes | The name of the subscription to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check admin->deleteSubscription("my-topic", "my-old-subscription");
@@ -852,15 +855,15 @@ check admin->deleteSubscription("my-topic", "my-old-subscription");
 
 Lists all subscriptions under a topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the parent topic. |
 
-**Returns:** `SubscriptionProperties[]|error`
+Returns: `SubscriptionProperties[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:SubscriptionProperties[] subs = check admin->listSubscriptions("my-topic");
@@ -873,16 +876,16 @@ asb:SubscriptionProperties[] subs = check admin->listSubscriptions("my-topic");
 
 Checks whether a subscription exists under a topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the parent topic. |
 | `subscriptionName` | `string` | Yes | The name of the subscription to check. |
 
-**Returns:** `boolean|error`
+Returns: `boolean|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 boolean exists = check admin->subscriptionExists("my-topic", "my-subscription");
@@ -890,14 +893,14 @@ boolean exists = check admin->subscriptionExists("my-topic", "my-subscription");
 
 </details>
 
-#### Rule Management
+#### Rule management
 
 <details>
 <summary>createRule</summary>
 
 Creates a new rule under a topic subscription for message filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -906,9 +909,9 @@ Creates a new rule under a topic subscription for message filtering.
 | `ruleName` | `string` | Yes | The name of the rule to create. |
 | `ruleProperties` | `CreateRuleOptions?` | No | Optional rule options including filter and action. |
 
-**Returns:** `RuleProperties|error`
+Returns: `RuleProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:RuleProperties rule = check admin->createRule("my-topic", "my-sub", "high-priority-filter");
@@ -921,7 +924,7 @@ asb:RuleProperties rule = check admin->createRule("my-topic", "my-sub", "high-pr
 
 Retrieves the properties of a rule.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -929,9 +932,9 @@ Retrieves the properties of a rule.
 | `subscriptionName` | `string` | Yes | The name of the subscription. |
 | `ruleName` | `string` | Yes | The name of the rule. |
 
-**Returns:** `RuleProperties|error`
+Returns: `RuleProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:RuleProperties rule = check admin->getRule("my-topic", "my-sub", "my-rule");
@@ -944,7 +947,7 @@ asb:RuleProperties rule = check admin->getRule("my-topic", "my-sub", "my-rule");
 
 Updates the properties of an existing rule.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -952,9 +955,9 @@ Updates the properties of an existing rule.
 | `subscriptionName` | `string` | Yes | The name of the subscription. |
 | `ruleProperties` | `RuleProperties` | Yes | The updated rule properties. |
 
-**Returns:** `RuleProperties|error`
+Returns: `RuleProperties|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:RuleProperties rule = check admin->getRule("my-topic", "my-sub", "my-rule");
@@ -968,7 +971,7 @@ asb:RuleProperties updated = check admin->updateRule("my-topic", "my-sub", rule)
 
 Deletes a rule from a subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -976,9 +979,9 @@ Deletes a rule from a subscription.
 | `subscriptionName` | `string` | Yes | The name of the subscription. |
 | `ruleName` | `string` | Yes | The name of the rule to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check admin->deleteRule("my-topic", "my-sub", "old-rule");
@@ -991,16 +994,16 @@ check admin->deleteRule("my-topic", "my-sub", "old-rule");
 
 Lists all rules under a topic subscription.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `topicName` | `string` | Yes | The name of the parent topic. |
 | `subscriptionName` | `string` | Yes | The name of the subscription. |
 
-**Returns:** `RuleProperties[]|error`
+Returns: `RuleProperties[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 asb:RuleProperties[] rules = check admin->listRules("my-topic", "my-sub");

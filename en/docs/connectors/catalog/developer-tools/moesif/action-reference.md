@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -13,7 +14,7 @@ The `ballerinax/moesif` package exposes the following clients:
 
 ---
 
-## Observability Provider
+## Observability provider
 
 Activates the Moesif observability provider at module initialization, automatically forwarding distributed traces and runtime metrics from your Ballerina service to Moesif.
 
@@ -35,7 +36,7 @@ Activates the Moesif observability provider at module initialization, automatica
 | `isPayloadLoggingEnabled` | `boolean` | `false` | When `true`, enables logging of HTTP request and response payloads within captured traces. |
 | `idleTimePublishingEnabled` | `boolean` | `false` | When `true`, metrics are published to Moesif during idle periods even when no requests are being processed. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 // Step 1 — In Ballerina.toml, enable observability and set the Moesif provider:
@@ -60,7 +61,7 @@ import ballerinax/moesif as _;
 
 ### Operations
 
-#### Distributed Tracing
+#### Distributed tracing
 
 <details>
 <summary>Activate distributed tracing</summary>
@@ -70,7 +71,7 @@ import ballerinax/moesif as _;
 When the module is imported and observability is enabled in `Ballerina.toml`, the Moesif tracing provider is automatically initialized at startup. It captures all inbound and outbound HTTP calls as OpenTelemetry spans and forwards them to Moesif via the OTLP HTTP exporter. Sampling behaviour is controlled by `samplerType` and `samplerParam` in `Config.toml`.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -79,9 +80,9 @@ When the module is imported and observability is enabled in `Ballerina.toml`, th
 | `tracingReporterFlushInterval` | `int` | No | Interval in milliseconds between span flushes to Moesif. Set in `Config.toml`. |
 | `tracingReporterBufferSize` | `int` | No | Maximum buffer size for queued spans. Set in `Config.toml`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 // Ballerina.toml
@@ -113,7 +114,7 @@ service on new http:Listener(9090) {
 
 </details>
 
-#### Metrics Reporting
+#### Metrics reporting
 
 <details>
 <summary>Activate metrics reporting</summary>
@@ -123,7 +124,7 @@ service on new http:Listener(9090) {
 When the module is active and metrics are enabled in `Ballerina.toml`, the Moesif metrics reporter automatically collects Ballerina runtime metrics (gauge and summary types) and periodically sends them to the Moesif metrics API. No manual invocation is required; the reporter runs in the background for the lifetime of the service.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -132,9 +133,9 @@ When the module is active and metrics are enabled in `Ballerina.toml`, the Moesi
 | `idleTimePublishingEnabled` | `boolean` | No | Whether to publish metrics during idle periods with no active requests. Set in `Config.toml`. |
 | `additionalAttributes` | `map<string>` | No | Custom attributes attached to every metric data point. Set in `Config.toml`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 // Ballerina.toml

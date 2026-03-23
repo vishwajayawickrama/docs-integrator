@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/solace` connector supports event-driven integration through a polling-based listener. When messages arrive on a subscribed queue or topic, the listener dispatches them to your service's `onMessage` callback automatically — no manual receive loop required.
@@ -27,7 +30,7 @@ The listener supports the following connection strategies:
 |-------------|-------------|
 | `ListenerConfiguration` | Connection configuration for the Solace listener. Subscription details are specified on each service via the `@ServiceConfig` annotation. |
 
-**`ListenerConfiguration` fields:**
+`ListenerConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -41,7 +44,7 @@ The listener supports the following connection strategies:
 | `readTimeout` | `decimal` | `10.0` | Read timeout in seconds. |
 | `retryConfig` | `RetryConfig` | `()` | Reconnection retry configuration. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Basic listener with username/password authentication:**
 
@@ -84,7 +87,7 @@ listener solace:Listener solaceListener = new (
 A `solace:Service` is a Ballerina service attached to a `solace:Listener`. It uses the `@solace:ServiceConfig` annotation to specify which queue or topic to subscribe to, along with polling and acknowledgement settings. The service implements `onMessage` and optionally `onError` callbacks.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -95,7 +98,7 @@ A `solace:Service` is a Ballerina service attached to a `solace:Listener`. It us
 The `onMessage` callback can optionally accept a `solace:Caller` as a second parameter (e.g., `remote function onMessage(solace:Message message, solace:Caller caller)`) for manual acknowledgement in `CLIENT_ACKNOWLEDGE` mode or transaction control in `SESSION_TRANSACTED` mode.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -134,7 +137,7 @@ The `@solace:ServiceConfig` annotation accepts either queue-based (`queueName`) 
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `Message`
 

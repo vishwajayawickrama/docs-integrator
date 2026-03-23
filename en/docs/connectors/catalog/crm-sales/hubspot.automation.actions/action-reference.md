@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Manages HubSpot custom workflow extension definitions, functions, revisions, and
 | `proxy` | `ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable or disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.automation.actions as hubspotAutomation;
@@ -45,7 +46,7 @@ hubspotAutomation:Client hubspotClient = check new ({
 
 ### Operations
 
-#### Extension Definitions
+#### Extension definitions
 
 <details>
 <summary>Get paged extension definitions</summary>
@@ -54,7 +55,7 @@ hubspotAutomation:Client hubspotClient = check new ({
 
 Retrieves a paginated list of extension definitions for the specified app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -63,16 +64,16 @@ Retrieves a paginated list of extension definitions for the specified app.
 | `after` | `string` | No | Cursor token for the next page of results. |
 | `archived` | `boolean` | No | Whether to include archived definitions. Defaults to `false`. |
 
-**Returns:** `CollectionResponsePublicActionDefinitionForwardPaging|error`
+Returns: `CollectionResponsePublicActionDefinitionForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 CollectionResponsePublicActionDefinitionForwardPaging response =
     check hubspotClient->/[appId].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -110,16 +111,16 @@ CollectionResponsePublicActionDefinitionForwardPaging response =
 
 Creates a new custom workflow extension definition for the specified app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | `int:Signed32` | Yes | The HubSpot app ID. |
 | `payload` | `PublicActionDefinitionEgg` | Yes | The extension definition to create, including labels, input fields, functions, and object types. |
 
-**Returns:** `PublicActionDefinition|error`
+Returns: `PublicActionDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hubspotAutomation:FieldTypeDefinition fieldType = {
@@ -157,7 +158,7 @@ hubspotAutomation:PublicActionDefinition result =
     check hubspotClient->/[appId].post(extensionDef);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -202,7 +203,7 @@ hubspotAutomation:PublicActionDefinition result =
 
 Retrieves a single extension definition by its app ID and definition ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -210,16 +211,16 @@ Retrieves a single extension definition by its app ID and definition ID.
 | `definitionId` | `string` | Yes | The extension definition ID. |
 | `archived` | `boolean` | No | Whether to return archived definitions. Defaults to `false`. |
 
-**Returns:** `PublicActionDefinition|error`
+Returns: `PublicActionDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hubspotAutomation:PublicActionDefinition definition =
     check hubspotClient->/[appId]/[definitionId].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -247,7 +248,7 @@ hubspotAutomation:PublicActionDefinition definition =
 
 Partially updates an existing extension definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -255,9 +256,9 @@ Partially updates an existing extension definition.
 | `definitionId` | `string` | Yes | The extension definition ID. |
 | `payload` | `PublicActionDefinitionPatch` | Yes | Fields to update on the extension definition. |
 
-**Returns:** `PublicActionDefinition|error`
+Returns: `PublicActionDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hubspotAutomation:PublicActionDefinition updated =
@@ -269,7 +270,7 @@ hubspotAutomation:PublicActionDefinition updated =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -297,16 +298,16 @@ hubspotAutomation:PublicActionDefinition updated =
 
 Archives (soft-deletes) an extension definition by its app ID and definition ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | `int:Signed32` | Yes | The HubSpot app ID. |
 | `definitionId` | `string` | Yes | The extension definition ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/[appId]/[definitionId].delete();
@@ -316,7 +317,7 @@ check hubspotClient->/[appId]/[definitionId].delete();
 
 </details>
 
-#### Custom Functions
+#### Custom functions
 
 <details>
 <summary>Get all functions for a definition</summary>
@@ -325,23 +326,23 @@ check hubspotClient->/[appId]/[definitionId].delete();
 
 Retrieves all custom functions associated with an extension definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | `int:Signed32` | Yes | The HubSpot app ID. |
 | `definitionId` | `string` | Yes | The extension definition ID. |
 
-**Returns:** `CollectionResponsePublicActionFunctionIdentifierNoPaging|error`
+Returns: `CollectionResponsePublicActionFunctionIdentifierNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 CollectionResponsePublicActionFunctionIdentifierNoPaging functions =
     check hubspotClient->/[appId]/[definitionId]/functions.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -369,7 +370,7 @@ CollectionResponsePublicActionFunctionIdentifierNoPaging functions =
 
 Retrieves a function by its type for the specified extension definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -377,16 +378,16 @@ Retrieves a function by its type for the specified extension definition.
 | `definitionId` | `string` | Yes | The extension definition ID. |
 | `functionType` | `"PRE_ACTION_EXECUTION"\|"PRE_FETCH_OPTIONS"\|"POST_FETCH_OPTIONS"\|"POST_ACTION_EXECUTION"` | Yes | The function type to retrieve. |
 
-**Returns:** `PublicActionFunction|error`
+Returns: `PublicActionFunction|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hubspotAutomation:PublicActionFunction fn =
     check hubspotClient->/[appId]/[definitionId]/functions/["PRE_ACTION_EXECUTION"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -407,7 +408,7 @@ hubspotAutomation:PublicActionFunction fn =
 
 Inserts a new function or replaces an existing one for the given type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -416,9 +417,9 @@ Inserts a new function or replaces an existing one for the given type.
 | `functionType` | `"PRE_ACTION_EXECUTION"\|"PRE_FETCH_OPTIONS"\|"POST_FETCH_OPTIONS"\|"POST_ACTION_EXECUTION"` | Yes | The function type to set. |
 | `payload` | `string` | Yes | The function source code as plain text. |
 
-**Returns:** `PublicActionFunctionIdentifier|error`
+Returns: `PublicActionFunctionIdentifier|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hubspotAutomation:PublicActionFunctionIdentifier result =
@@ -426,7 +427,7 @@ hubspotAutomation:PublicActionFunctionIdentifier result =
         .put("exports.main = (event, callback) => { callback({ outputFields: {} }); }");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -446,7 +447,7 @@ hubspotAutomation:PublicActionFunctionIdentifier result =
 
 Archives a function by its type for the specified extension definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -454,9 +455,9 @@ Archives a function by its type for the specified extension definition.
 | `definitionId` | `string` | Yes | The extension definition ID. |
 | `functionType` | `"PRE_ACTION_EXECUTION"\|"PRE_FETCH_OPTIONS"\|"POST_FETCH_OPTIONS"\|"POST_ACTION_EXECUTION"` | Yes | The function type to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/[appId]/[definitionId]/functions/["PRE_ACTION_EXECUTION"].delete();
@@ -473,7 +474,7 @@ check hubspotClient->/[appId]/[definitionId]/functions/["PRE_ACTION_EXECUTION"].
 
 Retrieves a specific function by its type and unique function ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -482,16 +483,16 @@ Retrieves a specific function by its type and unique function ID.
 | `functionType` | `"PRE_ACTION_EXECUTION"\|"PRE_FETCH_OPTIONS"\|"POST_FETCH_OPTIONS"\|"POST_ACTION_EXECUTION"` | Yes | The function type. |
 | `functionId` | `string` | Yes | The unique function ID. |
 
-**Returns:** `PublicActionFunction|error`
+Returns: `PublicActionFunction|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hubspotAutomation:PublicActionFunction fn =
     check hubspotClient->/[appId]/[definitionId]/functions/["PRE_ACTION_EXECUTION"]/[functionId].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -512,7 +513,7 @@ hubspotAutomation:PublicActionFunction fn =
 
 Inserts a new function or replaces an existing one identified by type and function ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -522,9 +523,9 @@ Inserts a new function or replaces an existing one identified by type and functi
 | `functionId` | `string` | Yes | The unique function ID. |
 | `payload` | `string` | Yes | The function source code as plain text. |
 
-**Returns:** `PublicActionFunctionIdentifier|error`
+Returns: `PublicActionFunctionIdentifier|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hubspotAutomation:PublicActionFunctionIdentifier result =
@@ -532,7 +533,7 @@ hubspotAutomation:PublicActionFunctionIdentifier result =
         .put("exports.main = (event, callback) => { callback({ outputFields: { status: 'done' } }); }");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -552,7 +553,7 @@ hubspotAutomation:PublicActionFunctionIdentifier result =
 
 Archives a specific function identified by its type and function ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -561,9 +562,9 @@ Archives a specific function identified by its type and function ID.
 | `functionType` | `"PRE_ACTION_EXECUTION"\|"PRE_FETCH_OPTIONS"\|"POST_FETCH_OPTIONS"\|"POST_ACTION_EXECUTION"` | Yes | The function type. |
 | `functionId` | `string` | Yes | The unique function ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/[appId]/[definitionId]/functions/["POST_ACTION_EXECUTION"]/[functionId].delete();
@@ -582,7 +583,7 @@ check hubspotClient->/[appId]/[definitionId]/functions/["POST_ACTION_EXECUTION"]
 
 Retrieves a paginated list of all revisions for an extension definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -591,16 +592,16 @@ Retrieves a paginated list of all revisions for an extension definition.
 | `limit` | `int` | No | Maximum number of results per page. |
 | `after` | `string` | No | Cursor token for the next page of results. |
 
-**Returns:** `CollectionResponsePublicActionRevisionForwardPaging|error`
+Returns: `CollectionResponsePublicActionRevisionForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 CollectionResponsePublicActionRevisionForwardPaging revisions =
     check hubspotClient->/[appId]/[definitionId]/revisions.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -636,7 +637,7 @@ CollectionResponsePublicActionRevisionForwardPaging revisions =
 
 Retrieves a specific revision of an extension definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -644,16 +645,16 @@ Retrieves a specific revision of an extension definition.
 | `definitionId` | `string` | Yes | The extension definition ID. |
 | `revisionId` | `string` | Yes | The revision ID. |
 
-**Returns:** `PublicActionRevision|error`
+Returns: `PublicActionRevision|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hubspotAutomation:PublicActionRevision revision =
     check hubspotClient->/[appId]/[definitionId]/revisions/[revisionId].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -686,16 +687,16 @@ hubspotAutomation:PublicActionRevision revision =
 
 Completes a single workflow callback, returning output fields to the HubSpot workflow.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `callbackId` | `string` | Yes | The callback ID provided by HubSpot when the workflow action is triggered. |
 | `payload` | `CallbackCompletionRequest` | Yes | The completion request containing output field values. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/callbacks/[callbackId]/complete.post({
@@ -717,15 +718,15 @@ check hubspotClient->/callbacks/[callbackId]/complete.post({
 
 Completes multiple workflow callbacks in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputCallbackCompletionBatchRequest` | Yes | Batch request containing an array of callback completion entries, each with a `callbackId` and `outputFields`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hubspotAutomation:BatchInputCallbackCompletionBatchRequest batchRequest = {

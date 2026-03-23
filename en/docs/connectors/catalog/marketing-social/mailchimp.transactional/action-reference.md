@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Provides access to all Mandrill API endpoints for transactional email sending, t
 | `compression` | `http:Compression` | `COMPRESSION_AUTO` | HTTP compression configuration. |
 | `cache` | `http:CacheConfig` | `{}` | HTTP response cache configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/mailchimp.'transactional as mailchimp;
@@ -39,7 +40,7 @@ mailchimp:Client mailchimpClient = check new ();
 
 ### Operations
 
-#### Send Messages
+#### Send messages
 
 <details>
 <summary>Send a new transactional message</summary>
@@ -48,15 +49,15 @@ mailchimp:Client mailchimpClient = check new ();
 
 Sends a transactional email with full control over recipients, content, headers, attachments, and tracking options.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesSendBody` | Yes | The message send request containing the API key, message details, and optional send parameters. |
 
-**Returns:** `InlineResponse20028[]|error`
+Returns: `InlineResponse20028[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 configurable string apiKey = ?;
@@ -78,7 +79,7 @@ InlineResponse20028[] response = check mailchimpClient->/messages/send.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"email": "recipient@example.com", "status": "sent", "_id": "abc123def456", "reject_reason": null}]
@@ -95,15 +96,15 @@ InlineResponse20028[] response = check mailchimpClient->/messages/send.post({
 
 Sends a transactional email using a previously created template, with dynamic merge variable substitution.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesSendTemplateBody` | Yes | The template send request containing template name, content overrides, merge variables, and message details. |
 
-**Returns:** `InlineResponse20029[]|error`
+Returns: `InlineResponse20029[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20029[] response = check mailchimpClient->/messages/send\-template.post({
@@ -124,7 +125,7 @@ InlineResponse20029[] response = check mailchimpClient->/messages/send\-template
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"email": "newuser@example.com", "status": "sent", "_id": "xyz789ghi012", "reject_reason": null}]
@@ -141,15 +142,15 @@ InlineResponse20029[] response = check mailchimpClient->/messages/send\-template
 
 Sends a raw MIME message, useful when you have pre-built email content in MIME format.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesSendRawBody` | Yes | The raw message request containing the MIME content and optional send parameters. |
 
-**Returns:** `record {}|error`
+Returns: `record {}|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} response = check mailchimpClient->/messages/send\-raw.post({
@@ -158,7 +159,7 @@ record {} response = check mailchimpClient->/messages/send\-raw.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {}
@@ -168,7 +169,7 @@ record {} response = check mailchimpClient->/messages/send\-raw.post({
 
 </details>
 
-#### Message Search & Info
+#### Message search & info
 
 <details>
 <summary>Search sent messages</summary>
@@ -177,15 +178,15 @@ record {} response = check mailchimpClient->/messages/send\-raw.post({
 
 Searches recently sent messages by query string, date range, tags, senders, or API keys.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesSearchBody` | Yes | Search criteria including query, date range, tags, and limits. |
 
-**Returns:** `InlineResponse20030[]|error`
+Returns: `InlineResponse20030[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20030[] results = check mailchimpClient->/messages/search.post({
@@ -197,7 +198,7 @@ InlineResponse20030[] results = check mailchimpClient->/messages/search.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"ts": 1710000000, "_id": "abc123", "sender": "sender@example.com", "template": null, "subject": "Order Confirmation", "email": "recipient@example.com", "tags": ["order-confirmation"], "opens": 1, "clicks": 0, "state": "sent"}]
@@ -214,15 +215,15 @@ InlineResponse20030[] results = check mailchimpClient->/messages/search.post({
 
 Retrieves detailed information about a single sent message, including its delivery history and SMTP events.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesInfoBody` | Yes | The message info request containing the API key and message ID. |
 
-**Returns:** `InlineResponse20032|error`
+Returns: `InlineResponse20032|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20032 info = check mailchimpClient->/messages/info.post({
@@ -231,7 +232,7 @@ InlineResponse20032 info = check mailchimpClient->/messages/info.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ts": 1710000000, "_id": "abc123def456", "sender": "sender@example.com", "subject": "Order Confirmation", "email": "recipient@example.com", "tags": ["order-confirmation"], "opens": 2, "clicks": 1, "state": "sent", "smtp_events": [{"ts": 1710000000, "type": "sent", "diag": "250 OK"}]}
@@ -248,15 +249,15 @@ InlineResponse20032 info = check mailchimpClient->/messages/info.post({
 
 Retrieves the full content of a recently sent message, including HTML and text bodies.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesInfoBody` | Yes | The content request containing the API key and message ID. |
 
-**Returns:** `InlineResponse20033|error`
+Returns: `InlineResponse20033|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20033 content = check mailchimpClient->/messages/content.post({
@@ -265,7 +266,7 @@ InlineResponse20033 content = check mailchimpClient->/messages/content.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ts": 1710000000, "_id": "abc123def456", "from_email": "sender@example.com", "from_name": "Example Sender", "subject": "Order Confirmation", "to": {"email": "recipient@example.com", "name": "Recipient"}, "html": "<h1>Thank you!</h1>", "text": "Thank you!"}
@@ -282,15 +283,15 @@ InlineResponse20033 content = check mailchimpClient->/messages/content.post({
 
 Returns hourly statistics for a query within a date range, useful for volume and delivery analytics.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesSearchTimeSeriesBody` | Yes | Time-series search criteria including query, date range, and tags. |
 
-**Returns:** `InlineResponse20031[]|error`
+Returns: `InlineResponse20031[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20031[] timeSeries = check mailchimpClient->/messages/search\-time\-series.post({
@@ -299,7 +300,7 @@ InlineResponse20031[] timeSeries = check mailchimpClient->/messages/search\-time
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"time": "2026-03-17 00:00:00", "sent": 150, "hard_bounces": 2, "soft_bounces": 5, "rejects": 0, "complaints": 0, "unsubs": 1, "opens": 120, "unique_opens": 95, "clicks": 30, "unique_clicks": 25}]
@@ -309,7 +310,7 @@ InlineResponse20031[] timeSeries = check mailchimpClient->/messages/search\-time
 
 </details>
 
-#### Scheduled Messages
+#### Scheduled messages
 
 <details>
 <summary>List scheduled messages</summary>
@@ -318,15 +319,15 @@ InlineResponse20031[] timeSeries = check mailchimpClient->/messages/search\-time
 
 Lists all currently scheduled messages, optionally filtered by recipient email.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesListScheduledBody` | Yes | The list request containing the API key and optional recipient filter. |
 
-**Returns:** `InlineResponse20035[]|error`
+Returns: `InlineResponse20035[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20035[] scheduled = check mailchimpClient->/messages/list\-scheduled.post({
@@ -335,7 +336,7 @@ InlineResponse20035[] scheduled = check mailchimpClient->/messages/list\-schedul
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"_id": "sched123", "created_at": "2026-03-17 10:00:00", "send_at": "2026-03-18 09:00:00", "from_email": "sender@example.com", "to": "recipient@example.com", "subject": "Scheduled Reminder"}]
@@ -352,15 +353,15 @@ InlineResponse20035[] scheduled = check mailchimpClient->/messages/list\-schedul
 
 Cancels a previously scheduled message by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesCancelScheduledBody` | Yes | The cancel request containing the API key and scheduled message ID. |
 
-**Returns:** `InlineResponse20035[]|error`
+Returns: `InlineResponse20035[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20035[] cancelled = check mailchimpClient->/messages/cancel\-scheduled.post({
@@ -369,7 +370,7 @@ InlineResponse20035[] cancelled = check mailchimpClient->/messages/cancel\-sched
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"_id": "sched123", "created_at": "2026-03-17 10:00:00", "send_at": "2026-03-18 09:00:00", "from_email": "sender@example.com", "to": "recipient@example.com", "subject": "Scheduled Reminder"}]
@@ -386,15 +387,15 @@ InlineResponse20035[] cancelled = check mailchimpClient->/messages/cancel\-sched
 
 Changes the scheduled send time of a previously scheduled message.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MessagesRescheduleBody` | Yes | The reschedule request containing the API key, message ID, and new send time. |
 
-**Returns:** `InlineResponse20035[]|error`
+Returns: `InlineResponse20035[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20035[] rescheduled = check mailchimpClient->/messages/reschedule.post({
@@ -404,7 +405,7 @@ InlineResponse20035[] rescheduled = check mailchimpClient->/messages/reschedule.
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"_id": "sched123", "created_at": "2026-03-17 10:00:00", "send_at": "2026-03-20 14:00:00", "from_email": "sender@example.com", "to": "recipient@example.com", "subject": "Scheduled Reminder"}]
@@ -414,7 +415,7 @@ InlineResponse20035[] rescheduled = check mailchimpClient->/messages/reschedule.
 
 </details>
 
-#### Template Management
+#### Template management
 
 <details>
 <summary>Add a new template</summary>
@@ -423,15 +424,15 @@ InlineResponse20035[] rescheduled = check mailchimpClient->/messages/reschedule.
 
 Creates a new email template with optional HTML content, subject line, and labels.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TemplatesAddBody` | Yes | The template creation request containing the API key, name, and optional content fields. |
 
-**Returns:** `InlineResponse20060|error`
+Returns: `InlineResponse20060|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20060 template = check mailchimpClient->/templates/add.post({
@@ -447,7 +448,7 @@ InlineResponse20060 template = check mailchimpClient->/templates/add.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"slug": "welcome-email", "name": "welcome-email", "labels": ["onboarding"], "code": "<h1>Hello *|FNAME|*!</h1><p>Welcome to our service.</p>", "subject": "Welcome to Acme!", "from_email": "welcome@example.com", "from_name": "Acme Corp", "text": "Hello *|FNAME|*! Welcome to our service.", "publish_name": "welcome-email", "publish_code": "<h1>Hello *|FNAME|*!</h1><p>Welcome to our service.</p>", "publish_subject": "Welcome to Acme!", "publish_from_email": "welcome@example.com", "publish_from_name": "Acme Corp", "publish_text": "Hello *|FNAME|*! Welcome to our service.", "published_at": "2026-03-17 12:00:00", "created_at": "2026-03-17 12:00:00", "updated_at": "2026-03-17 12:00:00"}
@@ -464,15 +465,15 @@ InlineResponse20060 template = check mailchimpClient->/templates/add.post({
 
 Retrieves detailed information about an existing template by its name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TemplatesInfoBody` | Yes | The info request containing the API key and template name. |
 
-**Returns:** `InlineResponse20061|error`
+Returns: `InlineResponse20061|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20061 info = check mailchimpClient->/templates/info.post({
@@ -481,7 +482,7 @@ InlineResponse20061 info = check mailchimpClient->/templates/info.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"slug": "welcome-email", "name": "welcome-email", "labels": ["onboarding"], "code": "<h1>Hello *|FNAME|*!</h1>", "subject": "Welcome to Acme!", "from_email": "welcome@example.com", "from_name": "Acme Corp", "publish_name": "welcome-email", "published_at": "2026-03-17 12:00:00", "created_at": "2026-03-17 12:00:00", "updated_at": "2026-03-17 12:00:00"}
@@ -498,15 +499,15 @@ InlineResponse20061 info = check mailchimpClient->/templates/info.post({
 
 Updates an existing template's content, subject, labels, or other properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TemplatesUpdateBody` | Yes | The update request containing the API key, template name, and fields to update. |
 
-**Returns:** `InlineResponse20062|error`
+Returns: `InlineResponse20062|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20062 updated = check mailchimpClient->/templates/update.post({
@@ -518,7 +519,7 @@ InlineResponse20062 updated = check mailchimpClient->/templates/update.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"slug": "welcome-email", "name": "welcome-email", "labels": ["onboarding"], "code": "<h1>Hello *|FNAME|*!</h1><p>Welcome aboard.</p>", "subject": "Welcome to Acme Corp!", "from_email": "welcome@example.com", "from_name": "Acme Corp", "published_at": "2026-03-17 13:00:00", "created_at": "2026-03-17 12:00:00", "updated_at": "2026-03-17 13:00:00"}
@@ -535,15 +536,15 @@ InlineResponse20062 updated = check mailchimpClient->/templates/update.post({
 
 Publishes the current draft content of a template, making it the active version used for sending.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TemplatesInfoBody` | Yes | The publish request containing the API key and template name. |
 
-**Returns:** `InlineResponse20063|error`
+Returns: `InlineResponse20063|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20063 published = check mailchimpClient->/templates/publish.post({
@@ -552,7 +553,7 @@ InlineResponse20063 published = check mailchimpClient->/templates/publish.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"slug": "welcome-email", "name": "welcome-email", "labels": ["onboarding"], "code": "<h1>Hello *|FNAME|*!</h1>", "subject": "Welcome to Acme!", "published_at": "2026-03-17 13:30:00", "created_at": "2026-03-17 12:00:00", "updated_at": "2026-03-17 13:30:00"}
@@ -569,15 +570,15 @@ InlineResponse20063 published = check mailchimpClient->/templates/publish.post({
 
 Renders a template with the provided merge variables and template content, returning the final HTML output.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TemplatesRenderBody` | Yes | The render request containing the template name, content blocks, and merge variables. |
 
-**Returns:** `InlineResponse20066|error`
+Returns: `InlineResponse20066|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20066 rendered = check mailchimpClient->/templates/render.post({
@@ -592,7 +593,7 @@ InlineResponse20066 rendered = check mailchimpClient->/templates/render.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"html": "<h1>Hello John!</h1><p>Welcome to our service.</p>"}
@@ -609,15 +610,15 @@ InlineResponse20066 rendered = check mailchimpClient->/templates/render.post({
 
 Returns a list of all templates in the account, optionally filtered by label.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TemplatesListBody` | Yes | The list request containing the API key and optional label filter. |
 
-**Returns:** `InlineResponse20065[]|error`
+Returns: `InlineResponse20065[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20065[] templates = check mailchimpClient->/templates/list.post({
@@ -626,7 +627,7 @@ InlineResponse20065[] templates = check mailchimpClient->/templates/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"slug": "welcome-email", "name": "welcome-email", "labels": ["onboarding"], "subject": "Welcome to Acme!", "from_email": "welcome@example.com", "from_name": "Acme Corp", "published_at": "2026-03-17 12:00:00", "created_at": "2026-03-17 12:00:00", "updated_at": "2026-03-17 12:00:00"}]
@@ -643,15 +644,15 @@ InlineResponse20065[] templates = check mailchimpClient->/templates/list.post({
 
 Permanently deletes a template by name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TemplatesInfoBody` | Yes | The delete request containing the API key and template name. |
 
-**Returns:** `InlineResponse20064|error`
+Returns: `InlineResponse20064|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20064 deleted = check mailchimpClient->/templates/delete.post({
@@ -660,7 +661,7 @@ InlineResponse20064 deleted = check mailchimpClient->/templates/delete.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"slug": "welcome-email", "name": "welcome-email", "labels": ["onboarding"], "subject": "Welcome to Acme!", "from_email": "welcome@example.com", "from_name": "Acme Corp", "created_at": "2026-03-17 12:00:00", "updated_at": "2026-03-17 13:30:00"}
@@ -670,7 +671,7 @@ InlineResponse20064 deleted = check mailchimpClient->/templates/delete.post({
 
 </details>
 
-#### Webhook Management
+#### Webhook management
 
 <details>
 <summary>List webhooks</summary>
@@ -679,15 +680,15 @@ InlineResponse20064 deleted = check mailchimpClient->/templates/delete.post({
 
 Returns all configured webhooks for the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse20074[]|error`
+Returns: `InlineResponse20074[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20074[] webhooks = check mailchimpClient->/webhooks/list.post({
@@ -695,7 +696,7 @@ InlineResponse20074[] webhooks = check mailchimpClient->/webhooks/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 42, "url": "https://example.com/webhooks/mandrill", "description": "Production webhook", "auth_key": "wh_key_123", "events": ["send", "open", "click", "hard_bounce"], "created_at": "2026-03-10 08:00:00", "last_sent_at": "2026-03-17 11:00:00", "batches_sent": 156, "events_sent": 4230, "last_error": null}]
@@ -712,15 +713,15 @@ InlineResponse20074[] webhooks = check mailchimpClient->/webhooks/list.post({
 
 Creates a new webhook that will receive event notifications at the specified URL.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `WebhooksAddBody` | Yes | The webhook creation request containing the API key, URL, and event types. |
 
-**Returns:** `InlineResponse20075|error`
+Returns: `InlineResponse20075|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20075 webhook = check mailchimpClient->/webhooks/add.post({
@@ -730,7 +731,7 @@ InlineResponse20075 webhook = check mailchimpClient->/webhooks/add.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 43, "url": "https://example.com/webhooks/mandrill", "description": "", "auth_key": "wh_key_456", "events": ["send", "open", "click", "hard_bounce", "soft_bounce"], "created_at": "2026-03-17 14:00:00", "last_sent_at": null, "batches_sent": 0, "events_sent": 0, "last_error": null}
@@ -747,15 +748,15 @@ InlineResponse20075 webhook = check mailchimpClient->/webhooks/add.post({
 
 Retrieves detailed information about a specific webhook by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `WebhooksInfoBody` | Yes | The info request containing the API key and webhook ID. |
 
-**Returns:** `InlineResponse20076|error`
+Returns: `InlineResponse20076|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20076 info = check mailchimpClient->/webhooks/info.post({
@@ -764,7 +765,7 @@ InlineResponse20076 info = check mailchimpClient->/webhooks/info.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 43, "url": "https://example.com/webhooks/mandrill", "description": "", "auth_key": "wh_key_456", "events": ["send", "open", "click", "hard_bounce", "soft_bounce"], "created_at": "2026-03-17 14:00:00", "last_sent_at": null, "batches_sent": 0, "events_sent": 0, "last_error": null}
@@ -781,15 +782,15 @@ InlineResponse20076 info = check mailchimpClient->/webhooks/info.post({
 
 Updates the URL, events, or description of an existing webhook.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `WebhooksUpdateBody` | Yes | The update request containing the API key, webhook ID, and fields to update. |
 
-**Returns:** `InlineResponse20077|error`
+Returns: `InlineResponse20077|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20077 updated = check mailchimpClient->/webhooks/update.post({
@@ -800,7 +801,7 @@ InlineResponse20077 updated = check mailchimpClient->/webhooks/update.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 43, "url": "https://example.com/webhooks/mandrill-v2", "description": "", "auth_key": "wh_key_456", "events": ["send", "open", "click", "hard_bounce", "soft_bounce", "reject"], "created_at": "2026-03-17 14:00:00", "last_sent_at": null, "batches_sent": 0, "events_sent": 0, "last_error": null}
@@ -817,15 +818,15 @@ InlineResponse20077 updated = check mailchimpClient->/webhooks/update.post({
 
 Permanently deletes a webhook by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `WebhooksInfoBody` | Yes | The delete request containing the API key and webhook ID. |
 
-**Returns:** `InlineResponse20078|error`
+Returns: `InlineResponse20078|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20078 deleted = check mailchimpClient->/webhooks/delete.post({
@@ -834,7 +835,7 @@ InlineResponse20078 deleted = check mailchimpClient->/webhooks/delete.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 43, "url": "https://example.com/webhooks/mandrill-v2"}
@@ -844,7 +845,7 @@ InlineResponse20078 deleted = check mailchimpClient->/webhooks/delete.post({
 
 </details>
 
-#### Sender Management
+#### Sender management
 
 <details>
 <summary>List senders</summary>
@@ -853,15 +854,15 @@ InlineResponse20078 deleted = check mailchimpClient->/webhooks/delete.post({
 
 Returns a list of all senders that have tried to send through the account, with aggregated stats.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse20043[]|error`
+Returns: `InlineResponse20043[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20043[] senders = check mailchimpClient->/senders/list.post({
@@ -869,7 +870,7 @@ InlineResponse20043[] senders = check mailchimpClient->/senders/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"address": "sender@example.com", "created_at": "2026-01-15 09:00:00", "sent": 5430, "hard_bounces": 12, "soft_bounces": 45, "rejects": 3, "complaints": 1, "unsubs": 8, "opens": 4200, "clicks": 1800, "unique_opens": 3100, "unique_clicks": 1200}]
@@ -886,15 +887,15 @@ InlineResponse20043[] senders = check mailchimpClient->/senders/list.post({
 
 Retrieves detailed information and aggregated statistics for a specific sender address.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SendersInfoBody` | Yes | The info request containing the API key and sender address. |
 
-**Returns:** `InlineResponse20048|error`
+Returns: `InlineResponse20048|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20048 senderInfo = check mailchimpClient->/senders/info.post({
@@ -903,7 +904,7 @@ InlineResponse20048 senderInfo = check mailchimpClient->/senders/info.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"address": "sender@example.com", "created_at": "2026-01-15 09:00:00", "sent": 5430, "hard_bounces": 12, "soft_bounces": 45, "rejects": 3, "complaints": 1, "unsubs": 8, "opens": 4200, "clicks": 1800, "unique_opens": 3100, "unique_clicks": 1200}
@@ -920,15 +921,15 @@ InlineResponse20048 senderInfo = check mailchimpClient->/senders/info.post({
 
 Returns a list of all sender domains with their verification and DKIM/SPF status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse20044[]|error`
+Returns: `InlineResponse20044[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20044[] domains = check mailchimpClient->/senders/domains.post({
@@ -936,7 +937,7 @@ InlineResponse20044[] domains = check mailchimpClient->/senders/domains.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"domain": "example.com", "created_at": "2026-01-10 08:00:00", "last_tested_at": "2026-03-17 10:00:00", "spf": {"valid": true, "valid_after": null, "error": null}, "dkim": {"valid": true, "valid_after": null, "error": null}, "verified_at": "2026-01-10 08:30:00", "valid_signing": true}]
@@ -953,15 +954,15 @@ InlineResponse20044[] domains = check mailchimpClient->/senders/domains.post({
 
 Sends a verification email to the domain's postmaster address to verify ownership.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SendersVerifyDomainBody` | Yes | The verify request containing the API key, domain name, and mailbox. |
 
-**Returns:** `InlineResponse20047|error`
+Returns: `InlineResponse20047|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20047 verifyResult = check mailchimpClient->/senders/verify\-domain.post({
@@ -971,7 +972,7 @@ InlineResponse20047 verifyResult = check mailchimpClient->/senders/verify\-domai
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"status": "sent", "domain": "example.com", "email": "postmaster@example.com"}
@@ -990,15 +991,15 @@ InlineResponse20047 verifyResult = check mailchimpClient->/senders/verify\-domai
 
 Returns a list of all tags with aggregated sending statistics.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse20057[]|error`
+Returns: `InlineResponse20057[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20057[] tags = check mailchimpClient->/tags/list.post({
@@ -1006,7 +1007,7 @@ InlineResponse20057[] tags = check mailchimpClient->/tags/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"tag": "order-confirmation", "reputation": 95, "sent": 3200, "hard_bounces": 5, "soft_bounces": 12, "rejects": 1, "complaints": 0, "unsubs": 2, "opens": 2800, "clicks": 900, "unique_opens": 2100, "unique_clicks": 700}]
@@ -1023,15 +1024,15 @@ InlineResponse20057[] tags = check mailchimpClient->/tags/list.post({
 
 Retrieves detailed information and time-series statistics for a specific tag.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TagsInfoBody` | Yes | The info request containing the API key and tag name. |
 
-**Returns:** `InlineResponse20059|error`
+Returns: `InlineResponse20059|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20059 tagInfo = check mailchimpClient->/tags/info.post({
@@ -1040,7 +1041,7 @@ InlineResponse20059 tagInfo = check mailchimpClient->/tags/info.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"tag": "order-confirmation", "reputation": 95, "sent": 3200, "hard_bounces": 5, "soft_bounces": 12, "rejects": 1, "complaints": 0, "unsubs": 2, "opens": 2800, "clicks": 900, "stats": {"today": {"sent": 45, "hard_bounces": 0, "soft_bounces": 1, "rejects": 0, "complaints": 0, "unsubs": 0, "opens": 38, "clicks": 12}}}
@@ -1057,15 +1058,15 @@ InlineResponse20059 tagInfo = check mailchimpClient->/tags/info.post({
 
 Permanently deletes a tag and removes it from all associated messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `TagsDeleteBody` | Yes | The delete request containing the API key and tag name. |
 
-**Returns:** `InlineResponse20058|error`
+Returns: `InlineResponse20058|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20058 deleted = check mailchimpClient->/tags/delete.post({
@@ -1074,7 +1075,7 @@ InlineResponse20058 deleted = check mailchimpClient->/tags/delete.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"tag": "old-campaign"}
@@ -1084,7 +1085,7 @@ InlineResponse20058 deleted = check mailchimpClient->/tags/delete.post({
 
 </details>
 
-#### Reject & Allowlist Management
+#### Reject & allowlist management
 
 <details>
 <summary>Add to reject list</summary>
@@ -1093,15 +1094,15 @@ InlineResponse20058 deleted = check mailchimpClient->/tags/delete.post({
 
 Adds an email address to the account-level reject list, preventing all future delivery.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `RejectsAddBody` | Yes | The reject request containing the API key, email address, and optional comment and subaccount. |
 
-**Returns:** `InlineResponse20040|error`
+Returns: `InlineResponse20040|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20040 reject = check mailchimpClient->/rejects/add.post({
@@ -1111,7 +1112,7 @@ InlineResponse20040 reject = check mailchimpClient->/rejects/add.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"email": "bounce@invalid.com", "added": true}
@@ -1128,15 +1129,15 @@ InlineResponse20040 reject = check mailchimpClient->/rejects/add.post({
 
 Returns all email addresses on the reject list with reason and expiration details.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `RejectsListBody` | Yes | The list request containing the API key and optional email/subaccount filters. |
 
-**Returns:** `InlineResponse20041[]|error`
+Returns: `InlineResponse20041[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20041[] rejects = check mailchimpClient->/rejects/list.post({
@@ -1144,7 +1145,7 @@ InlineResponse20041[] rejects = check mailchimpClient->/rejects/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"email": "bounce@invalid.com", "reason": "manual", "detail": "Persistent hard bounce", "created_at": "2026-03-17 14:00:00", "last_event_at": "2026-03-17 14:00:00", "expires_at": null, "expired": false, "sender": null, "subaccount": null}]
@@ -1161,15 +1162,15 @@ InlineResponse20041[] rejects = check mailchimpClient->/rejects/list.post({
 
 Removes an email address from the reject list, allowing future delivery.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `RejectsDeleteBody` | Yes | The delete request containing the API key and email address. |
 
-**Returns:** `InlineResponse20042|error`
+Returns: `InlineResponse20042|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20042 removed = check mailchimpClient->/rejects/delete.post({
@@ -1178,7 +1179,7 @@ InlineResponse20042 removed = check mailchimpClient->/rejects/delete.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"email": "bounce@invalid.com", "deleted": true}
@@ -1195,15 +1196,15 @@ InlineResponse20042 removed = check mailchimpClient->/rejects/delete.post({
 
 Adds an email address or domain to the allowlist, ensuring delivery even if the address is on the reject list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AllowlistsAddBody` | Yes | The allowlist request containing the API key and email or domain. |
 
-**Returns:** `InlineResponse200|error`
+Returns: `InlineResponse200|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse200 allowed = check mailchimpClient->/allowlists/add.post({
@@ -1212,7 +1213,7 @@ InlineResponse200 allowed = check mailchimpClient->/allowlists/add.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"email": "vip@example.com", "added": true}
@@ -1229,15 +1230,15 @@ InlineResponse200 allowed = check mailchimpClient->/allowlists/add.post({
 
 Returns all entries on the account allowlist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `AllowlistsListBody` | Yes | The list request containing the API key and optional email filter. |
 
-**Returns:** `InlineResponse2001[]|error`
+Returns: `InlineResponse2001[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse2001[] allowlist = check mailchimpClient->/allowlists/list.post({
@@ -1245,7 +1246,7 @@ InlineResponse2001[] allowlist = check mailchimpClient->/allowlists/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"email": "vip@example.com", "detail": "", "created_at": "2026-03-17 15:00:00"}]
@@ -1255,7 +1256,7 @@ InlineResponse2001[] allowlist = check mailchimpClient->/allowlists/list.post({
 
 </details>
 
-#### Subaccount Management
+#### Subaccount management
 
 <details>
 <summary>List subaccounts</summary>
@@ -1264,15 +1265,15 @@ InlineResponse2001[] allowlist = check mailchimpClient->/allowlists/list.post({
 
 Returns a list of all subaccounts with their status and sending statistics.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SubaccountsListBody` | Yes | The list request containing the API key and optional query filter. |
 
-**Returns:** `InlineResponse20050[]|error`
+Returns: `InlineResponse20050[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20050[] subaccounts = check mailchimpClient->/subaccounts/list.post({
@@ -1281,7 +1282,7 @@ InlineResponse20050[] subaccounts = check mailchimpClient->/subaccounts/list.pos
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "client-a", "name": "Client A", "custom_quota": 10000, "status": "active", "reputation": 92, "created_at": "2026-01-01 00:00:00", "first_sent_at": "2026-01-02 10:00:00", "sent_weekly": 450, "sent_monthly": 1800, "sent_total": 12000}]
@@ -1298,15 +1299,15 @@ InlineResponse20050[] subaccounts = check mailchimpClient->/subaccounts/list.pos
 
 Creates a new subaccount for organizing sends and managing quotas.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SubaccountsAddBody` | Yes | The creation request containing the API key, subaccount ID, name, and optional quota. |
 
-**Returns:** `InlineResponse20051|error`
+Returns: `InlineResponse20051|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20051 subaccount = check mailchimpClient->/subaccounts/add.post({
@@ -1317,7 +1318,7 @@ InlineResponse20051 subaccount = check mailchimpClient->/subaccounts/add.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "client-b", "name": "Client B", "custom_quota": 5000, "status": "active", "reputation": 0, "created_at": "2026-03-17 15:30:00", "first_sent_at": null, "sent_weekly": 0, "sent_monthly": 0, "sent_total": 0}
@@ -1334,15 +1335,15 @@ InlineResponse20051 subaccount = check mailchimpClient->/subaccounts/add.post({
 
 Permanently deletes a subaccount. All messages sent by this subaccount remain in the system.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SubaccountsDeleteBody` | Yes | The delete request containing the API key and subaccount ID. |
 
-**Returns:** `InlineResponse20054|error`
+Returns: `InlineResponse20054|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20054 deleted = check mailchimpClient->/subaccounts/delete.post({
@@ -1351,7 +1352,7 @@ InlineResponse20054 deleted = check mailchimpClient->/subaccounts/delete.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "client-b", "name": "Client B", "custom_quota": 5000, "status": "active", "reputation": 0, "created_at": "2026-03-17 15:30:00"}
@@ -1361,7 +1362,7 @@ InlineResponse20054 deleted = check mailchimpClient->/subaccounts/delete.post({
 
 </details>
 
-#### User & Account Info
+#### User & account info
 
 <details>
 <summary>Get account info</summary>
@@ -1370,15 +1371,15 @@ InlineResponse20054 deleted = check mailchimpClient->/subaccounts/delete.post({
 
 Returns information about the API-connected user, including quota, reputation, and historical stats.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The info request containing the API key. |
 
-**Returns:** `InlineResponse20072|error`
+Returns: `InlineResponse20072|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20072 userInfo = check mailchimpClient->/users/info.post({
@@ -1386,7 +1387,7 @@ InlineResponse20072 userInfo = check mailchimpClient->/users/info.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"username": "myuser", "created_at": "2025-06-01 00:00:00", "public_id": "abc123xyz", "reputation": 95, "hourly_quota": 5000, "backlog": 0, "stats": {"today": {"sent": 230, "hard_bounces": 1, "soft_bounces": 3, "rejects": 0, "complaints": 0, "unsubs": 0, "opens": 180, "unique_opens": 140, "clicks": 55, "unique_clicks": 42}}}
@@ -1403,15 +1404,15 @@ InlineResponse20072 userInfo = check mailchimpClient->/users/info.post({
 
 A simple health check that returns `"PONG!"` if the API key is valid and the service is reachable.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The ping request containing the API key. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string pong = check mailchimpClient->/users/ping.post({
@@ -1419,7 +1420,7 @@ string pong = check mailchimpClient->/users/ping.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "PONG!"
@@ -1429,7 +1430,7 @@ string pong = check mailchimpClient->/users/ping.post({
 
 </details>
 
-#### IP Management
+#### IP management
 
 <details>
 <summary>List dedicated IPs</summary>
@@ -1438,15 +1439,15 @@ string pong = check mailchimpClient->/users/ping.post({
 
 Returns all dedicated IPs provisioned for the account with warmup status and pool info.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse20017[]|error`
+Returns: `InlineResponse20017[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20017[] ips = check mailchimpClient->/ips/list.post({
@@ -1454,7 +1455,7 @@ InlineResponse20017[] ips = check mailchimpClient->/ips/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"ip": "198.51.100.10", "created_at": "2026-01-15 00:00:00", "pool": "Main Pool", "domain": "example.com", "custom_dns": {"enabled": false, "valid": false, "error": ""}, "warmup": {"warming_up": false, "start_at": null, "end_at": null}}]
@@ -1471,15 +1472,15 @@ InlineResponse20017[] ips = check mailchimpClient->/ips/list.post({
 
 Retrieves detailed information about a specific dedicated IP address.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IpsInfoBody` | Yes | The info request containing the API key and IP address. |
 
-**Returns:** `InlineResponse20018|error`
+Returns: `InlineResponse20018|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20018 ipInfo = check mailchimpClient->/ips/info.post({
@@ -1488,7 +1489,7 @@ InlineResponse20018 ipInfo = check mailchimpClient->/ips/info.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ip": "198.51.100.10", "created_at": "2026-01-15 00:00:00", "pool": "Main Pool", "domain": "example.com", "custom_dns": {"enabled": false, "valid": false, "error": ""}, "warmup": {"warming_up": false, "start_at": null, "end_at": null}}
@@ -1498,7 +1499,7 @@ InlineResponse20018 ipInfo = check mailchimpClient->/ips/info.post({
 
 </details>
 
-#### Inbound Routing
+#### Inbound routing
 
 <details>
 <summary>List inbound domains</summary>
@@ -1507,15 +1508,15 @@ InlineResponse20018 ipInfo = check mailchimpClient->/ips/info.post({
 
 Returns a list of all inbound domains configured for the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse2008[]|error`
+Returns: `InlineResponse2008[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse2008[] inboundDomains = check mailchimpClient->/inbound/domains.post({
@@ -1523,7 +1524,7 @@ InlineResponse2008[] inboundDomains = check mailchimpClient->/inbound/domains.po
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"domain": "inbound.example.com", "created_at": "2026-02-01 00:00:00", "valid_mx": true}]
@@ -1540,15 +1541,15 @@ InlineResponse2008[] inboundDomains = check mailchimpClient->/inbound/domains.po
 
 Returns all inbound routes for a domain, including their URL patterns and webhook destinations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `InboundRoutesBody` | Yes | The routes request containing the API key and domain. |
 
-**Returns:** `InlineResponse20012[]|error`
+Returns: `InlineResponse20012[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20012[] routes = check mailchimpClient->/inbound/routes.post({
@@ -1557,7 +1558,7 @@ InlineResponse20012[] routes = check mailchimpClient->/inbound/routes.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "route123", "pattern": "support@", "url": "https://example.com/inbound/support"}]
@@ -1567,7 +1568,7 @@ InlineResponse20012[] routes = check mailchimpClient->/inbound/routes.post({
 
 </details>
 
-#### URL Tracking
+#### URL tracking
 
 <details>
 <summary>List tracked URLs</summary>
@@ -1576,15 +1577,15 @@ InlineResponse20012[] routes = check mailchimpClient->/inbound/routes.post({
 
 Returns the 100 most-clicked URLs with click statistics.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse20067[]|error`
+Returns: `InlineResponse20067[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20067[] urls = check mailchimpClient->/urls/list.post({
@@ -1592,7 +1593,7 @@ InlineResponse20067[] urls = check mailchimpClient->/urls/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"url": "https://example.com/pricing", "sent": 2400, "clicks": 890, "unique_clicks": 650}]
@@ -1609,15 +1610,15 @@ InlineResponse20067[] urls = check mailchimpClient->/urls/list.post({
 
 Returns a list of all custom tracking domains configured for the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse20070[]|error`
+Returns: `InlineResponse20070[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20070[] trackingDomains = check mailchimpClient->/urls/tracking\-domains.post({
@@ -1625,7 +1626,7 @@ InlineResponse20070[] trackingDomains = check mailchimpClient->/urls/tracking\-d
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"domain": "track.example.com", "created_at": "2026-01-20 00:00:00", "last_tested_at": "2026-03-17 10:00:00", "cname": {"valid": true, "valid_after": null, "error": null}, "valid_tracking": true}]
@@ -1644,15 +1645,15 @@ InlineResponse20070[] trackingDomains = check mailchimpClient->/urls/tracking\-d
 
 Returns all custom metadata fields defined in the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse20036[]|error`
+Returns: `InlineResponse20036[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20036[] metadata = check mailchimpClient->/metadata/list.post({
@@ -1660,7 +1661,7 @@ InlineResponse20036[] metadata = check mailchimpClient->/metadata/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"name": "campaign_id", "state": "active", "view_template": ""}]
@@ -1677,15 +1678,15 @@ InlineResponse20036[] metadata = check mailchimpClient->/metadata/list.post({
 
 Creates a new custom metadata field for tagging messages with additional data.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `MetadataAddBody` | Yes | The add request containing the API key, field name, and optional view template. |
 
-**Returns:** `InlineResponse20037|error`
+Returns: `InlineResponse20037|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse20037 field = check mailchimpClient->/metadata/add.post({
@@ -1695,7 +1696,7 @@ InlineResponse20037 field = check mailchimpClient->/metadata/add.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "order_id", "state": "active", "view_template": "order_id"}
@@ -1705,7 +1706,7 @@ InlineResponse20037 field = check mailchimpClient->/metadata/add.post({
 
 </details>
 
-#### Export Data
+#### Export data
 
 <details>
 <summary>List exports</summary>
@@ -1714,15 +1715,15 @@ InlineResponse20037 field = check mailchimpClient->/metadata/add.post({
 
 Returns a list of all data export jobs for the account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsListBody` | Yes | The list request containing the API key. |
 
-**Returns:** `InlineResponse2004[]|error`
+Returns: `InlineResponse2004[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse2004[] exports = check mailchimpClient->/exports/list.post({
@@ -1730,7 +1731,7 @@ InlineResponse2004[] exports = check mailchimpClient->/exports/list.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "exp_abc123", "created_at": "2026-03-17 10:00:00", "type": "activity", "finished_at": "2026-03-17 10:05:00", "state": "complete", "result_url": "https://mandrillapp.com/exports/exp_abc123.zip"}]
@@ -1747,15 +1748,15 @@ InlineResponse2004[] exports = check mailchimpClient->/exports/list.post({
 
 Starts a new export job for account sending activity data.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ExportsActivityBody` | Yes | The export request containing the API key and optional date range and tag filters. |
 
-**Returns:** `InlineResponse2007|error`
+Returns: `InlineResponse2007|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 InlineResponse2007 exportJob = check mailchimpClient->/exports/activity.post({
@@ -1765,7 +1766,7 @@ InlineResponse2007 exportJob = check mailchimpClient->/exports/activity.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "exp_xyz789", "created_at": "2026-03-17 16:00:00", "type": "activity", "finished_at": null, "state": "waiting", "result_url": null}

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -32,7 +33,7 @@ Gmail REST API — messages, drafts, threads, labels, history, profile, and atta
 | `validation` | `boolean` | `true` | Enable payload validation against the OpenAPI spec. |
 | `laxDataBinding` | `boolean` | `true` | Allow lax data binding for response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/googleapis.gmail as gmail;
@@ -62,21 +63,21 @@ gmail:Client gmail = check new ({
 
 Retrieves the authenticated user's Gmail profile including email address, total messages, total threads, and history ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or the special value `"me"` for the authenticated user. |
 
-**Returns:** `gmail:Profile|error`
+Returns: `gmail:Profile|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Profile profile = check gmail->/users/me/profile();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"emailAddress": "user@gmail.com", "messagesTotal": 15234, "threadsTotal": 8421, "historyId": "987654"}
@@ -95,7 +96,7 @@ gmail:Profile profile = check gmail->/users/me/profile();
 
 Lists message IDs in the user's mailbox. Supports Gmail search syntax via the `q` query parameter.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -106,15 +107,15 @@ Lists message IDs in the user's mailbox. Supports Gmail search syntax via the `q
 | `labelIds` | `string[]` | No | Only return messages with all of the specified label IDs. |
 | `includeSpamTrash` | `boolean` | No | Include messages from SPAM and TRASH in results. |
 
-**Returns:** `gmail:ListMessagesResponse|error`
+Returns: `gmail:ListMessagesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:ListMessagesResponse messageList = check gmail->/users/me/messages(q = "label:INBOX is:unread");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"messages": [{"id": "18a1b2c3d4e5f6a7", "threadId": "18a1b2c3d4e5f6a7"}, {"id": "18a1b2c3d4e5f6a8", "threadId": "18a1b2c3d4e5f6a8"}], "resultSizeEstimate": 2}
@@ -131,16 +132,16 @@ gmail:ListMessagesResponse messageList = check gmail->/users/me/messages(q = "la
 
 Sends an email message. Supports plain text, HTML body, inline images, and file attachments.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `message` | `gmail:MessageRequest` | Yes | The message to send, including recipients, subject, body, and optional attachments. |
 
-**Returns:** `gmail:Message|error`
+Returns: `gmail:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Message sendResult = check gmail->/users/me/messages/send.post({
@@ -156,7 +157,7 @@ gmail:Message sendResult = check gmail->/users/me/messages/send.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6a9", "threadId": "18a1b2c3d4e5f6a9", "labelIds": ["SENT"]}
@@ -173,7 +174,7 @@ gmail:Message sendResult = check gmail->/users/me/messages/send.post({
 
 Retrieves a specific message by ID with full metadata, headers, and body content.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -182,15 +183,15 @@ Retrieves a specific message by ID with full metadata, headers, and body content
 | `format` | `string` | No | Response format: `"full"`, `"metadata"`, `"minimal"`, or `"raw"`. |
 | `metadataHeaders` | `string[]` | No | Specific headers to include when format is `"metadata"`. |
 
-**Returns:** `gmail:Message|error`
+Returns: `gmail:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Message message = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"](format = "full");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6a7", "threadId": "18a1b2c3d4e5f6a7", "labelIds": ["INBOX", "UNREAD"], "snippet": "Hello, this is a test email...", "from": "sender@example.com", "to": "user@gmail.com", "subject": "Test Email", "date": "Mon, 15 Jan 2024 10:30:00 +0000", "internalDate": "1705312200000", "sizeEstimate": 2048}
@@ -207,7 +208,7 @@ gmail:Message message = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"](for
 
 Inserts a message directly into the mailbox (similar to IMAP APPEND), bypassing send.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -216,9 +217,9 @@ Inserts a message directly into the mailbox (similar to IMAP APPEND), bypassing 
 | `deleted` | `boolean` | No | Mark the message as permanently deleted (not TRASH) upon insert. |
 | `internalDateSource` | `string` | No | Source for internal date: `"receivedTime"` or `"dateHeader"`. |
 
-**Returns:** `gmail:Message|error`
+Returns: `gmail:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Message inserted = check gmail->/users/me/messages.post({
@@ -228,7 +229,7 @@ gmail:Message inserted = check gmail->/users/me/messages.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6b0", "threadId": "18a1b2c3d4e5f6b0", "labelIds": ["INBOX"]}
@@ -245,7 +246,7 @@ gmail:Message inserted = check gmail->/users/me/messages.post({
 
 Imports a message into the mailbox with standard email delivery scanning (spam classification, etc.).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -254,9 +255,9 @@ Imports a message into the mailbox with standard email delivery scanning (spam c
 | `neverMarkSpam` | `boolean` | No | Never mark the imported message as spam. |
 | `processForCalendar` | `boolean` | No | Process calendar invites in the message. |
 
-**Returns:** `gmail:Message|error`
+Returns: `gmail:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Message imported = check gmail->/users/me/messages/'import.post({
@@ -266,7 +267,7 @@ gmail:Message imported = check gmail->/users/me/messages/'import.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6b1", "threadId": "18a1b2c3d4e5f6b1", "labelIds": ["INBOX"]}
@@ -283,7 +284,7 @@ gmail:Message imported = check gmail->/users/me/messages/'import.post({
 
 Modifies the labels on a message (add or remove labels).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -291,9 +292,9 @@ Modifies the labels on a message (add or remove labels).
 | `id` | `string` | Yes | The message ID. |
 | `modifyRequest` | `gmail:ModifyMessageRequest` | Yes | Labels to add and/or remove. |
 
-**Returns:** `gmail:Message|error`
+Returns: `gmail:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Message modified = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"]/modify.post({
@@ -302,7 +303,7 @@ gmail:Message modified = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"]/mo
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6a7", "threadId": "18a1b2c3d4e5f6a7", "labelIds": ["INBOX", "STARRED"]}
@@ -319,22 +320,22 @@ gmail:Message modified = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"]/mo
 
 Moves a message to the trash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `id` | `string` | Yes | The message ID. |
 
-**Returns:** `gmail:Message|error`
+Returns: `gmail:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Message trashed = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"]/trash.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6a7", "threadId": "18a1b2c3d4e5f6a7", "labelIds": ["TRASH"]}
@@ -351,22 +352,22 @@ gmail:Message trashed = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"]/tra
 
 Removes a message from the trash, restoring it to its previous labels.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `id` | `string` | Yes | The message ID. |
 
-**Returns:** `gmail:Message|error`
+Returns: `gmail:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Message restored = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"]/untrash.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6a7", "threadId": "18a1b2c3d4e5f6a7", "labelIds": ["INBOX"]}
@@ -383,16 +384,16 @@ gmail:Message restored = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"]/un
 
 Permanently deletes a message. This action cannot be undone.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `id` | `string` | Yes | The message ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"].delete();
@@ -409,16 +410,16 @@ check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"].delete();
 
 Permanently deletes multiple messages by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `request` | `gmail:BatchDeleteMessagesRequest` | Yes | Object containing the array of message IDs to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check gmail->/users/me/messages/batchDelete.post({
@@ -437,16 +438,16 @@ check gmail->/users/me/messages/batchDelete.post({
 
 Modifies labels on multiple messages at once.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `request` | `gmail:BatchModifyMessagesRequest` | Yes | Message IDs and labels to add/remove. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check gmail->/users/me/messages/batchModify.post({
@@ -468,7 +469,7 @@ check gmail->/users/me/messages/batchModify.post({
 
 Retrieves a message attachment by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -476,15 +477,15 @@ Retrieves a message attachment by its ID.
 | `messageId` | `string` | Yes | The message ID containing the attachment. |
 | `id` | `string` | Yes | The attachment ID. |
 
-**Returns:** `gmail:Attachment|error`
+Returns: `gmail:Attachment|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Attachment attachment = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7"]/attachments/["ANGjdJ8abc123"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"attachmentId": "ANGjdJ8abc123", "size": 24576}
@@ -503,7 +504,7 @@ gmail:Attachment attachment = check gmail->/users/me/messages/["18a1b2c3d4e5f6a7
 
 Lists drafts in the user's mailbox.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -513,15 +514,15 @@ Lists drafts in the user's mailbox.
 | `pageToken` | `string` | No | Token for fetching the next page. |
 | `includeSpamTrash` | `boolean` | No | Include drafts in SPAM and TRASH. |
 
-**Returns:** `gmail:ListDraftsResponse|error`
+Returns: `gmail:ListDraftsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:ListDraftsResponse draftList = check gmail->/users/me/drafts();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"drafts": [{"id": "r_abc123", "message": {"id": "18a1b2c3d4e5f6c0", "threadId": "18a1b2c3d4e5f6c0"}}], "resultSizeEstimate": 1}
@@ -538,16 +539,16 @@ gmail:ListDraftsResponse draftList = check gmail->/users/me/drafts();
 
 Creates a new draft.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `draft` | `gmail:DraftRequest` | Yes | The draft content including the message. |
 
-**Returns:** `gmail:Draft|error`
+Returns: `gmail:Draft|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Draft draft = check gmail->/users/me/drafts.post({
@@ -559,7 +560,7 @@ gmail:Draft draft = check gmail->/users/me/drafts.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "r_def456", "message": {"id": "18a1b2c3d4e5f6c1", "threadId": "18a1b2c3d4e5f6c1", "labelIds": ["DRAFT"]}}
@@ -576,7 +577,7 @@ gmail:Draft draft = check gmail->/users/me/drafts.post({
 
 Retrieves a specific draft by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -584,15 +585,15 @@ Retrieves a specific draft by ID.
 | `id` | `string` | Yes | The draft ID. |
 | `format` | `string` | No | Response format: `"full"`, `"metadata"`, `"minimal"`, or `"raw"`. |
 
-**Returns:** `gmail:Draft|error`
+Returns: `gmail:Draft|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Draft draft = check gmail->/users/me/drafts/["r_def456"](format = "full");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "r_def456", "message": {"id": "18a1b2c3d4e5f6c1", "threadId": "18a1b2c3d4e5f6c1", "labelIds": ["DRAFT"], "snippet": "Here is the latest update...", "subject": "Project Update"}}
@@ -609,7 +610,7 @@ gmail:Draft draft = check gmail->/users/me/drafts/["r_def456"](format = "full");
 
 Replaces the content of an existing draft.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -617,9 +618,9 @@ Replaces the content of an existing draft.
 | `id` | `string` | Yes | The draft ID. |
 | `draft` | `gmail:DraftRequest` | Yes | The updated draft content. |
 
-**Returns:** `gmail:Draft|error`
+Returns: `gmail:Draft|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Draft updated = check gmail->/users/me/drafts/["r_def456"].put({
@@ -631,7 +632,7 @@ gmail:Draft updated = check gmail->/users/me/drafts/["r_def456"].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "r_def456", "message": {"id": "18a1b2c3d4e5f6c2", "threadId": "18a1b2c3d4e5f6c1", "labelIds": ["DRAFT"]}}
@@ -648,16 +649,16 @@ gmail:Draft updated = check gmail->/users/me/drafts/["r_def456"].put({
 
 Sends an existing draft.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `draft` | `gmail:DraftRequest` | Yes | The draft to send (must include the draft `id`). |
 
-**Returns:** `gmail:Message|error`
+Returns: `gmail:Message|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Message sent = check gmail->/users/me/drafts/send.post({
@@ -666,7 +667,7 @@ gmail:Message sent = check gmail->/users/me/drafts/send.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6c3", "threadId": "18a1b2c3d4e5f6c1", "labelIds": ["SENT"]}
@@ -683,16 +684,16 @@ gmail:Message sent = check gmail->/users/me/drafts/send.post({
 
 Permanently deletes a draft.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `id` | `string` | Yes | The draft ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check gmail->/users/me/drafts/["r_def456"].delete();
@@ -711,7 +712,7 @@ check gmail->/users/me/drafts/["r_def456"].delete();
 
 Lists threads in the user's mailbox, with optional search filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -722,15 +723,15 @@ Lists threads in the user's mailbox, with optional search filtering.
 | `labelIds` | `string[]` | No | Only return threads with all of the specified label IDs. |
 | `includeSpamTrash` | `boolean` | No | Include threads from SPAM and TRASH. |
 
-**Returns:** `gmail:ListThreadsResponse|error`
+Returns: `gmail:ListThreadsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:ListThreadsResponse threadList = check gmail->/users/me/threads(q = "subject:invoice", maxResults = 10);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"threads": [{"id": "18a1b2c3d4e5f6d0", "snippet": "Please find the invoice attached...", "historyId": "987650"}], "resultSizeEstimate": 1}
@@ -747,7 +748,7 @@ gmail:ListThreadsResponse threadList = check gmail->/users/me/threads(q = "subje
 
 Retrieves a specific thread with all its messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -756,15 +757,15 @@ Retrieves a specific thread with all its messages.
 | `format` | `string` | No | Response format: `"full"`, `"metadata"`, or `"minimal"`. |
 | `metadataHeaders` | `string[]` | No | Specific headers to include when format is `"metadata"`. |
 
-**Returns:** `gmail:MailThread|error`
+Returns: `gmail:MailThread|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:MailThread thread = check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6d0", "historyId": "987654", "messages": [{"id": "18a1b2c3d4e5f6d0", "threadId": "18a1b2c3d4e5f6d0", "snippet": "Please find the invoice..."}]}
@@ -781,7 +782,7 @@ gmail:MailThread thread = check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"]();
 
 Modifies the labels applied to all messages in a thread.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -789,9 +790,9 @@ Modifies the labels applied to all messages in a thread.
 | `id` | `string` | Yes | The thread ID. |
 | `modifyRequest` | `gmail:ModifyThreadRequest` | Yes | Labels to add and/or remove. |
 
-**Returns:** `gmail:MailThread|error`
+Returns: `gmail:MailThread|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:MailThread modified = check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"]/modify.post({
@@ -800,7 +801,7 @@ gmail:MailThread modified = check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"]/
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6d0", "historyId": "987660"}
@@ -817,22 +818,22 @@ gmail:MailThread modified = check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"]/
 
 Moves all messages in a thread to the trash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `id` | `string` | Yes | The thread ID. |
 
-**Returns:** `gmail:MailThread|error`
+Returns: `gmail:MailThread|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:MailThread trashed = check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"]/trash.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6d0", "historyId": "987661"}
@@ -849,22 +850,22 @@ gmail:MailThread trashed = check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"]/t
 
 Removes all messages in a thread from the trash.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `id` | `string` | Yes | The thread ID. |
 
-**Returns:** `gmail:MailThread|error`
+Returns: `gmail:MailThread|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:MailThread restored = check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"]/untrash.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "18a1b2c3d4e5f6d0", "historyId": "987662"}
@@ -881,16 +882,16 @@ gmail:MailThread restored = check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"]/
 
 Permanently deletes a thread and all its messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `id` | `string` | Yes | The thread ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"].delete();
@@ -909,21 +910,21 @@ check gmail->/users/me/threads/["18a1b2c3d4e5f6d0"].delete();
 
 Lists all labels in the user's mailbox, including system and custom labels.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 
-**Returns:** `gmail:ListLabelsResponse|error`
+Returns: `gmail:ListLabelsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:ListLabelsResponse labelList = check gmail->/users/me/labels();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"labels": [{"id": "INBOX", "name": "INBOX", "type": "system"}, {"id": "Label_1", "name": "Work", "type": "user", "messagesTotal": 42, "messagesUnread": 5}]}
@@ -940,16 +941,16 @@ gmail:ListLabelsResponse labelList = check gmail->/users/me/labels();
 
 Creates a new custom label.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `label` | `gmail:Label` | Yes | The label to create. |
 
-**Returns:** `gmail:Label|error`
+Returns: `gmail:Label|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Label newLabel = check gmail->/users/me/labels.post({
@@ -959,7 +960,7 @@ gmail:Label newLabel = check gmail->/users/me/labels.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "Label_25", "name": "Invoices", "type": "user", "labelListVisibility": "labelShow", "messageListVisibility": "show", "messagesTotal": 0, "messagesUnread": 0, "threadsTotal": 0, "threadsUnread": 0}
@@ -976,22 +977,22 @@ gmail:Label newLabel = check gmail->/users/me/labels.post({
 
 Retrieves a specific label by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `id` | `string` | Yes | The label ID. |
 
-**Returns:** `gmail:Label|error`
+Returns: `gmail:Label|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Label label = check gmail->/users/me/labels/["Label_25"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "Label_25", "name": "Invoices", "type": "user", "labelListVisibility": "labelShow", "messageListVisibility": "show", "messagesTotal": 12, "messagesUnread": 3, "threadsTotal": 8, "threadsUnread": 2}
@@ -1008,7 +1009,7 @@ gmail:Label label = check gmail->/users/me/labels/["Label_25"]();
 
 Replaces all fields of a label with the provided values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1016,9 +1017,9 @@ Replaces all fields of a label with the provided values.
 | `id` | `string` | Yes | The label ID. |
 | `label` | `gmail:Label` | Yes | The full label object with updated values. |
 
-**Returns:** `gmail:Label|error`
+Returns: `gmail:Label|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Label updated = check gmail->/users/me/labels/["Label_25"].put({
@@ -1028,7 +1029,7 @@ gmail:Label updated = check gmail->/users/me/labels/["Label_25"].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "Label_25", "name": "Invoices - Paid", "type": "user", "labelListVisibility": "labelShow", "messageListVisibility": "show"}
@@ -1045,7 +1046,7 @@ gmail:Label updated = check gmail->/users/me/labels/["Label_25"].put({
 
 Partially updates a label, modifying only the specified fields.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1053,9 +1054,9 @@ Partially updates a label, modifying only the specified fields.
 | `id` | `string` | Yes | The label ID. |
 | `label` | `gmail:Label` | Yes | The label fields to update. |
 
-**Returns:** `gmail:Label|error`
+Returns: `gmail:Label|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:Label patched = check gmail->/users/me/labels/["Label_25"].patch({
@@ -1063,7 +1064,7 @@ gmail:Label patched = check gmail->/users/me/labels/["Label_25"].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "Label_25", "name": "Invoices - Archived", "type": "user", "labelListVisibility": "labelShow", "messageListVisibility": "show"}
@@ -1080,16 +1081,16 @@ gmail:Label patched = check gmail->/users/me/labels/["Label_25"].patch({
 
 Permanently deletes a custom label. Messages with the label are not deleted.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `string` | Yes | The user's email address or `"me"`. |
 | `id` | `string` | Yes | The label ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check gmail->/users/me/labels/["Label_25"].delete();
@@ -1108,7 +1109,7 @@ check gmail->/users/me/labels/["Label_25"].delete();
 
 Lists the history of changes to the mailbox since a given history ID, useful for incremental sync.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1119,15 +1120,15 @@ Lists the history of changes to the mailbox since a given history ID, useful for
 | `labelId` | `string` | No | Only return history for this label. |
 | `historyTypes` | `string[]` | No | Filter by history type: `"messageAdded"`, `"messageDeleted"`, `"labelAdded"`, `"labelRemoved"`. |
 
-**Returns:** `gmail:ListHistoryResponse|error`
+Returns: `gmail:ListHistoryResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 gmail:ListHistoryResponse history = check gmail->/users/me/history(startHistoryId = "987654");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"historyId": "987700", "history": [{"id": "987655", "messagesAdded": [{"message": {"id": "18a1b2c3d4e5f6e0", "threadId": "18a1b2c3d4e5f6e0"}}]}]}

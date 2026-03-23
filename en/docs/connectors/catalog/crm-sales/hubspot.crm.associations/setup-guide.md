@@ -13,7 +13,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 - A HubSpot account. If you do not have one, [sign up for a free account](https://app.hubspot.com/signup).
 - A HubSpot Developer account. If you do not have one, [create a developer account](https://developers.hubspot.com/).
 
-## Create a HubSpot App
+## Create a HubSpot app
 
 1. Log in to your [HubSpot Developer Portal](https://app.hubspot.com/developer/).
 2. In the top navigation, click **Apps**.
@@ -24,7 +24,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 5. Click **Create app**.
 
 
-## Configure OAuth Scopes
+## Configure OAuth scopes
 
 1. Open your newly created app and navigate to the **Auth** tab.
 2. Under **Scopes**, click **Add new scope** and add the following scopes:
@@ -38,7 +38,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 Depending on the CRM object types you intend to link, you may also need object-specific scopes such as `crm.objects.contacts.read`, `crm.objects.deals.read`, and `crm.objects.companies.read`.
 :::
 
-## Obtain the Client ID and Client Secret
+## Obtain the client ID and client secret
 
 1. In your app's **Auth** tab, locate the **App credentials** section.
 2. Copy the **Client ID** — this is your `clientId`.
@@ -50,7 +50,7 @@ Store the Client ID and Client Secret securely. Do not commit them to source con
 
 :::
 
-## Install the App on a HubSpot Account
+## Install the app on a HubSpot account
 
 1. Still on the **Auth** tab, scroll to **Install URL (OAuth)**.
 2. Click **Copy full URL** to get the OAuth authorization URL for your app.
@@ -63,7 +63,7 @@ Store the Client ID and Client Secret securely. Do not commit them to source con
 The authorization code expires after 10 minutes. Exchange it for tokens promptly.
 :::
 
-## Exchange the Authorization Code for a Refresh Token
+## Exchange the authorization code for a refresh token
 
 Send a POST request to HubSpot's token endpoint to exchange the authorization code for
 an access token and refresh token:
@@ -89,14 +89,14 @@ Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the tok
 
 ## Installation
 
-### Using the Visual Designer
+### Using the visual designer
 
 1. Open the **Visual Designer** in VS Code.
 2. Add a new **Connection** node.
 3. Search for **HubSpot CRM Associations** in the connector list.
 4. Follow the connection wizard to enter your credentials.
 
-### Using Code
+### Using code
 
 Add the import to your Ballerina file:
 
@@ -114,6 +114,6 @@ version = "2.0.0"
 ```
 
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

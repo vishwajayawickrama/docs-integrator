@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manages timeline event templates, tokens, and events on HubSpot CRM records.
 | `compression` | <code>http:Compression</code> | `COMPRESSION_AUTO` | Compression configuration. |
 | `validation` | <code>boolean</code> | `true` | Enable/disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.extensions.timelines as timelines;
@@ -51,33 +52,33 @@ timelines:Client timelinesClient = check new ({
 
 ### Operations
 
-#### Event Template Management
+#### Event template management
 
 <details>
 <summary>List all event templates for your app</summary>
 
 <div>
 
-**Signature:** `get [int:Signed32 appId]/event-templates`
+Signature: `get [int:Signed32 appId]/event-templates`
 
 Retrieves all event templates associated with the specified app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | <code>int:Signed32</code> | Yes | The HubSpot app ID. |
 
-**Returns:** `CollectionResponseTimelineEventTemplateNoPaging|error`
+Returns: `CollectionResponseTimelineEventTemplateNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 CollectionResponseTimelineEventTemplateNoPaging templates =
     check timelinesClient->/[appId]/event\-templates.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -109,20 +110,20 @@ CollectionResponseTimelineEventTemplateNoPaging templates =
 
 <div>
 
-**Signature:** `post [int:Signed32 appId]/event-templates`
+Signature: `post [int:Signed32 appId]/event-templates`
 
 Creates a new event template for the specified app with custom tokens and display templates.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | <code>int:Signed32</code> | Yes | The HubSpot app ID. |
 | `payload` | <code>TimelineEventTemplateCreateRequest</code> | Yes | The event template definition including name, tokens, and templates. |
 
-**Returns:** `TimelineEventTemplate|error`
+Returns: `TimelineEventTemplate|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 TimelineEventTemplateCreateRequest eventTemplate = {
@@ -148,7 +149,7 @@ TimelineEventTemplate result =
     check timelinesClient->/[appId]/event\-templates.post(eventTemplate);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -176,27 +177,27 @@ TimelineEventTemplate result =
 
 <div>
 
-**Signature:** `get [int:Signed32 appId]/event-templates/[string eventTemplateId]`
+Signature: `get [int:Signed32 appId]/event-templates/[string eventTemplateId]`
 
 Retrieves a specific event template by its ID for the given app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | <code>int:Signed32</code> | Yes | The HubSpot app ID. |
 | `eventTemplateId` | <code>string</code> | Yes | The event template ID. |
 
-**Returns:** `TimelineEventTemplate|error`
+Returns: `TimelineEventTemplate|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 TimelineEventTemplate template =
     check timelinesClient->/[appId]/event\-templates/[eventTemplateId].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -223,11 +224,11 @@ TimelineEventTemplate template =
 
 <div>
 
-**Signature:** `put [int:Signed32 appId]/event-templates/[string eventTemplateId]`
+Signature: `put [int:Signed32 appId]/event-templates/[string eventTemplateId]`
 
 Updates an existing event template's name, tokens, header, and detail templates.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -235,9 +236,9 @@ Updates an existing event template's name, tokens, header, and detail templates.
 | `eventTemplateId` | <code>string</code> | Yes | The event template ID. |
 | `payload` | <code>TimelineEventTemplateUpdateRequest</code> | Yes | The updated template definition. |
 
-**Returns:** `TimelineEventTemplate|error`
+Returns: `TimelineEventTemplate|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 TimelineEventTemplateUpdateRequest updateReq = {
@@ -252,7 +253,7 @@ TimelineEventTemplate updated =
     check timelinesClient->/[appId]/event\-templates/[eventTemplateId].put(updateReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -277,20 +278,20 @@ TimelineEventTemplate updated =
 
 <div>
 
-**Signature:** `delete [int:Signed32 appId]/event-templates/[string eventTemplateId]`
+Signature: `delete [int:Signed32 appId]/event-templates/[string eventTemplateId]`
 
 Deletes the specified event template from the app.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `appId` | <code>int:Signed32</code> | Yes | The HubSpot app ID. |
 | `eventTemplateId` | <code>string</code> | Yes | The event template ID to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check timelinesClient->/[appId]/event\-templates/[eventTemplateId].delete();
@@ -300,18 +301,18 @@ check timelinesClient->/[appId]/event\-templates/[eventTemplateId].delete();
 
 </details>
 
-#### Event Template Tokens
+#### Event template tokens
 
 <details>
 <summary>Adds a token to an existing event template</summary>
 
 <div>
 
-**Signature:** `post [int:Signed32 appId]/event-templates/[string eventTemplateId]/tokens`
+Signature: `post [int:Signed32 appId]/event-templates/[string eventTemplateId]/tokens`
 
 Adds a new token to an existing event template.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -319,9 +320,9 @@ Adds a new token to an existing event template.
 | `eventTemplateId` | <code>string</code> | Yes | The event template ID. |
 | `payload` | <code>TimelineEventTemplateToken</code> | Yes | The token definition. |
 
-**Returns:** `TimelineEventTemplateToken|error`
+Returns: `TimelineEventTemplateToken|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 TimelineEventTemplateToken token = {
@@ -333,7 +334,7 @@ TimelineEventTemplateToken result =
     check timelinesClient->/[appId]/event\-templates/[eventTemplateId]/tokens.post(token);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -354,11 +355,11 @@ TimelineEventTemplateToken result =
 
 <div>
 
-**Signature:** `put [int:Signed32 appId]/event-templates/[string eventTemplateId]/tokens/[string tokenName]`
+Signature: `put [int:Signed32 appId]/event-templates/[string eventTemplateId]/tokens/[string tokenName]`
 
 Updates an existing token's label, options, or object property name on an event template.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -367,9 +368,9 @@ Updates an existing token's label, options, or object property name on an event 
 | `tokenName` | <code>string</code> | Yes | The name of the token to update. |
 | `payload` | <code>TimelineEventTemplateTokenUpdateRequest</code> | Yes | The updated token properties. |
 
-**Returns:** `TimelineEventTemplateToken|error`
+Returns: `TimelineEventTemplateToken|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 TimelineEventTemplateTokenUpdateRequest updateReq = {
@@ -379,7 +380,7 @@ TimelineEventTemplateToken updated =
     check timelinesClient->/[appId]/event\-templates/[eventTemplateId]/tokens/[tokenName].put(updateReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -400,11 +401,11 @@ TimelineEventTemplateToken updated =
 
 <div>
 
-**Signature:** `delete [int:Signed32 appId]/event-templates/[string eventTemplateId]/tokens/[string tokenName]`
+Signature: `delete [int:Signed32 appId]/event-templates/[string eventTemplateId]/tokens/[string tokenName]`
 
 Removes the specified token from the event template.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -412,9 +413,9 @@ Removes the specified token from the event template.
 | `eventTemplateId` | <code>string</code> | Yes | The event template ID. |
 | `tokenName` | <code>string</code> | Yes | The name of the token to remove. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check timelinesClient->/[appId]/event\-templates/[eventTemplateId]/tokens/[tokenName].delete();
@@ -424,26 +425,26 @@ check timelinesClient->/[appId]/event\-templates/[eventTemplateId]/tokens/[token
 
 </details>
 
-#### Timeline Events
+#### Timeline events
 
 <details>
 <summary>Create a single event</summary>
 
 <div>
 
-**Signature:** `post events`
+Signature: `post events`
 
 Creates a single timeline event on a CRM record.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>TimelineEvent</code> | Yes | The timeline event definition. |
 
-**Returns:** `TimelineEventResponse|error`
+Returns: `TimelineEventResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 TimelineEvent event = {
@@ -469,7 +470,7 @@ TimelineEventResponse result =
     check timelinesClient->/events.post(event);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -493,19 +494,19 @@ TimelineEventResponse result =
 
 <div>
 
-**Signature:** `post events/batch/create`
+Signature: `post events/batch/create`
 
 Creates multiple timeline events in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputTimelineEvent</code> | Yes | Batch input containing an array of timeline events. |
 
-**Returns:** `BatchResponseTimelineEventResponse|BatchResponseTimelineEventResponseWithErrors|json|error`
+Returns: `BatchResponseTimelineEventResponse|BatchResponseTimelineEventResponseWithErrors|json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 BatchInputTimelineEvent batchInput = {
@@ -526,7 +527,7 @@ BatchResponseTimelineEventResponse|BatchResponseTimelineEventResponseWithErrors|
     check timelinesClient->/events/batch/create.post(batchInput);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -549,27 +550,27 @@ BatchResponseTimelineEventResponse|BatchResponseTimelineEventResponseWithErrors|
 
 <div>
 
-**Signature:** `get events/[string eventTemplateId]/[string eventId]`
+Signature: `get events/[string eventTemplateId]/[string eventId]`
 
 Retrieves a specific timeline event by its template ID and event ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `eventTemplateId` | <code>string</code> | Yes | The event template ID. |
 | `eventId` | <code>string</code> | Yes | The event ID. |
 
-**Returns:** `TimelineEventResponse|error`
+Returns: `TimelineEventResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 TimelineEventResponse event =
     check timelinesClient->/events/[eventTemplateId]/[eventId].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -591,27 +592,27 @@ TimelineEventResponse event =
 
 <div>
 
-**Signature:** `get events/[string eventTemplateId]/[string eventId]/detail`
+Signature: `get events/[string eventTemplateId]/[string eventId]/detail`
 
 Returns the rendered detail template for a specific timeline event.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `eventTemplateId` | <code>string</code> | Yes | The event template ID. |
 | `eventId` | <code>string</code> | Yes | The event ID. |
 
-**Returns:** `EventDetail|error`
+Returns: `EventDetail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 EventDetail detail =
     check timelinesClient->/events/[eventTemplateId]/[eventId]/detail.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -628,11 +629,11 @@ EventDetail detail =
 
 <div>
 
-**Signature:** `get events/[string eventTemplateId]/[string eventId]/render`
+Signature: `get events/[string eventTemplateId]/[string eventId]/render`
 
 Renders the header template (or detail template if `detail=true`) as HTML for a specific event.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -640,16 +641,16 @@ Renders the header template (or detail template if `detail=true`) as HTML for a 
 | `eventId` | <code>string</code> | Yes | The event ID. |
 | `detail` | <code>boolean</code> | No | If `true`, renders the detail template instead of the header template. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string renderedHtml =
     check timelinesClient->/events/[eventTemplateId]/[eventId]/render.get(detail = true);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "<h1>Pet activity for Buddy</h1>"

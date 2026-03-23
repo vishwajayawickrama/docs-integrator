@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Provides full CRUD, batch, and search operations on HubSpot CRM lead objects.
 | `proxy` | `http:ProxyConfig` | `()` | HTTP proxy configuration. |
 | `validation` | `boolean` | `true` | Enables constraint validation on request/response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.obj.leads as leads;
@@ -51,7 +52,7 @@ leads:Client hsLeads = check new ({
 
 ### Operations
 
-#### Single Lead CRUD
+#### Single lead CRUD
 
 <details>
 <summary>Read a page of leads</summary>
@@ -60,15 +61,15 @@ leads:Client hsLeads = check new ({
 
 Retrieves a paginated list of lead records. Use query parameters to filter archived leads, request specific properties, or include association data.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetCrmV3ObjectsLeadsGetPageQueries` | No | Optional query parameters including `limit`, `after` (pagination cursor), `properties`, `propertiesWithHistory`, `associations`, and `archived`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 leads:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging allLeads =
@@ -78,7 +79,7 @@ leads:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging allLeads
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -116,15 +117,15 @@ leads:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging allLeads
 
 Creates a new lead record. You can specify properties and optionally associate the lead with existing CRM objects (e.g., contacts) at creation time.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SimplePublicObjectInputForCreate` | Yes | Lead properties and optional associations. Use `associations` to link to contacts or other CRM objects on creation. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 leads:SimplePublicObjectInputForCreate payload = {
@@ -139,7 +140,7 @@ leads:SimplePublicObjectInputForCreate payload = {
 leads:SimplePublicObject createdLead = check hsLeads->/.post(payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -167,16 +168,16 @@ leads:SimplePublicObject createdLead = check hsLeads->/.post(payload);
 
 Retrieves a single lead record by its HubSpot object ID or a custom unique identifier property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `leadsId` | `string` | Yes | The HubSpot ID of the lead (or the value of the property specified in `idProperty`). |
 | `queries` | `GetCrmV3ObjectsLeadsLeadsIdGetByIdQueries` | No | Optional query parameters: `properties`, `propertiesWithHistory`, `associations`, `archived`, and `idProperty`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 leads:SimplePublicObjectWithAssociations lead =
@@ -185,7 +186,7 @@ leads:SimplePublicObjectWithAssociations lead =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -214,7 +215,7 @@ leads:SimplePublicObjectWithAssociations lead =
 
 Performs a partial update on a lead record. Only the fields included in the payload are modified; omitted fields remain unchanged.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -222,9 +223,9 @@ Performs a partial update on a lead record. Only the fields included in the payl
 | `payload` | `SimplePublicObjectInput` | Yes | A map of property names to new values. |
 | `queries` | `PatchCrmV3ObjectsLeadsLeadsIdUpdateQueries` | No | Optional `idProperty` to resolve the lead by a custom unique identifier. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 leads:SimplePublicObject updatedLead = check hsLeads->/[leadId].patch(
@@ -232,7 +233,7 @@ leads:SimplePublicObject updatedLead = check hsLeads->/[leadId].patch(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -260,15 +261,15 @@ leads:SimplePublicObject updatedLead = check hsLeads->/[leadId].patch(
 
 Archives (soft-deletes) a lead record. Archived leads are hidden from default list views but can be retrieved with `archived=true`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `leadsId` | `string` | Yes | The HubSpot ID of the lead to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hsLeads->/[leadId].delete();
@@ -278,7 +279,7 @@ check hsLeads->/[leadId].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of leads</summary>
@@ -287,15 +288,15 @@ check hsLeads->/[leadId].delete();
 
 Creates multiple lead records in a single API call. Each input in the batch can include properties and associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectInputForCreate` | Yes | A batch input containing an array of lead creation payloads under `inputs`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 leads:BatchInputSimplePublicObjectInputForCreate batchPayload = {
@@ -308,7 +309,7 @@ leads:BatchResponseSimplePublicObject|leads:BatchResponseSimplePublicObjectWithE
     check hsLeads->/batch/create.post(batchPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -346,16 +347,16 @@ leads:BatchResponseSimplePublicObject|leads:BatchResponseSimplePublicObjectWithE
 
 Retrieves multiple lead records in a single request, identified by their HubSpot IDs or custom unique identifier properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchReadInputSimplePublicObjectId` | Yes | Batch read input containing `inputs` (array of IDs), `properties`, and optionally `propertiesWithHistory` and `idProperty`. |
 | `queries` | `PostCrmV3ObjectsLeadsBatchReadReadQueries` | No | Optional `archived` flag to include archived leads. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 leads:BatchReadInputSimplePublicObjectId readPayload = {
@@ -366,7 +367,7 @@ leads:BatchResponseSimplePublicObject|leads:BatchResponseSimplePublicObjectWithE
     check hsLeads->/batch/read.post(readPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -404,15 +405,15 @@ leads:BatchResponseSimplePublicObject|leads:BatchResponseSimplePublicObjectWithE
 
 Updates multiple existing lead records in a single API call. Each input must include the lead's `id` and the properties to update.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInput` | Yes | Batch update input containing an `inputs` array; each element has `id` and `properties`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 leads:BatchInputSimplePublicObjectBatchInput updatePayload = {
@@ -425,7 +426,7 @@ leads:BatchResponseSimplePublicObject|leads:BatchResponseSimplePublicObjectWithE
     check hsLeads->/batch/update.post(updatePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -463,15 +464,15 @@ leads:BatchResponseSimplePublicObject|leads:BatchResponseSimplePublicObjectWithE
 
 Archives multiple lead records in a single API call.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectId` | Yes | Batch archive input with an `inputs` array of lead IDs to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hsLeads->/batch/archive.post({
@@ -490,15 +491,15 @@ check hsLeads->/batch/archive.post({
 
 Creates new leads or updates existing ones based on a unique identifier property. Records matching the identifier are updated; non-matching records are created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInputUpsert` | Yes | Batch upsert input containing `inputs` (each with `idProperty`, `id`, and `properties`). |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 leads:BatchInputSimplePublicObjectBatchInputUpsert upsertPayload = {
@@ -511,7 +512,7 @@ leads:BatchResponseSimplePublicUpsertObject|leads:BatchResponseSimplePublicUpser
     check hsLeads->/batch/upsert.post(upsertPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -553,15 +554,15 @@ leads:BatchResponseSimplePublicUpsertObject|leads:BatchResponseSimplePublicUpser
 
 Searches lead records using filter groups, sorting criteria, and property projection. Supports complex queries combining multiple property filters with AND/OR logic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicObjectSearchRequest` | Yes | Search request with optional `query` (full-text), `filterGroups` (structured filters), `sorts`, `properties`, `limit`, and `after` (pagination cursor). |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 leads:PublicObjectSearchRequest searchReq = {
@@ -580,7 +581,7 @@ leads:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResult =
     check hsLeads->/search.post(searchReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

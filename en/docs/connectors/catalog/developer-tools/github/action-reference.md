@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 5
 ---
 
@@ -27,7 +28,7 @@ Provides access to the GitHub REST API (241 resource functions) for managing rep
 | `secureSocket` | `http:ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/github;
@@ -43,7 +44,7 @@ github:Client github = check new ({
 
 ### Operations
 
-#### Repository Management
+#### Repository management
 
 <details>
 <summary>List repositories for the authenticated user</summary>
@@ -52,7 +53,7 @@ github:Client github = check new ({
 
 Lists repositories for the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -61,15 +62,15 @@ Lists repositories for the authenticated user.
 | `sort` | `"created"\|"updated"\|"pushed"\|"full_name"` | No | Sort field for results. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Repository[]|error`
+Returns: `github:Repository[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Repository[] repos = check github->/user/repos(visibility = "private", 'type = ());
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 123456, "name": "my-project", "full_name": "octocat/my-project", "private": true, "description": "A sample project", "html_url": "https://github.com/octocat/my-project", "default_branch": "main"}]
@@ -86,15 +87,15 @@ github:Repository[] repos = check github->/user/repos(visibility = "private", 't
 
 Creates a new repository for the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `github:User_repos_body` | Yes | Repository creation payload including name, description, and visibility. |
 
-**Returns:** `github:Repository|error`
+Returns: `github:Repository|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Repository createdRepo = check github->/user/repos.post({
@@ -104,7 +105,7 @@ github:Repository createdRepo = check github->/user/repos.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 789012, "name": "new-project", "full_name": "octocat/new-project", "private": true, "description": "My new project", "default_branch": "main"}
@@ -121,22 +122,22 @@ github:Repository createdRepo = check github->/user/repos.post({
 
 Retrieves details of a specific repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `owner` | `string` | Yes | The account owner of the repository. |
 | `repo` | `string` | Yes | The name of the repository. |
 
-**Returns:** `github:FullRepository|error`
+Returns: `github:FullRepository|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:FullRepository repo = check github->/repos/["octocat"]/["Hello-World"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1296269, "name": "Hello-World", "full_name": "octocat/Hello-World", "private": false, "description": "This your first repo!", "stargazers_count": 80, "forks_count": 9, "default_branch": "master"}
@@ -153,7 +154,7 @@ github:FullRepository repo = check github->/repos/["octocat"]/["Hello-World"];
 
 Updates a repository's settings.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -161,9 +162,9 @@ Updates a repository's settings.
 | `repo` | `string` | Yes | The name of the repository. |
 | `payload` | `github:Repos_body` | Yes | Repository update payload. |
 
-**Returns:** `github:FullRepository|error`
+Returns: `github:FullRepository|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:FullRepository updated = check github->/repos/["octocat"]/["Hello-World"].patch({
@@ -172,7 +173,7 @@ github:FullRepository updated = check github->/repos/["octocat"]/["Hello-World"]
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1296269, "name": "Hello-World", "full_name": "octocat/Hello-World", "description": "Updated description", "has_issues": true}
@@ -189,16 +190,16 @@ github:FullRepository updated = check github->/repos/["octocat"]/["Hello-World"]
 
 Deletes a repository. Requires admin access.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `owner` | `string` | Yes | The account owner of the repository. |
 | `repo` | `string` | Yes | The name of the repository. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/repos/["octocat"]/["old-project"].delete();
@@ -215,7 +216,7 @@ check github->/repos/["octocat"]/["old-project"].delete();
 
 Creates a fork of a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -223,15 +224,15 @@ Creates a fork of a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `payload` | `github:Repo_forks_body` | Yes | Fork creation payload with optional organization and name. |
 
-**Returns:** `github:FullRepository|error`
+Returns: `github:FullRepository|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:FullRepository fork = check github->/repos/["octocat"]/["Hello-World"]/forks.post({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 999999, "name": "Hello-World", "full_name": "myuser/Hello-World", "fork": true, "parent": {"full_name": "octocat/Hello-World"}}
@@ -248,22 +249,22 @@ github:FullRepository fork = check github->/repos/["octocat"]/["Hello-World"]/fo
 
 Lists all repository topics.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `owner` | `string` | Yes | The account owner of the repository. |
 | `repo` | `string` | Yes | The name of the repository. |
 
-**Returns:** `github:Topic|error`
+Returns: `github:Topic|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Topic topics = check github->/repos/["octocat"]/["Hello-World"]/topics;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"names": ["ballerina", "integration", "github-api"]}
@@ -280,7 +281,7 @@ github:Topic topics = check github->/repos/["octocat"]/["Hello-World"]/topics;
 
 Replaces all repository topics.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -288,9 +289,9 @@ Replaces all repository topics.
 | `repo` | `string` | Yes | The name of the repository. |
 | `payload` | `github:Repo_topics_body` | Yes | Payload with the new list of topic names. |
 
-**Returns:** `github:Topic|error`
+Returns: `github:Topic|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Topic updated = check github->/repos/["octocat"]/["Hello-World"]/topics.put({
@@ -298,7 +299,7 @@ github:Topic updated = check github->/repos/["octocat"]/["Hello-World"]/topics.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"names": ["ballerina", "integration"]}
@@ -308,7 +309,7 @@ github:Topic updated = check github->/repos/["octocat"]/["Hello-World"]/topics.p
 
 </details>
 
-#### Issue Management
+#### Issue management
 
 <details>
 <summary>List repository issues</summary>
@@ -317,7 +318,7 @@ github:Topic updated = check github->/repos/["octocat"]/["Hello-World"]/topics.p
 
 Lists issues in a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -328,15 +329,15 @@ Lists issues in a repository.
 | `sort` | `"created"\|"updated"\|"comments"` | No | Sort field. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Issue[]|error`
+Returns: `github:Issue[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Issue[] issues = check github->/repos/["octocat"]/["Hello-World"]/issues(state = "open");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 1, "number": 1347, "state": "open", "title": "Found a bug", "body": "I'm having a problem with this.", "user": {"login": "octocat"}, "labels": [{"name": "bug"}]}]
@@ -353,7 +354,7 @@ github:Issue[] issues = check github->/repos/["octocat"]/["Hello-World"]/issues(
 
 Creates an issue in a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -361,9 +362,9 @@ Creates an issue in a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `payload` | `github:Repo_issues_body` | Yes | Issue creation payload with title, body, labels, and assignees. |
 
-**Returns:** `github:Issue|error`
+Returns: `github:Issue|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Issue issue = check github->/repos/["octocat"]/["Hello-World"]/issues.post({
@@ -373,7 +374,7 @@ github:Issue issue = check github->/repos/["octocat"]/["Hello-World"]/issues.pos
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "number": 1348, "state": "open", "title": "Found a bug", "body": "I'm having a problem with this.", "labels": [{"name": "bug"}], "html_url": "https://github.com/octocat/Hello-World/issues/1348"}
@@ -390,7 +391,7 @@ github:Issue issue = check github->/repos/["octocat"]/["Hello-World"]/issues.pos
 
 Retrieves a specific issue by number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -398,15 +399,15 @@ Retrieves a specific issue by number.
 | `repo` | `string` | Yes | The name of the repository. |
 | `issue_number` | `int` | Yes | The number of the issue. |
 
-**Returns:** `github:Issue|error`
+Returns: `github:Issue|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Issue issue = check github->/repos/["octocat"]/["Hello-World"]/issues/[1347];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "number": 1347, "state": "open", "title": "Found a bug", "body": "I'm having a problem with this.", "user": {"login": "octocat"}}
@@ -423,7 +424,7 @@ github:Issue issue = check github->/repos/["octocat"]/["Hello-World"]/issues/[13
 
 Updates an existing issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -432,9 +433,9 @@ Updates an existing issue.
 | `issue_number` | `int` | Yes | The number of the issue. |
 | `payload` | `github:Issues_issue_number_body` | Yes | Issue update payload. |
 
-**Returns:** `github:Issue|error`
+Returns: `github:Issue|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Issue updated = check github->/repos/["octocat"]/["Hello-World"]/issues/[1348].patch({
@@ -443,7 +444,7 @@ github:Issue updated = check github->/repos/["octocat"]/["Hello-World"]/issues/[
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "number": 1348, "state": "closed", "title": "Found a bug", "labels": [{"name": "bug"}, {"name": "wontfix"}]}
@@ -460,7 +461,7 @@ github:Issue updated = check github->/repos/["octocat"]/["Hello-World"]/issues/[
 
 Lists comments on an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -469,15 +470,15 @@ Lists comments on an issue.
 | `issue_number` | `int` | Yes | The number of the issue. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:IssueComment[]|error`
+Returns: `github:IssueComment[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:IssueComment[] comments = check github->/repos/["octocat"]/["Hello-World"]/issues/[1347]/comments();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 10001, "body": "This has been fixed.", "user": {"login": "contributor1"}, "created_at": "2024-01-15T10:30:00Z"}]
@@ -494,7 +495,7 @@ github:IssueComment[] comments = check github->/repos/["octocat"]/["Hello-World"
 
 Creates a comment on an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -503,9 +504,9 @@ Creates a comment on an issue.
 | `issue_number` | `int` | Yes | The number of the issue. |
 | `payload` | `github:Issue_number_comments_body` | Yes | Comment payload containing the body text. |
 
-**Returns:** `github:IssueComment|error`
+Returns: `github:IssueComment|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:IssueComment comment = check github->/repos/["octocat"]/["Hello-World"]/issues/[1348]/comments.post({
@@ -513,7 +514,7 @@ github:IssueComment comment = check github->/repos/["octocat"]/["Hello-World"]/i
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 10002, "body": "This has been fixed in the latest release.", "user": {"login": "octocat"}, "created_at": "2024-01-15T10:30:00Z"}
@@ -530,7 +531,7 @@ github:IssueComment comment = check github->/repos/["octocat"]/["Hello-World"]/i
 
 Lists labels on an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -538,15 +539,15 @@ Lists labels on an issue.
 | `repo` | `string` | Yes | The name of the repository. |
 | `issue_number` | `int` | Yes | The number of the issue. |
 
-**Returns:** `github:Label[]|error`
+Returns: `github:Label[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Label[] labels = check github->/repos/["octocat"]/["Hello-World"]/issues/[1347]/labels;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 208045946, "name": "bug", "color": "f29513", "description": "Something isn't working"}]
@@ -563,7 +564,7 @@ github:Label[] labels = check github->/repos/["octocat"]/["Hello-World"]/issues/
 
 Adds labels to an issue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -572,9 +573,9 @@ Adds labels to an issue.
 | `issue_number` | `int` | Yes | The number of the issue. |
 | `payload` | `github:Issue_number_labels_body` | Yes | Payload with label names to add. |
 
-**Returns:** `github:Label[]|error`
+Returns: `github:Label[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Label[] labels = check github->/repos/["octocat"]/["Hello-World"]/issues/[1347]/labels.post({
@@ -582,7 +583,7 @@ github:Label[] labels = check github->/repos/["octocat"]/["Hello-World"]/issues/
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 208045946, "name": "bug", "color": "f29513"}, {"id": 208045947, "name": "enhancement", "color": "84b6eb"}, {"id": 208045948, "name": "help wanted", "color": "128A0C"}]
@@ -599,7 +600,7 @@ github:Label[] labels = check github->/repos/["octocat"]/["Hello-World"]/issues/
 
 Lists milestones for a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -607,15 +608,15 @@ Lists milestones for a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `state` | `"open"\|"closed"\|"all"` | No | Filter by milestone state. |
 
-**Returns:** `github:Milestone[]|error`
+Returns: `github:Milestone[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Milestone[] milestones = check github->/repos/["octocat"]/["Hello-World"]/milestones(state = "open");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 1, "number": 1, "title": "v1.0", "state": "open", "open_issues": 4, "closed_issues": 8}]
@@ -632,7 +633,7 @@ github:Milestone[] milestones = check github->/repos/["octocat"]/["Hello-World"]
 
 Creates a milestone.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -640,9 +641,9 @@ Creates a milestone.
 | `repo` | `string` | Yes | The name of the repository. |
 | `payload` | `github:Repo_milestones_body` | Yes | Milestone creation payload with title and optional due date. |
 
-**Returns:** `github:Milestone|error`
+Returns: `github:Milestone|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Milestone milestone = check github->/repos/["octocat"]/["Hello-World"]/milestones.post({
@@ -651,7 +652,7 @@ github:Milestone milestone = check github->/repos/["octocat"]/["Hello-World"]/mi
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 2, "number": 2, "title": "v2.0", "state": "open", "due_on": "2025-06-01T00:00:00Z"}
@@ -661,7 +662,7 @@ github:Milestone milestone = check github->/repos/["octocat"]/["Hello-World"]/mi
 
 </details>
 
-#### Pull Request Management
+#### Pull request management
 
 <details>
 <summary>List pull requests</summary>
@@ -670,7 +671,7 @@ github:Milestone milestone = check github->/repos/["octocat"]/["Hello-World"]/mi
 
 Lists pull requests in a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -681,15 +682,15 @@ Lists pull requests in a repository.
 | `base` | `string` | No | Filter by base branch name. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:PullRequestSimple[]|error`
+Returns: `github:PullRequestSimple[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PullRequestSimple[] prs = check github->/repos/["octocat"]/["Hello-World"]/pulls(state = "open");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 1, "number": 42, "state": "open", "title": "Add new feature", "user": {"login": "octocat"}, "head": {"ref": "feature-branch"}, "base": {"ref": "main"}}]
@@ -706,7 +707,7 @@ github:PullRequestSimple[] prs = check github->/repos/["octocat"]/["Hello-World"
 
 Creates a pull request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -714,9 +715,9 @@ Creates a pull request.
 | `repo` | `string` | Yes | The name of the repository. |
 | `payload` | `github:Repo_pulls_body` | Yes | Pull request creation payload with title, head, base, and body. |
 
-**Returns:** `github:PullRequest|error`
+Returns: `github:PullRequest|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PullRequest pr = check github->/repos/["octocat"]/["Hello-World"]/pulls.post({
@@ -727,7 +728,7 @@ github:PullRequest pr = check github->/repos/["octocat"]/["Hello-World"]/pulls.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "number": 43, "state": "open", "title": "Amazing new feature", "html_url": "https://github.com/octocat/Hello-World/pull/43", "head": {"ref": "feature-branch"}, "base": {"ref": "main"}}
@@ -744,7 +745,7 @@ github:PullRequest pr = check github->/repos/["octocat"]/["Hello-World"]/pulls.p
 
 Retrieves a specific pull request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -752,15 +753,15 @@ Retrieves a specific pull request.
 | `repo` | `string` | Yes | The name of the repository. |
 | `pull_number` | `int` | Yes | The number of the pull request. |
 
-**Returns:** `github:PullRequest|error`
+Returns: `github:PullRequest|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PullRequest pr = check github->/repos/["octocat"]/["Hello-World"]/pulls/[42];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "number": 42, "state": "open", "title": "Add new feature", "mergeable": true, "commits": 3, "additions": 100, "deletions": 20}
@@ -777,7 +778,7 @@ github:PullRequest pr = check github->/repos/["octocat"]/["Hello-World"]/pulls/[
 
 Updates a pull request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -786,9 +787,9 @@ Updates a pull request.
 | `pull_number` | `int` | Yes | The number of the pull request. |
 | `payload` | `github:Pulls_pull_number_body` | Yes | Pull request update payload. |
 
-**Returns:** `github:PullRequest|error`
+Returns: `github:PullRequest|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PullRequest updated = check github->/repos/["octocat"]/["Hello-World"]/pulls/[43].patch({
@@ -797,7 +798,7 @@ github:PullRequest updated = check github->/repos/["octocat"]/["Hello-World"]/pu
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "number": 43, "state": "open", "title": "Updated feature title", "body": "Updated description for the PR."}
@@ -814,7 +815,7 @@ github:PullRequest updated = check github->/repos/["octocat"]/["Hello-World"]/pu
 
 Merges a pull request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -823,9 +824,9 @@ Merges a pull request.
 | `pull_number` | `int` | Yes | The number of the pull request. |
 | `payload` | `github:Pull_number_merge_body` | Yes | Merge payload with optional commit title and merge method. |
 
-**Returns:** `github:PullRequestMergeResult|error`
+Returns: `github:PullRequestMergeResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PullRequestMergeResult result = check github->/repos/["octocat"]/["Hello-World"]/pulls/[43]/merge.put({
@@ -834,7 +835,7 @@ github:PullRequestMergeResult result = check github->/repos/["octocat"]/["Hello-
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"sha": "abc123def456", "merged": true, "message": "Pull Request successfully merged"}
@@ -851,7 +852,7 @@ github:PullRequestMergeResult result = check github->/repos/["octocat"]/["Hello-
 
 Lists reviews on a pull request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -859,15 +860,15 @@ Lists reviews on a pull request.
 | `repo` | `string` | Yes | The name of the repository. |
 | `pull_number` | `int` | Yes | The number of the pull request. |
 
-**Returns:** `github:PullRequestReview[]|error`
+Returns: `github:PullRequestReview[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PullRequestReview[] reviews = check github->/repos/["octocat"]/["Hello-World"]/pulls/[42]/reviews;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 80, "user": {"login": "reviewer1"}, "body": "Looks good!", "state": "APPROVED"}]
@@ -884,7 +885,7 @@ github:PullRequestReview[] reviews = check github->/repos/["octocat"]/["Hello-Wo
 
 Creates a review on a pull request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -893,9 +894,9 @@ Creates a review on a pull request.
 | `pull_number` | `int` | Yes | The number of the pull request. |
 | `payload` | `github:Pull_number_reviews_body` | Yes | Review payload with body and event (APPROVE, REQUEST_CHANGES, COMMENT). |
 
-**Returns:** `github:PullRequestReview|error`
+Returns: `github:PullRequestReview|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PullRequestReview review = check github->/repos/["octocat"]/["Hello-World"]/pulls/[43]/reviews.post({
@@ -904,7 +905,7 @@ github:PullRequestReview review = check github->/repos/["octocat"]/["Hello-World
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 80, "user": {"login": "octocat"}, "body": "Looks good! Ship it.", "state": "APPROVED"}
@@ -921,7 +922,7 @@ github:PullRequestReview review = check github->/repos/["octocat"]/["Hello-World
 
 Requests reviewers for a pull request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -930,9 +931,9 @@ Requests reviewers for a pull request.
 | `pull_number` | `int` | Yes | The number of the pull request. |
 | `payload` | `github:Pull_number_requested_reviewers_body` | Yes | Payload with reviewer usernames or team slugs. |
 
-**Returns:** `github:PullRequestSimple|error`
+Returns: `github:PullRequestSimple|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PullRequestSimple pr = check github->/repos/["octocat"]/["Hello-World"]/pulls/[43]/requested_reviewers.post({
@@ -940,7 +941,7 @@ github:PullRequestSimple pr = check github->/repos/["octocat"]/["Hello-World"]/p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "number": 43, "requested_reviewers": [{"login": "reviewer1"}, {"login": "reviewer2"}]}
@@ -957,7 +958,7 @@ github:PullRequestSimple pr = check github->/repos/["octocat"]/["Hello-World"]/p
 
 Lists commits on a pull request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -965,15 +966,15 @@ Lists commits on a pull request.
 | `repo` | `string` | Yes | The name of the repository. |
 | `pull_number` | `int` | Yes | The number of the pull request. |
 
-**Returns:** `github:Commit[]|error`
+Returns: `github:Commit[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Commit[] commits = check github->/repos/["octocat"]/["Hello-World"]/pulls/[42]/commits;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"sha": "abc123", "commit": {"message": "Initial implementation", "author": {"name": "octocat", "date": "2024-01-10T10:00:00Z"}}}]
@@ -990,7 +991,7 @@ github:Commit[] commits = check github->/repos/["octocat"]/["Hello-World"]/pulls
 
 Lists files changed in a pull request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -998,15 +999,15 @@ Lists files changed in a pull request.
 | `repo` | `string` | Yes | The name of the repository. |
 | `pull_number` | `int` | Yes | The number of the pull request. |
 
-**Returns:** `github:DiffEntry[]|error`
+Returns: `github:DiffEntry[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:DiffEntry[] files = check github->/repos/["octocat"]/["Hello-World"]/pulls/[42]/files;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"sha": "abc123", "filename": "src/main.bal", "status": "modified", "additions": 50, "deletions": 10, "changes": 60}]
@@ -1016,7 +1017,7 @@ github:DiffEntry[] files = check github->/repos/["octocat"]/["Hello-World"]/pull
 
 </details>
 
-#### Branch & Commit Management
+#### Branch & commit management
 
 <details>
 <summary>List branches</summary>
@@ -1025,7 +1026,7 @@ github:DiffEntry[] files = check github->/repos/["octocat"]/["Hello-World"]/pull
 
 Lists branches for a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1033,15 +1034,15 @@ Lists branches for a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:ShortBranch[]|error`
+Returns: `github:ShortBranch[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:ShortBranch[] branches = check github->/repos/["octocat"]/["Hello-World"]/branches();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"name": "main", "commit": {"sha": "abc123"}, "protected": true}, {"name": "feature-branch", "commit": {"sha": "def456"}, "protected": false}]
@@ -1058,7 +1059,7 @@ github:ShortBranch[] branches = check github->/repos/["octocat"]/["Hello-World"]
 
 Retrieves a specific branch.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1066,15 +1067,15 @@ Retrieves a specific branch.
 | `repo` | `string` | Yes | The name of the repository. |
 | `branch` | `string` | Yes | The branch name. |
 
-**Returns:** `github:BranchWithProtection|error`
+Returns: `github:BranchWithProtection|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:BranchWithProtection branch = check github->/repos/["octocat"]/["Hello-World"]/branches/["main"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"name": "main", "commit": {"sha": "abc123", "commit": {"message": "Latest commit"}}, "protected": true}
@@ -1091,7 +1092,7 @@ github:BranchWithProtection branch = check github->/repos/["octocat"]/["Hello-Wo
 
 Lists commits on a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1101,15 +1102,15 @@ Lists commits on a repository.
 | `path` | `string` | No | Only include commits containing this file path. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Commit[]|error`
+Returns: `github:Commit[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Commit[] commits = check github->/repos/["octocat"]/["Hello-World"]/commits(sha = "main");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"sha": "abc123", "commit": {"message": "Update README", "author": {"name": "octocat", "date": "2024-01-10T10:00:00Z"}}, "author": {"login": "octocat"}}]
@@ -1126,7 +1127,7 @@ github:Commit[] commits = check github->/repos/["octocat"]/["Hello-World"]/commi
 
 Retrieves a specific commit by SHA or ref.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1134,15 +1135,15 @@ Retrieves a specific commit by SHA or ref.
 | `repo` | `string` | Yes | The name of the repository. |
 | `ref` | `string` | Yes | The commit SHA, branch name, or tag name. |
 
-**Returns:** `github:Commit|error`
+Returns: `github:Commit|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Commit commit = check github->/repos/["octocat"]/["Hello-World"]/commits/["abc123"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"sha": "abc123", "commit": {"message": "Update README", "tree": {"sha": "def456"}}, "stats": {"additions": 10, "deletions": 2, "total": 12}}
@@ -1152,7 +1153,7 @@ github:Commit commit = check github->/repos/["octocat"]/["Hello-World"]/commits/
 
 </details>
 
-#### Release & Tag Management
+#### Release & tag management
 
 <details>
 <summary>List releases</summary>
@@ -1161,7 +1162,7 @@ github:Commit commit = check github->/repos/["octocat"]/["Hello-World"]/commits/
 
 Lists releases for a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1169,15 +1170,15 @@ Lists releases for a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Release[]|error`
+Returns: `github:Release[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Release[] releases = check github->/repos/["octocat"]/["Hello-World"]/releases();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 1, "tag_name": "v1.0.0", "name": "Release v1.0.0", "draft": false, "prerelease": false, "published_at": "2024-01-01T00:00:00Z"}]
@@ -1194,7 +1195,7 @@ github:Release[] releases = check github->/repos/["octocat"]/["Hello-World"]/rel
 
 Creates a release.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1202,9 +1203,9 @@ Creates a release.
 | `repo` | `string` | Yes | The name of the repository. |
 | `payload` | `github:Repo_releases_body` | Yes | Release creation payload with tag name, name, and body. |
 
-**Returns:** `github:Release|error`
+Returns: `github:Release|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Release release = check github->/repos/["octocat"]/["Hello-World"]/releases.post({
@@ -1216,7 +1217,7 @@ github:Release release = check github->/repos/["octocat"]/["Hello-World"]/releas
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 2, "tag_name": "v2.0.0", "name": "Release v2.0.0", "body": "Major release with new features.", "draft": false, "prerelease": false, "html_url": "https://github.com/octocat/Hello-World/releases/tag/v2.0.0"}
@@ -1233,7 +1234,7 @@ github:Release release = check github->/repos/["octocat"]/["Hello-World"]/releas
 
 Retrieves a specific release.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1241,15 +1242,15 @@ Retrieves a specific release.
 | `repo` | `string` | Yes | The name of the repository. |
 | `release_id` | `int` | Yes | The release ID. |
 
-**Returns:** `github:Release|error`
+Returns: `github:Release|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Release release = check github->/repos/["octocat"]/["Hello-World"]/releases/[1];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "tag_name": "v1.0.0", "name": "Release v1.0.0", "body": "Initial release", "assets": []}
@@ -1266,7 +1267,7 @@ github:Release release = check github->/repos/["octocat"]/["Hello-World"]/releas
 
 Updates a release.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1275,9 +1276,9 @@ Updates a release.
 | `release_id` | `int` | Yes | The release ID. |
 | `payload` | `github:Releases_release_id_body` | Yes | Release update payload. |
 
-**Returns:** `github:Release|error`
+Returns: `github:Release|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Release updated = check github->/repos/["octocat"]/["Hello-World"]/releases/[1].patch({
@@ -1285,7 +1286,7 @@ github:Release updated = check github->/repos/["octocat"]/["Hello-World"]/releas
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "tag_name": "v1.0.0", "name": "Release v1.0.0", "body": "Updated release notes with fixes."}
@@ -1302,7 +1303,7 @@ github:Release updated = check github->/repos/["octocat"]/["Hello-World"]/releas
 
 Deletes a release.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1310,9 +1311,9 @@ Deletes a release.
 | `repo` | `string` | Yes | The name of the repository. |
 | `release_id` | `int` | Yes | The release ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/repos/["octocat"]/["Hello-World"]/releases/[1].delete();
@@ -1329,22 +1330,22 @@ check github->/repos/["octocat"]/["Hello-World"]/releases/[1].delete();
 
 Retrieves the latest release for a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `owner` | `string` | Yes | The account owner of the repository. |
 | `repo` | `string` | Yes | The name of the repository. |
 
-**Returns:** `github:Release|error`
+Returns: `github:Release|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Release latest = check github->/repos/["octocat"]/["Hello-World"]/releases/latest;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 2, "tag_name": "v2.0.0", "name": "Release v2.0.0", "published_at": "2024-06-01T00:00:00Z"}
@@ -1361,7 +1362,7 @@ github:Release latest = check github->/repos/["octocat"]/["Hello-World"]/release
 
 Lists tags for a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1369,15 +1370,15 @@ Lists tags for a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Tag[]|error`
+Returns: `github:Tag[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Tag[] tags = check github->/repos/["octocat"]/["Hello-World"]/tags();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"name": "v2.0.0", "commit": {"sha": "abc123"}}, {"name": "v1.0.0", "commit": {"sha": "def456"}}]
@@ -1387,7 +1388,7 @@ github:Tag[] tags = check github->/repos/["octocat"]/["Hello-World"]/tags();
 
 </details>
 
-#### Content & File Operations
+#### Content & file operations
 
 <details>
 <summary>Get repository content</summary>
@@ -1396,7 +1397,7 @@ github:Tag[] tags = check github->/repos/["octocat"]/["Hello-World"]/tags();
 
 Gets the contents of a file or directory in a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1405,15 +1406,15 @@ Gets the contents of a file or directory in a repository.
 | `path` | `string` | Yes | The file path within the repository. |
 | `ref` | `string` | No | The name of the commit/branch/tag. Defaults to the default branch. |
 
-**Returns:** `github:ContentDirectory|github:ContentFile|github:ContentSubmodule|github:ContentSymlink|error`
+Returns: `github:ContentDirectory|github:ContentFile|github:ContentSubmodule|github:ContentSymlink|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:ContentFile|github:ContentDirectory|github:ContentSubmodule|github:ContentSymlink content = check github->/repos/["octocat"]/["Hello-World"]/contents/["README.md"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"type": "file", "encoding": "base64", "size": 442, "name": "README.md", "path": "README.md", "sha": "abc123", "content": "IyBIZWxsby1Xb3JsZA=="}
@@ -1430,7 +1431,7 @@ github:ContentFile|github:ContentDirectory|github:ContentSubmodule|github:Conten
 
 Creates or updates a file in a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1439,9 +1440,9 @@ Creates or updates a file in a repository.
 | `path` | `string` | Yes | The file path within the repository. |
 | `payload` | `github:Content_path_body` | Yes | File content payload with message, content (Base64), and optional SHA for updates. |
 
-**Returns:** `github:FileCommit|error`
+Returns: `github:FileCommit|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:FileCommit fileCommit = check github->/repos/["octocat"]/["Hello-World"]/contents/["docs/guide.md"].put({
@@ -1450,7 +1451,7 @@ github:FileCommit fileCommit = check github->/repos/["octocat"]/["Hello-World"]/
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"content": {"name": "guide.md", "path": "docs/guide.md", "sha": "def456"}, "commit": {"sha": "789abc", "message": "Add guide document"}}
@@ -1467,7 +1468,7 @@ github:FileCommit fileCommit = check github->/repos/["octocat"]/["Hello-World"]/
 
 Deletes a file from a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1476,9 +1477,9 @@ Deletes a file from a repository.
 | `path` | `string` | Yes | The file path within the repository. |
 | `payload` | `github:Content_path_body_2` | Yes | Payload with commit message and file SHA. |
 
-**Returns:** `github:FileCommit|error`
+Returns: `github:FileCommit|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:FileCommit result = check github->/repos/["octocat"]/["Hello-World"]/contents/["docs/old-guide.md"].delete({
@@ -1487,7 +1488,7 @@ github:FileCommit result = check github->/repos/["octocat"]/["Hello-World"]/cont
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"content": null, "commit": {"sha": "def789", "message": "Remove outdated guide"}}
@@ -1504,22 +1505,22 @@ github:FileCommit result = check github->/repos/["octocat"]/["Hello-World"]/cont
 
 Gets the README file for a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `owner` | `string` | Yes | The account owner of the repository. |
 | `repo` | `string` | Yes | The name of the repository. |
 
-**Returns:** `github:ContentFile|error`
+Returns: `github:ContentFile|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:ContentFile readme = check github->/repos/["octocat"]/["Hello-World"]/readme;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"type": "file", "name": "README.md", "path": "README.md", "size": 442, "encoding": "base64", "content": "IyBIZWxsby1Xb3JsZA=="}
@@ -1529,7 +1530,7 @@ github:ContentFile readme = check github->/repos/["octocat"]/["Hello-World"]/rea
 
 </details>
 
-#### Collaborator & Organization Management
+#### Collaborator & organization management
 
 <details>
 <summary>List repository collaborators</summary>
@@ -1538,7 +1539,7 @@ github:ContentFile readme = check github->/repos/["octocat"]/["Hello-World"]/rea
 
 Lists collaborators for a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1546,15 +1547,15 @@ Lists collaborators for a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Collaborator[]|error`
+Returns: `github:Collaborator[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Collaborator[] collaborators = check github->/repos/["octocat"]/["Hello-World"]/collaborators();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"login": "contributor1", "id": 100, "permissions": {"admin": false, "push": true, "pull": true}}]
@@ -1571,7 +1572,7 @@ github:Collaborator[] collaborators = check github->/repos/["octocat"]/["Hello-W
 
 Adds a collaborator to a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1580,9 +1581,9 @@ Adds a collaborator to a repository.
 | `username` | `string` | Yes | The GitHub username of the collaborator to add. |
 | `payload` | `github:Collaborators_username_body` | No | Optional payload specifying permission level. |
 
-**Returns:** `github:RepositoryInvitation|error?`
+Returns: `github:RepositoryInvitation|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:RepositoryInvitation? invitation = check github->/repos/["octocat"]/["Hello-World"]/collaborators/["newuser"].put({
@@ -1590,7 +1591,7 @@ github:RepositoryInvitation? invitation = check github->/repos/["octocat"]/["Hel
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "repository": {"id": 1296269, "name": "Hello-World"}, "invitee": {"login": "newuser"}, "permissions": "write"}
@@ -1607,7 +1608,7 @@ github:RepositoryInvitation? invitation = check github->/repos/["octocat"]/["Hel
 
 Removes a collaborator from a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1615,9 +1616,9 @@ Removes a collaborator from a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `username` | `string` | Yes | The GitHub username of the collaborator to remove. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/repos/["octocat"]/["Hello-World"]/collaborators/["olduser"].delete();
@@ -1634,21 +1635,21 @@ check github->/repos/["octocat"]/["Hello-World"]/collaborators/["olduser"].delet
 
 Retrieves an organization's profile.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `org` | `string` | Yes | The organization name. |
 
-**Returns:** `github:OrganizationFull|error`
+Returns: `github:OrganizationFull|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:OrganizationFull org = check github->/orgs/["ballerina-platform"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"login": "ballerina-platform", "id": 27461, "name": "Ballerina Platform", "description": "Cloud-native programming language", "public_repos": 150}
@@ -1665,7 +1666,7 @@ github:OrganizationFull org = check github->/orgs/["ballerina-platform"];
 
 Lists repositories for an organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1673,15 +1674,15 @@ Lists repositories for an organization.
 | `'type` | `"all"\|"public"\|"private"\|"forks"\|"sources"\|"member"` | No | Filter by repository type. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:MinimalRepository[]|error`
+Returns: `github:MinimalRepository[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:MinimalRepository[] orgRepos = check github->/orgs/["ballerina-platform"]/repos('type = "public");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 456789, "name": "ballerina-lang", "full_name": "ballerina-platform/ballerina-lang", "private": false, "description": "The Ballerina programming language"}]
@@ -1698,7 +1699,7 @@ github:MinimalRepository[] orgRepos = check github->/orgs/["ballerina-platform"]
 
 Lists members of an organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1706,15 +1707,15 @@ Lists members of an organization.
 | `role` | `"all"\|"admin"\|"member"` | No | Filter by member role. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:SimpleUser[]|error`
+Returns: `github:SimpleUser[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:SimpleUser[] members = check github->/orgs/["ballerina-platform"]/members(role = "admin");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"login": "admin-user", "id": 1001, "avatar_url": "https://avatars.githubusercontent.com/u/1001"}]
@@ -1731,22 +1732,22 @@ github:SimpleUser[] members = check github->/orgs/["ballerina-platform"]/members
 
 Lists teams in an organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `org` | `string` | Yes | The organization name. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Team[]|error`
+Returns: `github:Team[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Team[] teams = check github->/orgs/["ballerina-platform"]/teams();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 1, "name": "core-team", "slug": "core-team", "description": "Core development team", "permission": "push"}]
@@ -1756,7 +1757,7 @@ github:Team[] teams = check github->/orgs/["ballerina-platform"]/teams();
 
 </details>
 
-#### User Operations
+#### User operations
 
 <details>
 <summary>Get the authenticated user</summary>
@@ -1766,15 +1767,15 @@ github:Team[] teams = check github->/orgs/["ballerina-platform"]/teams();
 Retrieves the authenticated user's profile.
 
 
-**Returns:** `github:PrivateUser|github:PublicUser|error`
+Returns: `github:PrivateUser|github:PublicUser|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PrivateUser|github:PublicUser user = check github->/user;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"login": "octocat", "id": 1, "name": "The Octocat", "email": "octocat@github.com", "public_repos": 8, "followers": 20, "following": 0}
@@ -1791,21 +1792,21 @@ github:PrivateUser|github:PublicUser user = check github->/user;
 
 Retrieves a public user's profile by username.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `username` | `string` | Yes | The GitHub username. |
 
-**Returns:** `github:PrivateUser|github:PublicUser|error`
+Returns: `github:PrivateUser|github:PublicUser|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:PrivateUser|github:PublicUser user = check github->/users/["octocat"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"login": "octocat", "id": 1, "name": "The Octocat", "company": "GitHub", "public_repos": 8, "followers": 20}
@@ -1822,16 +1823,16 @@ github:PrivateUser|github:PublicUser user = check github->/users/["octocat"];
 
 Stars a repository for the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `owner` | `string` | Yes | The account owner of the repository. |
 | `repo` | `string` | Yes | The name of the repository. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/user/starred/["ballerina-platform"]/["ballerina-lang"].put();
@@ -1848,16 +1849,16 @@ check github->/user/starred/["ballerina-platform"]/["ballerina-lang"].put();
 
 Unstars a repository for the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `owner` | `string` | Yes | The account owner of the repository. |
 | `repo` | `string` | Yes | The name of the repository. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/user/starred/["ballerina-platform"]/["ballerina-lang"].delete();
@@ -1874,22 +1875,22 @@ check github->/user/starred/["ballerina-platform"]/["ballerina-lang"].delete();
 
 Lists followers of a user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `username` | `string` | Yes | The GitHub username. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:SimpleUser[]|error`
+Returns: `github:SimpleUser[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:SimpleUser[] followers = check github->/users/["octocat"]/followers();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"login": "fan1", "id": 2001}, {"login": "fan2", "id": 2002}]
@@ -1906,7 +1907,7 @@ github:SimpleUser[] followers = check github->/users/["octocat"]/followers();
 
 Lists public repositories for a user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1914,15 +1915,15 @@ Lists public repositories for a user.
 | `'type` | `"all"\|"owner"\|"member"` | No | Filter by repository type. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:MinimalRepository[]|error`
+Returns: `github:MinimalRepository[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:MinimalRepository[] repos = check github->/users/["octocat"]/repos('type = "owner");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": 123456, "name": "Hello-World", "full_name": "octocat/Hello-World", "private": false}]
@@ -1932,7 +1933,7 @@ github:MinimalRepository[] repos = check github->/users/["octocat"]/repos('type 
 
 </details>
 
-#### Gist Management
+#### Gist management
 
 <details>
 <summary>List gists for the authenticated user</summary>
@@ -1941,21 +1942,21 @@ github:MinimalRepository[] repos = check github->/users/["octocat"]/repos('type 
 
 Lists gists for the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:BaseGist[]|error`
+Returns: `github:BaseGist[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:BaseGist[] gists = check github->/gists();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "aa5a315d61ae9438b18d", "description": "Hello World Example", "public": true, "files": {"hello.bal": {"filename": "hello.bal", "language": "Ballerina", "size": 42}}}]
@@ -1972,15 +1973,15 @@ github:BaseGist[] gists = check github->/gists();
 
 Creates a gist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `github:Gists_body` | Yes | Gist creation payload with description, files, and visibility. |
 
-**Returns:** `github:GistSimple|error`
+Returns: `github:GistSimple|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:GistSimple gist = check github->/gists.post({
@@ -1990,7 +1991,7 @@ github:GistSimple gist = check github->/gists.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "aa5a315d61ae9438b18d", "description": "Hello World Example", "html_url": "https://gist.github.com/aa5a315d61ae9438b18d", "public": true}
@@ -2007,21 +2008,21 @@ github:GistSimple gist = check github->/gists.post({
 
 Retrieves a specific gist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `gist_id` | `string` | Yes | The gist ID. |
 
-**Returns:** `github:GistSimple|error`
+Returns: `github:GistSimple|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:GistSimple gist = check github->/gists/["aa5a315d61ae9438b18d"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "aa5a315d61ae9438b18d", "description": "Hello World Example", "files": {"hello.bal": {"filename": "hello.bal", "content": "import ballerina/io;\npublic function main() {\n    io:println(\"Hello\");\n}"}}}
@@ -2038,16 +2039,16 @@ github:GistSimple gist = check github->/gists/["aa5a315d61ae9438b18d"];
 
 Updates a gist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `gist_id` | `string` | Yes | The gist ID. |
 | `payload` | `github:Gists_gist_id_body` | Yes | Gist update payload. |
 
-**Returns:** `github:GistSimple|error`
+Returns: `github:GistSimple|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:GistSimple updated = check github->/gists/["aa5a315d61ae9438b18d"].patch({
@@ -2055,7 +2056,7 @@ github:GistSimple updated = check github->/gists/["aa5a315d61ae9438b18d"].patch(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "aa5a315d61ae9438b18d", "description": "Updated Hello World"}
@@ -2072,15 +2073,15 @@ github:GistSimple updated = check github->/gists/["aa5a315d61ae9438b18d"].patch(
 
 Deletes a gist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `gist_id` | `string` | Yes | The gist ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/gists/["aa5a315d61ae9438b18d"].delete();
@@ -2097,15 +2098,15 @@ check github->/gists/["aa5a315d61ae9438b18d"].delete();
 
 Stars a gist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `gist_id` | `string` | Yes | The gist ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/gists/["aa5a315d61ae9438b18d"]/star.put();
@@ -2122,21 +2123,21 @@ check github->/gists/["aa5a315d61ae9438b18d"]/star.put();
 
 Forks a gist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `gist_id` | `string` | Yes | The gist ID. |
 
-**Returns:** `github:BaseGist|error`
+Returns: `github:BaseGist|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:BaseGist forked = check github->/gists/["aa5a315d61ae9438b18d"]/forks.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "bb6b426e72bf549c29e", "description": "Hello World Example", "owner": {"login": "octocat"}}
@@ -2153,16 +2154,16 @@ github:BaseGist forked = check github->/gists/["aa5a315d61ae9438b18d"]/forks.pos
 
 Creates a comment on a gist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `gist_id` | `string` | Yes | The gist ID. |
 | `payload` | `github:Gist_id_comments_body` | Yes | Comment payload with body text. |
 
-**Returns:** `github:GistComment|error`
+Returns: `github:GistComment|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:GistComment comment = check github->/gists/["aa5a315d61ae9438b18d"]/comments.post({
@@ -2170,7 +2171,7 @@ github:GistComment comment = check github->/gists/["aa5a315d61ae9438b18d"]/comme
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "body": "Nice example!", "user": {"login": "octocat"}, "created_at": "2024-01-15T10:30:00Z"}
@@ -2180,7 +2181,7 @@ github:GistComment comment = check github->/gists/["aa5a315d61ae9438b18d"]/comme
 
 </details>
 
-#### Notification Management
+#### Notification management
 
 <details>
 <summary>List notifications for the authenticated user</summary>
@@ -2189,22 +2190,22 @@ github:GistComment comment = check github->/gists/["aa5a315d61ae9438b18d"]/comme
 
 Lists notifications for the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `all` | `boolean` | No | If true, show notifications marked as read. |
 | `participating` | `boolean` | No | If true, only show notifications where the user is directly participating. |
 
-**Returns:** `github:Thread[]|error`
+Returns: `github:Thread[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Thread[] notifications = check github->/notifications(all = false);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "1", "repository": {"full_name": "octocat/Hello-World"}, "subject": {"title": "New issue opened", "type": "Issue"}, "reason": "subscribed", "unread": true}]
@@ -2221,15 +2222,15 @@ github:Thread[] notifications = check github->/notifications(all = false);
 
 Marks all notifications as read.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `github:Notifications_body` | Yes | Payload with optional last_read_at timestamp. |
 
-**Returns:** `github:Notifications_response_202|error?`
+Returns: `github:Notifications_response_202|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/notifications.put({last_read_at: "2024-01-15T00:00:00Z"});
@@ -2246,21 +2247,21 @@ check github->/notifications.put({last_read_at: "2024-01-15T00:00:00Z"});
 
 Retrieves a specific notification thread.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `thread_id` | `int` | Yes | The thread ID. |
 
-**Returns:** `github:Thread|error`
+Returns: `github:Thread|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Thread thread = check github->/notifications/threads/[1];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "1", "repository": {"full_name": "octocat/Hello-World"}, "subject": {"title": "Bug report", "type": "Issue"}, "reason": "mention", "unread": true}
@@ -2277,15 +2278,15 @@ github:Thread thread = check github->/notifications/threads/[1];
 
 Marks a notification thread as read.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `thread_id` | `int` | Yes | The thread ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/notifications/threads/[1].patch();
@@ -2295,7 +2296,7 @@ check github->/notifications/threads/[1].patch();
 
 </details>
 
-#### Security Advisories
+#### Security advisories
 
 <details>
 <summary>List global security advisories</summary>
@@ -2304,7 +2305,7 @@ check github->/notifications/threads/[1].patch();
 
 Lists global security advisories.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2314,15 +2315,15 @@ Lists global security advisories.
 | `severity` | `"unknown"\|"low"\|"medium"\|"high"\|"critical"` | No | Filter by severity level. |
 | `per_page` | `int` | No | Number of results per page. |
 
-**Returns:** `github:GlobalAdvisory[]|error`
+Returns: `github:GlobalAdvisory[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:GlobalAdvisory[] advisories = check github->/advisories(severity = "critical", ecosystem = "npm");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"ghsa_id": "GHSA-xxxx-xxxx-xxxx", "cve_id": "CVE-2024-12345", "summary": "Critical vulnerability in example package", "severity": "critical", "published_at": "2024-01-10T00:00:00Z"}]
@@ -2339,21 +2340,21 @@ github:GlobalAdvisory[] advisories = check github->/advisories(severity = "criti
 
 Retrieves a specific global security advisory.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ghsa_id` | `string` | Yes | The GHSA identifier. |
 
-**Returns:** `github:GlobalAdvisory|error`
+Returns: `github:GlobalAdvisory|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:GlobalAdvisory advisory = check github->/advisories/["GHSA-xxxx-xxxx-xxxx"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ghsa_id": "GHSA-xxxx-xxxx-xxxx", "cve_id": "CVE-2024-12345", "summary": "Critical vulnerability", "severity": "critical", "vulnerabilities": [{"package": {"ecosystem": "npm", "name": "example-pkg"}}]}
@@ -2363,7 +2364,7 @@ github:GlobalAdvisory advisory = check github->/advisories/["GHSA-xxxx-xxxx-xxxx
 
 </details>
 
-#### Actions & Workflows
+#### Actions & workflows
 
 <details>
 <summary>List repository workflows</summary>
@@ -2372,22 +2373,22 @@ github:GlobalAdvisory advisory = check github->/advisories/["GHSA-xxxx-xxxx-xxxx
 
 Lists repository workflows.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `owner` | `string` | Yes | The account owner of the repository. |
 | `repo` | `string` | Yes | The name of the repository. |
 
-**Returns:** `github:Workflows_response|error`
+Returns: `github:Workflows_response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Workflows_response workflows = check github->/repos/["octocat"]/["Hello-World"]/actions/workflows;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total_count": 2, "workflows": [{"id": 1, "name": "CI", "state": "active", "path": ".github/workflows/ci.yml"}]}
@@ -2404,7 +2405,7 @@ github:Workflows_response workflows = check github->/repos/["octocat"]/["Hello-W
 
 Lists workflow runs for a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2412,15 +2413,15 @@ Lists workflow runs for a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `status` | `string` | No | Filter by status (e.g., `completed`, `in_progress`, `queued`). |
 
-**Returns:** `github:Workflow_runs_response|error`
+Returns: `github:Workflow_runs_response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Workflow_runs_response runs = check github->/repos/["octocat"]/["Hello-World"]/actions/runs(status = "completed");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total_count": 1, "workflow_runs": [{"id": 100, "name": "CI", "status": "completed", "conclusion": "success", "head_branch": "main"}]}
@@ -2437,7 +2438,7 @@ github:Workflow_runs_response runs = check github->/repos/["octocat"]/["Hello-Wo
 
 Retrieves a specific workflow run.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2445,15 +2446,15 @@ Retrieves a specific workflow run.
 | `repo` | `string` | Yes | The name of the repository. |
 | `run_id` | `int` | Yes | The workflow run ID. |
 
-**Returns:** `github:WorkflowRun|error`
+Returns: `github:WorkflowRun|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:WorkflowRun run = check github->/repos/["octocat"]/["Hello-World"]/actions/runs/[100];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 100, "name": "CI", "status": "completed", "conclusion": "success", "head_branch": "main", "run_started_at": "2024-01-10T10:00:00Z"}
@@ -2470,7 +2471,7 @@ github:WorkflowRun run = check github->/repos/["octocat"]/["Hello-World"]/action
 
 Cancels a workflow run.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2478,9 +2479,9 @@ Cancels a workflow run.
 | `repo` | `string` | Yes | The name of the repository. |
 | `run_id` | `int` | Yes | The workflow run ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/repos/["octocat"]/["Hello-World"]/actions/runs/[100]/cancel.post();
@@ -2497,7 +2498,7 @@ check github->/repos/["octocat"]/["Hello-World"]/actions/runs/[100]/cancel.post(
 
 Re-runs a workflow run.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2505,9 +2506,9 @@ Re-runs a workflow run.
 | `repo` | `string` | Yes | The name of the repository. |
 | `run_id` | `int` | Yes | The workflow run ID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/repos/["octocat"]/["Hello-World"]/actions/runs/[100]/rerun.post();
@@ -2524,7 +2525,7 @@ check github->/repos/["octocat"]/["Hello-World"]/actions/runs/[100]/rerun.post()
 
 Creates a workflow dispatch event to manually trigger a workflow.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2533,9 +2534,9 @@ Creates a workflow dispatch event to manually trigger a workflow.
 | `workflow_id` | `github:Workflow_id` | Yes | The workflow ID or workflow file name (e.g., `ci.yml`). |
 | `payload` | `github:Workflow_id_dispatches_body` | Yes | Dispatch payload with ref (branch) and optional inputs. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check github->/repos/["octocat"]/["Hello-World"]/actions/workflows/["ci.yml"]/dispatches.post({
@@ -2547,7 +2548,7 @@ check github->/repos/["octocat"]/["Hello-World"]/actions/workflows/["ci.yml"]/di
 
 </details>
 
-#### Star & Watch Operations
+#### Star & watch operations
 
 <details>
 <summary>List stargazers</summary>
@@ -2556,7 +2557,7 @@ check github->/repos/["octocat"]/["Hello-World"]/actions/workflows/["ci.yml"]/di
 
 Lists users who starred a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2564,15 +2565,15 @@ Lists users who starred a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:SimpleUser[]|github:Stargazer[]|error`
+Returns: `github:SimpleUser[]|github:Stargazer[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:SimpleUser[]|github:Stargazer[] stargazers = check github->/repos/["octocat"]/["Hello-World"]/stargazers();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"login": "fan1", "id": 2001}, {"login": "fan2", "id": 2002}]
@@ -2589,7 +2590,7 @@ github:SimpleUser[]|github:Stargazer[] stargazers = check github->/repos/["octoc
 
 Lists users watching a repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2597,15 +2598,15 @@ Lists users watching a repository.
 | `repo` | `string` | Yes | The name of the repository. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:SimpleUser[]|error`
+Returns: `github:SimpleUser[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:SimpleUser[] watchers = check github->/repos/["octocat"]/["Hello-World"]/subscribers();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"login": "watcher1", "id": 3001}]
@@ -2624,7 +2625,7 @@ github:SimpleUser[] watchers = check github->/repos/["octocat"]/["Hello-World"]/
 
 Searches for repositories matching a query.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2632,15 +2633,15 @@ Searches for repositories matching a query.
 | `sort` | `"stars"\|"forks"\|"help-wanted-issues"\|"updated"` | No | Sort field. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Search_repositories_response|error`
+Returns: `github:Search_repositories_response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Search_repositories_response results = check github->/search/repositories(q = "ballerina language:ballerina", sort = "stars");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total_count": 25, "incomplete_results": false, "items": [{"id": 123, "full_name": "ballerina-platform/ballerina-lang", "stargazers_count": 3500}]}
@@ -2657,7 +2658,7 @@ github:Search_repositories_response results = check github->/search/repositories
 
 Searches for issues and pull requests matching a query.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2665,15 +2666,15 @@ Searches for issues and pull requests matching a query.
 | `sort` | `"comments"\|"reactions"\|"reactions-+1"\|"reactions--1"\|"interactions"\|"created"\|"updated"` | No | Sort field. |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Search_issues_and_pull_requests_response|error`
+Returns: `github:Search_issues_and_pull_requests_response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Search_issues_and_pull_requests_response results = check github->/search/issues(q = "bug repo:octocat/Hello-World is:open");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total_count": 5, "items": [{"number": 1347, "title": "Found a bug", "state": "open", "labels": [{"name": "bug"}]}]}
@@ -2690,22 +2691,22 @@ github:Search_issues_and_pull_requests_response results = check github->/search/
 
 Searches for code matching a query.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `q` | `string` | Yes | The search query (e.g., `main repo:octocat/Hello-World language:ballerina`). |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Search_code_response|error`
+Returns: `github:Search_code_response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Search_code_response results = check github->/search/code(q = "import ballerinax/kafka repo:octocat/Hello-World");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total_count": 2, "items": [{"name": "main.bal", "path": "src/main.bal", "repository": {"full_name": "octocat/Hello-World"}}]}
@@ -2722,22 +2723,22 @@ github:Search_code_response results = check github->/search/code(q = "import bal
 
 Searches for users matching a query.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `q` | `string` | Yes | The search query (e.g., `octocat type:user`). |
 | `per_page` | `int` | No | Number of results per page (max 100). |
 
-**Returns:** `github:Search_users_response|error`
+Returns: `github:Search_users_response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:Search_users_response results = check github->/search/users(q = "octocat type:user");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"total_count": 1, "items": [{"login": "octocat", "id": 1, "type": "User"}]}
@@ -2747,7 +2748,7 @@ github:Search_users_response results = check github->/search/users(q = "octocat 
 
 </details>
 
-#### License & Meta
+#### License & meta
 
 <details>
 <summary>Get all commonly used licenses</summary>
@@ -2757,15 +2758,15 @@ github:Search_users_response results = check github->/search/users(q = "octocat 
 Lists commonly used open source licenses.
 
 
-**Returns:** `github:LicenseSimple[]|error`
+Returns: `github:LicenseSimple[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:LicenseSimple[] licenses = check github->/licenses;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"key": "mit", "name": "MIT License", "spdx_id": "MIT"}, {"key": "apache-2.0", "name": "Apache License 2.0", "spdx_id": "Apache-2.0"}]
@@ -2783,15 +2784,15 @@ github:LicenseSimple[] licenses = check github->/licenses;
 Returns meta information about GitHub's APIs.
 
 
-**Returns:** `github:ApiOverview|error`
+Returns: `github:ApiOverview|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:ApiOverview meta = check github->/meta;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"verifiable_password_authentication": true, "ssh_key_fingerprints": {"SHA256_RSA": "nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8"}}
@@ -2809,15 +2810,15 @@ github:ApiOverview meta = check github->/meta;
 Returns the current rate limit status for the authenticated user.
 
 
-**Returns:** `github:RateLimitOverview|error`
+Returns: `github:RateLimitOverview|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 github:RateLimitOverview rateLimit = check github->/rate_limit;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"resources": {"core": {"limit": 5000, "remaining": 4999, "reset": 1700000000}}, "rate": {"limit": 5000, "remaining": 4999}}
@@ -2835,15 +2836,15 @@ github:RateLimitOverview rateLimit = check github->/rate_limit;
 Lists all available GitHub emojis.
 
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json emojis = check github->/emojis;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"+1": "https://github.githubassets.com/images/icons/emoji/unicode/1f44d.png", "100": "https://github.githubassets.com/images/icons/emoji/unicode/1f4af.png"}

@@ -12,14 +12,14 @@ This guide walks you through creating a HubSpot private app or OAuth app and obt
 
 - A HubSpot account with a CRM subscription that includes commerce features. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 
-## Create a HubSpot Developer Account (for OAuth)
+## Create a HubSpot developer account (for OAuth)
 
 1. Go to the [HubSpot Developer Portal](https://developers.hubspot.com/) and sign up or log in.
 2. Click **Create developer account** if you don't already have one.
 3. Once your developer account is ready, you can create an app to obtain OAuth credentials.
 
 
-## Create a HubSpot App and Get OAuth Credentials
+## Create a HubSpot app and get OAuth credentials
 
 1. In your developer account, navigate to **Apps** in the top navigation.
 2. Click **Create app**.
@@ -37,7 +37,7 @@ This guide walks you through creating a HubSpot private app or OAuth app and obt
 Store the Client ID and Client Secret securely. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Authorize and Get a Refresh Token
+## Authorize and get a refresh token
 
 1. Construct the authorization URL:
 
@@ -68,7 +68,7 @@ Store the Client ID and Client Secret securely. Use Ballerina's `configurable` f
 Refresh tokens do not expire unless the app is uninstalled from the HubSpot account.
 :::
 
-## Alternative — Use a Private App Access Token
+## Alternative — use a private app access token
 
 If you prefer a simpler setup without OAuth, you can use a HubSpot private app:
 
@@ -86,6 +86,6 @@ If you prefer a simpler setup without OAuth, you can use a HubSpot private app:
 Private app tokens grant long-lived access. Keep them secure and rotate them if compromised.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

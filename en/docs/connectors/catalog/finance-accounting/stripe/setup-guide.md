@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Stripe account and obtaining the API secret key required to authenticate with the Stripe connector.
@@ -11,11 +14,11 @@ This guide walks you through creating a Stripe account and obtaining the API sec
 
 1. Sign in to your [Stripe dashboard](https://dashboard.stripe.com/login).
 
-## Step 2: Navigate to the Developer Portal
+## Step 2: Navigate to the developer portal
 
 1. Click the **Developers** button in the top-right corner of the Stripe dashboard.
 
-## Step 3: Retrieve Your Secret Key
+## Step 3: Retrieve your secret key
 
 1. In the Developers section, click **API keys** in the left navigation bar.
 2. Locate and copy the **Secret key**. This is the token you will use to authenticate

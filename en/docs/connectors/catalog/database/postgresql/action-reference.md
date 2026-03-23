@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -34,7 +35,7 @@ Executes SQL queries, DML/DDL statements, batch operations, and stored procedure
 | `options` | `Options?` | `()` | PostgreSQL-specific connection options (SSL, timeouts, prepared statement caching, etc.). |
 | `connectionPool` | `sql:ConnectionPool?` | `()` | Connection pool configuration (max connections, timeouts, keep-alive). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/postgresql;
@@ -55,7 +56,7 @@ postgresql:Client dbClient = check new (
 
 ### Operations
 
-#### Query Operations
+#### Query operations
 
 <details>
 <summary>query</summary>
@@ -64,16 +65,16 @@ postgresql:Client dbClient = check new (
 
 Executes a SQL query and returns the results as a stream of records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query to execute, supporting parameterized values. |
 | `rowType` | `typedesc<record {}>` | No | The expected record type for each row in the result set. |
 
-**Returns:** `stream<rowType, sql:Error?>`
+Returns: `stream<rowType, sql:Error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Customer record {|
@@ -92,7 +93,7 @@ check from Customer customer in resultStream
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"customerId": 1, "firstName": "Peter", "lastName": "Stuart", "registrationId": 1, "creditLimit": 5000.75, "country": "USA"}
@@ -109,16 +110,16 @@ check from Customer customer in resultStream
 
 Executes a SQL query that is expected to return at most one row.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query to execute. |
 | `returnType` | `typedesc<anydata>` | No | The expected return type for the single row. |
 
-**Returns:** `returnType|sql:Error`
+Returns: `returnType|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Customer record {|
@@ -133,7 +134,7 @@ type Customer record {|
 Customer result = check dbClient->queryRow(`SELECT * FROM Customers WHERE customerId = ${1}`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"customerId": 1, "firstName": "Peter", "lastName": "Stuart", "registrationId": 1, "creditLimit": 5000.75, "country": "USA"}
@@ -143,7 +144,7 @@ Customer result = check dbClient->queryRow(`SELECT * FROM Customers WHERE custom
 
 </details>
 
-#### Data Manipulation
+#### Data manipulation
 
 <details>
 <summary>execute</summary>
@@ -152,15 +153,15 @@ Customer result = check dbClient->queryRow(`SELECT * FROM Customers WHERE custom
 
 Executes a SQL statement (INSERT, UPDATE, DELETE, or DDL) and returns execution metadata.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL statement to execute. |
 
-**Returns:** `sql:ExecutionResult|sql:Error`
+Returns: `sql:ExecutionResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ExecutionResult result = check dbClient->execute(
@@ -169,7 +170,7 @@ sql:ExecutionResult result = check dbClient->execute(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"affectedRowCount": 1, "lastInsertId": 1}
@@ -186,15 +187,15 @@ sql:ExecutionResult result = check dbClient->execute(
 
 Executes a batch of parameterized SQL statements in a single database round trip.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQueries` | `sql:ParameterizedQuery[]` | Yes | An array of parameterized SQL statements to execute. |
 
-**Returns:** `sql:ExecutionResult[]|sql:Error`
+Returns: `sql:ExecutionResult[]|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ParameterizedQuery[] insertQueries = [
@@ -206,7 +207,7 @@ sql:ParameterizedQuery[] insertQueries = [
 sql:ExecutionResult[] results = check dbClient->batchExecute(insertQueries);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"affectedRowCount": 1, "lastInsertId": 1}, {"affectedRowCount": 1, "lastInsertId": 2}]
@@ -216,7 +217,7 @@ sql:ExecutionResult[] results = check dbClient->batchExecute(insertQueries);
 
 </details>
 
-#### Stored Procedures
+#### Stored procedures
 
 <details>
 <summary>call</summary>
@@ -225,16 +226,16 @@ sql:ExecutionResult[] results = check dbClient->batchExecute(insertQueries);
 
 Calls a stored procedure or function, optionally retrieving OUT parameter values and result sets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedCallQuery` | Yes | The stored procedure call query. |
 | `rowTypes` | `typedesc<record {}>[]` | No | Expected record types for result sets returned by the procedure. |
 
-**Returns:** `sql:ProcedureCallResult|sql:Error`
+Returns: `sql:ProcedureCallResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int personId = 1;
@@ -247,7 +248,7 @@ sql:ProcedureCallResult result = check dbClient->call(
 result.close();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"executionResult": {"affectedRowCount": 1}, "queryResult": null}
@@ -257,7 +258,7 @@ result.close();
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
@@ -267,9 +268,9 @@ result.close();
 Closes the client connection and shuts down the connection pool.
 
 
-**Returns:** `sql:Error?`
+Returns: `sql:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check dbClient.close();

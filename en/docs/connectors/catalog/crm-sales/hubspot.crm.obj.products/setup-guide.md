@@ -12,21 +12,21 @@ This guide walks you through creating a HubSpot Private App and obtaining the ac
 
 - A HubSpot account. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 
-## Navigate to Private Apps
+## Navigate to private apps
 
 1. Log in to your HubSpot account.
 2. Click the **Settings** icon (gear icon) in the top navigation bar.
 3. In the left sidebar, go to **Integrations** → **Private Apps**.
 
 
-## Create a Private App
+## Create a private app
 
 1. Click **Create a private app**.
 2. On the **Basic Info** tab, enter a name for your app (e.g., `Ballerina Products Connector`) and optionally add a description and logo.
 3. Click the **Scopes** tab.
 
 
-## Configure Required Scopes
+## Configure required scopes
 
 Under the **Scopes** tab, search for and enable the following scopes:
 
@@ -40,7 +40,7 @@ Select the appropriate checkboxes and click **Create app**.
 Grant only the scopes your integration actually needs. Limiting scope access reduces security risk.
 :::
 
-## Copy the Access Token
+## Copy the access token
 
 1. After creating the app, HubSpot displays your **Access Token** on the app detail page.
 2. Click **Show token** and copy the value — this is the bearer token you will use to authenticate.
@@ -51,7 +51,7 @@ Grant only the scopes your integration actually needs. Limiting scope access red
 The access token is shown only once. Store it securely (e.g., in a password manager or secrets vault) before closing the dialog. Do not commit it to source control.
 :::
 
-## Set Up OAuth 2.0 (Alternative)
+## Set up OAuth 2.0 (alternative)
 
 If you prefer OAuth 2.0 with a refresh token (for user-context access or long-running integrations):
 
@@ -66,6 +66,6 @@ The OAuth 2.0 token URL for HubSpot is `https://api.hubapi.com/oauth/v1/token`. 
 
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

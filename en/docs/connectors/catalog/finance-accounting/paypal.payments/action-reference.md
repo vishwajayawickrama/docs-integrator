@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -32,7 +33,7 @@ PayPal Payments API v2 — authorize, capture, void, and refund payments.
 | `validation` | `boolean` | `true` | Enable or disable payload validation. |
 | `laxDataBinding` | `boolean` | `true` | Allow lax data binding for response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/paypal.payments as paypal;
@@ -64,22 +65,22 @@ final paypal:Client paypal = check new (
 
 Retrieves the details of an authorized payment by its PayPal-generated authorization ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `authorizationId` | `string` | Yes | The PayPal-generated ID for the authorized payment. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Authorization2|error`
+Returns: `Authorization2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:Authorization2 auth = check paypal->/authorizations/[authId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -112,7 +113,7 @@ paypal:Authorization2 auth = check paypal->/authorizations/[authId];
 
 Captures an authorized payment, transferring the funds from the buyer to the merchant.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -120,9 +121,9 @@ Captures an authorized payment, transferring the funds from the buyer to the mer
 | `payload` | `CaptureRequest` | Yes | Capture details including amount and optional note to payer. |
 | `headers` | `AuthorizationsCaptureHeaders` | No | Optional headers including `PayPal-Request-Id` and `Prefer`. |
 
-**Returns:** `Capture2|error`
+Returns: `Capture2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:CaptureRequest capturePayload = {
@@ -135,7 +136,7 @@ paypal:CaptureRequest capturePayload = {
 paypal:Capture2 captureResponse = check paypal->/authorizations/[authId]/capture.post(capturePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -182,7 +183,7 @@ paypal:Capture2 captureResponse = check paypal->/authorizations/[authId]/capture
 
 Reauthorizes an authorized payment. Use this to extend the authorization period or reauthorize after the original authorization has expired.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -190,9 +191,9 @@ Reauthorizes an authorized payment. Use this to extend the authorization period 
 | `payload` | `ReauthorizeRequest` | Yes | Reauthorization details including the amount. |
 | `headers` | `AuthorizationsReauthorizeHeaders` | No | Optional headers including `PayPal-Request-Id` and `Prefer`. |
 
-**Returns:** `Authorization2|error`
+Returns: `Authorization2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:ReauthorizeRequest reauthorizePayload = {
@@ -204,7 +205,7 @@ paypal:ReauthorizeRequest reauthorizePayload = {
 paypal:Authorization2 reauth = check paypal->/authorizations/[authId]/reauthorize.post(reauthorizePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -237,22 +238,22 @@ paypal:Authorization2 reauth = check paypal->/authorizations/[authId]/reauthoriz
 
 Voids an authorized payment. Once voided, the authorization is no longer valid and funds cannot be captured.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `authorizationId` | `string` | Yes | The PayPal-generated ID for the authorized payment to void. |
 | `headers` | `AuthorizationsVoidHeaders` | No | Optional headers including `PayPal-Auth-Assertion` and `Prefer`. |
 
-**Returns:** `Authorization2|error?`
+Returns: `Authorization2|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:Authorization2? voidResponse = check paypal->/authorizations/[authId]/void.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -287,22 +288,22 @@ paypal:Authorization2? voidResponse = check paypal->/authorizations/[authId]/voi
 
 Retrieves the details of a captured payment by its PayPal-generated capture ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `captureId` | `string` | Yes | The PayPal-generated ID for the captured payment. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Capture2|error`
+Returns: `Capture2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:Capture2 capture = check paypal->/captures/[captureId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -349,7 +350,7 @@ paypal:Capture2 capture = check paypal->/captures/[captureId];
 
 Refunds a captured payment. You can issue a full or partial refund.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -357,9 +358,9 @@ Refunds a captured payment. You can issue a full or partial refund.
 | `payload` | `RefundRequest` | Yes | Refund details including optional amount (omit for full refund) and note to payer. |
 | `headers` | `CapturesRefundHeaders` | No | Optional headers including `PayPal-Request-Id`, `PayPal-Auth-Assertion`, and `Prefer`. |
 
-**Returns:** `Refund|error`
+Returns: `Refund|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:RefundRequest refundPayload = {
@@ -372,7 +373,7 @@ paypal:RefundRequest refundPayload = {
 paypal:Refund refundResponse = check paypal->/captures/[captureId]/refund.post(refundPayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -421,22 +422,22 @@ paypal:Refund refundResponse = check paypal->/captures/[captureId]/refund.post(r
 
 Retrieves the details of a refund by its PayPal-generated refund ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `refundId` | `string` | Yes | The PayPal-generated ID for the refund. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Refund|error`
+Returns: `Refund|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:Refund refund = check paypal->/refunds/[refundId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

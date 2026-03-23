@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -32,7 +33,7 @@ Retrieves SAP Sales Area master data via the SAP S/4HANA OData API.
 | `proxy` | `http:ProxyConfig` | `()` | HTTP proxy configuration. |
 | `validation` | `boolean` | `true` | Enable or disable response payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.salesarea_0001 as salesarea;
@@ -54,7 +55,7 @@ salesarea:Client salesareaClient = check new (
 
 ### Operations
 
-#### Sales Area Retrieval
+#### Sales area retrieval
 
 <details>
 <summary>listSalesAreas</summary>
@@ -63,7 +64,7 @@ salesarea:Client salesareaClient = check new (
 
 Retrieves a collection of all Sales Area records, with optional OData query parameters for filtering, sorting, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -71,9 +72,9 @@ Retrieves a collection of all Sales Area records, with optional OData query para
 | `queries` | `ListSalesAreasQueries` | No | OData query options: `$skip` (int), `$top` (int), `$filter` (string), `$orderby` (SalesAreaOrderByOptions), `$count` (boolean), `$select` (SalesAreaSelectOptions).
  |
 
-**Returns:** `CollectionOfSalesArea|error`
+Returns: `CollectionOfSalesArea|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesarea:CollectionOfSalesArea result = check salesareaClient->listSalesAreas(
@@ -81,7 +82,7 @@ salesarea:CollectionOfSalesArea result = check salesareaClient->listSalesAreas(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -117,7 +118,7 @@ salesarea:CollectionOfSalesArea result = check salesareaClient->listSalesAreas(
 
 Retrieves a single Sales Area record identified by its composite key: Sales Organization, Distribution Channel, and Division.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -127,9 +128,9 @@ Retrieves a single Sales Area record identified by its composite key: Sales Orga
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include in the request. |
 | `queries` | `GetSalesAreaQueries` | No | OData query options: `$select` to limit returned fields. |
 
-**Returns:** `SalesArea|error`
+Returns: `SalesArea|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesarea:SalesArea salesArea = check salesareaClient->getSalesArea(
@@ -139,7 +140,7 @@ salesarea:SalesArea salesArea = check salesareaClient->getSalesArea(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -153,7 +154,7 @@ salesarea:SalesArea salesArea = check salesareaClient->getSalesArea(
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>performBatchOperation</summary>
@@ -162,16 +163,16 @@ salesarea:SalesArea salesArea = check salesareaClient->getSalesArea(
 
 Executes an OData batch request, allowing multiple read operations to be combined into a single HTTP call for improved efficiency.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `http:Request` | Yes | An `http:Request` object containing the multipart OData batch body with individual operations. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include in the batch request. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Request batchRequest = new;
@@ -187,7 +188,7 @@ batchRequest.setPayload(batchBody, "multipart/mixed;boundary=batch_1");
 http:Response batchResponse = check salesareaClient->performBatchOperation(batchRequest);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 --batchresponse_abc123

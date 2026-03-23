@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Manages PayPal billing plans and subscriptions via the PayPal Subscriptions REST
 | `validation` | `boolean` | `true` | Whether to validate request and response payloads against the OpenAPI schema. |
 | `laxDataBinding` | `boolean` | `true` | When true, unknown fields in responses are ignored rather than causing errors. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/paypal.subscriptions as paypal;
@@ -67,15 +68,15 @@ paypal:Client paypalClient = check new ({
 
 Returns a list of billing plans, with optional filtering by product ID and pagination controls.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `paypal:PlansListQueries` | No | Optional query parameters: `product_id`, `plan_ids`, `page` (default 1), `page_size` (default 10, max 20), `total_required` (default false). |
 
-**Returns:** `paypal:PlanCollection|error`
+Returns: `paypal:PlanCollection|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:PlanCollection planCollection = check paypalClient->/plans(
@@ -83,7 +84,7 @@ paypal:PlanCollection planCollection = check paypalClient->/plans(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -119,15 +120,15 @@ paypal:PlanCollection planCollection = check paypalClient->/plans(
 
 Creates a billing plan that defines recurring billing cycles, pricing, and payment preferences for a product.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `paypal:PlanRequestPOST` | Yes | The billing plan definition including `product_id`, `name`, `billing_cycles`, and `payment_preferences`. |
 
-**Returns:** `paypal:Plan|error`
+Returns: `paypal:Plan|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:Plan createdPlan = check paypalClient->/plans.post({
@@ -154,7 +155,7 @@ paypal:Plan createdPlan = check paypalClient->/plans.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -200,21 +201,21 @@ paypal:Plan createdPlan = check paypalClient->/plans.post({
 
 Shows full details for a billing plan, by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the billing plan. |
 
-**Returns:** `paypal:Plan|error`
+Returns: `paypal:Plan|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:Plan plan = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -256,16 +257,16 @@ paypal:Plan plan = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"].get
 
 Updates a billing plan by ID using JSON Patch operations. Supported fields include `description`, `payment_preferences`, and `taxes`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the billing plan to update. |
 | `payload` | `paypal:PatchRequest` | Yes | An array of JSON Patch operations (`op`, `path`, `value`) specifying the fields to change. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 error? result = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"].patch([
@@ -284,15 +285,15 @@ error? result = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"].patch(
 
 Activates a billing plan so customers can subscribe to it.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the billing plan to activate. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 error? result = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"]/activate.post({});
@@ -309,15 +310,15 @@ error? result = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"]/activa
 
 Deactivates a billing plan, preventing new subscriptions from being created for it.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the billing plan to deactivate. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 error? result = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"]/deactivate.post({});
@@ -334,16 +335,16 @@ error? result = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"]/deacti
 
 Updates the pricing schemes for one or more billing cycles in a plan, referenced by their sequence numbers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the billing plan. |
 | `payload` | `paypal:UpdatePricingSchemesListRequest` | Yes | List of pricing scheme updates, each identifying a billing cycle by `billing_cycle_sequence` and providing the new `pricing_scheme`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 error? result = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"]/["update-pricing-schemes"].post({
@@ -371,15 +372,15 @@ error? result = check paypalClient->/plans/["P-5ML4271244454362WXNWU5NQ"]/["upda
 
 Creates a subscription for a customer against a billing plan. Returns the subscription ID and an approval link for the customer to complete enrollment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `paypal:SubscriptionRequestPost` | Yes | The subscription request including `plan_id`, optional `subscriber` details, `application_context` for redirect URLs, and any plan overrides. |
 
-**Returns:** `paypal:Subscription|error`
+Returns: `paypal:Subscription|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:Subscription subscription = check paypalClient->/subscriptions.post({
@@ -397,7 +398,7 @@ paypal:Subscription subscription = check paypalClient->/subscriptions.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -432,16 +433,16 @@ paypal:Subscription subscription = check paypalClient->/subscriptions.post({
 
 Shows details for a subscription, by ID. Optionally includes additional fields such as the last failed payment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the subscription. |
 | `queries` | `paypal:SubscriptionsGetQueries` | No | Optional. Pass `fields: "last_failed_payment"` or `fields: "plan"` to include additional data in the response. |
 
-**Returns:** `paypal:Subscription|error`
+Returns: `paypal:Subscription|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:Subscription subscription = check paypalClient->/subscriptions/["I-BW452GLLEP1G"].get(
@@ -449,7 +450,7 @@ paypal:Subscription subscription = check paypalClient->/subscriptions/["I-BW452G
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -492,16 +493,16 @@ paypal:Subscription subscription = check paypalClient->/subscriptions/["I-BW452G
 
 Updates a subscription by ID using JSON Patch operations. Supports updating fields such as `custom_id`, `plan/billing_cycles/pricing_scheme`, `subscriber`, and `shipping_amount`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the subscription. |
 | `payload` | `paypal:PatchRequest` | Yes | An array of JSON Patch operations specifying the fields to update. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 error? result = check paypalClient->/subscriptions/["I-BW452GLLEP1G"].patch([
@@ -520,16 +521,16 @@ error? result = check paypalClient->/subscriptions/["I-BW452GLLEP1G"].patch([
 
 Updates the plan or quantity of an active subscription. Returns an approval link when the customer must re-approve the revised terms.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the subscription to revise. |
 | `payload` | `paypal:SubscriptionReviseRequest` | Yes | Revision request specifying the new `plan_id` and/or quantity overrides. |
 
-**Returns:** `paypal:SubscriptionReviseResponse|error`
+Returns: `paypal:SubscriptionReviseResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:SubscriptionReviseResponse reviseResponse = check paypalClient->/subscriptions/["I-BW452GLLEP1G"]/revise.post({
@@ -538,7 +539,7 @@ paypal:SubscriptionReviseResponse reviseResponse = check paypalClient->/subscrip
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -570,16 +571,16 @@ paypal:SubscriptionReviseResponse reviseResponse = check paypalClient->/subscrip
 
 Suspends a subscription, by ID, stopping future billing until the subscription is reactivated.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the subscription. |
 | `payload` | `paypal:SubscriptionSuspendRequest` | Yes | Suspend request containing an optional `reason` string (max 128 characters). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 error? result = check paypalClient->/subscriptions/["I-BW452GLLEP1G"]/suspend.post({
@@ -598,16 +599,16 @@ error? result = check paypalClient->/subscriptions/["I-BW452GLLEP1G"]/suspend.po
 
 Cancels a subscription, by ID. A cancelled subscription cannot be reactivated.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the subscription. |
 | `payload` | `paypal:SubscriptionCancelRequest` | Yes | Cancel request containing an optional `reason` string (max 128 characters). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 error? result = check paypalClient->/subscriptions/["I-BW452GLLEP1G"]/cancel.post({
@@ -626,16 +627,16 @@ error? result = check paypalClient->/subscriptions/["I-BW452GLLEP1G"]/cancel.pos
 
 Reactivates a suspended subscription, by ID, resuming the billing schedule.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the subscription. |
 | `payload` | `paypal:SubscriptionActivateRequest` | Yes | Activate request containing an optional `reason` string (max 128 characters). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 error? result = check paypalClient->/subscriptions/["I-BW452GLLEP1G"]/activate.post({
@@ -654,16 +655,16 @@ error? result = check paypalClient->/subscriptions/["I-BW452GLLEP1G"]/activate.p
 
 Captures an authorized payment from the subscriber on the subscription, by ID. Used to collect outstanding balances or the full authorized amount.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the subscription. |
 | `payload` | `paypal:SubscriptionCaptureRequest` | Yes | Capture request specifying `note`, `capture_type` (`OUTSTANDING_BALANCE`), and the `amount` to capture. |
 
-**Returns:** `paypal:Transaction|error?`
+Returns: `paypal:Transaction|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:Transaction? transaction = check paypalClient->/subscriptions/["I-BW452GLLEP1G"]/capture.post({
@@ -673,7 +674,7 @@ paypal:Transaction? transaction = check paypalClient->/subscriptions/["I-BW452GL
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -701,16 +702,16 @@ paypal:Transaction? transaction = check paypalClient->/subscriptions/["I-BW452GL
 
 Lists transactions for a subscription, by ID, within a specified date range.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the subscription. |
 | `queries` | `paypal:SubscriptionsTransactionsQueries` | Yes | Required date-range filter: `start_time` and `end_time` in ISO 8601 date-time format. |
 
-**Returns:** `paypal:TransactionsList|error`
+Returns: `paypal:TransactionsList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 paypal:TransactionsList txList = check paypalClient->/subscriptions/["I-BW452GLLEP1G"]/transactions(
@@ -721,7 +722,7 @@ paypal:TransactionsList txList = check paypalClient->/subscriptions/["I-BW452GLL
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

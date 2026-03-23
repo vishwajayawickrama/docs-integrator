@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -27,7 +28,7 @@ Manage HubSpot marketing emails — CRUD, publish, clone, A/B test, drafts, revi
 | `secureSocket` | <code>http:ClientSecureSocket</code> | `()` | SSL/TLS configuration. |
 | `proxy` | <code>http:ProxyConfig</code> | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -56,27 +57,27 @@ hsmemails:Client hubspotClient = check new ({auth});
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieve all marketing emails for the HubSpot account, with optional filtering by publish status, date range, and type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetQueries</code> | No | Query parameters including `isPublished`, `limit`, `after`, `type`, `archived`, `sort`, `createdAfter`, `createdBefore`, `updatedAfter`, `updatedBefore`, `includeStats`, `includedProperties`. |
 
-**Returns:** `CollectionResponseWithTotalPublicEmailForwardPaging|error`
+Returns: `CollectionResponseWithTotalPublicEmailForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:CollectionResponseWithTotalPublicEmailForwardPaging emails =
     check hubspotClient->/({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -115,20 +116,20 @@ hsmemails:CollectionResponseWithTotalPublicEmailForwardPaging emails =
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Create a new marketing email in HubSpot.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>EmailCreateRequest</code> | Yes | Email creation payload including `name` (required), `subject`, `from`, `to`, `content`, `subscriptionDetails`, and other optional fields. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PublicEmail|error`
+Returns: `PublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:PublicEmail newEmail = check hubspotClient->/.post({
@@ -141,7 +142,7 @@ hsmemails:PublicEmail newEmail = check hubspotClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -167,11 +168,11 @@ hsmemails:PublicEmail newEmail = check hubspotClient->/.post({
 
 <div>
 
-**Signature:** `get /[emailId]`
+Signature: `get /[emailId]`
 
 Retrieve the details of a specific marketing email by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -179,15 +180,15 @@ Retrieve the details of a specific marketing email by its ID.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetEmailIdQueries</code> | No | Query parameters including `archived`, `includeStats`, `includedProperties`. |
 
-**Returns:** `PublicEmail|error`
+Returns: `PublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:PublicEmail email = check hubspotClient->/["12345678"]({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -213,11 +214,11 @@ hsmemails:PublicEmail email = check hubspotClient->/["12345678"]({});
 
 <div>
 
-**Signature:** `patch /[emailId]`
+Signature: `patch /[emailId]`
 
 Update an existing marketing email's fields.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -226,9 +227,9 @@ Update an existing marketing email's fields.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>PatchEmailIdQueries</code> | No | Query parameters including `archived`. |
 
-**Returns:** `PublicEmail|error`
+Returns: `PublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:PublicEmail updated = check hubspotClient->/[email.id].patch({
@@ -239,7 +240,7 @@ hsmemails:PublicEmail updated = check hubspotClient->/[email.id].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -264,11 +265,11 @@ hsmemails:PublicEmail updated = check hubspotClient->/[email.id].patch({
 
 <div>
 
-**Signature:** `delete /[emailId]`
+Signature: `delete /[emailId]`
 
 Delete a marketing email by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -276,9 +277,9 @@ Delete a marketing email by its ID.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>DeleteEmailIdQueries</code> | No | Query parameters including `archived`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["12345678"].delete({});
@@ -288,27 +289,27 @@ check hubspotClient->/["12345678"].delete({});
 
 </details>
 
-#### Publish & Unpublish
+#### Publish & unpublish
 
 <details>
 <summary>Publish or send a marketing email</summary>
 
 <div>
 
-**Signature:** `post /[emailId]/publish`
+Signature: `post /[emailId]/publish`
 
 Publish or send a marketing email. The email must be in a valid state with all required fields configured.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `emailId` | <code>string</code> | Yes | The ID of the marketing email to publish. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["12345678"]/publish.post({});
@@ -323,20 +324,20 @@ check hubspotClient->/["12345678"]/publish.post({});
 
 <div>
 
-**Signature:** `post /[emailId]/unpublish`
+Signature: `post /[emailId]/unpublish`
 
 Unpublish or cancel a scheduled marketing email.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `emailId` | <code>string</code> | Yes | The ID of the marketing email to unpublish. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["12345678"]/unpublish.post({});
@@ -353,20 +354,20 @@ check hubspotClient->/["12345678"]/unpublish.post({});
 
 <div>
 
-**Signature:** `post /clone`
+Signature: `post /clone`
 
 Create a copy of an existing marketing email.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>ContentCloneRequestVNext</code> | Yes | Clone request with `id` (source email ID, required) and `cloneName` (optional name for the clone). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PublicEmail|error`
+Returns: `PublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:PublicEmail cloned = check hubspotClient->/clone.post({
@@ -375,7 +376,7 @@ hsmemails:PublicEmail cloned = check hubspotClient->/clone.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -395,27 +396,27 @@ hsmemails:PublicEmail cloned = check hubspotClient->/clone.post({
 
 </details>
 
-#### A/B Testing
+#### A/B testing
 
 <details>
 <summary>Create an A/B test variation of a marketing email</summary>
 
 <div>
 
-**Signature:** `post /ab-test/create-variation`
+Signature: `post /ab-test/create-variation`
 
 Create a variation of a marketing email for A/B testing.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>AbTestCreateRequestVNext</code> | Yes | A/B test request with `contentId` (source email ID) and `variationName`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PublicEmail|error`
+Returns: `PublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:PublicEmail variation = check hubspotClient->/ab\-test/create\-variation.post({
@@ -424,7 +425,7 @@ hsmemails:PublicEmail variation = check hubspotClient->/ab\-test/create\-variati
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -449,26 +450,26 @@ hsmemails:PublicEmail variation = check hubspotClient->/ab\-test/create\-variati
 
 <div>
 
-**Signature:** `get /[emailId]/ab-test/get-variation`
+Signature: `get /[emailId]/ab-test/get-variation`
 
 Retrieve the A/B test variation of a marketing email.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `emailId` | <code>string</code> | Yes | The ID of the marketing email. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PublicEmail|error`
+Returns: `PublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:PublicEmail variation = check hubspotClient->/["12345678"]/ab\-test/get\-variation({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -488,33 +489,33 @@ hsmemails:PublicEmail variation = check hubspotClient->/["12345678"]/ab\-test/ge
 
 </details>
 
-#### Draft Management
+#### Draft management
 
 <details>
 <summary>Get draft version of a marketing email</summary>
 
 <div>
 
-**Signature:** `get /[emailId]/draft`
+Signature: `get /[emailId]/draft`
 
 Retrieve the draft version of a marketing email.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `emailId` | <code>string</code> | Yes | The ID of the marketing email. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PublicEmail|error`
+Returns: `PublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:PublicEmail draft = check hubspotClient->/["12345678"]/draft({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -538,11 +539,11 @@ hsmemails:PublicEmail draft = check hubspotClient->/["12345678"]/draft({});
 
 <div>
 
-**Signature:** `patch /[emailId]/draft`
+Signature: `patch /[emailId]/draft`
 
 Create or update the draft version of a marketing email without affecting the published version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -550,9 +551,9 @@ Create or update the draft version of a marketing email without affecting the pu
 | `payload` | <code>EmailUpdateRequest</code> | Yes | Fields to update in the draft. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PublicEmail|error`
+Returns: `PublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:PublicEmail updatedDraft = check hubspotClient->/["12345678"]/draft.patch({
@@ -560,7 +561,7 @@ hsmemails:PublicEmail updatedDraft = check hubspotClient->/["12345678"]/draft.pa
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -584,20 +585,20 @@ hsmemails:PublicEmail updatedDraft = check hubspotClient->/["12345678"]/draft.pa
 
 <div>
 
-**Signature:** `post /[emailId]/draft/reset`
+Signature: `post /[emailId]/draft/reset`
 
 Reset the draft version of a marketing email, discarding all draft changes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `emailId` | <code>string</code> | Yes | The ID of the marketing email. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["12345678"]/draft/reset.post({});
@@ -614,11 +615,11 @@ check hubspotClient->/["12345678"]/draft/reset.post({});
 
 <div>
 
-**Signature:** `get /[emailId]/revisions`
+Signature: `get /[emailId]/revisions`
 
 List all revisions of a marketing email with pagination support.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -626,16 +627,16 @@ List all revisions of a marketing email with pagination support.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetEmailIdRevisionsQueries</code> | No | Pagination parameters including `limit`, `after`, and `before`. |
 
-**Returns:** `CollectionResponseWithTotalVersionPublicEmail|error`
+Returns: `CollectionResponseWithTotalVersionPublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:CollectionResponseWithTotalVersionPublicEmail revisions =
     check hubspotClient->/["12345678"]/revisions({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -666,11 +667,11 @@ hsmemails:CollectionResponseWithTotalVersionPublicEmail revisions =
 
 <div>
 
-**Signature:** `get /[emailId]/revisions/[revisionId]`
+Signature: `get /[emailId]/revisions/[revisionId]`
 
 Retrieve a specific revision of a marketing email.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -678,16 +679,16 @@ Retrieve a specific revision of a marketing email.
 | `revisionId` | <code>string</code> | Yes | The ID of the revision. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `VersionPublicEmail|error`
+Returns: `VersionPublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:VersionPublicEmail revision =
     check hubspotClient->/["12345678"]/revisions/["rev-001"]({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -716,11 +717,11 @@ hsmemails:VersionPublicEmail revision =
 
 <div>
 
-**Signature:** `post /[emailId]/revisions/[revisionId]/restore`
+Signature: `post /[emailId]/revisions/[revisionId]/restore`
 
 Restore a specific revision of a marketing email, making it the current version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -728,9 +729,9 @@ Restore a specific revision of a marketing email, making it the current version.
 | `revisionId` | <code>string</code> | Yes | The ID of the revision to restore. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["12345678"]/revisions/["rev-002"]/restore.post({});
@@ -745,11 +746,11 @@ check hubspotClient->/["12345678"]/revisions/["rev-002"]/restore.post({});
 
 <div>
 
-**Signature:** `post /[emailId]/revisions/[revisionId]/restore-to-draft`
+Signature: `post /[emailId]/revisions/[revisionId]/restore-to-draft`
 
 Restore a specific revision as a draft without affecting the published version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -757,16 +758,16 @@ Restore a specific revision as a draft without affecting the published version.
 | `revisionId` | <code>int</code> | Yes | The ID of the revision to restore as draft. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PublicEmail|error`
+Returns: `PublicEmail|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:PublicEmail restoredDraft =
     check hubspotClient->/["12345678"]/revisions/[2]/restore\-to\-draft.post({});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -792,20 +793,20 @@ hsmemails:PublicEmail restoredDraft =
 
 <div>
 
-**Signature:** `get /statistics/list`
+Signature: `get /statistics/list`
 
 Retrieve aggregated email statistics for specified emails within a time range.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetStatisticsListQueries</code> | No | Query parameters including `emailIds`, `startTimestamp`, `endTimestamp`, and `property`. |
 
-**Returns:** `AggregateEmailStatistics|error`
+Returns: `AggregateEmailStatistics|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:AggregateEmailStatistics aggregate =
@@ -815,7 +816,7 @@ hsmemails:AggregateEmailStatistics aggregate =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -838,20 +839,20 @@ hsmemails:AggregateEmailStatistics aggregate =
 
 <div>
 
-**Signature:** `get /statistics/histogram`
+Signature: `get /statistics/histogram`
 
 Retrieve email statistics broken down by time intervals (e.g., daily, weekly).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetStatisticsHistogramQueries</code> | No | Query parameters including `emailIds`, `startTimestamp`, `endTimestamp`, and `interval` (e.g., `DAY`, `WEEK`, `MONTH`). |
 
-**Returns:** `CollectionResponseWithTotalEmailStatisticIntervalNoPaging|error`
+Returns: `CollectionResponseWithTotalEmailStatisticIntervalNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmemails:CollectionResponseWithTotalEmailStatisticIntervalNoPaging histogram =
@@ -862,7 +863,7 @@ hsmemails:CollectionResponseWithTotalEmailStatisticIntervalNoPaging histogram =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

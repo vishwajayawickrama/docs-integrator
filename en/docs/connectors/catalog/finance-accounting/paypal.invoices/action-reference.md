@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ PayPal Invoicing API v2 — invoice CRUD, send/remind/cancel, payments, refunds,
 | `validation` | `boolean` | `true` | Enable/disable payload validation. |
 | `laxDataBinding` | `boolean` | `true` | Use lax data binding for response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/paypal.invoices;
@@ -56,22 +57,22 @@ invoices:Client invoicesClient = check new ({
 
 Lists invoices with optional pagination and field filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `InvoicesListQueries` | No | Query parameters: `page` (default `1`), `page_size` (default `20`), `fields` (default `"all"`), `total_required` (default `false`). |
 
-**Returns:** `Invoices|error`
+Returns: `Invoices|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:Invoices result = check invoicesClient->/invoices();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -105,16 +106,16 @@ invoices:Invoices result = check invoicesClient->/invoices();
 
 Creates a draft invoice. The invoice must include a `detail` record with at least a `currency_code`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Invoice` | Yes | Invoice data including detail, items, invoicer, and recipient information. |
 | `headers` | `InvoicesCreateHeaders` | No | Optional headers. `Prefer` defaults to `"return=representation"` to return the full invoice. |
 
-**Returns:** `Invoice|error`
+Returns: `Invoice|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:Invoice invoice = check invoicesClient->/invoices.post({
@@ -151,7 +152,7 @@ invoices:Invoice invoice = check invoicesClient->/invoices.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -185,22 +186,22 @@ invoices:Invoice invoice = check invoicesClient->/invoices.post({
 
 Retrieves the full details of an invoice by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `invoiceId` | `string` | Yes | The PayPal invoice ID (e.g., `"INV2-XXXX-XXXX-XXXX-XXXX"`). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Invoice|error`
+Returns: `Invoice|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:Invoice invoice = check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -228,7 +229,7 @@ invoices:Invoice invoice = check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX
 
 Fully updates an invoice by replacing the entire invoice object. Only invoices in DRAFT or SENT status can be updated.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -237,9 +238,9 @@ Fully updates an invoice by replacing the entire invoice object. Only invoices i
 | `headers` | `InvoicesUpdateHeaders` | No | Optional headers. `Prefer` defaults to `"return=representation"`. |
 | `queries` | `InvoicesUpdateQueries` | No | Query parameters: `send_to_recipient` (default `true`), `send_to_invoicer` (default `true`). |
 
-**Returns:** `Invoice|error`
+Returns: `Invoice|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:Invoice updated = check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"].put({
@@ -263,7 +264,7 @@ invoices:Invoice updated = check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -291,16 +292,16 @@ invoices:Invoice updated = check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX
 
 Deletes a draft invoice. Only invoices in DRAFT status can be deleted.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `invoiceId` | `string` | Yes | The PayPal invoice ID. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"].delete();
@@ -310,7 +311,7 @@ check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"].delete();
 
 </details>
 
-#### Send, Remind & Cancel
+#### Send, remind & cancel
 
 <details>
 <summary>Send invoice</summary>
@@ -319,7 +320,7 @@ check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"].delete();
 
 Sends an invoice to the recipient. Changes the invoice status from DRAFT to SENT.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -327,9 +328,9 @@ Sends an invoice to the recipient. Changes the invoice status from DRAFT to SENT
 | `payload` | `Notification` | Yes | Notification options including subject, note, and recipient settings. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `LinkDescription|'202Response|error`
+Returns: `LinkDescription|'202Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:LinkDescription|invoices:'202Response result = check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/send.post({
@@ -340,7 +341,7 @@ invoices:LinkDescription|invoices:'202Response result = check invoicesClient->/i
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -361,7 +362,7 @@ invoices:LinkDescription|invoices:'202Response result = check invoicesClient->/i
 
 Sends a reminder for an unpaid invoice to the recipient.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -369,9 +370,9 @@ Sends a reminder for an unpaid invoice to the recipient.
 | `payload` | `Notification` | Yes | Notification options for the reminder. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/remind.post({
@@ -392,7 +393,7 @@ check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/remind.post({
 
 Cancels a sent invoice. The invoice status changes to CANCELLED.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -400,9 +401,9 @@ Cancels a sent invoice. The invoice status changes to CANCELLED.
 | `payload` | `Notification` | Yes | Notification options for the cancellation notice. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/cancel.post({
@@ -426,7 +427,7 @@ check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/cancel.post({
 
 Records an external payment against an invoice. Use this to mark payments made outside of PayPal.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -434,9 +435,9 @@ Records an external payment against an invoice. Use this to mark payments made o
 | `payload` | `PaymentDetail` | Yes | Payment details including method, amount, and date. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `PaymentReference|error`
+Returns: `PaymentReference|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:PaymentReference paymentRef = check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/payments.post({
@@ -449,7 +450,7 @@ invoices:PaymentReference paymentRef = check invoicesClient->/invoices/["INV2-XX
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"payment_id": "EXTR-XXXX-XXXX-XXXX-XXXX"}
@@ -466,7 +467,7 @@ invoices:PaymentReference paymentRef = check invoicesClient->/invoices/["INV2-XX
 
 Deletes an externally recorded payment from an invoice.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -474,9 +475,9 @@ Deletes an externally recorded payment from an invoice.
 | `transactionId` | `string` | Yes | The payment transaction ID. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/payments/["EXTR-XXXX-XXXX-XXXX-XXXX"].delete();
@@ -495,7 +496,7 @@ check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/payments/["EXTR-XXX
 
 Records an external refund against an invoice.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -503,9 +504,9 @@ Records an external refund against an invoice.
 | `payload` | `RefundDetail` | Yes | Refund details including method, amount, and date. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `RefundReference|error`
+Returns: `RefundReference|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:RefundReference refundRef = check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/refunds.post({
@@ -518,7 +519,7 @@ invoices:RefundReference refundRef = check invoicesClient->/invoices/["INV2-XXXX
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"refund_id": "EXTR-XXXX-XXXX-XXXX-XXXX"}
@@ -535,7 +536,7 @@ invoices:RefundReference refundRef = check invoicesClient->/invoices/["INV2-XXXX
 
 Deletes an externally recorded refund from an invoice.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -543,9 +544,9 @@ Deletes an externally recorded refund from an invoice.
 | `transactionId` | `string` | Yes | The refund transaction ID. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/refunds/["EXTR-XXXX-XXXX-XXXX-XXXX"].delete();
@@ -555,7 +556,7 @@ check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/refunds/["EXTR-XXXX
 
 </details>
 
-#### Search & Utilities
+#### Search & utilities
 
 <details>
 <summary>Search for invoices</summary>
@@ -564,7 +565,7 @@ check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/refunds/["EXTR-XXXX
 
 Searches for invoices matching the specified criteria such as status, dates, recipient, or amount ranges.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -572,9 +573,9 @@ Searches for invoices matching the specified criteria such as status, dates, rec
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `InvoicesSearchInvoicesQueries` | No | Query parameters: `page` (default `1`), `page_size` (default `20`), `total_required` (default `false`). |
 
-**Returns:** `Invoices|error`
+Returns: `Invoices|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:Invoices results = check invoicesClient->/search\-invoices.post({
@@ -586,7 +587,7 @@ invoices:Invoices results = check invoicesClient->/search\-invoices.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -615,21 +616,21 @@ invoices:Invoices results = check invoicesClient->/search\-invoices.post({
 
 Generates the next sequential invoice number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `InvoicingGenerateNextInvoiceNumberHeaders` | No | Optional headers. `Content-Type` defaults to `"application/json"`. |
 
-**Returns:** `InvoiceNumber|error`
+Returns: `InvoiceNumber|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:InvoiceNumber nextNumber = check invoicesClient->/generate\-next\-invoice\-number.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"invoice_number": "#0042"}
@@ -646,7 +647,7 @@ invoices:InvoiceNumber nextNumber = check invoicesClient->/generate\-next\-invoi
 
 Generates a QR code for an invoice. The QR code can be used to direct payers to the invoice payment page.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -654,9 +655,9 @@ Generates a QR code for an invoice. The QR code can be used to direct payers to 
 | `payload` | `QrConfig` | Yes | QR code configuration: `width` (default `500`), `height` (default `500`), `action` (default `"pay"`). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/generate\-qr\-code.post({
@@ -679,22 +680,22 @@ check invoicesClient->/invoices/["INV2-XXXX-XXXX-XXXX-XXXX"]/generate\-qr\-code.
 
 Lists all invoice templates with optional pagination and field filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `TemplatesListQueries` | No | Query parameters: `page` (default `1`), `page_size` (default `20`), `fields` (default `"all"`). |
 
-**Returns:** `Templates|error`
+Returns: `Templates|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:Templates templates = check invoicesClient->/templates();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -721,16 +722,16 @@ invoices:Templates templates = check invoicesClient->/templates();
 
 Creates a new invoice template.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Template` | Yes | Template data including name, settings, and template info. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Template|error`
+Returns: `Template|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:Template template = check invoicesClient->/templates.post({
@@ -755,7 +756,7 @@ invoices:Template template = check invoicesClient->/templates.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -782,22 +783,22 @@ invoices:Template template = check invoicesClient->/templates.post({
 
 Retrieves the full details of an invoice template by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `templateId` | `string` | Yes | The PayPal template ID. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Template|error`
+Returns: `Template|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:Template template = check invoicesClient->/templates/["TEMP-XXXX-XXXX-XXXX-XXXX"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -823,7 +824,7 @@ invoices:Template template = check invoicesClient->/templates/["TEMP-XXXX-XXXX-X
 
 Fully updates an invoice template by replacing the entire template object.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -831,9 +832,9 @@ Fully updates an invoice template by replacing the entire template object.
 | `payload` | `Template` | Yes | The full updated template object. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Template|error`
+Returns: `Template|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 invoices:Template updated = check invoicesClient->/templates/["TEMP-XXXX-XXXX-XXXX-XXXX"].put({
@@ -848,7 +849,7 @@ invoices:Template updated = check invoicesClient->/templates/["TEMP-XXXX-XXXX-XX
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -873,16 +874,16 @@ invoices:Template updated = check invoicesClient->/templates/["TEMP-XXXX-XXXX-XX
 
 Deletes an invoice template.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `templateId` | `string` | Yes | The PayPal template ID. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check invoicesClient->/templates/["TEMP-XXXX-XXXX-XXXX-XXXX"].delete();

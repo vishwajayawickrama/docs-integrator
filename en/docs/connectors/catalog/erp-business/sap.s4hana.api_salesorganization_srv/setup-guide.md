@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through obtaining the SAP S/4HANA connection details and credentials required to use the SAP Sales Organization connector.
@@ -8,7 +11,7 @@ This guide walks you through obtaining the SAP S/4HANA connection details and cr
 - An active SAP S/4HANA system (on-premise or SAP BTP ABAP Environment) with the `API_SALESORGANIZATION_SRV` OData service enabled.
 - An SAP user account with authorization to access Sales and Distribution master data (typically the `S_RS_ADMWB` or equivalent authorization object).
 
-## Step 1: Locate the SAP S/4HANA Hostname and Port
+## Step 1: Locate the SAP s/4HANA hostname and port
 
 1. Contact your SAP Basis administrator to obtain the **hostname** (or IP address) and
    **HTTPS port** of your SAP S/4HANA system.
@@ -21,7 +24,7 @@ This guide walks you through obtaining the SAP S/4HANA connection details and cr
 For SAP BTP ABAP Environment (formerly SAP Cloud Platform ABAP Environment), the hostname is the service URL shown in the BTP cockpit under your ABAP instance details.
 :::
 
-## Step 2: Verify That the OData Service Is Activated
+## Step 2: Verify that the OData service is activated
 
 1. Log in to your SAP S/4HANA system using SAP GUI or a browser.
 2. Navigate to transaction **`/IWFND/MAINT_SERVICE`** (Gateway Service Maintenance).
@@ -33,7 +36,7 @@ For SAP BTP ABAP Environment (formerly SAP Cloud Platform ABAP Environment), the
 You can test connectivity by opening the service document URL in a browser: `https://{hostname}:{port}/sap/opu/odata/sap/API_SALESORGANIZATION_SRV/` — a successful response returns an XML or JSON service document.
 :::
 
-## Step 3: Obtain SAP User Credentials
+## Step 3: Obtain SAP user credentials
 
 1. Use an existing SAP dialog user or request a dedicated technical/communication user
    from your SAP administrator for integration purposes.

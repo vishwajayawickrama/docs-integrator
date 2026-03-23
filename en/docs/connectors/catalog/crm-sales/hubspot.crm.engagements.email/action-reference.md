@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manage HubSpot email engagement records — CRUD, batch operations, and search.
 | `validation` | <code>boolean</code> | `true` | Enable payload validation. |
 | `laxDataBinding` | <code>boolean</code> | `true` | Allow lax data binding for response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -52,27 +53,27 @@ hsceemail:Client hubspot = check new ({auth});
 
 ### Operations
 
-#### Single Email Operations
+#### Single email operations
 
 <details>
 <summary>Create an email</summary>
 
 <div>
 
-**Signature:** `post .`
+Signature: `post .`
 
 Creates a new email engagement record with the specified properties and associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | Email properties and associations to create. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsceemail:SimplePublicObject email = check hubspot->/.post({
@@ -87,7 +88,7 @@ hsceemail:SimplePublicObject email = check hubspot->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -117,11 +118,11 @@ hsceemail:SimplePublicObject email = check hubspot->/.post({
 
 <div>
 
-**Signature:** `get .`
+Signature: `get .`
 
 Returns a paginated list of email engagement records with optional property and association filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -132,16 +133,16 @@ Returns a paginated list of email engagement records with optional property and 
 | `after` | <code>string</code> | No | Cursor for the next page of results. |
 | `archived` | <code>boolean</code> | No | Whether to return archived emails (default false). |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsceemail:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
     check hubspot->/.get(properties = ["hs_email_subject", "hs_email_status"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -178,11 +179,11 @@ hsceemail:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging resp
 
 <div>
 
-**Signature:** `get [emailId]`
+Signature: `get [emailId]`
 
 Retrieves a single email engagement record by its ID, with optional property and association filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -193,9 +194,9 @@ Retrieves a single email engagement record by its ID, with optional property and
 | `archived` | <code>boolean</code> | No | Whether to return archived records. |
 | `idProperty` | <code>string</code> | No | Name of the unique property to use as the lookup ID. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsceemail:SimplePublicObjectWithAssociations email = check hubspot->/["12345678901"].get(
@@ -203,7 +204,7 @@ hsceemail:SimplePublicObjectWithAssociations email = check hubspot->/["123456789
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -231,11 +232,11 @@ hsceemail:SimplePublicObjectWithAssociations email = check hubspot->/["123456789
 
 <div>
 
-**Signature:** `patch [emailId]`
+Signature: `patch [emailId]`
 
 Performs a partial update of an email engagement record, modifying only the specified properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -243,9 +244,9 @@ Performs a partial update of an email engagement record, modifying only the spec
 | `payload` | <code>SimplePublicObjectInput</code> | Yes | Properties to update. |
 | `idProperty` | <code>string</code> | No | Unique property to use as the lookup ID. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsceemail:SimplePublicObject updated = check hubspot->/["12345678901"].patch({
@@ -255,7 +256,7 @@ hsceemail:SimplePublicObject updated = check hubspot->/["12345678901"].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -282,19 +283,19 @@ hsceemail:SimplePublicObject updated = check hubspot->/["12345678901"].patch({
 
 <div>
 
-**Signature:** `delete [emailId]`
+Signature: `delete [emailId]`
 
 Moves an email engagement record to the recycling bin.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `emailId` | <code>string</code> | Yes | The ID of the email record to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspot->/["12345678901"].delete();
@@ -304,26 +305,26 @@ check hubspot->/["12345678901"].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of emails</summary>
 
 <div>
 
-**Signature:** `post batch/create`
+Signature: `post batch/create`
 
 Creates multiple email engagement records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | Batch of email records to create, each with properties and associations. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsceemail:BatchResponseSimplePublicObject|hsceemail:BatchResponseSimplePublicObjectWithErrors response =
@@ -351,7 +352,7 @@ hsceemail:BatchResponseSimplePublicObject|hsceemail:BatchResponseSimplePublicObj
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -394,20 +395,20 @@ hsceemail:BatchResponseSimplePublicObject|hsceemail:BatchResponseSimplePublicObj
 
 <div>
 
-**Signature:** `post batch/read`
+Signature: `post batch/read`
 
 Reads multiple email engagement records by ID or unique property values in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchReadInputSimplePublicObjectId</code> | Yes | Batch of email IDs to read, with property selections. |
 | `archived` | <code>boolean</code> | No | Whether to return archived records (default false). |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsceemail:BatchResponseSimplePublicObject|hsceemail:BatchResponseSimplePublicObjectWithErrors response =
@@ -421,7 +422,7 @@ hsceemail:BatchResponseSimplePublicObject|hsceemail:BatchResponseSimplePublicObj
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -462,19 +463,19 @@ hsceemail:BatchResponseSimplePublicObject|hsceemail:BatchResponseSimplePublicObj
 
 <div>
 
-**Signature:** `post batch/update`
+Signature: `post batch/update`
 
 Updates multiple email engagement records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | Batch of email updates, each with an ID and properties to update. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsceemail:BatchResponseSimplePublicObject|hsceemail:BatchResponseSimplePublicObjectWithErrors response =
@@ -496,7 +497,7 @@ hsceemail:BatchResponseSimplePublicObject|hsceemail:BatchResponseSimplePublicObj
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -537,19 +538,19 @@ hsceemail:BatchResponseSimplePublicObject|hsceemail:BatchResponseSimplePublicObj
 
 <div>
 
-**Signature:** `post batch/upsert`
+Signature: `post batch/upsert`
 
 Creates or updates multiple email engagement records by unique property values in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | Batch of email records to upsert, each with an ID property and properties. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsceemail:BatchResponseSimplePublicUpsertObject|hsceemail:BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -569,7 +570,7 @@ hsceemail:BatchResponseSimplePublicUpsertObject|hsceemail:BatchResponseSimplePub
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -601,19 +602,19 @@ hsceemail:BatchResponseSimplePublicUpsertObject|hsceemail:BatchResponseSimplePub
 
 <div>
 
-**Signature:** `post batch/archive`
+Signature: `post batch/archive`
 
 Archives multiple email engagement records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | Batch of email IDs to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspot->/batch/archive.post({
@@ -635,19 +636,19 @@ check hubspot->/batch/archive.post({
 
 <div>
 
-**Signature:** `post search`
+Signature: `post search`
 
 Searches email engagement records using filter groups, query strings, sorting, and property selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search request with filters, query, sorting, and properties. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsceemail:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -668,7 +669,7 @@ hsceemail:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

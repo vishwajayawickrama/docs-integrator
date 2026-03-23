@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -36,7 +37,7 @@ Provides read access to SAP S/4HANA sales organization master data via the API_S
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable or disable constraint validation on response records. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.api_salesorganization_srv as salesOrg;
@@ -60,7 +61,7 @@ salesOrg:Client salesOrgClient = check new (
 
 ### Operations
 
-#### Sales Organization
+#### Sales organization
 
 <details>
 <summary>listA_SalesOrganizations</summary>
@@ -69,7 +70,7 @@ salesOrg:Client salesOrgClient = check new (
 
 Retrieves a collection of sales organization records, with optional OData filtering, ordering, pagination, field selection, and expansion of related texts.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -82,9 +83,9 @@ Retrieves a collection of sales organization records, with optional OData filter
 | `$expand` | `A_SalesOrganizationExpandOptions` | No | Navigation properties to expand inline (e.g., `["to_Text"]`). |
 | `$inlinecount` | `"allpages"\|"none"` | No | Include total result count in the response. |
 
-**Returns:** `CollectionOfA_SalesOrganizationWrapper|error`
+Returns: `CollectionOfA_SalesOrganizationWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrg:CollectionOfA_SalesOrganizationWrapper result = check salesOrgClient->listA_SalesOrganizations(
@@ -97,7 +98,7 @@ salesOrg:CollectionOfA_SalesOrganizationWrapper result = check salesOrgClient->l
 salesOrg:A_SalesOrganization[]? records = result.d?.results;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -131,7 +132,7 @@ salesOrg:A_SalesOrganization[]? records = result.d?.results;
 
 Retrieves a single sales organization record by its unique key (`SalesOrganization` ID).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -140,16 +141,16 @@ Retrieves a single sales organization record by its unique key (`SalesOrganizati
 | `$select` | `A_SalesOrganizationSelectOptions` | No | Array of field names to include in the response. |
 | `$expand` | `A_SalesOrganizationExpandOptions` | No | Navigation properties to expand inline (e.g., `["to_Text"]`). |
 
-**Returns:** `A_SalesOrganizationWrapper|error`
+Returns: `A_SalesOrganizationWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrg:A_SalesOrganizationWrapper result = check salesOrgClient->getA_SalesOrganization("1000");
 salesOrg:A_SalesOrganization? org = result.d;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -169,7 +170,7 @@ salesOrg:A_SalesOrganization? org = result.d;
 
 </details>
 
-#### Sales Organization Text
+#### Sales organization text
 
 <details>
 <summary>listA_SalesOrganizationTexts</summary>
@@ -178,7 +179,7 @@ salesOrg:A_SalesOrganization? org = result.d;
 
 Retrieves a collection of sales organization text records (multilingual names), with optional OData filtering, ordering, pagination, and field selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -191,9 +192,9 @@ Retrieves a collection of sales organization text records (multilingual names), 
 | `$expand` | `A_SalesOrganizationTextExpandOptions` | No | Navigation properties to expand inline (e.g., `["to_SalesOrganization"]`). |
 | `$inlinecount` | `"allpages"\|"none"` | No | Include total result count in the response. |
 
-**Returns:** `CollectionOfA_SalesOrganizationTextWrapper|error`
+Returns: `CollectionOfA_SalesOrganizationTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrg:CollectionOfA_SalesOrganizationTextWrapper result = check salesOrgClient->listA_SalesOrganizationTexts(
@@ -205,7 +206,7 @@ salesOrg:CollectionOfA_SalesOrganizationTextWrapper result = check salesOrgClien
 salesOrg:A_SalesOrganizationText[]? textRecords = result.d?.results;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -237,7 +238,7 @@ salesOrg:A_SalesOrganizationText[]? textRecords = result.d?.results;
 
 Retrieves a single sales organization text record by its composite key (`SalesOrganization` and `Language`).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -247,9 +248,9 @@ Retrieves a single sales organization text record by its composite key (`SalesOr
 | `$select` | `A_SalesOrganizationTextSelectOptions` | No | Array of field names to include in the response. |
 | `$expand` | `A_SalesOrganizationTextExpandOptions` | No | Navigation properties to expand inline (e.g., `["to_SalesOrganization"]`). |
 
-**Returns:** `A_SalesOrganizationTextWrapper|error`
+Returns: `A_SalesOrganizationTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrg:A_SalesOrganizationTextWrapper result = check salesOrgClient->getA_SalesOrganizationText(
@@ -259,7 +260,7 @@ salesOrg:A_SalesOrganizationTextWrapper result = check salesOrgClient->getA_Sale
 salesOrg:A_SalesOrganizationText? textRecord = result.d;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -282,7 +283,7 @@ salesOrg:A_SalesOrganizationText? textRecord = result.d;
 
 Retrieves all text records (multilingual names) associated with a specific sales organization, navigating the `to_Text` relationship.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -296,16 +297,16 @@ Retrieves all text records (multilingual names) associated with a specific sales
 | `$expand` | `A_SalesOrganizationTextExpandOptions` | No | Navigation properties to expand inline. |
 | `$inlinecount` | `"allpages"\|"none"` | No | Include total result count in the response. |
 
-**Returns:** `CollectionOfA_SalesOrganizationTextWrapper|error`
+Returns: `CollectionOfA_SalesOrganizationTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrg:CollectionOfA_SalesOrganizationTextWrapper result = check salesOrgClient->listTextsOfA_SalesOrganization("1000");
 salesOrg:A_SalesOrganizationText[]? texts = result.d?.results;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -337,7 +338,7 @@ salesOrg:A_SalesOrganizationText[]? texts = result.d?.results;
 
 Navigates from a sales organization text record back to the parent sales organization entity using the `to_SalesOrganization` navigation property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -347,9 +348,9 @@ Navigates from a sales organization text record back to the parent sales organiz
 | `$select` | `A_SalesOrganizationSelectOptions` | No | Array of field names to include in the response. |
 | `$expand` | `A_SalesOrganizationExpandOptions` | No | Navigation properties to expand inline. |
 
-**Returns:** `A_SalesOrganizationWrapper|error`
+Returns: `A_SalesOrganizationWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrg:A_SalesOrganizationWrapper result = check salesOrgClient->getSalesOrganizationOfA_SalesOrganizationText(
@@ -359,7 +360,7 @@ salesOrg:A_SalesOrganizationWrapper result = check salesOrgClient->getSalesOrgan
 salesOrg:A_SalesOrganization? org = result.d;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

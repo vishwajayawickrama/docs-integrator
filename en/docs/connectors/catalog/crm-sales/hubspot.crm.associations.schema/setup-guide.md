@@ -13,14 +13,14 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 - A HubSpot developer account. If you do not have one, [sign up for free](https://app.hubspot.com/signup-hubspot/developers).
 - A HubSpot developer test account (optional but recommended for safe testing).
 
-## Create a HubSpot Developer Account
+## Create a HubSpot developer account
 
 1. Go to the [HubSpot Developer Portal](https://app.hubspot.com/signup-hubspot/developers).
 2. Sign up for a free developer account if you don't already have one.
 3. Log in to your developer dashboard.
 
 
-## Create a Developer Test Account (Optional)
+## Create a developer test account (optional)
 
 1. In the left sidebar of your developer dashboard, navigate to **Test accounts**.
 2. Click **Create developer test account**.
@@ -31,7 +31,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 A developer test account is strongly recommended for development and testing to avoid modifying production data.
 :::
 
-## Create a HubSpot App
+## Create a HubSpot app
 
 1. In the left sidebar, navigate to **Apps**.
 2. Click **Create app**.
@@ -39,7 +39,7 @@ A developer test account is strongly recommended for development and testing to 
 4. Navigate to the **Auth** tab.
 
 
-## Configure OAuth Scopes
+## Configure OAuth scopes
 
 1. Under the **Auth** tab of your app, scroll to the **Scopes** section.
 2. Click **Add new scope** and add the following scopes:
@@ -61,7 +61,7 @@ A developer test account is strongly recommended for development and testing to 
 Add only the scopes required for the CRM object types you intend to work with. The list above covers the most common object types.
 :::
 
-## Get the Client ID and Client Secret
+## Get the client ID and client secret
 
 1. In the **Auth** tab of your app, locate the **Client ID** and **Client Secret**.
 2. Copy both values — you will need them to configure the connector.
@@ -73,7 +73,7 @@ Use Ballerina's `configurable` feature and a `Config.toml` file to supply them a
 
 :::
 
-## Generate a Refresh Token
+## Generate a refresh token
 
 Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 
@@ -106,6 +106,6 @@ Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange in step 5.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

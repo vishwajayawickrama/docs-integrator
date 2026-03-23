@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through configuring your SAP Commerce Cloud instance and obtaining the OAuth 2.0 credentials required to use the connector.
@@ -24,7 +27,7 @@ This guide walks you through configuring your SAP Commerce Cloud instance and ob
 On SAP Commerce Cloud (CCv2), the OCC API is enabled by default. These steps apply primarily to on-premise installations.
 :::
 
-## Step 2: Register an OAuth Client
+## Step 2: Register an OAuth client
 
 1. Open the **Backoffice Administration Cockpit** and navigate to **System > OAuth > OAuth Clients**.
 2. Click **Create** to register a new OAuth client.
@@ -40,7 +43,7 @@ On SAP Commerce Cloud (CCv2), the OCC API is enabled by default. These steps app
 Store the Client ID and Client Secret securely. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 3: Obtain the Token URL
+## Step 3: Obtain the token URL
 
 The token URL for SAP Commerce Cloud follows this pattern:
 
@@ -56,7 +59,7 @@ https://<your-commerce-host>/occ/v2/authorizationserver/oauth/token
 
 Verify which URL is active by testing a token request with your client credentials.
 
-## Step 4: Identify Your Base Site ID
+## Step 4: Identify your base site ID
 
 1. In Backoffice, navigate to **WCMS > Website** or **Base Commerce > Base Sites**.
 2. Note the **Site ID** for the storefront you want to integrate with (e.g., `electronics`, `powertools`, `apparel-uk`).

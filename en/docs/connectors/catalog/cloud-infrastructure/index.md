@@ -3,11 +3,11 @@ title: "Cloud & Infrastructure"
 description: "Cloud and infrastructure connectors available in WSO2 Integrator."
 ---
 
-# Cloud & Infrastructure Connectors
+# Cloud & Infrastructure
 
 <!-- TODO: Searchable grid/table with: name, icon, 1-line description, supported operations, link to detail page -->
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -17,7 +17,7 @@ description: "Cloud and infrastructure connectors available in WSO2 Integrator."
 | [Azure Functions](azure.functions/overview.md) | Serverless Azure Functions framework with HTTP, Queue, Blob, CosmosDB, and Timer triggers | HTTP Trigger, Queue Trigger, Blob Trigger, CosmosDB Trigger, Timer Trigger, Output Bindings | Azure App Settings (storage connection strings, function keys, CosmosDB connection strings) |
 | [Elastic Cloud](elastic.elasticcloud/overview.md) | Elastic Cloud management with deployments, traffic filters, organizations, API keys, and stack versions | Create, List, Search, Update, Shutdown, Restore, Delete | API Key |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

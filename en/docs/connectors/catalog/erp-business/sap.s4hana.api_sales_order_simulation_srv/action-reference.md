@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Simulates SAP S/4HANA sales order creation and manages associated value-added se
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable constraint validation on request and response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.api_sales_order_simulation_srv as salesOrderSim;
@@ -51,7 +52,7 @@ salesOrderSim:Client simClient = check new (
 
 ### Operations
 
-#### Sales Order Simulation
+#### Sales order simulation
 
 <details>
 <summary>createA_SalesOrderSimulation</summary>
@@ -61,16 +62,16 @@ salesOrderSim:Client simClient = check new (
 Simulates the creation of a sales order and returns pricing details, material availability (confirmed schedule lines), and customer credit limit status. The simulated order is never saved to SAP S/4HANA.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateA_SalesOrderSimulation` | Yes | Sales order header and item data to simulate. Includes sales organization, distribution channel, sold-to party, transaction currency, and optional navigation properties for items (`to_Item`), partners (`to_Partner`), and pricing elements (`to_PricingElement`). |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include with the request. |
 
-**Returns:** `A_SalesOrderSimulationWrapper|error`
+Returns: `A_SalesOrderSimulationWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrderSim:A_SalesOrderSimulationWrapper result = check simClient->createA_SalesOrderSimulation({
@@ -95,7 +96,7 @@ salesOrderSim:A_SalesOrderSimulationWrapper result = check simClient->createA_Sa
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -145,7 +146,7 @@ salesOrderSim:A_SalesOrderSimulationWrapper result = check simClient->createA_Sa
 
 </details>
 
-#### Value-Added Services
+#### Value-Added services
 
 <details>
 <summary>listA_SlsOrdSimlnValAddedSrvcs</summary>
@@ -154,22 +155,22 @@ salesOrderSim:A_SalesOrderSimulationWrapper result = check simClient->createA_Sa
 
 Retrieves a collection of value-added service entities associated with simulated sales order items, with optional OData filtering and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include with the request. |
 | `queries` | `ListA_SlsOrdSimlnValAddedSrvcsQueries` | No | OData query options passed as an included record parameter. Supports `$filter`, `$top`, `$skip`, `$orderby`, `$select`, and `$inlinecount`. |
 
-**Returns:** `CollectionOfA_SlsOrdSimlnValAddedSrvcWrapper|error`
+Returns: `CollectionOfA_SlsOrdSimlnValAddedSrvcWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrderSim:CollectionOfA_SlsOrdSimlnValAddedSrvcWrapper result = check simClient->listA_SlsOrdSimlnValAddedSrvcs();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -201,7 +202,7 @@ salesOrderSim:CollectionOfA_SlsOrdSimlnValAddedSrvcWrapper result = check simCli
 
 Retrieves a single value-added service entity by its composite key (service type, sub-service type, sales order, and item).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -212,9 +213,9 @@ Retrieves a single value-added service entity by its composite key (service type
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include with the request. |
 | `queries` | `GetA_SlsOrdSimlnValAddedSrvcQueries` | No | OData `$select` query option to limit returned fields. |
 
-**Returns:** `A_SlsOrdSimlnValAddedSrvcWrapper|error`
+Returns: `A_SlsOrdSimlnValAddedSrvcWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrderSim:A_SlsOrdSimlnValAddedSrvcWrapper result = check simClient->getA_SlsOrdSimlnValAddedSrvc(
@@ -225,7 +226,7 @@ salesOrderSim:A_SlsOrdSimlnValAddedSrvcWrapper result = check simClient->getA_Sl
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -254,16 +255,16 @@ salesOrderSim:A_SlsOrdSimlnValAddedSrvcWrapper result = check simClient->getA_Sl
 
 Adds a new value-added service entity to a simulated sales order item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateA_SlsOrdSimlnValAddedSrvc` | Yes | Value-added service data. The `ValueAddedServiceType`, `ValueAddedSubServiceType`, `SalesOrder`, and `SalesOrderItem` fields are required; all other fields are optional. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include with the request. |
 
-**Returns:** `A_SlsOrdSimlnValAddedSrvcWrapper|error`
+Returns: `A_SlsOrdSimlnValAddedSrvcWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesOrderSim:A_SlsOrdSimlnValAddedSrvcWrapper result = check simClient->createA_SlsOrdSimlnValAddedSrvc({
@@ -277,7 +278,7 @@ salesOrderSim:A_SlsOrdSimlnValAddedSrvcWrapper result = check simClient->createA
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -304,7 +305,7 @@ salesOrderSim:A_SlsOrdSimlnValAddedSrvcWrapper result = check simClient->createA
 
 Updates specific fields of an existing value-added service entity using PATCH (partial update) semantics.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -315,9 +316,9 @@ Updates specific fields of an existing value-added service entity using PATCH (p
 | `payload` | `ModifiedA_SlsOrdSimlnValAddedSrvcType` | Yes | Wrapper record containing an `UpdateA_SlsOrdSimlnValAddedSrvc` value in its `d` field. Only the fields present in the payload are updated. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include with the request. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response response = check simClient->patchA_SlsOrdSimlnValAddedSrvc(
@@ -334,7 +335,7 @@ http:Response response = check simClient->patchA_SlsOrdSimlnValAddedSrvc(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP/1.1 204 No Content
@@ -351,7 +352,7 @@ HTTP/1.1 204 No Content
 
 Deletes a value-added service entity identified by its composite key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -361,9 +362,9 @@ Deletes a value-added service entity identified by its composite key.
 | `SalesOrderItem` | `string` | Yes | Sales order item number. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include with the request. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response response = check simClient->deleteA_SlsOrdSimlnValAddedSrvc(
@@ -374,7 +375,7 @@ http:Response response = check simClient->deleteA_SlsOrdSimlnValAddedSrvc(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP/1.1 204 No Content
@@ -384,7 +385,7 @@ HTTP/1.1 204 No Content
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>performBatchOperation</summary>
@@ -394,16 +395,16 @@ HTTP/1.1 204 No Content
 Sends a group of OData requests in a single HTTP batch call using the `$batch` endpoint, reducing round-trips when multiple operations need to be executed together.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `http:Request` | Yes | An HTTP request with `multipart/mixed` content type containing individual OData requests formatted per the OData batch specification. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include with the batch request. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Request batchRequest = new;
@@ -419,7 +420,7 @@ batchRequest.setTextPayload(
 http:Response batchResponse = check simClient->performBatchOperation(batchRequest);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP/1.1 200 OK

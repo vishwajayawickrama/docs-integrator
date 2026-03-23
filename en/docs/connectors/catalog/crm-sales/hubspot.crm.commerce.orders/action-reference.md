@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manage HubSpot order objects — CRUD, batch operations, and search.
 | `validation` | <code>boolean</code> | `true` | Enable payload validation. |
 | `laxDataBinding` | <code>boolean</code> | `true` | Allow lax data binding for responses. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -52,27 +53,27 @@ orders:Client ordersClient = check new ({
 
 ### Operations
 
-#### Single Order CRUD
+#### Single order CRUD
 
 <details>
 <summary>List</summary>
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieves a paginated list of order objects with optional property and association filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 | `queries` | <code>GetCrmV3ObjectsOrdersQueries</code> | No | Query parameters including `properties`, `associations`, `archived`, `limit`, and `after` for pagination. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
@@ -82,7 +83,7 @@ orders:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging respons
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -119,11 +120,11 @@ orders:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging respons
 
 <div>
 
-**Signature:** `get /[string orderId]`
+Signature: `get /[string orderId]`
 
 Retrieves a single order object by its ID, with optional property and association selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -131,9 +132,9 @@ Retrieves a single order object by its ID, with optional property and associatio
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 | `queries` | <code>GetCrmV3ObjectsOrdersOrderIdQueries</code> | No | Query parameters including `properties`, `associations`, `archived`, and `idProperty`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:SimplePublicObjectWithAssociations response =
@@ -142,7 +143,7 @@ orders:SimplePublicObjectWithAssociations response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -172,20 +173,20 @@ orders:SimplePublicObjectWithAssociations response =
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new order object with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | The order properties and associations to create. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:SimplePublicObject response = check ordersClient->/.post({
@@ -212,7 +213,7 @@ orders:SimplePublicObject response = check ordersClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -243,11 +244,11 @@ orders:SimplePublicObject response = check ordersClient->/.post({
 
 <div>
 
-**Signature:** `patch /[string orderId]`
+Signature: `patch /[string orderId]`
 
 Updates an existing order object's properties by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -256,9 +257,9 @@ Updates an existing order object's properties by its ID.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 | `queries` | <code>PatchCrmV3ObjectsOrdersOrderIdQueries</code> | No | Query parameters including `idProperty`. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:SimplePublicObject response = check ordersClient->/[orderId].patch({
@@ -268,7 +269,7 @@ orders:SimplePublicObject response = check ordersClient->/[orderId].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -295,20 +296,20 @@ orders:SimplePublicObject response = check ordersClient->/[orderId].patch({
 
 <div>
 
-**Signature:** `delete /[string orderId]`
+Signature: `delete /[string orderId]`
 
 Archives (soft-deletes) an order object by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `orderId` | <code>string</code> | Yes | The ID of the order to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check ordersClient->/[orderId].delete();
@@ -318,18 +319,18 @@ check ordersClient->/[orderId].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Read a batch of orders by internal ID, or unique property values</summary>
 
 <div>
 
-**Signature:** `post /batch/read`
+Signature: `post /batch/read`
 
 Reads a batch of order objects by their IDs or a unique property, with optional property selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -337,9 +338,9 @@ Reads a batch of order objects by their IDs or a unique property, with optional 
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 | `queries` | <code>PostCrmV3ObjectsOrdersBatchReadQueries</code> | No | Query parameters including `archived`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:BatchResponseSimplePublicObject|orders:BatchResponseSimplePublicObjectWithErrors response =
@@ -353,7 +354,7 @@ orders:BatchResponseSimplePublicObject|orders:BatchResponseSimplePublicObjectWit
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -396,20 +397,20 @@ orders:BatchResponseSimplePublicObject|orders:BatchResponseSimplePublicObjectWit
 
 <div>
 
-**Signature:** `post /batch/create`
+Signature: `post /batch/create`
 
 Creates multiple order objects in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | Batch input containing an array of order objects to create. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:BatchResponseSimplePublicObject|orders:BatchResponseSimplePublicObjectWithErrors response =
@@ -443,7 +444,7 @@ orders:BatchResponseSimplePublicObject|orders:BatchResponseSimplePublicObjectWit
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -484,20 +485,20 @@ orders:BatchResponseSimplePublicObject|orders:BatchResponseSimplePublicObjectWit
 
 <div>
 
-**Signature:** `post /batch/update`
+Signature: `post /batch/update`
 
 Updates multiple order objects in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | Batch input containing an array of order updates with IDs and properties. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:BatchResponseSimplePublicObject|orders:BatchResponseSimplePublicObjectWithErrors response =
@@ -519,7 +520,7 @@ orders:BatchResponseSimplePublicObject|orders:BatchResponseSimplePublicObjectWit
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -560,20 +561,20 @@ orders:BatchResponseSimplePublicObject|orders:BatchResponseSimplePublicObjectWit
 
 <div>
 
-**Signature:** `post /batch/upsert`
+Signature: `post /batch/upsert`
 
 Creates or updates multiple order objects in a single request, matched by a unique property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | Batch input containing an array of order upsert objects with IDs and properties. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:BatchResponseSimplePublicUpsertObject|orders:BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -592,7 +593,7 @@ orders:BatchResponseSimplePublicUpsertObject|orders:BatchResponseSimplePublicUps
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -625,20 +626,20 @@ orders:BatchResponseSimplePublicUpsertObject|orders:BatchResponseSimplePublicUps
 
 <div>
 
-**Signature:** `post /batch/archive`
+Signature: `post /batch/archive`
 
 Archives (soft-deletes) multiple order objects in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | Batch input containing an array of order IDs to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check ordersClient->/batch/archive.post({
@@ -660,20 +661,20 @@ check ordersClient->/batch/archive.post({
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for order objects using filters, query text, sorting, and property selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search request with optional `query`, `filterGroups`, `sorts`, `properties`, `limit`, and `after`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Headers to be sent with the request. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 orders:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -694,7 +695,7 @@ orders:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

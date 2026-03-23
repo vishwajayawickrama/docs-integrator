@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Perform CRUD, batch, search, and merge operations on HubSpot CRM company records
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable constraint validation on request and response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.obj.companies;
@@ -48,7 +49,7 @@ companies:Client hubspotClient = check new ({
 
 ### Operations
 
-#### Single Record Operations
+#### Single record operations
 
 <details>
 <summary>List</summary>
@@ -57,15 +58,15 @@ companies:Client hubspotClient = check new ({
 
 Returns a paginated list of company records. Supports filtering by archived status and retrieving specific properties and associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetCrmV3ObjectsCompaniesGetPageQueries` | No | Optional query parameters: `limit` (default 10), `after` (pagination cursor), `properties`, `propertiesWithHistory`, `associations`, `archived`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging page =
@@ -75,7 +76,7 @@ companies:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging page
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -114,15 +115,15 @@ companies:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging page
 
 Creates a new company record with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SimplePublicObjectInputForCreate` | Yes | Company properties to set on creation and optional associations to link. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:SimplePublicObject company = check hubspotClient->/companies.post({
@@ -135,7 +136,7 @@ companies:SimplePublicObject company = check hubspotClient->/companies.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -165,16 +166,16 @@ companies:SimplePublicObject company = check hubspotClient->/companies.post({
 
 Reads a single company record by its internal HubSpot ID, returning the requested properties and associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `companyId` | `string` | Yes | The internal HubSpot company ID. |
 | `queries` | `GetCrmV3ObjectsCompaniesCompanyIdGetByIdQueries` | No | Optional query parameters: `properties`, `propertiesWithHistory`, `associations`, `archived`, `idProperty`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:SimplePublicObjectWithAssociations company =
@@ -183,7 +184,7 @@ companies:SimplePublicObjectWithAssociations company =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -212,7 +213,7 @@ companies:SimplePublicObjectWithAssociations company =
 
 Updates an existing company record's properties by its internal ID or a unique custom property value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -220,9 +221,9 @@ Updates an existing company record's properties by its internal ID or a unique c
 | `payload` | `SimplePublicObjectInput` | Yes | The company properties to update. |
 | `queries` | `PatchCrmV3ObjectsCompaniesCompanyIdUpdateQueries` | No | Optional `idProperty` to identify the record by a unique custom property instead of the internal ID. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:SimplePublicObject updated = check hubspotClient->/companies/["67890"].patch({
@@ -234,7 +235,7 @@ companies:SimplePublicObject updated = check hubspotClient->/companies/["67890"]
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -262,15 +263,15 @@ companies:SimplePublicObject updated = check hubspotClient->/companies/["67890"]
 
 Archives (soft-deletes) a company record by its internal HubSpot ID. Archived records are hidden from default queries but can be restored.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `companyId` | `string` | Yes | The internal HubSpot company ID to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/companies/["67890"].delete();
@@ -287,15 +288,15 @@ check hubspotClient->/companies/["67890"].delete();
 
 Merges two company records into one, retaining the primary record and archiving the secondary.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicMergeInput` | Yes | Specifies `primaryObjectId` (record to keep) and `objectIdToMerge` (record to archive). |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:SimplePublicObject merged = check hubspotClient->/companies/merge.post({
@@ -304,7 +305,7 @@ companies:SimplePublicObject merged = check hubspotClient->/companies/merge.post
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -331,15 +332,15 @@ companies:SimplePublicObject merged = check hubspotClient->/companies/merge.post
 
 Searches company records using filter groups, property projections, and sort criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicObjectSearchRequest` | Yes | Search request containing `filterGroups`, `properties`, `sorts`, `limit`, `after`, and an optional full-text `query`. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:CollectionResponseWithTotalSimplePublicObjectForwardPaging result =
@@ -360,7 +361,7 @@ companies:CollectionResponseWithTotalSimplePublicObjectForwardPaging result =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -396,7 +397,7 @@ companies:CollectionResponseWithTotalSimplePublicObjectForwardPaging result =
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of companies</summary>
@@ -405,15 +406,15 @@ companies:CollectionResponseWithTotalSimplePublicObjectForwardPaging result =
 
 Creates multiple company records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectInputForCreate` | Yes | Array of company objects to create, each with `properties` and optional `associations`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:BatchResponseSimplePublicObject|companies:BatchResponseSimplePublicObjectWithErrors batchResult =
@@ -425,7 +426,7 @@ companies:BatchResponseSimplePublicObject|companies:BatchResponseSimplePublicObj
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -470,16 +471,16 @@ companies:BatchResponseSimplePublicObject|companies:BatchResponseSimplePublicObj
 
 Reads multiple company records by their internal IDs or unique property values in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchReadInputSimplePublicObjectId` | Yes | Array of record IDs to fetch and the list of properties to return for each. |
 | `queries` | `PostCrmV3ObjectsCompaniesBatchReadReadQueries` | No | Optional `archived` boolean to include archived records (default `false`). |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:BatchResponseSimplePublicObject|companies:BatchResponseSimplePublicObjectWithErrors batchResult =
@@ -489,7 +490,7 @@ companies:BatchResponseSimplePublicObject|companies:BatchResponseSimplePublicObj
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -534,15 +535,15 @@ companies:BatchResponseSimplePublicObject|companies:BatchResponseSimplePublicObj
 
 Updates multiple company records in a single request, each identified by an internal ID or a unique property value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInput` | Yes | Array of update items, each with `id`, optional `idProperty`, and the `properties` to set. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:BatchResponseSimplePublicObject|companies:BatchResponseSimplePublicObjectWithErrors batchResult =
@@ -554,7 +555,7 @@ companies:BatchResponseSimplePublicObject|companies:BatchResponseSimplePublicObj
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -599,15 +600,15 @@ companies:BatchResponseSimplePublicObject|companies:BatchResponseSimplePublicObj
 
 Creates or updates a batch of companies matched by a unique property value. If a matching record is found it is updated; otherwise a new record is created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInputUpsert` | Yes | Array of upsert items, each with `id` (unique property value), `idProperty` (unique property name), and `properties` to set. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 companies:BatchResponseSimplePublicUpsertObject|companies:BatchResponseSimplePublicUpsertObjectWithErrors upsertResult =
@@ -622,7 +623,7 @@ companies:BatchResponseSimplePublicUpsertObject|companies:BatchResponseSimplePub
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -658,15 +659,15 @@ companies:BatchResponseSimplePublicUpsertObject|companies:BatchResponseSimplePub
 
 Archives multiple company records in a single request using their internal IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectId` | Yes | Array of internal company IDs to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/companies/batch/archive.post({

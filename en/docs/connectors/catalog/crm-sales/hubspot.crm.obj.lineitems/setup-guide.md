@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a HubSpot Private App and obtaining the access token required to authenticate the HubSpot CRM Line Items connector.
@@ -7,19 +10,19 @@ This guide walks you through creating a HubSpot Private App and obtaining the ac
 
 - A HubSpot account with CRM access. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup-hubspot/crm).
 
-## Step 1: Navigate to Private Apps
+## Step 1: Navigate to private apps
 
 1. Log in to your HubSpot account.
 2. Click the **Settings** icon (gear icon) in the top navigation bar.
 3. In the left sidebar, navigate to **Integrations** > **Private Apps**.
 
-## Step 2: Create a New Private App
+## Step 2: Create a new private app
 
 1. Click **Create a private app** in the top-right corner.
 2. On the **Basic Info** tab, enter a name for your app (e.g., `Ballerina Line Items Connector`) and optionally a description and logo.
 3. Click the **Scopes** tab.
 
-## Step 3: Configure Required Scopes
+## Step 3: Configure required scopes
 
 Under the **Scopes** tab, search for and enable the following CRM object scopes:
 
@@ -32,7 +35,7 @@ Add any additional scopes your integration requires (e.g., deal or product scope
 Grant only the scopes your integration actually needs. Overly broad permissions increase security risk.
 :::
 
-## Step 4: Create the App and Copy the Access Token
+## Step 4: Create the app and copy the access token
 
 1. Click **Create app** in the top-right corner.
 2. Review the access token warning dialog and click **Continue creating**.
@@ -43,7 +46,7 @@ Grant only the scopes your integration actually needs. Overly broad permissions 
 The access token is shown only once. Store it securely (e.g., in a secrets manager or Ballerina `Config.toml`). Do not commit it to source control. If lost, you can regenerate the token from the Private App settings page.
 :::
 
-## Step 5: Set Up OAuth 2.0 (Optional — for production apps)
+## Step 5: Set up OAuth 2.0 (optional — for production apps)
 
 For production integrations or apps distributed to multiple HubSpot portals, use OAuth 2.0
 instead of a Private App token:

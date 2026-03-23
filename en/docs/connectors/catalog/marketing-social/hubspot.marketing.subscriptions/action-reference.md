@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -32,7 +33,7 @@ Manages contact subscription statuses, opt-outs, and subscription definitions vi
 | `validation` | `boolean` | `true` | Enable/disable constraint validation. |
 | `laxDataBinding` | `boolean` | `true` | Enable/disable lax data binding. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.marketing.subscriptions as hsmsubscriptions;
@@ -53,7 +54,7 @@ hsmsubscriptions:Client subscriptionsClient = check new ({
 
 ### Operations
 
-#### Subscription Status — Single Contact
+#### Subscription status — single contact
 
 <details>
 <summary>getCommunicationPreferencesV4StatusesSubscriberIdString</summary>
@@ -62,7 +63,7 @@ hsmsubscriptions:Client subscriptionsClient = check new ({
 
 Retrieves the subscription statuses for a specific contact on a given channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -70,9 +71,9 @@ Retrieves the subscription statuses for a specific contact on a given channel.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetCommunicationPreferencesV4StatusesSubscriberIdStringQueries` | Yes | Query parameters including `channel` (required) and optional `businessUnitId`. |
 
-**Returns:** `ActionResponseWithResultsPublicStatus|error`
+Returns: `ActionResponseWithResultsPublicStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
@@ -82,7 +83,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -116,7 +117,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
 
 Updates the subscription status for a specific contact.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -124,9 +125,9 @@ Updates the subscription status for a specific contact.
 | `payload` | `PartialPublicStatusRequest` | Yes | The subscription status update payload including `statusState`, `channel`, and `subscriptionId`. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ActionResponseWithResultsPublicStatus|error`
+Returns: `ActionResponseWithResultsPublicStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
@@ -142,7 +143,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -170,7 +171,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
 
 </details>
 
-#### Unsubscribe All — Single Contact
+#### Unsubscribe all — single contact
 
 <details>
 <summary>getCommunicationPreferencesV4StatusesSubscriberIdStringUnsubscribeAll</summary>
@@ -179,7 +180,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
 
 Retrieves the opt-out-of-all (wide) status for a specific contact on a given channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -187,9 +188,9 @@ Retrieves the opt-out-of-all (wide) status for a specific contact on a given cha
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetCommunicationPreferencesV4StatusesSubscriberIdStringUnsubscribeAllQueries` | Yes | Query parameters including `channel` (required), optional `businessUnitId` and `verbose`. |
 
-**Returns:** `ActionResponseWithResultsPublicWideStatus|error`
+Returns: `ActionResponseWithResultsPublicWideStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmsubscriptions:ActionResponseWithResultsPublicWideStatus response =
@@ -199,7 +200,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicWideStatus response =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -229,7 +230,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicWideStatus response =
 
 Unsubscribes a contact from all communication subscriptions on a given channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -237,9 +238,9 @@ Unsubscribes a contact from all communication subscriptions on a given channel.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `PostCommunicationPreferencesV4StatusesSubscriberIdStringUnsubscribeAllQueries` | Yes | Query parameters including `channel` (required), optional `businessUnitId` and `verbose`. |
 
-**Returns:** `ActionResponseWithResultsPublicStatus|error`
+Returns: `ActionResponseWithResultsPublicStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
@@ -249,7 +250,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -275,7 +276,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
 
 </details>
 
-#### Batch Subscription Operations
+#### Batch subscription operations
 
 <details>
 <summary>postCommunicationPreferencesV4StatusesBatchRead</summary>
@@ -284,7 +285,7 @@ hsmsubscriptions:ActionResponseWithResultsPublicStatus response =
 
 Batch retrieves subscription statuses for multiple contacts on a given channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -292,9 +293,9 @@ Batch retrieves subscription statuses for multiple contacts on a given channel.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `PostCommunicationPreferencesV4StatusesBatchReadQueries` | Yes | Query parameters including `channel` (required) and optional `businessUnitId`. |
 
-**Returns:** `BatchResponsePublicStatusBulkResponse|BatchResponsePublicStatusBulkResponseWithErrors|error`
+Returns: `BatchResponsePublicStatusBulkResponse|BatchResponsePublicStatusBulkResponseWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmsubscriptions:BatchResponsePublicStatusBulkResponse|hsmsubscriptions:BatchResponsePublicStatusBulkResponseWithErrors response =
@@ -304,7 +305,7 @@ hsmsubscriptions:BatchResponsePublicStatusBulkResponse|hsmsubscriptions:BatchRes
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -355,16 +356,16 @@ hsmsubscriptions:BatchResponsePublicStatusBulkResponse|hsmsubscriptions:BatchRes
 
 Batch updates subscription statuses for multiple contacts.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputPublicStatusRequest` | Yes | A batch input containing an array of `PublicStatusRequest` records. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponsePublicStatus|error`
+Returns: `BatchResponsePublicStatus|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmsubscriptions:BatchResponsePublicStatus response =
@@ -390,7 +391,7 @@ hsmsubscriptions:BatchResponsePublicStatus response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -437,7 +438,7 @@ hsmsubscriptions:BatchResponsePublicStatus response =
 
 Batch unsubscribes multiple contacts from all communication subscriptions on a given channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -445,9 +446,9 @@ Batch unsubscribes multiple contacts from all communication subscriptions on a g
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `PostCommunicationPreferencesV4StatusesBatchUnsubscribeAllQueries` | Yes | Query parameters including `channel` (required), optional `businessUnitId` and `verbose`. |
 
-**Returns:** `BatchResponsePublicBulkOptOutFromAllResponse|error`
+Returns: `BatchResponsePublicBulkOptOutFromAllResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmsubscriptions:BatchResponsePublicBulkOptOutFromAllResponse response =
@@ -457,7 +458,7 @@ hsmsubscriptions:BatchResponsePublicBulkOptOutFromAllResponse response =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -506,7 +507,7 @@ hsmsubscriptions:BatchResponsePublicBulkOptOutFromAllResponse response =
 
 Batch retrieves the opt-out-of-all (wide) statuses for multiple contacts on a given channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -514,9 +515,9 @@ Batch retrieves the opt-out-of-all (wide) statuses for multiple contacts on a gi
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `PostCommunicationPreferencesV4StatusesBatchUnsubscribeAllReadQueries` | Yes | Query parameters including `channel` (required) and optional `businessUnitId`. |
 
-**Returns:** `BatchResponsePublicWideStatusBulkResponse|BatchResponsePublicWideStatusBulkResponseWithErrors|error`
+Returns: `BatchResponsePublicWideStatusBulkResponse|BatchResponsePublicWideStatusBulkResponseWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmsubscriptions:BatchResponsePublicWideStatusBulkResponse|hsmsubscriptions:BatchResponsePublicWideStatusBulkResponseWithErrors response =
@@ -526,7 +527,7 @@ hsmsubscriptions:BatchResponsePublicWideStatusBulkResponse|hsmsubscriptions:Batc
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -566,7 +567,7 @@ hsmsubscriptions:BatchResponsePublicWideStatusBulkResponse|hsmsubscriptions:Batc
 
 </details>
 
-#### Subscription Definitions
+#### Subscription definitions
 
 <details>
 <summary>getCommunicationPreferencesV4Definitions</summary>
@@ -575,23 +576,23 @@ hsmsubscriptions:BatchResponsePublicWideStatusBulkResponse|hsmsubscriptions:Batc
 
 Retrieves all subscription definitions configured in the HubSpot portal.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetCommunicationPreferencesV4DefinitionsQueries` | No | Query parameters including optional `includeTranslations` and `businessUnitId`. |
 
-**Returns:** `ActionResponseWithResultsSubscriptionDefinition|error`
+Returns: `ActionResponseWithResultsSubscriptionDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsmsubscriptions:ActionResponseWithResultsSubscriptionDefinition response =
     check subscriptionsClient->getCommunicationPreferencesV4Definitions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

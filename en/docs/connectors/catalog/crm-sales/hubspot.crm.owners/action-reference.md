@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Access the HubSpot Owners API to list and retrieve owner information.
 | `compression` | <code>http:Compression</code> | `http:COMPRESSION_AUTO` | HTTP compression configuration. |
 | `validation` | <code>boolean</code> | `true` | Enable/disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -52,18 +53,18 @@ hsowners:Client hubspot = check new ({auth});
 
 ### Operations
 
-#### Owner Retrieval
+#### Owner retrieval
 
 <details>
 <summary>Get a page of owners</summary>
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieves a paginated list of owners for the account. Supports filtering by email address and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -72,9 +73,9 @@ Retrieves a paginated list of owners for the account. Supports filtering by emai
 | `'limit` | <code>int:Signed32</code> | No | Maximum number of results to return per page (default 100). |
 | `archived` | <code>boolean</code> | No | Whether to return only archived owners (default `false`). |
 
-**Returns:** `CollectionResponsePublicOwnerForwardPaging|error`
+Returns: `CollectionResponsePublicOwnerForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsowners:CollectionResponsePublicOwnerForwardPaging response = check hubspot->/();
@@ -83,7 +84,7 @@ foreach hsowners:PublicOwner owner in response.results {
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -126,11 +127,11 @@ foreach hsowners:PublicOwner owner in response.results {
 
 <div>
 
-**Signature:** `get /[int:Signed32 ownerId]`
+Signature: `get /[int:Signed32 ownerId]`
 
 Retrieves a single owner by their numeric owner ID or userId.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -138,15 +139,15 @@ Retrieves a single owner by their numeric owner ID or userId.
 | `idProperty` | <code>"id"&#124;"userId"</code> | No | Which property to use for lookup — `"id"` (default) or `"userId"`. |
 | `archived` | <code>boolean</code> | No | Whether to return only archived owners (default `false`). |
 
-**Returns:** `PublicOwner|error`
+Returns: `PublicOwner|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsowners:PublicOwner owner = check hubspot->/[12345]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

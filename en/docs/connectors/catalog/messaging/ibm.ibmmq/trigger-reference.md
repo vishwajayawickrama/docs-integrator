@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/ibm.ibmmq` connector supports event-driven message consumption through an `ibmmq:Listener`. The listener connects to an IBM MQ queue manager, polls for messages on a configured queue or topic subscription, and invokes your service's `onMessage` callback for each message received.
@@ -28,7 +31,7 @@ The listener supports the following connection strategies:
 |-------------|-------------|
 | `QueueManagerConfiguration` | Connection configuration for the IBM MQ queue manager. Uses the same configuration as `QueueManager`. |
 
-**`QueueManagerConfiguration` fields:**
+`QueueManagerConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -41,7 +44,7 @@ The listener supports the following connection strategies:
 | `sslCipherSuite` | `SslCipherSuite` | `()` | SSL cipher suite for secure connections. |
 | `secureSocket` | `SecureSocket` | `()` | SSL/TLS trust store and key store configuration. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Basic listener initialization:**
 
@@ -74,7 +77,7 @@ listener ibmmq:Listener ibmmqListener = new (
 An `ibmmq:Service` is a Ballerina service attached to an `ibmmq:Listener`. It is annotated with `@ibmmq:ServiceConfig` to specify the queue or topic to consume from, and implements the `onMessage` callback to process incoming messages.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -85,7 +88,7 @@ The `@ibmmq:ServiceConfig` annotation accepts either a `QueueConfig` (with `queu
 
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -127,7 +130,7 @@ For transactional processing, set `sessionAckMode: ibmmq:SESSION_TRANSACTED` in 
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `Message`
 

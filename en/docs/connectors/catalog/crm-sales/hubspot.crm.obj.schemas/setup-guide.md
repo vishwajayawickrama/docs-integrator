@@ -12,7 +12,7 @@ This guide walks you through creating a HubSpot Private App and obtaining the ac
 
 - A HubSpot account with permission to create and manage custom objects. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 
-## Create a HubSpot Private App
+## Create a HubSpot private app
 
 1. Log in to your HubSpot account.
 2. Click the **Settings** (gear) icon in the top navigation bar.
@@ -21,7 +21,7 @@ This guide walks you through creating a HubSpot Private App and obtaining the ac
 5. Under the **Basic Info** tab, enter a name (e.g., `Ballerina Schemas Connector`) and an optional description for your app.
 
 
-## Configure Scopes
+## Configure scopes
 
 1. Click the **Scopes** tab.
 2. Search for and select the following scopes required by the Schemas API:
@@ -34,7 +34,7 @@ This guide walks you through creating a HubSpot Private App and obtaining the ac
 Grant only the minimum scopes your integration needs. You can edit scopes later, but doing so invalidates the existing access token and requires you to generate a new one.
 :::
 
-## Create the App and Copy the Access Token
+## Create the app and copy the access token
 
 1. Click **Create app** (top right). Review the scopes summary and confirm by clicking **Continue creating**.
 2. After the app is created, HubSpot displays your **Access token** on the app detail page.
@@ -45,7 +45,7 @@ Grant only the minimum scopes your integration needs. You can edit scopes later,
 The access token is shown only once immediately after creation. Store it securely in a secrets manager or Ballerina's `Config.toml`. Do not commit it to source control.
 :::
 
-## Obtain OAuth 2.0 Credentials (alternative)
+## Obtain OAuth 2.0 credentials (alternative)
 
 If you prefer OAuth 2.0 with a refresh token instead of a static access token:
 
@@ -70,6 +70,6 @@ If you prefer OAuth 2.0 with a refresh token instead of a static access token:
 The HubSpot token refresh endpoint used by this connector is `https://api.hubapi.com/oauth/v1/token`.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

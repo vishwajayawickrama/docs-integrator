@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manage HubSpot commerce tax objects — CRUD, search, and batch operations.
 | `validation` | <code>boolean</code> | `true` | Enable/disable payload validation. |
 | `laxDataBinding` | <code>boolean</code> | `true` | Allow lax data binding for response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.commerce.taxes;
@@ -52,18 +53,18 @@ taxes:Client taxesClient = check new ({
 
 ### Operations
 
-#### Single Record Operations
+#### Single record operations
 
 <details>
 <summary>List taxes</summary>
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieves a paginated list of tax objects, with optional filtering by properties, associations, and archived status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -74,9 +75,9 @@ Retrieves a paginated list of tax objects, with optional filtering by properties
 | `archived` | <code>boolean</code> | No | Whether to return only archived results (default false). |
 | `propertiesWithHistory` | <code>string[]?</code> | No | Properties to return with their history of previous values. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
@@ -86,7 +87,7 @@ CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -123,19 +124,19 @@ CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new tax object with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | Tax record data including properties (e.g., `hs_label`, `hs_value`, `hs_type`) and optional associations. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 SimplePublicObject response = check taxesClient->/.post({
@@ -148,7 +149,7 @@ SimplePublicObject response = check taxesClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -175,11 +176,11 @@ SimplePublicObject response = check taxesClient->/.post({
 
 <div>
 
-**Signature:** `get /[taxId]`
+Signature: `get /[taxId]`
 
 Retrieves a single tax object by its ID, with optional properties and associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -190,9 +191,9 @@ Retrieves a single tax object by its ID, with optional properties and associatio
 | `idProperty` | <code>string?</code> | No | The name of a property whose values are unique for this object type. |
 | `propertiesWithHistory` | <code>string[]?</code> | No | Properties to return with their history of previous values. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 SimplePublicObjectWithAssociations response =
@@ -201,7 +202,7 @@ SimplePublicObjectWithAssociations response =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -228,11 +229,11 @@ SimplePublicObjectWithAssociations response =
 
 <div>
 
-**Signature:** `patch /[taxId]`
+Signature: `patch /[taxId]`
 
 Updates the properties of an existing tax object identified by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -240,9 +241,9 @@ Updates the properties of an existing tax object identified by its ID.
 | `payload` | <code>SimplePublicObjectInput</code> | Yes | Updated properties for the tax record. |
 | `idProperty` | <code>string?</code> | No | The name of a property whose values are unique for this object type. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 SimplePublicObject response = check taxesClient->/[taxId].patch({
@@ -253,7 +254,7 @@ SimplePublicObject response = check taxesClient->/[taxId].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -280,19 +281,19 @@ SimplePublicObject response = check taxesClient->/[taxId].patch({
 
 <div>
 
-**Signature:** `delete /[taxId]`
+Signature: `delete /[taxId]`
 
 Archives (soft-deletes) a tax object by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `taxId` | <code>string</code> | Yes | The ID of the tax object to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check taxesClient->/[taxId].delete();
@@ -309,19 +310,19 @@ check taxesClient->/[taxId].delete();
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for tax objects using filters, query text, sorting, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search request with optional query string, filter groups, sorts, properties, limit, and paging cursor. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -333,7 +334,7 @@ CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -369,26 +370,26 @@ CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Batch create taxes</summary>
 
 <div>
 
-**Signature:** `post /batch/create`
+Signature: `post /batch/create`
 
 Creates multiple tax objects in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | Batch input containing an array of tax records to create. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response =
@@ -414,7 +415,7 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -461,20 +462,20 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
 
 <div>
 
-**Signature:** `post /batch/read`
+Signature: `post /batch/read`
 
 Reads a batch of tax objects by their IDs or unique property values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchReadInputSimplePublicObjectId</code> | Yes | Batch read input with IDs, properties to return, and optional ID property name. |
 | `archived` | <code>boolean</code> | No | Whether to return archived results (default false). |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response =
@@ -485,7 +486,7 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -528,19 +529,19 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
 
 <div>
 
-**Signature:** `post /batch/update`
+Signature: `post /batch/update`
 
 Updates multiple tax objects in a single request by their IDs or unique property values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | Batch input containing an array of tax records with IDs and updated properties. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response =
@@ -562,7 +563,7 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -607,19 +608,19 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
 
 <div>
 
-**Signature:** `post /batch/upsert`
+Signature: `post /batch/upsert`
 
 Creates or updates a batch of tax objects by unique property values. If a record with the given ID property exists it is updated; otherwise a new record is created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | Batch upsert input containing an array of tax records with IDs and properties. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -637,7 +638,7 @@ BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -671,19 +672,19 @@ BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithE
 
 <div>
 
-**Signature:** `post /batch/archive`
+Signature: `post /batch/archive`
 
 Archives multiple tax objects in a single request by their IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | Batch input containing an array of tax object IDs to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check taxesClient->/batch/archive.post({

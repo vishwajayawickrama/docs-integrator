@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating an Anthropic account and obtaining the API key required to use the Anthropic LLM connector.
@@ -7,18 +10,18 @@ This guide walks you through creating an Anthropic account and obtaining the API
 
 - An active Anthropic account. If you do not have one, [sign up at anthropic.com](https://www.anthropic.com/signup).
 
-## Step 1: Create an Anthropic Account
+## Step 1: Create an Anthropic account
 
 1. Go to [https://www.anthropic.com/signup](https://www.anthropic.com/signup).
 2. Sign up using your email address or a supported SSO provider.
 3. Verify your email address to activate your account.
 
-## Step 2: Navigate to the API Keys Page
+## Step 2: Navigate to the API keys page
 
 1. Log in to the [Anthropic Console](https://console.anthropic.com/).
 2. Click on **API Keys** in the left-hand sidebar (or navigate to **Settings > API Keys**).
 
-## Step 3: Generate a New API Key
+## Step 3: Generate a new API key
 
 1. Click **Create Key**.
 2. Give your key a descriptive name (e.g., `Ballerina Connector`).

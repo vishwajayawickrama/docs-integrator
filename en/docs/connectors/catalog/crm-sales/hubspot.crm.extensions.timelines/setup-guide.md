@@ -13,7 +13,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 - A HubSpot developer account. If you do not have one, [sign up for free](https://developers.hubspot.com/get-started).
 - A HubSpot test account (sandbox) associated with your developer account.
 
-## Create a HubSpot Developer App
+## Create a HubSpot developer app
 
 1. Log in to your [HubSpot Developer Account](https://app.hubspot.com/signup-hubspot/developers).
 2. Navigate to **Apps** in the top navigation bar.
@@ -22,7 +22,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 5. Note the **App ID** displayed on the app settings page — you will need it for template operations.
 
 
-## Configure OAuth 2.0 Scopes
+## Configure OAuth 2.0 scopes
 
 1. In your app settings, go to the **Auth** tab.
 2. Under **Scopes**, add the following scopes:
@@ -37,7 +37,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 The timeline scope is required for creating and managing timeline events on CRM records.
 :::
 
-## Obtain OAuth 2.0 Refresh Token
+## Obtain OAuth 2.0 refresh token
 
 1. Construct the authorization URL:
 
@@ -67,7 +67,7 @@ The timeline scope is required for creating and managing timeline events on CRM 
 Use a tool like Postman or curl to perform the token exchange.
 :::
 
-## Obtain a Private App Access Token (Alternative)
+## Obtain a private app access token (alternative)
 
 If you prefer API key-based authentication using a private app:
 
@@ -82,6 +82,6 @@ If you prefer API key-based authentication using a private app:
 Private app tokens are used with the Bearer Token or API Keys authentication methods.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

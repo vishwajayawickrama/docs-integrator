@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a DocuSign developer account and obtaining the OAuth 2.0 credentials required to use the DocuSign Admin connector.
@@ -8,7 +11,7 @@ This guide walks you through creating a DocuSign developer account and obtaining
 - A DocuSign developer account. If you do not have one, [sign up for free](https://go.docusign.com/o/sandbox/) at the [DocuSign Developer Center](https://developers.docusign.com/).
 - Organization Admin privileges in your DocuSign account to access the Admin API.
 
-## Step 1: Create an Integration Key and Secret Key
+## Step 1: Create an integration key and secret key
 
 1. Log in to the DocuSign Developer portal.
 2. Navigate to the [Apps and Keys](https://admindemo.docusign.com/apps-and-keys) page.
@@ -20,13 +23,13 @@ This guide walks you through creating a DocuSign developer account and obtaining
 Store the Integration Key and Secret Key securely. Do not commit them to source control.
 :::
 
-## Step 2: Add a Redirect URI
+## Step 2: Add a redirect URI
 
 1. On the same app configuration page, under **Additional settings**, click **Add URI**.
 2. Enter your redirect URI (e.g., `http://www.example.com/callback`).
 3. Save the changes.
 
-## Step 3: Generate a Refresh Token
+## Step 3: Generate a refresh token
 
 1. Generate the **Encoded Key** by Base64-encoding your Integration Key and Secret Key in the format `IntegrationKey:SecretKey`. You can use a browser console: `btoa('IntegrationKey:SecretKey')`.
 
@@ -58,7 +61,7 @@ Use a tool like Postman or curl to perform the token exchange.
 The scopes requested above (organization_read, group_read, account_read, permission_read, user_read, user_write) cover Admin API operations. Adjust scopes based on your use case.
 :::
 
-## Step 4: Prepare for Production (Go Live)
+## Step 4: Prepare for production (go live)
 
 The steps above use the DocuSign developer (demo) environment. When your application is
 ready for production, follow the [DocuSign Go Live](https://developers.docusign.com/docs/admin-api/go-live/)

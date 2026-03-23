@@ -1,9 +1,12 @@
+---
+title: Gmail Connector Overview
+---
 # Gmail Connector Overview
 
 Gmail is Google's email service, offering sending, receiving, and organizing email at scale. The Ballerina `ballerinax/googleapis.gmail` connector (v4.2.0) provides programmatic access to the Gmail REST API, enabling you to manage messages, drafts, threads, labels, and mailbox history within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Send plain-text and HTML emails with inline images and file attachments
 - List, read, modify, trash, untrash, and permanently delete messages
@@ -25,14 +28,14 @@ Actions are operations you invoke on Gmail from your integration — sending ema
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## Gmail Connector Documentation
+## Gmail connector documentation
 
 * **[Gmail Connector Setup Guide](setup-guide.md)**: This guide walks you through enabling the Gmail API in Google Cloud and obtaining the OAuth 2.0 credentials required to use the Gmail connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

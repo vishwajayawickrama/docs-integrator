@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -15,7 +16,7 @@ For event-driven integration, see the [Trigger Reference](trigger-reference.md).
 
 ---
 
-## Message Producer
+## Message producer
 
 Publishes messages to Solace queues and topics with optional transacted session support.
 
@@ -34,7 +35,7 @@ Publishes messages to Solace queues and topics with optional transacted session 
 | `compressionLevel` | `int` | `0` | ZLIB compression level (0–9, where 0 is no compression). |
 | `retryConfig` | `RetryConfig` | `()` | Reconnection retry configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/solace;
@@ -62,15 +63,15 @@ solace:MessageProducer producer = check new (
 
 Publishes a message to the configured destination (queue or topic).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `solace:Message` | Yes | The message to send, containing payload and optional properties. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->send({
@@ -83,7 +84,7 @@ check producer->send({
 
 </details>
 
-#### Transaction Control
+#### Transaction control
 
 <details>
 <summary>commit</summary>
@@ -93,9 +94,9 @@ check producer->send({
 Commits all pending messages in the current transacted session.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->send({payload: "message-1"});
@@ -115,9 +116,9 @@ check producer->'commit();
 Rolls back all pending messages in the current transacted session.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->'rollback();
@@ -137,9 +138,9 @@ check producer->'rollback();
 Closes the producer and releases all associated resources.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check producer->close();
@@ -151,7 +152,7 @@ check producer->close();
 
 ---
 
-## Message Consumer
+## Message consumer
 
 Consumes messages from Solace queues and topics with blocking/non-blocking receive and data binding.
 
@@ -170,7 +171,7 @@ Consumes messages from Solace queues and topics with blocking/non-blocking recei
 | `compressionLevel` | `int` | `0` | ZLIB compression level (0–9, where 0 is no compression). |
 | `retryConfig` | `RetryConfig` | `()` | Reconnection retry configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/solace;
@@ -189,7 +190,7 @@ solace:MessageConsumer consumer = check new (
 
 ### Operations
 
-#### Receiving Messages
+#### Receiving messages
 
 <details>
 <summary>receive</summary>
@@ -198,22 +199,22 @@ solace:MessageConsumer consumer = check new (
 
 Blocking receive that waits up to the specified timeout for a message. Returns `()` if no message is available within the timeout period. Supports data binding via the type parameter.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `timeout` | `decimal` | No | Maximum time in seconds to wait for a message. Defaults to `10.0`. |
 | `T` | `typedesc<Message>` | No | Expected message type for data binding. |
 
-**Returns:** `T|error?`
+Returns: `T|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 solace:Message? message = check consumer->receive(5.0);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"payload": "Hello from Ballerina!", "properties": {"correlationKey": "order-123"}, "messageId": "ID:fe80::1%lo0164b8c7e4ce800001", "timestamp": 1710590400000, "destination": {"queueName": "my-queue"}, "redelivered": false}
@@ -230,21 +231,21 @@ solace:Message? message = check consumer->receive(5.0);
 
 Non-blocking receive that returns immediately. Returns `()` if no message is currently available. Supports data binding via the type parameter.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `T` | `typedesc<Message>` | No | Expected message type for data binding. |
 
-**Returns:** `T|error?`
+Returns: `T|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 solace:Message? message = check consumer->receiveNoWait();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"payload": "Quick message", "destination": {"queueName": "my-queue"}, "redelivered": false}
@@ -263,15 +264,15 @@ solace:Message? message = check consumer->receiveNoWait();
 
 Explicitly acknowledges a message. Required when using `CLIENT_ACKNOWLEDGE` mode.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `solace:Message` | Yes | The message to acknowledge. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 solace:Message? message = check consumer->receive(5.0);
@@ -284,7 +285,7 @@ if message is solace:Message {
 
 </details>
 
-#### Transaction Control
+#### Transaction control
 
 <details>
 <summary>commit</summary>
@@ -294,9 +295,9 @@ if message is solace:Message {
 Commits all received messages in the current transacted session.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 solace:Message? msg1 = check consumer->receive(5.0);
@@ -316,9 +317,9 @@ check consumer->'commit();
 Rolls back the current transacted session. All uncommitted messages will be redelivered.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->'rollback();
@@ -338,9 +339,9 @@ check consumer->'rollback();
 Closes the consumer and releases all associated resources.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check consumer->close();

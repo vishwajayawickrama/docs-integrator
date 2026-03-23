@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Provides full CRUD, batch operations, and search for HubSpot CRM Line Item recor
 | `proxy` | `ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable/disable constraint validation on request/response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.obj.lineitems as hslineitems;
@@ -50,7 +51,7 @@ hslineitems:Client hsLineItems = check new ({
 
 ### Operations
 
-#### Single Record Operations
+#### Single record operations
 
 <details>
 <summary>List a page of line items</summary>
@@ -59,16 +60,16 @@ hslineitems:Client hsLineItems = check new ({
 
 Retrieves a paginated list of line item records, with optional property filtering and association expansion.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetCrmV3ObjectsLineItemsGetPageQueries` | No | Optional query parameters including `limit`, `after` (pagination cursor), `properties`, `propertiesWithHistory`, `associations`, and `archived`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslineitems:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
@@ -78,7 +79,7 @@ hslineitems:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging re
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -118,16 +119,16 @@ hslineitems:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging re
 
 Creates a new line item record in HubSpot CRM with the specified properties and optional deal associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SimplePublicObjectInputForCreate` | Yes | Line item properties (e.g., `name`, `price`, `quantity`) and optional associations. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslineitems:SimplePublicObject newItem = check hsLineItems->/.post(
@@ -142,7 +143,7 @@ hslineitems:SimplePublicObject newItem = check hsLineItems->/.post(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -172,7 +173,7 @@ hslineitems:SimplePublicObject newItem = check hsLineItems->/.post(
 
 Retrieves a single line item record by its HubSpot ID, including properties, associations, and optional property history.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -180,9 +181,9 @@ Retrieves a single line item record by its HubSpot ID, including properties, ass
 | `queries` | `GetCrmV3ObjectsLineItemsLineItemIdGetByIdQueries` | No | Optional query parameters including `properties`, `propertiesWithHistory`, `associations`, `idProperty`, and `archived`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslineitems:SimplePublicObjectWithAssociations lineItem =
@@ -193,7 +194,7 @@ hslineitems:SimplePublicObjectWithAssociations lineItem =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -224,7 +225,7 @@ hslineitems:SimplePublicObjectWithAssociations lineItem =
 
 Performs a partial update on a line item record, modifying only the supplied property fields.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -233,9 +234,9 @@ Performs a partial update on a line item record, modifying only the supplied pro
 | `queries` | `PatchCrmV3ObjectsLineItemsLineItemIdUpdateQueries` | No | Optional query parameters including `idProperty` for alternate ID lookup. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslineitems:SimplePublicObject updated = check hsLineItems->/["67890"].patch(
@@ -248,7 +249,7 @@ hslineitems:SimplePublicObject updated = check hsLineItems->/["67890"].patch(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -278,16 +279,16 @@ hslineitems:SimplePublicObject updated = check hsLineItems->/["67890"].patch(
 
 Archives (soft-deletes) a single line item by its HubSpot ID. Archived records can be restored later.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `lineItemId` | `string` | Yes | The HubSpot ID of the line item to archive. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hsLineItems->/["67890"].delete();
@@ -297,7 +298,7 @@ check hsLineItems->/["67890"].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of line items</summary>
@@ -306,16 +307,16 @@ check hsLineItems->/["67890"].delete();
 
 Creates multiple line items in a single API call, each with its own properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectInputForCreate` | Yes | Array of line item inputs to create, each containing `properties` and optional `associations`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslineitems:BatchResponseSimplePublicObject batchResult =
@@ -359,7 +360,7 @@ hslineitems:BatchResponseSimplePublicObject batchResult =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -410,7 +411,7 @@ hslineitems:BatchResponseSimplePublicObject batchResult =
 
 Retrieves a batch of line items by their HubSpot IDs in a single request, with optional property and history filtering.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -418,9 +419,9 @@ Retrieves a batch of line items by their HubSpot IDs in a single request, with o
 | `queries` | `PostCrmV3ObjectsLineItemsBatchReadReadQueries` | No | Optional query params — `archived` (default `false`) to include archived records. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslineitems:BatchResponseSimplePublicObject batchRead =
@@ -433,7 +434,7 @@ hslineitems:BatchResponseSimplePublicObject batchRead =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -478,16 +479,16 @@ hslineitems:BatchResponseSimplePublicObject batchRead =
 
 Updates properties on multiple line items in a single request using their HubSpot IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInput` | Yes | Array of update inputs, each specifying a line item `id` and the `properties` to modify. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslineitems:BatchResponseSimplePublicObject updateResult =
@@ -501,7 +502,7 @@ hslineitems:BatchResponseSimplePublicObject updateResult =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -548,16 +549,16 @@ hslineitems:BatchResponseSimplePublicObject updateResult =
 
 Archives multiple line items at once by their HubSpot IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectId` | Yes | Array of `{ id: string }` objects identifying the line items to archive. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hsLineItems->/batch/archive.post(
@@ -578,16 +579,16 @@ check hsLineItems->/batch/archive.post(
 
 Creates or updates line items in bulk using a unique identifier property — creates a new record if no match is found, updates the existing record if a match is found.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInputUpsert` | Yes | Array of upsert inputs each with an `id`, optional `idProperty`, and `properties` to set. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslineitems:BatchResponseSimplePublicUpsertObject upsertResult =
@@ -608,7 +609,7 @@ hslineitems:BatchResponseSimplePublicUpsertObject upsertResult =
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -647,16 +648,16 @@ hslineitems:BatchResponseSimplePublicUpsertObject upsertResult =
 
 Searches HubSpot CRM line item records using keyword queries, filter groups, sorting, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicObjectSearchRequest` | Yes | Search request with optional `query` (keyword), `filterGroups`, `sorts`, `properties`, `limit`, and `after` cursor. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hslineitems:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResult =
@@ -670,7 +671,7 @@ hslineitems:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchRes
     );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

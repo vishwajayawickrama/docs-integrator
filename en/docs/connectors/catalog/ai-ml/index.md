@@ -3,11 +3,11 @@ title: "AI & Machine Learning"
 description: "AI and machine learning connectors available in WSO2 Integrator."
 ---
 
-# AI & Machine Learning Connectors
+# AI & Machine Learning
 
 <!-- TODO: Searchable grid/table with: name, icon, 1-line description, supported operations, link to detail page -->
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -31,7 +31,7 @@ description: "AI and machine learning connectors available in WSO2 Integrator."
 | [Pinecone](ai.pinecone/overview.md) | Vector database with dense, sparse, and hybrid similarity search | Add, Query, Delete | API Key |
 | [Weaviate](ai.weaviate/overview.md) | Vector database with semantic search, metadata filtering, and embedding storage | Add, Query, Delete | API Key |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

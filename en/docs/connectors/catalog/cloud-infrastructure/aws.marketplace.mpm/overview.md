@@ -1,9 +1,12 @@
+---
+title: AWS Marketplace MPM Connector Overview
+---
 # AWS Marketplace MPM Connector Overview
 
 AWS Marketplace Metering Service enables SaaS providers to report customer usage for products listed on AWS Marketplace. The Ballerina `ballerinax/aws.marketplace.mpm` connector (v0.2.0) provides programmatic access to the AWS Marketplace Metering API, allowing you to resolve customers from registration tokens and submit batch metering usage records for billing purposes.
 
 
-## Key Features
+## Key features
 
 - Resolve AWS Marketplace customers from registration tokens to obtain customer identifiers, AWS account IDs, and product codes
 - Submit batch metering usage records for up to 25 usage records per request
@@ -23,14 +26,14 @@ Actions are operations you invoke on the AWS Marketplace Metering Service from y
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## AWS Marketplace MPM Connector Documentation
+## AWS marketplace MPM connector documentation
 
 * **[AWS Marketplace MPM Connector Setup Guide](setup-guide.md)**: This guide walks you through setting up AWS IAM credentials and permissions required to use the AWS Marketplace Metering connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

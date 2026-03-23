@@ -1,3 +1,6 @@
+---
+title: Actions
+---
 # Actions
 
 The `ballerinax/ai.anthropic` package exposes the following clients:
@@ -8,7 +11,7 @@ The `ballerinax/ai.anthropic` package exposes the following clients:
 
 ---
 
-## Model Provider
+## Model provider
 
 Provides chat completion and structured generation using Anthropic Claude models.
 
@@ -23,7 +26,7 @@ Provides chat completion and structured generation using Anthropic Claude models
 | `temperature` | `decimal` | `0.7` | Controls randomness in the model's output. Lower values produce more deterministic results. |
 | `connectionConfig` | `ConnectionConfig` | `{}` | Additional HTTP connection configuration (HTTP version, timeout, retry, SSL, proxy, etc.). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/ai;
@@ -39,7 +42,7 @@ final ai:ModelProvider anthropicModel = check new anthropic:ModelProvider(
 
 ### Operations
 
-#### Chat Completion
+#### Chat completion
 
 <details>
 <summary>chat</summary>
@@ -48,7 +51,7 @@ final ai:ModelProvider anthropicModel = check new anthropic:ModelProvider(
 
 Sends a list of chat messages to the Anthropic model and returns an assistant response. Supports tool/function calling when tool definitions are provided.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -56,9 +59,9 @@ Sends a list of chat messages to the Anthropic model and returns an assistant re
 | `tools` | `ai:ChatCompletionFunctions[]` | No | Tool definitions available for the model to invoke. Defaults to `[]`. |
 | `stop` | `string?` | No | A stop sequence that causes the model to stop generating. Defaults to `()`. |
 
-**Returns:** `ai:ChatAssistantMessage|ai:Error`
+Returns: `ai:ChatAssistantMessage|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:ChatMessage[] chatMessages = [
@@ -67,7 +70,7 @@ ai:ChatMessage[] chatMessages = [
 ai:ChatAssistantMessage response = check anthropicModel->chat(chatMessages, tools = []);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"role": "assistant", "content": "The capital of France is Paris.", "toolCalls": null}
@@ -77,7 +80,7 @@ ai:ChatAssistantMessage response = check anthropicModel->chat(chatMessages, tool
 
 </details>
 
-#### Structured Generation
+#### Structured generation
 
 <details>
 <summary>generate</summary>
@@ -86,16 +89,16 @@ ai:ChatAssistantMessage response = check anthropicModel->chat(chatMessages, tool
 
 Sends a natural language prompt to the model and returns a typed Ballerina value matching the specified type descriptor. Uses tool-based extraction internally to produce structured output.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `prompt` | `ai:Prompt` | Yes | A tagged template literal prompt that can include text, image documents, file documents, and interpolated values. |
 | `td` | `typedesc<anydata>` | No | Type descriptor specifying the expected return type (e.g., `int`, `string`, a record type, or an array type). Inferred from the call site. |
 
-**Returns:** `td|ai:Error`
+Returns: `td|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Review record {|
@@ -109,7 +112,7 @@ Review result = check anthropicModel->generate(`Rate this blog out of 10.
     Content: "Ballerina is a cloud-native programming language..."`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"title": "Ballerina for Integration", "rating": 8, "summary": "A well-written introduction to Ballerina's integration capabilities."}

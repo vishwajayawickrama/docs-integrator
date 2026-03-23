@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a Milvus instance and obtaining the connection details required to use the Milvus connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up a Milvus instance and obtaining the conn
 
 - A running Milvus instance. You can [deploy Milvus locally using Docker](https://milvus.io/docs/install_standalone-docker.md) or use the managed [Zilliz Cloud](https://zilliz.com/) service.
 
-## Step 1: Start a Milvus Instance
+## Step 1: Start a Milvus instance
 
 **Option A — Local with Docker:**
 
@@ -35,7 +38,7 @@ This guide walks you through setting up a Milvus instance and obtaining the conn
 For development and testing, the Docker-based local deployment is the quickest way to get started.
 :::
 
-## Step 2: Configure Authentication (Optional)
+## Step 2: Configure authentication (optional)
 
 Milvus supports two authentication methods:
 
@@ -52,7 +55,7 @@ Milvus supports two authentication methods:
 Authentication is optional for local Milvus deployments but required for Zilliz Cloud.
 :::
 
-## Step 3: Note Your Connection Details
+## Step 3: Note your connection details
 
 Gather the following information for connector configuration:
 

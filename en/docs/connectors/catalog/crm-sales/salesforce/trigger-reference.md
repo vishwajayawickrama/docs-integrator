@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/salesforce` connector supports event-driven integration through Salesforce Change Data Capture (CDC). When records are created, updated, deleted, or restored in Salesforce, the listener receives change events in real time, triggering your service callbacks automatically — no polling required.
@@ -28,7 +31,7 @@ The listener supports the following connection strategies:
 | `SoapBasedListenerConfig` | Authenticates using a username and password (with security token). Simpler setup for development. |
 | `RestBasedListenerConfig` | Authenticates using OAuth 2.0 refresh token. Recommended for production. |
 
-**`SoapBasedListenerConfig` fields:**
+`SoapBasedListenerConfig` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -37,7 +40,7 @@ The listener supports the following connection strategies:
 | `baseUrl` | `string` | Required | The Salesforce instance URL. |
 | `port` | `int` | `443` | Port for the streaming connection. |
 
-**`RestBasedListenerConfig` fields:**
+`RestBasedListenerConfig` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -45,7 +48,7 @@ The listener supports the following connection strategies:
 | `auth` | `OAuth2RefreshTokenGrantConfig` | Required | OAuth 2.0 refresh token configuration. |
 | `port` | `int` | `443` | Port for the streaming connection. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Using SOAP-based authentication (username + password):**
 
@@ -93,7 +96,7 @@ listener salesforce:Listener sfListener = new ({
 A `salesforce:Service` is a Ballerina service attached to a `salesforce:Listener`. It listens for change events on a specific Salesforce object channel and implements callbacks for each event type.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -106,7 +109,7 @@ A `salesforce:Service` is a Ballerina service attached to a `salesforce:Listener
 You do not need to implement all four callbacks. Only implement the event types relevant to your use case.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -162,7 +165,7 @@ The service path corresponds to the Salesforce CDC channel. For object-specific 
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `EventData`
 

@@ -13,7 +13,7 @@ This guide walks you through creating a HubSpot App and obtaining the OAuth 2.0 
 - A HubSpot account with access to a CRM instance. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 - A HubSpot Developer account. If you do not have one, [register as a HubSpot developer](https://developers.hubspot.com/get-started).
 
-## Create a HubSpot App
+## Create a HubSpot app
 
 1. Log in to the [HubSpot Developer Portal](https://app.hubspot.com/developer).
 2. Click **Apps** in the top navigation bar.
@@ -22,7 +22,7 @@ This guide walks you through creating a HubSpot App and obtaining the OAuth 2.0 
 5. Navigate to the **Auth** tab.
 
 
-## Configure OAuth Scopes
+## Configure OAuth scopes
 
 1. On the **Auth** tab, locate the **Scopes** section.
 2. Add the following scopes:
@@ -35,14 +35,14 @@ This guide walks you through creating a HubSpot App and obtaining the OAuth 2.0 
 Store the Client ID and Client Secret securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Set the Redirect URI
+## Set the redirect URI
 
 1. Under **Redirect URLs** on the Auth tab, click **Add redirect URL**.
 2. Enter your redirect URI (e.g., `https://localhost:9090/callback` for local development).
 3. Click **Save**.
 
 
-## Obtain a Refresh Token
+## Obtain a refresh token
 
 Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 
@@ -78,6 +78,6 @@ Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the tok
 The refresh token does not expire by default, but can be revoked. Store it securely alongside your Client ID and Client Secret.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

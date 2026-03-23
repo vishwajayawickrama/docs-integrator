@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a JMS broker and obtaining the connection details required to use the JMS connector.
@@ -8,7 +11,7 @@ This guide walks you through setting up a JMS broker and obtaining the connectio
 - A JMS-compliant message broker (e.g., [Apache ActiveMQ](https://activemq.apache.org/)) installed and running.
 - The broker's JNDI initial context factory class name and provider URL.
 
-## Step 1: Install and Start the JMS Broker
+## Step 1: Install and start the JMS broker
 
 1. Download and install a JMS-compliant broker such as [Apache ActiveMQ](https://activemq.apache.org/components/classic/download/).
 2. Extract the downloaded archive to a directory of your choice.
@@ -21,7 +24,7 @@ This guide walks you through setting up a JMS broker and obtaining the connectio
 The default ActiveMQ provider URL is `tcp://localhost:61616`. Adjust the host and port if your broker runs on a different address.
 :::
 
-## Step 2: Identify Connection Parameters
+## Step 2: Identify connection parameters
 
 Gather the following connection details from your broker setup:
 
@@ -34,7 +37,7 @@ Gather the following connection details from your broker setup:
 Consult your broker's documentation for the correct initial context factory class and provider URL format.
 :::
 
-## Step 3: Create Queues and Topics
+## Step 3: Create queues and topics
 
 1. Log in to your broker's admin console.
 2. Create the queues and/or topics your application will use.

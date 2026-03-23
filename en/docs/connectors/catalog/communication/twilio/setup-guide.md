@@ -1,4 +1,5 @@
 ---
+title: Setup Guide
 connector: true
 connector_name: "twilio"
 connector_version: "5.0.x"
@@ -13,7 +14,7 @@ This guide walks you through creating a Twilio account and obtaining the credent
 
 - A Twilio account. If you do not have one, [sign up for a free trial](https://www.twilio.com/try-twilio).
 
-## Step 1: Get Your Account SID and Auth Token
+## Step 1: Get your account SID and auth token
 
 1. Log in to the [Twilio Console](https://console.twilio.com/).
 2. On the main dashboard, locate **Account Info**.
@@ -24,7 +25,7 @@ This guide walks you through creating a Twilio account and obtaining the credent
 Store your Account SID and Auth Token securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 2: Get a Twilio Phone Number
+## Step 2: Get a Twilio phone number
 
 1. In the Twilio Console, navigate to **Phone Numbers** > **Manage** > **Buy a Number** (trial accounts receive one free number).
 2. Search for a number with the desired capabilities (SMS, MMS, Voice).
@@ -35,7 +36,7 @@ Store your Account SID and Auth Token securely. Do not commit them to source con
 Trial accounts can only send messages and make calls to verified phone numbers. Verify additional numbers under **Phone Numbers** > **Verified Caller IDs**.
 :::
 
-## Step 3: Create an API Key (Optional)
+## Step 3: Create an API key (optional)
 
 If you prefer API Key authentication instead of Auth Token authentication:
 

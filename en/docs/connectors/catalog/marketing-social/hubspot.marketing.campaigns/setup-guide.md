@@ -13,7 +13,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 - A HubSpot account with a Marketing Hub Professional or Enterprise subscription. If you do not have one, [sign up at HubSpot](https://www.hubspot.com/).
 - A HubSpot developer account. [Create one here](https://developers.hubspot.com/) if you do not have one.
 
-## Create a HubSpot Developer App
+## Create a HubSpot developer app
 
 1. Log in to your [HubSpot developer account](https://app.hubspot.com/signup-hubspot/developers).
 2. Navigate to **Apps** in the top navigation bar.
@@ -22,7 +22,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 5. Optionally add a description and logo.
 
 
-## Configure OAuth Settings
+## Configure OAuth settings
 
 1. Go to the **Auth** tab of your app.
 2. Note the **Client ID** and **Client Secret** — you will need these.
@@ -38,7 +38,7 @@ This guide walks you through creating a HubSpot developer app and obtaining the 
 The required scopes may vary depending on which operations you plan to use. The scopes listed above cover all campaign operations.
 :::
 
-## Authorize and Get a Refresh Token
+## Authorize and get a refresh token
 
 1. Construct the following authorization URL, replacing `<YOUR_CLIENT_ID>` and `<YOUR_REDIRECT_URI>`:
 
@@ -69,7 +69,7 @@ The required scopes may vary depending on which operations you plan to use. The 
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange in step 5.
 :::
 
-## Alternative — Use a Private App API Key
+## Alternative — use a private app API key
 
 If you prefer API key authentication instead of OAuth 2.0:
 
@@ -85,6 +85,6 @@ If you prefer API key authentication instead of OAuth 2.0:
 Store your API key and OAuth credentials securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

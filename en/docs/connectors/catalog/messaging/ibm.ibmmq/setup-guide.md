@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up an IBM MQ queue manager and creating the queues and topics required to use the IBM MQ connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up an IBM MQ queue manager and creating the
 
 - An IBM MQ server instance. You can [download IBM MQ](https://www.ibm.com/products/mq) or run it as a Docker container using the `icr.io/ibm-messaging/mq:latest` image.
 
-## Step 1: Start an IBM MQ Queue Manager
+## Step 1: Start an IBM MQ queue manager
 
 If using Docker, start a queue manager with the following command:
 
@@ -25,7 +28,7 @@ which pre-creates a server connection channel (`DEV.APP.SVRCONN`), queues
 The default developer configuration creates a user `app` with password `password` for application connections.
 :::
 
-## Step 2: Configure Queues and Topics
+## Step 2: Configure queues and topics
 
 If you need custom queues or topics beyond the defaults, use the IBM MQ web console
 or the `runmqsc` command-line tool:
@@ -44,7 +47,7 @@ DEFINE TOPIC('MY.TOPIC') TOPICSTR('my/topic/string')
 END
 ```
 
-## Step 3: Configure SSL/TLS (Optional)
+## Step 3: Configure sSL/TLS (optional)
 
 For secure connections:
 
@@ -58,7 +61,7 @@ For secure connections:
 For development, the default Docker image does not require SSL. Enable SSL/TLS for production deployments.
 :::
 
-## Step 4: Note Your Connection Details
+## Step 4: Note your connection details
 
 Collect the following details for configuring the Ballerina connector:
 

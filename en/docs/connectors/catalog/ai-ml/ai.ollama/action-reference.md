@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -12,7 +13,7 @@ The `ballerinax/ai.ollama` package exposes the following clients:
 
 ---
 
-## Model Provider
+## Model provider
 
 Connects to an Ollama server to perform chat completions and structured output generation.
 
@@ -31,7 +32,7 @@ Connects to an Ollama server to perform chat completions and structured output g
 | `cache` | `http:CacheConfig` | `()` | HTTP response cache configuration. |
 | `validation` | `boolean` | `true` | Enable or disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ai.ollama;
@@ -44,7 +45,7 @@ final ollama:ModelProvider ollamaModel = check new (
 
 ### Operations
 
-#### Chat Completion
+#### Chat completion
 
 <details>
 <summary>chat</summary>
@@ -53,7 +54,7 @@ final ollama:ModelProvider ollamaModel = check new (
 
 Sends a chat conversation to the Ollama model and returns the assistant's response. Supports multi-turn conversations and tool/function calling.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -61,9 +62,9 @@ Sends a chat conversation to the Ollama model and returns the assistant's respon
 | `tools` | `ai:ChatCompletionFunctions[]` | No | Tool/function definitions the model can call. Defaults to `[]`. |
 | `stop` | `string?` | No | A stop sequence that causes the model to stop generating. Defaults to `()`. |
 
-**Returns:** `ai:ChatAssistantMessage|ai:Error`
+Returns: `ai:ChatAssistantMessage|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:ChatMessage[] chatMessages = [
@@ -72,7 +73,7 @@ ai:ChatMessage[] chatMessages = [
 ai:ChatAssistantMessage response = check ollamaModel->chat(chatMessages);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"role": "assistant", "content": "The capital of France is Paris."}
@@ -82,7 +83,7 @@ ai:ChatAssistantMessage response = check ollamaModel->chat(chatMessages);
 
 </details>
 
-#### Structured Output Generation
+#### Structured output generation
 
 <details>
 <summary>generate</summary>
@@ -91,22 +92,22 @@ ai:ChatAssistantMessage response = check ollamaModel->chat(chatMessages);
 
 Generates a structured output from a prompt using Ballerina type inference. The model output is automatically parsed into the specified Ballerina type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `prompt` | `ai:Prompt` | Yes | A template literal prompt that can embed documents and context using tagged templates. |
 | `td` | `typedesc<anydata>` | No | The expected return type descriptor. Inferred from the assignment target type. |
 
-**Returns:** `td|ai:Error`
+Returns: `td|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int rating = check ollamaModel->generate(`Rate the movie "Inception" out of 10.`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 8

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manages HubSpot cart objects — CRUD, search, and batch operations via the HubS
 | `circuitBreaker` | `CircuitBreakerConfig` | `()` | Circuit breaker configuration for fault tolerance. |
 | `cache` | `CacheConfig` | `{}` | HTTP response cache configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -60,11 +61,11 @@ final hscarts:Client hubspotCarts = check new (config);
 
 <div>
 
-**Signature:** `get /carts`
+Signature: `get /carts`
 
 Retrieves a paginated list of cart objects, optionally including associations and property history.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -76,16 +77,16 @@ Retrieves a paginated list of cart objects, optionally including associations an
 | `queries.associations` | `string[]` | No | List of association types to retrieve with each cart. |
 | `queries.archived` | `boolean` | No | Whether to return archived carts (default `false`). |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscarts:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
     check hubspotCarts->/carts(properties = ["hs_source_store", "hs_total_price"]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -121,20 +122,20 @@ hscarts:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging respon
 
 <div>
 
-**Signature:** `post /carts`
+Signature: `post /carts`
 
 Creates a new cart object with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SimplePublicObjectInputForCreate` | Yes | Cart properties and optional associations. |
 | `headers` | `map<string&#124;string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscarts:SimplePublicObject response = check hubspotCarts->/carts.post(
@@ -150,7 +151,7 @@ hscarts:SimplePublicObject response = check hubspotCarts->/carts.post(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -179,11 +180,11 @@ hscarts:SimplePublicObject response = check hubspotCarts->/carts.post(
 
 <div>
 
-**Signature:** `get /carts/[cartId]`
+Signature: `get /carts/[cartId]`
 
 Retrieves a single cart by its ID, optionally including associations and property history.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -195,16 +196,16 @@ Retrieves a single cart by its ID, optionally including associations and propert
 | `queries.archived` | `boolean` | No | Whether to return the cart if archived (default `false`). |
 | `queries.idProperty` | `string` | No | The property to use as the unique identifier (defaults to `hs_object_id`). |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscarts:SimplePublicObjectWithAssociations response =
     check hubspotCarts->/carts/["12345678"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -233,11 +234,11 @@ hscarts:SimplePublicObjectWithAssociations response =
 
 <div>
 
-**Signature:** `patch /carts/[cartId]`
+Signature: `patch /carts/[cartId]`
 
 Updates an existing cart's properties by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -246,9 +247,9 @@ Updates an existing cart's properties by its ID.
 | `headers` | `map<string&#124;string[]>` | No | Optional HTTP headers. |
 | `queries.idProperty` | `string` | No | The property to use as the unique identifier. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscarts:SimplePublicObject response = check hubspotCarts->/carts/["12345678"].patch(
@@ -260,7 +261,7 @@ hscarts:SimplePublicObject response = check hubspotCarts->/carts/["12345678"].pa
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -289,20 +290,20 @@ hscarts:SimplePublicObject response = check hubspotCarts->/carts/["12345678"].pa
 
 <div>
 
-**Signature:** `delete /carts/[cartId]`
+Signature: `delete /carts/[cartId]`
 
 Archives (soft-deletes) a cart by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `cartId` | `string` | Yes | The HubSpot cart ID. |
 | `headers` | `map<string&#124;string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check hubspotCarts->/carts/["12345678"].delete();
@@ -319,20 +320,20 @@ _ = check hubspotCarts->/carts/["12345678"].delete();
 
 <div>
 
-**Signature:** `post /carts/search`
+Signature: `post /carts/search`
 
 Searches for carts matching the given filter criteria, with support for property filters, sorting, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicObjectSearchRequest` | Yes | Search request with filter groups, query string, sorting, and pagination options. |
 | `headers` | `map<string&#124;string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -352,7 +353,7 @@ hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -379,27 +380,27 @@ hscarts:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Batch create carts</summary>
 
 <div>
 
-**Signature:** `post /carts/batch/create`
+Signature: `post /carts/batch/create`
 
 Creates multiple cart objects in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectInputForCreate` | Yes | Batch input containing an array of cart creation payloads. |
 | `headers` | `map<string&#124;string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscarts:BatchResponseSimplePublicObject response =
@@ -427,7 +428,7 @@ hscarts:BatchResponseSimplePublicObject response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -478,11 +479,11 @@ hscarts:BatchResponseSimplePublicObject response =
 
 <div>
 
-**Signature:** `post /carts/batch/read`
+Signature: `post /carts/batch/read`
 
 Retrieves multiple carts by their IDs or a unique property, with optional property selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -490,9 +491,9 @@ Retrieves multiple carts by their IDs or a unique property, with optional proper
 | `headers` | `map<string&#124;string[]>` | No | Optional HTTP headers. |
 | `queries.archived` | `boolean` | No | Whether to include archived carts (default `false`). |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors response =
@@ -505,7 +506,7 @@ hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectW
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -548,20 +549,20 @@ hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectW
 
 <div>
 
-**Signature:** `post /carts/batch/update`
+Signature: `post /carts/batch/update`
 
 Updates properties on multiple carts in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInput` | Yes | Batch input containing cart IDs and properties to update. |
 | `headers` | `map<string&#124;string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectWithErrors response =
@@ -573,7 +574,7 @@ hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectW
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -620,20 +621,20 @@ hscarts:BatchResponseSimplePublicObject|hscarts:BatchResponseSimplePublicObjectW
 
 <div>
 
-**Signature:** `post /carts/batch/upsert`
+Signature: `post /carts/batch/upsert`
 
 Creates or updates multiple carts in a single request, matched by a unique property value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInputUpsert` | Yes | Batch input containing cart identifiers and properties to upsert. |
 | `headers` | `map<string&#124;string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscarts:BatchResponseSimplePublicUpsertObject|hscarts:BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -651,7 +652,7 @@ hscarts:BatchResponseSimplePublicUpsertObject|hscarts:BatchResponseSimplePublicU
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -686,20 +687,20 @@ hscarts:BatchResponseSimplePublicUpsertObject|hscarts:BatchResponseSimplePublicU
 
 <div>
 
-**Signature:** `post /carts/batch/archive`
+Signature: `post /carts/batch/archive`
 
 Archives (soft-deletes) multiple carts in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectId` | Yes | Batch input containing the IDs of carts to archive. |
 | `headers` | `map<string&#124;string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check hubspotCarts->/carts/batch/archive.post({

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up an Apache Kafka cluster and obtaining the connection details required to use the Kafka connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up an Apache Kafka cluster and obtaining th
 
 - An Apache Kafka cluster (self-hosted or managed). If you do not have one, [download Apache Kafka](https://kafka.apache.org/downloads) and follow the [Kafka Quickstart](https://kafka.apache.org/quickstart) to set up a local cluster.
 
-## Step 1: Start the Kafka Broker
+## Step 1: Start the Kafka broker
 
 1. Download and extract the Apache Kafka binary distribution.
 2. Start the ZooKeeper service (if using ZooKeeper-based mode):
@@ -28,7 +31,7 @@ This guide walks you through setting up an Apache Kafka cluster and obtaining th
 For Kafka 3.3+ you can use KRaft mode instead of ZooKeeper. See the Kafka documentation for KRaft setup instructions.
 :::
 
-## Step 2: Create Topics
+## Step 2: Create topics
 
 Create the Kafka topics your application will produce to or consume from:
 
@@ -42,7 +45,7 @@ Verify the topic was created:
 bin/kafka-topics.sh --list --bootstrap-server localhost:9092
 ```
 
-## Step 3: Configure Authentication (Optional)
+## Step 3: Configure authentication (optional)
 
 If your Kafka cluster requires authentication, configure SASL credentials:
 
@@ -62,7 +65,7 @@ If your Kafka cluster requires authentication, configure SASL credentials:
 Managed Kafka services (Confluent Cloud, Amazon MSK, Azure Event Hubs) provide their own authentication setup. Consult your provider's documentation for connection details.
 :::
 
-## Step 4: Configure SSL/TLS (Optional)
+## Step 4: Configure sSL/TLS (optional)
 
 For encrypted connections:
 

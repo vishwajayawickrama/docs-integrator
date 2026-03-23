@@ -1,9 +1,12 @@
+---
+title: Azure OpenAI Connector Overview
+---
 # Azure OpenAI Connector Overview
 
 Azure OpenAI provides access to OpenAI's powerful language and embedding models hosted on Microsoft Azure. The Ballerina `ballerinax/ai.azure` connector (v1.4.1) offers a model provider for chat completions, an embedding provider for vector generation, and an Azure AI Search knowledge base for document ingestion and retrieval — enabling you to build AI-powered integration flows in Ballerina.
 
 
-## Key Features
+## Key features
 
 - Chat completion using Azure-hosted OpenAI language models via the Chat Completions API
 - Structured data generation with type-safe `generate` method that returns Ballerina typed values from natural language prompts
@@ -26,14 +29,14 @@ Actions are operations you invoke on Azure OpenAI from your integration — send
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## Azure OpenAI Connector Documentation
+## Azure OpenAI connector documentation
 
 * **[Azure OpenAI Connector Setup Guide](setup-guide.md)**: This guide walks you through setting up Azure OpenAI Service and Azure AI Search resources and obtaining the credentials required to use the Azure OpenAI connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

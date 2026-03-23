@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -25,7 +26,7 @@ Top-level client for connecting to MongoDB, listing databases, and obtaining Dat
 | `connection` | `ConnectionParameters\|string` | Required | Structured connection parameters or a MongoDB connection string URI. |
 | `options` | `ConnectionProperties?` | `()` | Optional connection properties (read concern, write concern, pool settings, SSL, timeouts). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/mongodb;
@@ -39,7 +40,7 @@ mongodb:Client mongoClient = check new ({
 
 ### Operations
 
-#### Database Management
+#### Database management
 
 <details>
 <summary>listDatabaseNames</summary>
@@ -49,15 +50,15 @@ mongodb:Client mongoClient = check new ({
 Lists all database names in the MongoDB server.
 
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] databases = check mongoClient->listDatabaseNames();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["admin", "local", "movies", "orders"]
@@ -74,15 +75,15 @@ string[] databases = check mongoClient->listDatabaseNames();
 
 Retrieves a Database object for the named database.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `databaseName` | `string` | Yes | Name of the database to retrieve. |
 
-**Returns:** `mongodb:Database|error`
+Returns: `mongodb:Database|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mongodb:Database moviesDb = check mongoClient->getDatabase("movies");
@@ -100,9 +101,9 @@ mongodb:Database moviesDb = check mongoClient->getDatabase("movies");
 Closes the MongoDB client connection. Use a single client instance for the application lifetime.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mongoClient->close();
@@ -123,7 +124,7 @@ Represents a MongoDB database — manage collections and drop the database.
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/mongodb;
@@ -137,7 +138,7 @@ mongodb:Database moviesDb = check mongoClient->getDatabase("movies");
 
 ### Operations
 
-#### Collection Management
+#### Collection management
 
 <details>
 <summary>listCollectionNames</summary>
@@ -147,15 +148,15 @@ mongodb:Database moviesDb = check mongoClient->getDatabase("movies");
 Lists all collection names in the database.
 
 
-**Returns:** `string[]|error`
+Returns: `string[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string[] collections = check moviesDb->listCollectionNames();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["movies", "directors", "reviews"]
@@ -172,15 +173,15 @@ string[] collections = check moviesDb->listCollectionNames();
 
 Creates a new collection in the database.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `collectionName` | `string` | Yes | Name of the collection to create. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check moviesDb->createCollection("movies");
@@ -197,15 +198,15 @@ check moviesDb->createCollection("movies");
 
 Gets a Collection object for the named collection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `collectionName` | `string` | Yes | Name of the collection to retrieve. |
 
-**Returns:** `mongodb:Collection|error`
+Returns: `mongodb:Collection|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mongodb:Collection moviesCollection = check moviesDb->getCollection("movies");
@@ -215,7 +216,7 @@ mongodb:Collection moviesCollection = check moviesDb->getCollection("movies");
 
 </details>
 
-#### Database Operations
+#### Database operations
 
 <details>
 <summary>drop</summary>
@@ -225,9 +226,9 @@ mongodb:Collection moviesCollection = check moviesDb->getCollection("movies");
 Drops the entire database and all its collections.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check moviesDb->drop();
@@ -248,7 +249,7 @@ Document CRUD, queries, aggregation pipelines, distinct values, and index manage
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/mongodb;
@@ -263,7 +264,7 @@ mongodb:Collection moviesCollection = check db->getCollection("movies");
 
 ### Operations
 
-#### Insert Operations
+#### Insert operations
 
 <details>
 <summary>insertOne</summary>
@@ -272,16 +273,16 @@ mongodb:Collection moviesCollection = check db->getCollection("movies");
 
 Inserts a single document into the collection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `document` | `record {\|anydata...;\|}` | Yes | The document to insert. |
 | `options` | `InsertOneOptions` | No | Insert options (comment, bypassDocumentValidation). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check moviesCollection->insertOne({
@@ -302,16 +303,16 @@ check moviesCollection->insertOne({
 
 Inserts multiple documents into the collection. When `ordered` is true (default), insertion stops on the first error.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `documents` | `record {\|anydata...;\|}[]` | Yes | Array of documents to insert. |
 | `options` | `InsertManyOptions` | No | Insert options (comment, bypassDocumentValidation, ordered). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check moviesCollection->insertMany([
@@ -325,7 +326,7 @@ check moviesCollection->insertMany([
 
 </details>
 
-#### Query Operations
+#### Query operations
 
 <details>
 <summary>find</summary>
@@ -334,7 +335,7 @@ check moviesCollection->insertMany([
 
 Finds all documents matching the filter and returns a stream of typed records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -343,9 +344,9 @@ Finds all documents matching the filter and returns a stream of typed records.
 | `projection` | `map<json>?` | No | Projection document to include/exclude fields. |
 | `targetType` | `typedesc<record {\|anydata...;\|}>` | No | Expected record type for results (inferred from context). |
 
-**Returns:** `stream<targetType, error?>|error`
+Returns: `stream<targetType, error?>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Movie record {|
@@ -358,7 +359,7 @@ stream<Movie, error?> result = check moviesCollection->find({year: 2010});
 Movie[] movies = check from Movie m in result select m;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"title": "Inception", "year": 2010, "director": "Christopher Nolan"}]
@@ -375,7 +376,7 @@ Movie[] movies = check from Movie m in result select m;
 
 Finds the first document matching the filter. Returns `()` if no match is found.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -384,15 +385,15 @@ Finds the first document matching the filter. Returns `()` if no match is found.
 | `projection` | `map<json>?` | No | Projection document to include/exclude fields. |
 | `targetType` | `typedesc<record {\|anydata...;\|}>` | No | Expected record type (inferred from context). |
 
-**Returns:** `targetType|error?`
+Returns: `targetType|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 Movie? movie = check moviesCollection->findOne({title: "Inception"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"title": "Inception", "year": 2010, "director": "Christopher Nolan"}
@@ -409,22 +410,22 @@ Movie? movie = check moviesCollection->findOne({title: "Inception"});
 
 Counts documents in the collection matching the filter.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `filter` | `map<json>` | No | Query filter document. Defaults to `{}` (count all). |
 | `options` | `CountOptions` | No | Options for limit, skip, maxTimeMS, and hint. |
 
-**Returns:** `int|error`
+Returns: `int|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check moviesCollection->countDocuments({director: "Christopher Nolan"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 3
@@ -441,7 +442,7 @@ int count = check moviesCollection->countDocuments({director: "Christopher Nolan
 
 Returns distinct values for a given field across matching documents.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -449,16 +450,16 @@ Returns distinct values for a given field across matching documents.
 | `filter` | `map<json>` | No | Query filter document. Defaults to `{}` (all documents). |
 | `targetType` | `typedesc<anydata>` | No | Type for distinct values (inferred from context). |
 
-**Returns:** `stream<targetType, error?>|error`
+Returns: `stream<targetType, error?>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<string, error?> directors = check moviesCollection->'distinct("director", {});
 string[] uniqueDirectors = check from string d in directors select d;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ["Christopher Nolan", "Bong Joon-ho"]
@@ -468,7 +469,7 @@ string[] uniqueDirectors = check from string d in directors select d;
 
 </details>
 
-#### Update Operations
+#### Update operations
 
 <details>
 <summary>updateOne</summary>
@@ -477,7 +478,7 @@ string[] uniqueDirectors = check from string d in directors select d;
 
 Updates the first document matching the filter using MongoDB update operators.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -485,9 +486,9 @@ Updates the first document matching the filter using MongoDB update operators.
 | `update` | `Update` | Yes | Update operators record (`set`, `unset`, `inc`, `mul`, `rename`, etc.). |
 | `options` | `UpdateOptions` | No | Options for upsert, bypassDocumentValidation, comment, and hint. |
 
-**Returns:** `UpdateResult|error`
+Returns: `UpdateResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mongodb:UpdateResult result = check moviesCollection->updateOne(
@@ -496,7 +497,7 @@ mongodb:UpdateResult result = check moviesCollection->updateOne(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"matchedCount": 1, "modifiedCount": 1, "upsertedId": null}
@@ -513,7 +514,7 @@ mongodb:UpdateResult result = check moviesCollection->updateOne(
 
 Updates all documents matching the filter using MongoDB update operators.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -521,9 +522,9 @@ Updates all documents matching the filter using MongoDB update operators.
 | `update` | `Update` | Yes | Update operators record. |
 | `options` | `UpdateOptions` | No | Options for upsert, bypassDocumentValidation, comment, and hint. |
 
-**Returns:** `UpdateResult|error`
+Returns: `UpdateResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mongodb:UpdateResult result = check moviesCollection->updateMany(
@@ -532,7 +533,7 @@ mongodb:UpdateResult result = check moviesCollection->updateMany(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"matchedCount": 3, "modifiedCount": 3, "upsertedId": null}
@@ -542,7 +543,7 @@ mongodb:UpdateResult result = check moviesCollection->updateMany(
 
 </details>
 
-#### Delete Operations
+#### Delete operations
 
 <details>
 <summary>deleteOne</summary>
@@ -551,21 +552,21 @@ mongodb:UpdateResult result = check moviesCollection->updateMany(
 
 Deletes the first document matching the filter.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `filter` | `map<json>` | Yes | Filter to match the document to delete. |
 
-**Returns:** `DeleteResult|error`
+Returns: `DeleteResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mongodb:DeleteResult result = check moviesCollection->deleteOne({title: "Inception"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"deletedCount": 1, "acknowledged": true}
@@ -582,21 +583,21 @@ mongodb:DeleteResult result = check moviesCollection->deleteOne({title: "Incepti
 
 Deletes all documents matching the filter.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `filter` | `string\|map<json>` | Yes | Filter for documents to delete. |
 
-**Returns:** `DeleteResult|error`
+Returns: `DeleteResult|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mongodb:DeleteResult result = check moviesCollection->deleteMany({director: "Christopher Nolan"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"deletedCount": 3, "acknowledged": true}
@@ -615,16 +616,16 @@ mongodb:DeleteResult result = check moviesCollection->deleteMany({director: "Chr
 
 Runs an aggregation pipeline on the collection. Supports stages like $match, $group, $lookup, $sort, $project, $limit, and more.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `pipeline` | `map<json>[]` | Yes | Array of aggregation pipeline stage documents. |
 | `targetType` | `typedesc<anydata>` | No | Expected result type (inferred from context). |
 
-**Returns:** `stream<targetType, error?>|error`
+Returns: `stream<targetType, error?>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type DirectorSummary record {|
@@ -639,7 +640,7 @@ stream<DirectorSummary, error?> result = check moviesCollection->aggregate([
 DirectorSummary[] summaries = check from DirectorSummary s in result select s;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"_id": "Christopher Nolan", "movieCount": 3}, {"_id": "Bong Joon-ho", "movieCount": 1}]
@@ -649,7 +650,7 @@ DirectorSummary[] summaries = check from DirectorSummary s in result select s;
 
 </details>
 
-#### Index Management
+#### Index management
 
 <details>
 <summary>createIndex</summary>
@@ -658,16 +659,16 @@ DirectorSummary[] summaries = check from DirectorSummary s in result select s;
 
 Creates an index on the collection with the given key specification and options.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `keys` | `map<json>` | Yes | Index key specification (field name to direction, e.g. `{"title": 1}` for ascending). |
 | `options` | `CreateIndexOptions` | No | Index options (unique, sparse, name, expireAfterSeconds, etc.). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check moviesCollection->createIndex({"title": 1}, {unique: true, name: "title_unique_idx"});
@@ -685,16 +686,16 @@ check moviesCollection->createIndex({"title": 1}, {unique: true, name: "title_un
 Lists all indexes on the collection.
 
 
-**Returns:** `stream<Index, error?>|error`
+Returns: `stream<Index, error?>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<mongodb:Index, error?> indexes = check moviesCollection->listIndexes();
 mongodb:Index[] indexList = check from mongodb:Index idx in indexes select idx;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"ns": "movies.movies", "v": 2, "name": "_id_", "key": {"_id": 1}}, {"ns": "movies.movies", "v": 2, "name": "title_unique_idx", "key": {"title": 1}}]
@@ -711,15 +712,15 @@ mongodb:Index[] indexList = check from mongodb:Index idx in indexes select idx;
 
 Drops the named index from the collection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `indexName` | `string` | Yes | Name of the index to drop. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check moviesCollection->dropIndex("title_unique_idx");
@@ -737,9 +738,9 @@ check moviesCollection->dropIndex("title_unique_idx");
 Drops all indexes on the collection except the default `_id` index.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check moviesCollection->dropIndexes();
@@ -749,7 +750,7 @@ check moviesCollection->dropIndexes();
 
 </details>
 
-#### Collection Operations
+#### Collection operations
 
 <details>
 <summary>drop</summary>
@@ -759,9 +760,9 @@ check moviesCollection->dropIndexes();
 Drops the entire collection from the database.
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check moviesCollection->drop();

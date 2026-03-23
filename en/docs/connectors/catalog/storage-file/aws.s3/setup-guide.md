@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating an AWS account and obtaining the access credentials required to use the AWS S3 connector.
@@ -7,12 +10,12 @@ This guide walks you through creating an AWS account and obtaining the access cr
 
 - An active AWS account. If you do not have one, [sign up here](https://portal.aws.amazon.com/billing/signup).
 
-## Step 1: Sign in to the AWS Management Console
+## Step 1: Sign in to the AWS management console
 
 1. Go to [https://console.aws.amazon.com/](https://console.aws.amazon.com/) and sign in with your AWS account credentials.
 2. In the top navigation bar, select the AWS **Region** where you want to create your S3 buckets (e.g., `us-east-1`).
 
-## Step 2: Create an IAM User
+## Step 2: Create an IAM user
 
 1. Open the **IAM** console at [https://console.aws.amazon.com/iam/](https://console.aws.amazon.com/iam/).
 2. In the left navigation pane, click **Users**, then click **Create user**.
@@ -26,7 +29,7 @@ This guide walks you through creating an AWS account and obtaining the access cr
 For production use, follow the principle of least privilege — create a custom IAM policy that grants only the specific S3 actions and resources your integration needs.
 :::
 
-## Step 3: Generate Access Keys
+## Step 3: Generate access keys
 
 1. In the IAM console, click on the user you just created.
 2. Go to the **Security credentials** tab.
@@ -39,7 +42,7 @@ For production use, follow the principle of least privilege — create a custom 
 The secret access key is shown only once at creation time. Store both keys securely and do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 4: Note Your AWS Region
+## Step 4: Note your AWS region
 
 Identify the AWS Region you want to use for S3 operations (e.g., `us-east-1`, `eu-west-1`, `ap-southeast-1`).
 This value is passed as the `region` configuration parameter when initializing the connector.

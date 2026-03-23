@@ -1,3 +1,6 @@
+---
+title: Actions
+---
 # Actions
 
 The `ballerinax/nats` package exposes the following clients:
@@ -27,7 +30,7 @@ Connects to a NATS server to publish messages and perform request-reply exchange
 | `noEcho` | `boolean` | `false` | When true, the server will not echo messages back to the connection that published them. |
 | `validation` | `boolean` | `true` | Enables payload validation on message receive. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/nats;
@@ -54,15 +57,15 @@ nats:Client natsClient = check new (natsUrl,
 
 Publishes a message to a NATS subject. This is a fire-and-forget operation — no acknowledgement is returned by the broker.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `AnydataMessage` | Yes | The message to publish. Must include a `subject` and `content` (any Ballerina `anydata` value). Optionally set `replyTo` to specify a reply subject. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/io;
@@ -91,7 +94,7 @@ public function main() returns error? {
 Sends a request message to a subject and waits for a single reply, implementing the request-reply messaging pattern. The caller blocks until a reply is received or the timeout expires.
 
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -99,9 +102,9 @@ Sends a request message to a subject and waits for a single reply, implementing 
 | `duration` | `decimal?` | No | Timeout in seconds to wait for a reply. If `()`, waits indefinitely. |
 | `T` | `typedesc<AnydataMessage>` | No | The expected type of the returned message. Defaults to `nats:AnydataMessage`. |
 
-**Returns:** `T|Error`
+Returns: `T|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/io;
@@ -121,7 +124,7 @@ public function main() returns error? {
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"content": [112, 111, 110, 103], "subject": "_INBOX.abc123", "replyTo": ()}
@@ -129,21 +132,21 @@ public function main() returns error? {
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
 
 Closes the connection to the NATS server and releases all associated resources.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check natsClient->close();
@@ -171,7 +174,7 @@ Manages JetStream streams and publishes or pull-consumes persistent messages.
 | `maxAge` | `decimal?` | `()` | Maximum age of messages in nanoseconds before they are removed. |
 | `replicas` | `int?` | `1` | Number of replicas for the stream in a clustered deployment. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/nats;
@@ -195,22 +198,22 @@ check jsClient->addStream({
 
 ### Operations
 
-#### Stream Management
+#### Stream management
 
 <details>
 <summary>addStream</summary>
 
 Creates a new JetStream stream with the specified configuration.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `streamConfig` | `StreamConfiguration` | Yes | Configuration for the new stream including name, subjects, storage type, and retention policy. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jsClient->addStream({
@@ -229,15 +232,15 @@ check jsClient->addStream({
 
 Updates the configuration of an existing JetStream stream.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `streamConfig` | `StreamConfiguration` | Yes | Updated stream configuration. The `name` field must match an existing stream. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jsClient->updateStream({
@@ -254,15 +257,15 @@ check jsClient->updateStream({
 
 Permanently deletes a JetStream stream and all its messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `streamName` | `string` | Yes | The name of the stream to delete. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jsClient->deleteStream("ORDERS");
@@ -275,15 +278,15 @@ check jsClient->deleteStream("ORDERS");
 
 Removes all messages from a JetStream stream without deleting the stream itself.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `streamName` | `string` | Yes | The name of the stream to purge. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check jsClient->purgeStream("ORDERS");
@@ -291,22 +294,22 @@ check jsClient->purgeStream("ORDERS");
 
 </details>
 
-#### Persistent Messaging
+#### Persistent messaging
 
 <details>
 <summary>publishMessage</summary>
 
 Publishes a message to a JetStream subject. The message is persisted according to the stream's retention policy.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `JetStreamMessage` | Yes | The message to publish, with `subject` and `content` (byte array) fields. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerinax/nats;
@@ -329,16 +332,16 @@ public function main() returns error? {
 
 Pull-fetches a single message from a JetStream subject. Blocks until a message is available or the timeout expires.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `subject` | `string` | Yes | The JetStream subject to consume from. |
 | `timeout` | `decimal` | Yes | Maximum time in seconds to wait for a message. |
 
-**Returns:** `JetStreamMessage|Error`
+Returns: `JetStreamMessage|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 nats:JetStreamMessage msg = check jsClient->consumeMessage("orders.new", 5.0);
@@ -349,7 +352,7 @@ io:println("Consumed order: ", payload);
 jsClient->ack(msg);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"subject": "orders.new", "content": [123, 34, 111, 114, 100, 101, 114, 73, 100, 34, 58, 32, 34, 79, 82, 68, 45, 48, 48, 49, 34, 125]}
@@ -357,22 +360,22 @@ jsClient->ack(msg);
 
 </details>
 
-#### Message Acknowledgement
+#### Message acknowledgement
 
 <details>
 <summary>ack</summary>
 
 Acknowledges a JetStream message, signalling that it has been successfully processed. The server will not redeliver it.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `JetStreamMessage` | Yes | The message to acknowledge. |
 
-**Returns:** `()`
+Returns: `()`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 nats:JetStreamMessage msg = check jsClient->consumeMessage("orders.new", 5.0);
@@ -387,15 +390,15 @@ jsClient->ack(msg);
 
 Negatively acknowledges a JetStream message, indicating processing failure. The server will redeliver the message.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `JetStreamMessage` | Yes | The message to negatively acknowledge. |
 
-**Returns:** `()`
+Returns: `()`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 nats:JetStreamMessage msg = check jsClient->consumeMessage("orders.new", 5.0);
@@ -410,15 +413,15 @@ jsClient->nak(msg);
 
 Informs the server that the message is still being processed, resetting the redelivery timer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `JetStreamMessage` | Yes | The message currently being processed. |
 
-**Returns:** `()`
+Returns: `()`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 nats:JetStreamMessage msg = check jsClient->consumeMessage("orders.new", 30.0);

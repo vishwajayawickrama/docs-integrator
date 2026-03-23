@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through running a NATS server and configuring the Ballerina connector to connect to it.
@@ -8,7 +11,7 @@ This guide walks you through running a NATS server and configuring the Ballerina
 - Ballerina Swan Lake installed. See the [Ballerina installation guide](https://ballerina.io/downloads/).
 - The `ballerinax/nats` package added to your `Ballerina.toml` dependencies.
 
-## Step 1: Start a NATS Server
+## Step 1: Start a NATS server
 
 The fastest way to run a local NATS server is with Docker:
 
@@ -29,7 +32,7 @@ For production workloads, consider [Synadia Cloud](https://www.synadia.com/cloud
 or deploy a NATS cluster with JetStream enabled by passing the `-js` flag: `nats-server -js`.
 :::
 
-## Step 2: Enable Authentication (Optional)
+## Step 2: Enable authentication (optional)
 
 NATS supports several authentication mechanisms. Choose one that fits your deployment:
 
@@ -55,7 +58,7 @@ The default NATS server requires no credentials — omit the `auth` field in you
 For production deployments, use NATS operator/account-based security with NKeys and JWTs. Refer to the [NATS security documentation](https://docs.nats.io/nats-concepts/security) for advanced configurations.
 :::
 
-## Step 3: Enable JetStream (Optional)
+## Step 3: Enable jetStream (optional)
 
 JetStream provides persistent, at-least-once messaging on top of core NATS. To enable it,
 start the server with the `-js` flag:
@@ -83,7 +86,7 @@ nats-server -c nats-server.conf
 JetStream is required only if you use `nats:JetStreamClient` or `nats:JetStreamListener`. Core NATS pub/sub works without it.
 :::
 
-## Step 4: Add the Dependency
+## Step 4: Add the dependency
 
 Add the `ballerinax/nats` package to your project's `Ballerina.toml`:
 

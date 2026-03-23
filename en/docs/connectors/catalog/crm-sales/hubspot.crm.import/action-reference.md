@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manage CRM imports — start, monitor, list, retrieve errors, and cancel imports
 | `compression` | <code>http:Compression</code> | `http:COMPRESSION_AUTO` | Compression handling configuration. |
 | `validation` | <code>boolean</code> | `true` | Enable or disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.import as crmImport;
@@ -51,27 +52,27 @@ crmImport:Client importClient = check new ({
 
 ### Operations
 
-#### Import Lifecycle
+#### Import lifecycle
 
 <details>
 <summary>Start a new import</summary>
 
 <div>
 
-**Signature:** `post .`
+Signature: `post .`
 
 Starts a new CRM import by uploading a CSV file along with an import request JSON configuration that defines column mappings, object types, and import operations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>Body</code> | Yes | The import payload containing `files` (with `fileContent` as byte array and `fileName`) and `importRequest` (JSON string defining column mappings and import settings). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PublicImportResponse|error`
+Returns: `PublicImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string importRequestJson = check io:fileReadString("resources/contact_import_request.json");
@@ -86,7 +87,7 @@ crmImport:PublicImportResponse response = check importClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -113,26 +114,26 @@ crmImport:PublicImportResponse response = check importClient->/.post({
 
 <div>
 
-**Signature:** `get .`
+Signature: `get .`
 
 Returns a paginated list of all active imports in the HubSpot portal.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | <code>GetGetPageQueries</code> | No | Optional query parameters including `before`, `after` (paging cursor tokens), and `limit` (max results per page). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponsePublicImportResponse|error`
+Returns: `CollectionResponsePublicImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 crmImport:CollectionResponsePublicImportResponse imports = check importClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -160,33 +161,33 @@ crmImport:CollectionResponsePublicImportResponse imports = check importClient->/
 
 </details>
 
-#### Import Status & Errors
+#### Import status & errors
 
 <details>
 <summary>Get import information</summary>
 
 <div>
 
-**Signature:** `get [int importId]`
+Signature: `get [int importId]`
 
 Retrieves detailed information about a specific import, including its current state, metadata counters, and mapped object types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `importId` | <code>int</code> | Yes | The ID of the import to retrieve. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `PublicImportResponse|error`
+Returns: `PublicImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 crmImport:PublicImportResponse importStatus = check importClient->/[48541593].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -215,11 +216,11 @@ crmImport:PublicImportResponse importStatus = check importClient->/[48541593].ge
 
 <div>
 
-**Signature:** `get [int importId]/errors`
+Signature: `get [int importId]/errors`
 
 Returns a paginated list of errors that occurred during the specified import, with optional row data and error messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -227,9 +228,9 @@ Returns a paginated list of errors that occurred during the specified import, wi
 | `queries` | <code>GetImportIdErrorsGetErrorsQueries</code> | No | Optional query parameters: `includeRowData` (boolean), `includeErrorMessage` (boolean), `limit` (int), `after` (paging cursor). |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponsePublicImportErrorForwardPaging|error`
+Returns: `CollectionResponsePublicImportErrorForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 crmImport:CollectionResponsePublicImportErrorForwardPaging errors = check importClient->/[48541593]/errors.get(
@@ -237,7 +238,7 @@ crmImport:CollectionResponsePublicImportErrorForwardPaging errors = check import
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -265,33 +266,33 @@ crmImport:CollectionResponsePublicImportErrorForwardPaging errors = check import
 
 </details>
 
-#### Import Management
+#### Import management
 
 <details>
 <summary>Cancel an active import</summary>
 
 <div>
 
-**Signature:** `post [int importId]/cancel`
+Signature: `post [int importId]/cancel`
 
 Cancels an active import. Only imports in the `STARTED` or `PROCESSING` state can be canceled.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `importId` | <code>int</code> | Yes | The ID of the import to cancel. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `ActionResponse|error`
+Returns: `ActionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 crmImport:ActionResponse cancelResponse = check importClient->/[48541593]/cancel.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

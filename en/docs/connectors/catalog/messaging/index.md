@@ -3,11 +3,11 @@ title: "Messaging"
 description: "Messaging connectors available in WSO2 Integrator."
 ---
 
-# Messaging Connectors
+# Messaging
 
 <!-- TODO: Searchable grid/table with: name, icon, 1-line description, supported operations, link to detail page -->
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -23,7 +23,7 @@ description: "Messaging connectors available in WSO2 Integrator."
 | [RabbitMQ](rabbitmq/overview.md) | AMQP 0-9-1 message broker with queue/exchange management, pub/sub, and consumer services | Publish, Consume, Queue Declare, Exchange Declare, Bind, Ack, Nack | Username / Password |
 | [Solace](solace/overview.md) | Event broker with publish/subscribe, queuing, durable subscriptions, and listener triggers | Send, Receive, Acknowledge, Commit, Rollback | Basic Auth, Kerberos, OAuth 2.0 |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

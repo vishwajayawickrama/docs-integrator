@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/java.jms` connector supports event-driven message consumption through a `jms:Listener`. When messages arrive on a configured queue or topic, the listener dispatches them to your service's `onMessage` callback automatically — no polling loop required.
@@ -28,7 +31,7 @@ The listener supports the following connection strategies:
 |-------------|-------------|
 | `ConnectionConfiguration` | Configures the JMS broker connection for the listener. |
 
-**`ConnectionConfiguration` fields:**
+`ConnectionConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -39,7 +42,7 @@ The listener supports the following connection strategies:
 | `password` | `string` | `()` | Password for broker authentication. |
 | `properties` | `map<string>` | `{}` | Additional JNDI properties. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Basic listener with ActiveMQ:**
 
@@ -80,7 +83,7 @@ listener jms:Listener jmsListener = check new ({
 A `jms:Service` is a Ballerina service attached to a `jms:Listener`. It is annotated with `@jms:ServiceConfig` to specify the queue or topic to consume from, along with session acknowledgement mode and optional message selectors.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -91,7 +94,7 @@ A `jms:Service` is a Ballerina service attached to a `jms:Listener`. It is annot
 The `jms:Caller` parameter is optional. Include it when you need manual acknowledgement (`CLIENT_ACKNOWLEDGE` mode) or transaction control (`SESSION_TRANSACTED` mode).
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -133,7 +136,7 @@ Use `@jms:ServiceConfig` with `queueName` for queue consumption or `topicName` f
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `Message`
 

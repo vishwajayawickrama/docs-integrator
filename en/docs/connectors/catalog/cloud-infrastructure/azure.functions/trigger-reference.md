@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/azure.functions` connector provides an event-driven programming model for Azure Functions. Each trigger type has a dedicated Listener class and service object type. Trigger configuration is applied via annotations on the listener declaration. Input bindings are parameter annotations; output bindings are return type annotations on the remote or resource function.
@@ -33,27 +36,27 @@ The listener supports the following connection strategies:
 | `CosmosDBTriggerConfiguration  (@af:CosmosDBTrigger)` | Configures the CosmosDB change feed trigger. Apply as `@af:CosmosDBTrigger` on the listener declaration. |
 | `TimerTriggerConfiguration  (@af:TimerTrigger)` | Configures the timer trigger schedule. Apply as `@af:TimerTrigger` on the listener declaration. |
 
-**`HTTPTriggerConfiguration  (@af:HttpTrigger)` fields:**
+`HTTPTriggerConfiguration  (@af:HttpTrigger)` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `authLevel` | `AUTH_LEVEL` | `"anonymous"` | Authentication level: `"anonymous"` (no key required), `"function"` (function key required), or `"admin"` (master key required). |
 
-**`QueueConfiguration  (@af:QueueTrigger)` fields:**
+`QueueConfiguration  (@af:QueueTrigger)` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `queueName` | `string` | Required | Name of the Azure Storage queue to subscribe to. |
 | `connection` | `string` | `"AzureWebJobsStorage"` | Name of the App Setting that holds the storage connection string. |
 
-**`BlobConfiguration  (@af:BlobTrigger)` fields:**
+`BlobConfiguration  (@af:BlobTrigger)` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `path` | `string` | Required | Blob path pattern to watch, e.g. `"samples/{name}"`. Capture variables like `{name}` can be bound to parameters using `@af:BindingName`. |
 | `connection` | `string` | `"AzureWebJobsStorage"` | Name of the App Setting that holds the storage connection string. |
 
-**`CosmosDBTriggerConfiguration  (@af:CosmosDBTrigger)` fields:**
+`CosmosDBTriggerConfiguration  (@af:CosmosDBTrigger)` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -63,14 +66,14 @@ The listener supports the following connection strategies:
 | `createLeaseCollectionIfNotExists` | `boolean` | `true` | Automatically create the leases collection if it does not already exist. |
 | `leasesCollectionThroughput` | `int` | `()` | Provisioned throughput (RU/s) to set when auto-creating the leases collection. |
 
-**`TimerTriggerConfiguration  (@af:TimerTrigger)` fields:**
+`TimerTriggerConfiguration  (@af:TimerTrigger)` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `schedule` | `string` | Required | CRON expression for the trigger schedule, e.g. `"*/10 * * * * *"` (every 10 seconds) or `"0 */5 * * * *"` (every 5 minutes). |
 | `runOnStartup` | `boolean` | `true` | Whether to invoke the function once immediately when the host starts. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **HTTP Trigger (anonymous auth):**
 
@@ -139,7 +142,7 @@ listener af:TimerListener timerListener = new ();
 A service attached to an Azure Functions listener defines the callback invoked when the trigger fires. For HTTP listeners, standard Ballerina resource functions are used. For all other listeners, a `remote function` with a fixed name is required. Return type annotations specify output bindings — they tell the Azure runtime where to send the function's return value after execution.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -154,7 +157,7 @@ Output bindings are specified as annotations on the return type: `@af:HttpOutput
 
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerinax/azure.functions as af;
@@ -236,7 +239,7 @@ Input bindings let you read from Azure services within a callback using paramete
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `TimerMetadata`
 

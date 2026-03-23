@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ DocuSign Admin API — organization, user, permission, group, export/import, and
 | `validation` | `boolean` | `true` | Enables inbound payload validation provided by the constraint package. |
 | `laxDataBinding` | `boolean` | `true` | Enables relaxed data binding — nil values are treated as optional and absent fields as nilable. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/docusign.dsadmin;
@@ -53,7 +54,7 @@ dsadmin:Client docuSignClient = check new (
 
 ### Operations
 
-#### Organization Operations
+#### Organization operations
 
 <details>
 <summary>Returns a list of organizations that the authenticated user belongs to</summary>
@@ -62,22 +63,22 @@ dsadmin:Client docuSignClient = check new (
 
 Retrieves the list of organizations the authenticated user is a member of.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional headers to be sent with the request. |
 | `queries` | `OrganizationOrganizationGetListV2Queries` | No | Query parameters including optional `mode` filter. |
 
-**Returns:** `OrganizationsResponse|error`
+Returns: `OrganizationsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationsResponse orgResponse = check docuSignClient->/v2/organizations();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -97,7 +98,7 @@ dsadmin:OrganizationsResponse orgResponse = check docuSignClient->/v2/organizati
 
 </details>
 
-#### User Management
+#### User management
 
 <details>
 <summary>Returns information about the users in an organization</summary>
@@ -106,22 +107,22 @@ dsadmin:OrganizationsResponse orgResponse = check docuSignClient->/v2/organizati
 
 Retrieves a list of users in the specified organization, with optional filters for email, account, status, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `queries` | `OrganizationUserOrganizationUsersGetV2Queries` | No | Query parameters including `email`, `accountId`, `status`, `start`, `take`, `membershipStatus`, etc. |
 
-**Returns:** `OrganizationUsersResponse|error`
+Returns: `OrganizationUsersResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationUsersResponse userInfo = check docuSignClient->/v2/organizations/[organizationId]/users(accountId = accountId, email = "user@example.com");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -155,16 +156,16 @@ dsadmin:OrganizationUsersResponse userInfo = check docuSignClient->/v2/organizat
 
 Creates a new user in the specified organization with the provided user details and account memberships.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `NewUserRequest` | Yes | The new user's details including userName, firstName, email, and account assignments. |
 
-**Returns:** `NewUserResponse|error`
+Returns: `NewUserResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:NewUserRequest newUserReq = {
@@ -181,7 +182,7 @@ dsadmin:NewUserRequest newUserReq = {
 dsadmin:NewUserResponse newUser = check docuSignClient->/v2/organizations/[organizationId]/users.post(newUserReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -211,7 +212,7 @@ dsadmin:NewUserResponse newUser = check docuSignClient->/v2/organizations/[organ
 
 Adds a user to a specific account within the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -219,9 +220,9 @@ Adds a user to a specific account within the organization.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `payload` | `NewAccountUserRequest` | Yes | The new account user request with user details. |
 
-**Returns:** `NewUserResponse|error`
+Returns: `NewUserResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:NewAccountUserRequest userReq = {
@@ -232,7 +233,7 @@ dsadmin:NewAccountUserRequest userReq = {
 dsadmin:NewUserResponse addedUser = check docuSignClient->/v2/organizations/[organizationId]/accounts/[accountId]/users.post(userReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -260,16 +261,16 @@ dsadmin:NewUserResponse addedUser = check docuSignClient->/v2/organizations/[org
 
 Updates profile information for one or more users in the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `UpdateUsersRequest` | Yes | The update request containing a list of user updates. |
 
-**Returns:** `UsersUpdateResponse|error`
+Returns: `UsersUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:UpdateUsersRequest updateReq = {
@@ -286,7 +287,7 @@ dsadmin:UpdateUsersRequest updateReq = {
 dsadmin:UsersUpdateResponse updateResp = check docuSignClient->/v2/organizations/[organizationId]/users/profiles.post(updateReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -312,16 +313,16 @@ dsadmin:UsersUpdateResponse updateResp = check docuSignClient->/v2/organizations
 
 Changes the email address for one or more users in the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `UpdateUsersEmailRequest` | Yes | The email update request containing a list of user email changes. |
 
-**Returns:** `UsersUpdateResponse|error`
+Returns: `UsersUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:UpdateUsersEmailRequest emailReq = {
@@ -336,7 +337,7 @@ dsadmin:UpdateUsersEmailRequest emailReq = {
 dsadmin:UsersUpdateResponse emailResp = check docuSignClient->/v2/organizations/[organizationId]/users/email_addresses.post(emailReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -361,7 +362,7 @@ dsadmin:UsersUpdateResponse emailResp = check docuSignClient->/v2/organizations/
 
 Closes one or more of a user's account memberships in the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -369,9 +370,9 @@ Closes one or more of a user's account memberships in the organization.
 | `userId` | `string` | Yes | The user ID GUID. |
 | `payload` | `DeleteMembershipsRequest` | Yes | The request specifying which account memberships to close. |
 
-**Returns:** `DeleteMembershipsResponse|error`
+Returns: `DeleteMembershipsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:DeleteMembershipsRequest deleteReq = {
@@ -382,7 +383,7 @@ dsadmin:DeleteMembershipsRequest deleteReq = {
 dsadmin:DeleteMembershipsResponse deleteResp = check docuSignClient->/v2/organizations/[organizationId]/users/[userId]/accounts.delete(deleteReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -406,7 +407,7 @@ dsadmin:DeleteMembershipsResponse deleteResp = check docuSignClient->/v2/organiz
 
 Force-activates a user's membership in the specified account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -415,9 +416,9 @@ Force-activates a user's membership in the specified account.
 | `membershipId` | `string` | Yes | The membership ID GUID. |
 | `payload` | `ForceActivateMembershipRequest` | Yes | The activation request with site ID. |
 
-**Returns:** `UpdateResponse|error`
+Returns: `UpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:ForceActivateMembershipRequest activateReq = {
@@ -426,7 +427,7 @@ dsadmin:ForceActivateMembershipRequest activateReq = {
 dsadmin:UpdateResponse activateResp = check docuSignClient->/v2/organizations/[organizationId]/users/[userId]/memberships/[membershipId].post(activateReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -445,22 +446,22 @@ dsadmin:UpdateResponse activateResp = check docuSignClient->/v2/organizations/[o
 
 Retrieves profile details for a user identified by email address within the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `queries` | `OrganizationUserOrganizationUsersGetProfileV2Queries` | No | Query parameters including `email`. |
 
-**Returns:** `UsersDrilldownResponse|error`
+Returns: `UsersDrilldownResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:UsersDrilldownResponse profile = check docuSignClient->/v2/organizations/[organizationId]/users/profile(email = "user@example.com");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -489,7 +490,7 @@ dsadmin:UsersDrilldownResponse profile = check docuSignClient->/v2/organizations
 
 Deletes one or more identities for a user in the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -497,9 +498,9 @@ Deletes one or more identities for a user in the organization.
 | `userId` | `string` | Yes | The user ID GUID. |
 | `payload` | `DeleteUserIdentityRequest` | Yes | The identity deletion request specifying identities to remove. |
 
-**Returns:** `DeleteResponse|error`
+Returns: `DeleteResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:DeleteUserIdentityRequest identityReq = {
@@ -510,7 +511,7 @@ dsadmin:DeleteUserIdentityRequest identityReq = {
 dsadmin:DeleteResponse identityResp = check docuSignClient->/v2/organizations/[organizationId]/users/[userId]/identities.delete(identityReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -527,7 +528,7 @@ dsadmin:DeleteResponse identityResp = check docuSignClient->/v2/organizations/[o
 
 </details>
 
-#### Permissions & Groups
+#### Permissions & groups
 
 <details>
 <summary>Returns the list of permission profiles in an account</summary>
@@ -536,22 +537,22 @@ dsadmin:DeleteResponse identityResp = check docuSignClient->/v2/organizations/[o
 
 Retrieves all permission profiles available for the specified account in the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `accountId` | `string` | Yes | The account ID GUID. |
 
-**Returns:** `PermissionsResponse|error`
+Returns: `PermissionsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:PermissionsResponse permissions = check docuSignClient->/v2/organizations/[organizationId]/accounts/[accountId]/permissions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -579,7 +580,7 @@ dsadmin:PermissionsResponse permissions = check docuSignClient->/v2/organization
 
 Retrieves the list of groups for a given account within the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -587,15 +588,15 @@ Retrieves the list of groups for a given account within the organization.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `queries` | `AccountAccountsGetGroupsV2Queries` | No | Pagination parameters: `start`, `take`, `end`. |
 
-**Returns:** `MemberGroupsResponse|error`
+Returns: `MemberGroupsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:MemberGroupsResponse groups = check docuSignClient->/v2/organizations/[organizationId]/accounts/[accountId]/groups();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -618,7 +619,7 @@ dsadmin:MemberGroupsResponse groups = check docuSignClient->/v2/organizations/[o
 
 </details>
 
-#### User List Export
+#### User list export
 
 <details>
 <summary>Returns a list of pending and completed export requests</summary>
@@ -627,21 +628,21 @@ dsadmin:MemberGroupsResponse groups = check docuSignClient->/v2/organizations/[o
 
 Retrieves all user list export requests for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 
-**Returns:** `OrganizationExportsResponse|error`
+Returns: `OrganizationExportsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationExportsResponse exports = check docuSignClient->/v2/organizations/[organizationId]/exports/user_list();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -670,16 +671,16 @@ dsadmin:OrganizationExportsResponse exports = check docuSignClient->/v2/organiza
 
 Creates a new export request to generate a list of users in the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `OrganizationExportRequest` | Yes | The export request specifying the type and scope of the export. |
 
-**Returns:** `OrganizationExportResponse|error`
+Returns: `OrganizationExportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationExportRequest exportReq = {
@@ -688,7 +689,7 @@ dsadmin:OrganizationExportRequest exportReq = {
 dsadmin:OrganizationExportResponse exportResp = check docuSignClient->/v2/organizations/[organizationId]/exports/user_list.post(exportReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -711,22 +712,22 @@ dsadmin:OrganizationExportResponse exportResp = check docuSignClient->/v2/organi
 
 Retrieves the details and status of a specific user list export request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `exportId` | `string` | Yes | The export ID GUID. |
 
-**Returns:** `OrganizationExportResponse|error`
+Returns: `OrganizationExportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationExportResponse exportDetail = check docuSignClient->/v2/organizations/[organizationId]/exports/user_list/[exportId]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -752,22 +753,22 @@ dsadmin:OrganizationExportResponse exportDetail = check docuSignClient->/v2/orga
 
 Deletes a specific user list export request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `exportId` | `string` | Yes | The export ID GUID. |
 
-**Returns:** `record {}|error`
+Returns: `record {}|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} deleteResult = check docuSignClient->/v2/organizations/[organizationId]/exports/user_list/[exportId].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {}
@@ -777,7 +778,7 @@ record {} deleteResult = check docuSignClient->/v2/organizations/[organizationId
 
 </details>
 
-#### Account Settings Export & Import
+#### Account settings export & import
 
 <details>
 <summary>Returns a list of pending and completed account settings export request</summary>
@@ -786,21 +787,21 @@ record {} deleteResult = check docuSignClient->/v2/organizations/[organizationId
 
 Retrieves all account settings export requests for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 
-**Returns:** `OrganizationExportsResponse|error`
+Returns: `OrganizationExportsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationExportsResponse settingsExports = check docuSignClient->/v2/organizations/[organizationId]/exports/account_settings();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -826,16 +827,16 @@ dsadmin:OrganizationExportsResponse settingsExports = check docuSignClient->/v2/
 
 Creates an export request for account settings across the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `OrganizationAccountsRequest` | Yes | The export request specifying accounts to export. |
 
-**Returns:** `OrganizationExportResponse|error`
+Returns: `OrganizationExportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationAccountsRequest settingsExportReq = {
@@ -844,7 +845,7 @@ dsadmin:OrganizationAccountsRequest settingsExportReq = {
 dsadmin:OrganizationExportResponse settingsExportResp = check docuSignClient->/v2/organizations/[organizationId]/exports/account_settings.post(settingsExportReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -867,22 +868,22 @@ dsadmin:OrganizationExportResponse settingsExportResp = check docuSignClient->/v
 
 Retrieves details of a specific account settings export request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `exportId` | `string` | Yes | The export ID GUID. |
 
-**Returns:** `OrganizationExportResponse|error`
+Returns: `OrganizationExportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationExportResponse settingsDetail = check docuSignClient->/v2/organizations/[organizationId]/exports/account_settings/[exportId]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -905,22 +906,22 @@ dsadmin:OrganizationExportResponse settingsDetail = check docuSignClient->/v2/or
 
 Deletes a specific account settings export request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `exportId` | `string` | Yes | The export ID GUID. |
 
-**Returns:** `record {}|error`
+Returns: `record {}|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} deleteSettingsExport = check docuSignClient->/v2/organizations/[organizationId]/exports/account_settings/[exportId].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {}
@@ -937,21 +938,21 @@ record {} deleteSettingsExport = check docuSignClient->/v2/organizations/[organi
 
 Retrieves all account settings import requests for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 
-**Returns:** `OrganizationAccountSettingsImportResponse[]|error`
+Returns: `OrganizationAccountSettingsImportResponse[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationAccountSettingsImportResponse[] settingsImports = check docuSignClient->/v2/organizations/[organizationId]/imports/account_settings();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -975,16 +976,16 @@ dsadmin:OrganizationAccountSettingsImportResponse[] settingsImports = check docu
 
 Creates a new import request to apply account settings from a CSV file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `ImportsAccountSettingsBody` | Yes | Multipart body containing the CSV file with account settings. |
 
-**Returns:** `OrganizationAccountSettingsImportResponse|error`
+Returns: `OrganizationAccountSettingsImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:ImportsAccountSettingsBody importBody = {
@@ -993,7 +994,7 @@ dsadmin:ImportsAccountSettingsBody importBody = {
 dsadmin:OrganizationAccountSettingsImportResponse importResp = check docuSignClient->/v2/organizations/[organizationId]/imports/account_settings.post(importBody);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1013,22 +1014,22 @@ dsadmin:OrganizationAccountSettingsImportResponse importResp = check docuSignCli
 
 Retrieves the status and details of a specific account settings import request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `importId` | `string` | Yes | The import ID GUID. |
 
-**Returns:** `OrganizationAccountSettingsImportResponse|error`
+Returns: `OrganizationAccountSettingsImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationAccountSettingsImportResponse importDetail = check docuSignClient->/v2/organizations/[organizationId]/imports/account_settings/[importId]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1050,22 +1051,22 @@ dsadmin:OrganizationAccountSettingsImportResponse importDetail = check docuSignC
 
 Deletes a specific account settings import request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `importId` | `string` | Yes | The import ID GUID. |
 
-**Returns:** `record {}|error`
+Returns: `record {}|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} deleteImport = check docuSignClient->/v2/organizations/[organizationId]/imports/account_settings/[importId].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {}
@@ -1075,7 +1076,7 @@ record {} deleteImport = check docuSignClient->/v2/organizations/[organizationId
 
 </details>
 
-#### Bulk User Import
+#### Bulk user import
 
 <details>
 <summary>Creates a request to import new users into an account</summary>
@@ -1084,16 +1085,16 @@ record {} deleteImport = check docuSignClient->/v2/organizations/[organizationId
 
 Creates a bulk user import request to add new users across the organization using a CSV file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `BulkUsersAddBody` | Yes | Multipart body with a CSV file containing user details. |
 
-**Returns:** `OrganizationImportResponse|error`
+Returns: `OrganizationImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:BulkUsersAddBody addBody = {
@@ -1102,7 +1103,7 @@ dsadmin:BulkUsersAddBody addBody = {
 dsadmin:OrganizationImportResponse bulkAddResp = check docuSignClient->/v2/organizations/[organizationId]/imports/bulk_users/add.post(addBody);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1126,7 +1127,7 @@ dsadmin:OrganizationImportResponse bulkAddResp = check docuSignClient->/v2/organ
 
 Creates a bulk import to add users to a specific account using a CSV file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1134,9 +1135,9 @@ Creates a bulk import to add users to a specific account using a CSV file.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `payload` | `BulkUsersAddBody1` | Yes | Multipart body with a CSV file. |
 
-**Returns:** `OrganizationImportResponse|error`
+Returns: `OrganizationImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:BulkUsersAddBody1 addBody = {
@@ -1145,7 +1146,7 @@ dsadmin:BulkUsersAddBody1 addBody = {
 dsadmin:OrganizationImportResponse acctAddResp = check docuSignClient->/v2/organizations/[organizationId]/accounts/[accountId]/imports/bulk_users/add.post(addBody);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1167,16 +1168,16 @@ dsadmin:OrganizationImportResponse acctAddResp = check docuSignClient->/v2/organ
 
 Creates a bulk import request to update existing users across the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `BulkUsersUpdateBody` | Yes | Multipart body with a CSV file containing user updates. |
 
-**Returns:** `OrganizationImportResponse|error`
+Returns: `OrganizationImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:BulkUsersUpdateBody updateBody = {
@@ -1185,7 +1186,7 @@ dsadmin:BulkUsersUpdateBody updateBody = {
 dsadmin:OrganizationImportResponse bulkUpdateResp = check docuSignClient->/v2/organizations/[organizationId]/imports/bulk_users/update.post(updateBody);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1207,7 +1208,7 @@ dsadmin:OrganizationImportResponse bulkUpdateResp = check docuSignClient->/v2/or
 
 Creates a bulk import to update users for a specific account using a CSV file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1215,9 +1216,9 @@ Creates a bulk import to update users for a specific account using a CSV file.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `payload` | `BulkUsersUpdateBody1` | Yes | Multipart body with a CSV file. |
 
-**Returns:** `OrganizationImportResponse|error`
+Returns: `OrganizationImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:BulkUsersUpdateBody1 updateBody = {
@@ -1226,7 +1227,7 @@ dsadmin:BulkUsersUpdateBody1 updateBody = {
 dsadmin:OrganizationImportResponse acctUpdateResp = check docuSignClient->/v2/organizations/[organizationId]/accounts/[accountId]/imports/bulk_users/update.post(updateBody);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1248,16 +1249,16 @@ dsadmin:OrganizationImportResponse acctUpdateResp = check docuSignClient->/v2/or
 
 Creates a bulk import request to close user accounts across the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `BulkUsersCloseBody` | Yes | Multipart body with a CSV file specifying users to close. |
 
-**Returns:** `OrganizationImportResponse|error`
+Returns: `OrganizationImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:BulkUsersCloseBody closeBody = {
@@ -1266,7 +1267,7 @@ dsadmin:BulkUsersCloseBody closeBody = {
 dsadmin:OrganizationImportResponse bulkCloseResp = check docuSignClient->/v2/organizations/[organizationId]/imports/bulk_users/close.post(closeBody);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1288,21 +1289,21 @@ dsadmin:OrganizationImportResponse bulkCloseResp = check docuSignClient->/v2/org
 
 Closes memberships for users whose email domain is external to the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 
-**Returns:** `OrganizationImportResponse|error`
+Returns: `OrganizationImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationImportResponse closeExtResp = check docuSignClient->/v2/organizations/[organizationId]/imports/bulk_users/close_external.post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1323,21 +1324,21 @@ dsadmin:OrganizationImportResponse closeExtResp = check docuSignClient->/v2/orga
 
 Retrieves all bulk user import requests for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 
-**Returns:** `OrganizationImportsResponse|error`
+Returns: `OrganizationImportsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationImportsResponse imports = check docuSignClient->/v2/organizations/[organizationId]/imports/bulk_users();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1365,22 +1366,22 @@ dsadmin:OrganizationImportsResponse imports = check docuSignClient->/v2/organiza
 
 Retrieves details and status of a specific bulk user import request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `importId` | `string` | Yes | The import ID GUID. |
 
-**Returns:** `OrganizationImportResponse|error`
+Returns: `OrganizationImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:OrganizationImportResponse importDetail = check docuSignClient->/v2/organizations/[organizationId]/imports/bulk_users/[importId]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1405,22 +1406,22 @@ dsadmin:OrganizationImportResponse importDetail = check docuSignClient->/v2/orga
 
 Deletes a specific bulk user import request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `importId` | `string` | Yes | The import ID GUID. |
 
-**Returns:** `record {}|error`
+Returns: `record {}|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} deleteImport = check docuSignClient->/v2/organizations/[organizationId]/imports/bulk_users/[importId].delete();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {}
@@ -1437,22 +1438,22 @@ record {} deleteImport = check docuSignClient->/v2/organizations/[organizationId
 
 Downloads the CSV results file for a completed bulk user import request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `importId` | `string` | Yes | The import ID GUID. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string csvResults = check docuSignClient->/v2/organizations/[organizationId]/imports/bulk_users/[importId]/results_csv();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "email,user_name,status\njane@example.com,Jane Doe,added\nbob@example.com,Bob Smith,error"
@@ -1462,7 +1463,7 @@ string csvResults = check docuSignClient->/v2/organizations/[organizationId]/imp
 
 </details>
 
-#### Identity Providers & Domains
+#### Identity providers & domains
 
 <details>
 <summary>Returns the list of identity providers for an organization</summary>
@@ -1471,21 +1472,21 @@ string csvResults = check docuSignClient->/v2/organizations/[organizationId]/imp
 
 Retrieves all identity providers configured for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 
-**Returns:** `IdentityProvidersResponse|error`
+Returns: `IdentityProvidersResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:IdentityProvidersResponse idpResponse = check docuSignClient->/v2/organizations/[organizationId]/identity_providers();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1510,21 +1511,21 @@ dsadmin:IdentityProvidersResponse idpResponse = check docuSignClient->/v2/organi
 
 Retrieves all reserved (claimed) domains for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 
-**Returns:** `DomainsResponse|error`
+Returns: `DomainsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:DomainsResponse domains = check docuSignClient->/v2/organizations/[organizationId]/reserved_domains();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1542,7 +1543,7 @@ dsadmin:DomainsResponse domains = check docuSignClient->/v2/organizations/[organ
 
 </details>
 
-#### Data Redaction
+#### Data redaction
 
 <details>
 <summary>Deletes membership data for a user on an account</summary>
@@ -1551,16 +1552,16 @@ dsadmin:DomainsResponse domains = check docuSignClient->/v2/organizations/[organ
 
 Redacts (deletes) a user's membership data from a specific account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `accountId` | `string` | Yes | The account ID from which to delete the user's data. |
 | `payload` | `IndividualMembershipDataRedactionRequest` | Yes | The redaction request specifying the user ID. |
 
-**Returns:** `IndividualUserDataRedactionResponse|error`
+Returns: `IndividualUserDataRedactionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:IndividualMembershipDataRedactionRequest redactReq = {
@@ -1569,7 +1570,7 @@ dsadmin:IndividualMembershipDataRedactionRequest redactReq = {
 dsadmin:IndividualUserDataRedactionResponse redactResp = check docuSignClient->/v2/data_redaction/accounts/[accountId]/user.post(redactReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1595,16 +1596,16 @@ dsadmin:IndividualUserDataRedactionResponse redactResp = check docuSignClient->/
 
 Redacts (deletes) a user's data across one or more account memberships in the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization ID GUID. |
 | `payload` | `IndividualUserDataRedactionRequest` | Yes | The redaction request specifying the user and memberships. |
 
-**Returns:** `IndividualUserDataRedactionResponse|error`
+Returns: `IndividualUserDataRedactionResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:IndividualUserDataRedactionRequest orgRedactReq = {
@@ -1613,7 +1614,7 @@ dsadmin:IndividualUserDataRedactionRequest orgRedactReq = {
 dsadmin:IndividualUserDataRedactionResponse orgRedactResp = check docuSignClient->/v2/data_redaction/organizations/[organizationId]/user.post(orgRedactReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1632,7 +1633,7 @@ dsadmin:IndividualUserDataRedactionResponse orgRedactResp = check docuSignClient
 
 </details>
 
-#### DSGroup Management (v2.1)
+#### DSGroup management (v2.1)
 
 <details>
 <summary>Returns a list of DSGroups</summary>
@@ -1641,7 +1642,7 @@ dsadmin:IndividualUserDataRedactionResponse orgRedactResp = check docuSignClient
 
 Retrieves all DSGroups for a specific account within the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1649,15 +1650,15 @@ Retrieves all DSGroups for a specific account within the organization.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `queries` | `DocuSignGroupsv21GetDSGroupsV21Queries` | No | Pagination parameters: `page`, `pageSize`. |
 
-**Returns:** `DSGroupListResponse|error`
+Returns: `DSGroupListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:DSGroupListResponse dsGroups = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/dsgroups();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1687,7 +1688,7 @@ dsadmin:DSGroupListResponse dsGroups = check docuSignClient->/v2\.1/organization
 
 Creates a new DSGroup for the specified account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1695,9 +1696,9 @@ Creates a new DSGroup for the specified account.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `payload` | `DSGroupAddRequest` | Yes | The group creation request with group name and optional description. |
 
-**Returns:** `DSGroupResponse|error`
+Returns: `DSGroupResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:DSGroupAddRequest groupReq = {
@@ -1707,7 +1708,7 @@ dsadmin:DSGroupAddRequest groupReq = {
 dsadmin:DSGroupResponse newGroup = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/dsgroups.post(groupReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1730,7 +1731,7 @@ dsadmin:DSGroupResponse newGroup = check docuSignClient->/v2\.1/organizations/[o
 
 Retrieves detailed information about a specific DSGroup.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1738,15 +1739,15 @@ Retrieves detailed information about a specific DSGroup.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `dsGroupId` | `string` | Yes | The DSGroup's ID GUID. |
 
-**Returns:** `DSGroupResponse|error`
+Returns: `DSGroupResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:DSGroupResponse groupDetail = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/dsgroups/[dsGroupId]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1769,7 +1770,7 @@ dsadmin:DSGroupResponse groupDetail = check docuSignClient->/v2\.1/organizations
 
 Deletes a DSGroup from the specified account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1777,9 +1778,9 @@ Deletes a DSGroup from the specified account.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `dsGroupId` | `string` | Yes | The DSGroup's GUID. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/dsgroups/[dsGroupId].delete();
@@ -1796,7 +1797,7 @@ check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]
 
 Retrieves all users belonging to a specific DSGroup.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1805,15 +1806,15 @@ Retrieves all users belonging to a specific DSGroup.
 | `dsGroupId` | `string` | Yes | The DSGroup's GUID. |
 | `queries` | `DocuSignGroupsv21GetDSGroupUsersV21Queries` | No | Pagination parameters: `page`, `pageSize`. |
 
-**Returns:** `DSGroupAndUsersResponse|error`
+Returns: `DSGroupAndUsersResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:DSGroupAndUsersResponse groupUsers = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/dsgroups/[dsGroupId]/users();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1845,7 +1846,7 @@ dsadmin:DSGroupAndUsersResponse groupUsers = check docuSignClient->/v2\.1/organi
 
 Adds one or more users to a specific DSGroup.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1854,9 +1855,9 @@ Adds one or more users to a specific DSGroup.
 | `dsGroupId` | `string` | Yes | The DSGroup's GUID. |
 | `payload` | `DSGroupUsersAddRequest` | Yes | The request containing user IDs to add. |
 
-**Returns:** `AddDSGroupAndUsersResponse|error`
+Returns: `AddDSGroupAndUsersResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:DSGroupUsersAddRequest addUsersReq = {
@@ -1865,7 +1866,7 @@ dsadmin:DSGroupUsersAddRequest addUsersReq = {
 dsadmin:AddDSGroupAndUsersResponse addResult = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/dsgroups/[dsGroupId]/users.post(addUsersReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1885,7 +1886,7 @@ dsadmin:AddDSGroupAndUsersResponse addResult = check docuSignClient->/v2\.1/orga
 
 Removes one or more users from a specific DSGroup.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1894,9 +1895,9 @@ Removes one or more users from a specific DSGroup.
 | `dsGroupId` | `string` | Yes | The DSGroup's GUID. |
 | `payload` | `DSGroupUsersRemoveRequest` | Yes | The request containing user IDs to remove. |
 
-**Returns:** `RemoveDSGroupUsersResponse|error`
+Returns: `RemoveDSGroupUsersResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:DSGroupUsersRemoveRequest removeReq = {
@@ -1905,7 +1906,7 @@ dsadmin:DSGroupUsersRemoveRequest removeReq = {
 dsadmin:RemoveDSGroupUsersResponse removeResult = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/dsgroups/[dsGroupId]/users.delete(removeReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1917,7 +1918,7 @@ dsadmin:RemoveDSGroupUsersResponse removeResult = check docuSignClient->/v2\.1/o
 
 </details>
 
-#### Product Permission Profiles (v2.1)
+#### Product permission profiles (v2.1)
 
 <details>
 <summary>Gets products associated with the account and the available permission profiles</summary>
@@ -1926,22 +1927,22 @@ dsadmin:RemoveDSGroupUsersResponse removeResult = check docuSignClient->/v2\.1/o
 
 Retrieves products and their available permission profiles for the specified account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization's GUID. |
 | `accountId` | `string` | Yes | The account ID GUID. |
 
-**Returns:** `ProductPermissionProfilesResponse|error`
+Returns: `ProductPermissionProfilesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:ProductPermissionProfilesResponse prodPerms = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/products/permission_profiles();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1971,7 +1972,7 @@ dsadmin:ProductPermissionProfilesResponse prodPerms = check docuSignClient->/v2\
 
 Retrieves the product permission profiles assigned to a user identified by email.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1979,15 +1980,15 @@ Retrieves the product permission profiles assigned to a user identified by email
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `queries` | `OrganizationProductPermissionProfileGetUserProductPermissionProfilesByEmailQueries` | No | Query parameters including `email`. |
 
-**Returns:** `UserProductPermissionProfilesResponse|error`
+Returns: `UserProductPermissionProfilesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:UserProductPermissionProfilesResponse userPerms = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/products/permission_profiles/users(email = "user@example.com");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2015,7 +2016,7 @@ dsadmin:UserProductPermissionProfilesResponse userPerms = check docuSignClient->
 
 Assigns product permission profiles to a user identified by email.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2023,9 +2024,9 @@ Assigns product permission profiles to a user identified by email.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `payload` | `UserProductPermissionProfilesRequest` | Yes | The request with email and product permission profiles to assign. |
 
-**Returns:** `UserProductPermissionProfilesResponse|error`
+Returns: `UserProductPermissionProfilesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:UserProductPermissionProfilesRequest assignReq = {
@@ -2040,7 +2041,7 @@ dsadmin:UserProductPermissionProfilesRequest assignReq = {
 dsadmin:UserProductPermissionProfilesResponse assignResp = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/products/permission_profiles/users.post(assignReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2067,7 +2068,7 @@ dsadmin:UserProductPermissionProfilesResponse assignResp = check docuSignClient-
 
 Retrieves the product permission profiles assigned to a user identified by user ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2075,15 +2076,15 @@ Retrieves the product permission profiles assigned to a user identified by user 
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `userId` | `string` | Yes | The user ID GUID. |
 
-**Returns:** `ProductPermissionProfilesResponse|error`
+Returns: `ProductPermissionProfilesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:ProductPermissionProfilesResponse userProdPerms = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/products/users/[userId]/permission_profiles();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2113,7 +2114,7 @@ dsadmin:ProductPermissionProfilesResponse userProdPerms = check docuSignClient->
 
 Assigns product permission profiles to a user identified by user ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2122,9 +2123,9 @@ Assigns product permission profiles to a user identified by user ID.
 | `userId` | `string` | Yes | The user ID GUID. |
 | `payload` | `ProductPermissionProfilesRequest` | Yes | The request with product permission profiles to assign. |
 
-**Returns:** `UserProductPermissionProfilesResponse|error`
+Returns: `UserProductPermissionProfilesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:ProductPermissionProfilesRequest assignByIdReq = {
@@ -2138,7 +2139,7 @@ dsadmin:ProductPermissionProfilesRequest assignByIdReq = {
 dsadmin:UserProductPermissionProfilesResponse assignByIdResp = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/products/users/[userId]/permission_profiles.post(assignByIdReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2165,7 +2166,7 @@ dsadmin:UserProductPermissionProfilesResponse assignByIdResp = check docuSignCli
 
 Revokes a user's access to one or more products in the specified account.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2173,9 +2174,9 @@ Revokes a user's access to one or more products in the specified account.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `payload` | `UserProductProfileDeleteRequest` | Yes | The request specifying the user and products to revoke. |
 
-**Returns:** `RemoveUserProductsResponse|error`
+Returns: `RemoveUserProductsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:UserProductProfileDeleteRequest revokeReq = {
@@ -2185,7 +2186,7 @@ dsadmin:UserProductProfileDeleteRequest revokeReq = {
 dsadmin:RemoveUserProductsResponse revokeResp = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/products/users.delete(revokeReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2199,7 +2200,7 @@ dsadmin:RemoveUserProductsResponse revokeResp = check docuSignClient->/v2\.1/org
 
 </details>
 
-#### Multi-Product User Management (v2.1)
+#### Multi-Product user management (v2.1)
 
 <details>
 <summary>Creates and updates a multi-product user</summary>
@@ -2208,7 +2209,7 @@ dsadmin:RemoveUserProductsResponse revokeResp = check docuSignClient->/v2\.1/org
 
 Creates a new user or updates an existing user with multi-product access.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2216,9 +2217,9 @@ Creates a new user or updates an existing user with multi-product access.
 | `accountId` | `string` | Yes | The account ID GUID. |
 | `payload` | `NewMultiProductUserAddRequest` | Yes | The multi-product user creation request. |
 
-**Returns:** `AddUserResponse|error`
+Returns: `AddUserResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:NewMultiProductUserAddRequest multiUserReq = {
@@ -2235,7 +2236,7 @@ dsadmin:NewMultiProductUserAddRequest multiUserReq = {
 dsadmin:AddUserResponse multiUserResp = check docuSignClient->/v2\.1/organizations/[organizationId]/accounts/[accountId]/users.post(multiUserReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2258,22 +2259,22 @@ dsadmin:AddUserResponse multiUserResp = check docuSignClient->/v2\.1/organizatio
 
 Retrieves the DocuSign profile for a user identified by email address.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization's GUID. |
 | `queries` | `OrganizationUserOrganizationUsersGetDSProfilesQueries` | No | Query parameters including `email` and `sort`. |
 
-**Returns:** `UsersDrilldownResponse|error`
+Returns: `UsersDrilldownResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:UsersDrilldownResponse dsProfile = check docuSignClient->/v2\.1/organizations/[organizationId]/users/dsprofile(email = "user@example.com");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2300,7 +2301,7 @@ dsadmin:UsersDrilldownResponse dsProfile = check docuSignClient->/v2\.1/organiza
 
 Retrieves the DocuSign profile for a user identified by user ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2308,15 +2309,15 @@ Retrieves the DocuSign profile for a user identified by user ID.
 | `userId` | `string` | Yes | The user ID GUID. |
 | `queries` | `OrganizationUserOrganizationUsersGetDSProfileByUserIdQueries` | No | Query parameter: `sort`. |
 
-**Returns:** `UsersDrilldownResponse|error`
+Returns: `UsersDrilldownResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:UsersDrilldownResponse dsProfileById = check docuSignClient->/v2\.1/organizations/[organizationId]/users/[userId]/dsprofile();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2336,7 +2337,7 @@ dsadmin:UsersDrilldownResponse dsProfileById = check docuSignClient->/v2\.1/orga
 
 </details>
 
-#### Asset Group Operations
+#### Asset group operations
 
 <details>
 <summary>Get asset group accounts for an organization</summary>
@@ -2345,22 +2346,22 @@ dsadmin:UsersDrilldownResponse dsProfileById = check docuSignClient->/v2\.1/orga
 
 Retrieves asset group accounts for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization's GUID. |
 | `queries` | `OrganizationProvisionAssetGroupGetAssetGroupAccountsByOrgQueries` | No | Query parameters for filtering and pagination. |
 
-**Returns:** `AssetGroupAccountsResponse|error`
+Returns: `AssetGroupAccountsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:AssetGroupAccountsResponse assetAccounts = check docuSignClient->/v1/organizations/[organizationId]/assetGroups/accounts();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2385,16 +2386,16 @@ dsadmin:AssetGroupAccountsResponse assetAccounts = check docuSignClient->/v1/org
 
 Creates a clone of an existing DocuSign account within the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization's GUID. |
 | `payload` | `AssetGroupAccountClone` | Yes | The account clone request specifying source account and target details. |
 
-**Returns:** `AssetGroupAccountClone|error`
+Returns: `AssetGroupAccountClone|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:AssetGroupAccountClone cloneReq = {
@@ -2408,7 +2409,7 @@ dsadmin:AssetGroupAccountClone cloneReq = {
 dsadmin:AssetGroupAccountClone cloneResp = check docuSignClient->/v1/organizations/[organizationId]/assetGroups/accountClone.post(cloneReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2434,22 +2435,22 @@ dsadmin:AssetGroupAccountClone cloneResp = check docuSignClient->/v1/organizatio
 
 Retrieves all account clone requests for the organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `organizationId` | `string` | Yes | The organization's GUID. |
 | `queries` | `OrganizationProvisionAssetGroupGetAssetGroupAccountClonesByOrgIdQueries` | No | Query parameters for filtering and pagination. |
 
-**Returns:** `AssetGroupAccountClones|error`
+Returns: `AssetGroupAccountClones|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:AssetGroupAccountClones clones = check docuSignClient->/v1/organizations/[organizationId]/assetGroups/accountClones();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2473,7 +2474,7 @@ dsadmin:AssetGroupAccountClones clones = check docuSignClient->/v1/organizations
 
 Retrieves the status and details of a specific account clone request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2481,15 +2482,15 @@ Retrieves the status and details of a specific account clone request.
 | `assetGroupId` | `string` | Yes | The ID of the asset group. |
 | `assetGroupWorkId` | `string` | Yes | The ID of the asset group account clone request. |
 
-**Returns:** `AssetGroupAccountClone|error`
+Returns: `AssetGroupAccountClone|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 dsadmin:AssetGroupAccountClone cloneDetail = check docuSignClient->/v1/organizations/[organizationId]/assetGroups/[assetGroupId]/accountClones/[assetGroupWorkId]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 credentials required to use the HubSpot Marketing Subscriptions connector.
@@ -8,7 +11,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 - A HubSpot account with admin access. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 - A HubSpot developer account for creating apps. [Create a developer account](https://developers.hubspot.com/get-started) if you don't have one.
 
-## Step 1: Create a HubSpot App
+## Step 1: Create a HubSpot app
 
 1. Log in to your [HubSpot developer account](https://app.hubspot.com/developer).
 2. Navigate to **Apps** in the top navigation.
@@ -16,7 +19,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 4. Under **App Info**, enter a name for your app (e.g., `Ballerina Subscriptions Connector`).
 5. Optionally add a description and logo.
 
-## Step 2: Configure OAuth Scopes
+## Step 2: Configure OAuth scopes
 
 1. In your app settings, go to the **Auth** tab.
 2. Under **Scopes**, add the following required scopes:
@@ -29,7 +32,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 Store the Client ID and Client Secret securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 3: Authorize and Generate a Refresh Token
+## Step 3: Authorize and generate a refresh token
 
 Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 

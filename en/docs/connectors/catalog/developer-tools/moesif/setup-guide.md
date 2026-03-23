@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Moesif account, creating an application, and obtaining the Application ID required to configure the Ballerina Moesif observability provider.
@@ -7,20 +10,20 @@ This guide walks you through creating a Moesif account, creating an application,
 
 - A Moesif account. Sign up for free at [moesif.com](https://www.moesif.com/signup).
 
-## Step 1: Create a Moesif Account
+## Step 1: Create a Moesif account
 
 1. Go to [moesif.com](https://www.moesif.com/signup) and sign up for a free account.
 2. Verify your email address when prompted.
 3. Complete the onboarding form (company name, role, and intended use case).
 
-## Step 2: Create a New Application
+## Step 2: Create a new application
 
 1. After logging in, you will be prompted to create your first application (or click **New Application** from the dashboard).
 2. Enter an **Application Name** (e.g., `My Ballerina Service`).
 3. Select the API type that best matches your service.
 4. Click **Create** to finish creating the application.
 
-## Step 3: Obtain Your Application ID
+## Step 3: Obtain your application ID
 
 1. In the Moesif dashboard, navigate to **Settings** → **Installation** (or click the gear icon in the left sidebar).
 2. Select the **Server Integration** or **API Keys** tab.
@@ -31,7 +34,7 @@ This guide walks you through creating a Moesif account, creating an application,
 Keep your Application ID secure. Do not commit it to source control. Use Ballerina's `configurable` feature and supply the value at runtime via a `Config.toml` file or environment variables.
 :::
 
-## Step 4: (Optional) Set Up Log Ingestion via OpenTelemetry Collector
+## Step 4: (Optional) set up log ingestion via OpenTelemetry collector
 
 Moesif can receive Ballerina logs forwarded through a Fluent Bit → OpenTelemetry Collector pipeline:
 

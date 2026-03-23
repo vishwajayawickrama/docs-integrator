@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/mysql` connector supports event-driven integration through Change Data Capture (CDC) powered by Debezium. When rows are inserted, updated, or deleted in monitored MySQL tables, the `mysql:CdcListener` receives change events in real time and invokes your service callbacks automatically.
@@ -28,7 +31,7 @@ The listener supports the following connection strategies:
 | `MySqlDatabaseConnection` | Configures the CDC database connection including server address, credentials, and table filtering. |
 | `MySqlListenerConfiguration` | Top-level listener configuration wrapping the database connection and CDC options. |
 
-**`MySqlDatabaseConnection` fields:**
+`MySqlDatabaseConnection` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -43,14 +46,14 @@ The listener supports the following connection strategies:
 | `includedTables` | `string\|string[]?` | `()` | Fully-qualified table names or regex patterns to capture (e.g., `"mydb.orders"`). |
 | `tasksMax` | `int` | `1` | Maximum number of tasks for the connector. The MySQL connector always uses a single task. |
 
-**`MySqlListenerConfiguration` fields:**
+`MySqlListenerConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `database` | `MySqlDatabaseConnection` | Required | The MySQL CDC database connection configuration. |
 | `options` | `cdc:Options?` | `()` | Advanced CDC options such as snapshot mode, skipped operations, and offset storage. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Basic CDC listener with default settings:**
 
@@ -100,7 +103,7 @@ listener mysql:CdcListener cdcListener = new (
 A `cdc:Service` is a Ballerina service attached to a `mysql:CdcListener`. It listens for row-level change events on monitored MySQL tables and implements callbacks for each event type. You can type the callback parameters with your own Ballerina record types for automatic mapping.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -113,7 +116,7 @@ A `cdc:Service` is a Ballerina service attached to a `mysql:CdcListener`. It lis
 You do not need to implement all four callbacks. Only implement the event types relevant to your use case.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/io;
@@ -177,7 +180,7 @@ For CDC to work, MySQL must have binary logging enabled with `binlog-format=ROW`
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `MySqlDatabaseConnection`
 

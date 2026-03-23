@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ SCIM 2.0 RESTful API client for user, group, bulk operations, service provider c
 | `validation` | `boolean` | `true` | Enables the inbound payload validation functionality provided by the constraint package. |
 | `laxDataBinding` | `boolean` | `true` | Enables relaxed data binding on the client side. When enabled, `nil` values are treated as optional. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/scim;
@@ -57,7 +58,7 @@ scim:Client scimClient = check new (
 
 ### Operations
 
-#### User Operations
+#### User operations
 
 <details>
 <summary>Filter Users</summary>
@@ -66,22 +67,22 @@ scim:Client scimClient = check new (
 
 Retrieves a list of users, optionally filtered by a SCIM filter expression.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetUserQueries` | No | Query parameters including `filter`, `startIndex`, `count`, `domain`, `attributes`, and `excludedAttributes`. |
 
-**Returns:** `UserObjectListResponseObject|error`
+Returns: `UserObjectListResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:UserObjectListResponseObject userList = check scimClient->/Users();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -117,7 +118,7 @@ scim:UserObjectListResponseObject userList = check scimClient->/Users();
 
 Creates a new user in the identity store.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -125,9 +126,9 @@ Creates a new user in the identity store.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateUserQueries` | No | Query parameters including `attributes` and `excludedAttributes`. |
 
-**Returns:** `UserResponseObject|error`
+Returns: `UserResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:UserObject newUser = {
@@ -143,7 +144,7 @@ scim:UserObject newUser = {
 scim:UserResponseObject createdUser = check scimClient->/Users.post(newUser);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -166,16 +167,16 @@ scim:UserResponseObject createdUser = check scimClient->/Users.post(newUser);
 
 Searches for users using a SCIM search request body with filter, attributes, and pagination parameters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `UserSearchRequestObject` | Yes | Search request with `schemas`, `filter`, `attributes`, `startIndex`, `count`, and `domain`. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `UserObjectListResponseObject|error`
+Returns: `UserObjectListResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:UserSearchRequestObject searchReq = {
@@ -187,7 +188,7 @@ scim:UserSearchRequestObject searchReq = {
 scim:UserObjectListResponseObject searchResult = check scimClient->/Users/\.search.post(searchReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -217,7 +218,7 @@ scim:UserObjectListResponseObject searchResult = check scimClient->/Users/\.sear
 
 Retrieves a specific user by their SCIM resource ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -225,15 +226,15 @@ Retrieves a specific user by their SCIM resource ID.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetUserByIdQueries` | No | Query parameters including `attributes` and `excludedAttributes`. |
 
-**Returns:** `UserResponseObject|error`
+Returns: `UserResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:UserResponseObject user = check scimClient->/Users/["c3d4e5f6-a7b8-9012-cdef-123456789012"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -256,7 +257,7 @@ scim:UserResponseObject user = check scimClient->/Users/["c3d4e5f6-a7b8-9012-cde
 
 Replaces all attributes of an existing user with the provided values (full update).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -265,9 +266,9 @@ Replaces all attributes of an existing user with the provided values (full updat
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UpdateUserQueries` | No | Query parameters including `attributes` and `excludedAttributes`. |
 
-**Returns:** `UserResponseObject|error`
+Returns: `UserResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:UserUpdateObject updatedUser = {
@@ -282,7 +283,7 @@ scim:UserUpdateObject updatedUser = {
 scim:UserResponseObject result = check scimClient->/Users/["c3d4e5f6-a7b8-9012-cdef-123456789012"].put(updatedUser);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -305,7 +306,7 @@ scim:UserResponseObject result = check scimClient->/Users/["c3d4e5f6-a7b8-9012-c
 
 Partially updates an existing user with the specified patch operations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -314,9 +315,9 @@ Partially updates an existing user with the specified patch operations.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `PatchUserQueries` | No | Query parameters including `attributes` and `excludedAttributes`. |
 
-**Returns:** `UserResponseObject|error`
+Returns: `UserResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:PatchOperationInput patchOp = {
@@ -328,7 +329,7 @@ scim:PatchOperationInput patchOp = {
 scim:UserResponseObject patchedUser = check scimClient->/Users/["c3d4e5f6-a7b8-9012-cdef-123456789012"].patch(patchOp);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -350,16 +351,16 @@ scim:UserResponseObject patchedUser = check scimClient->/Users/["c3d4e5f6-a7b8-9
 
 Deletes a user from the identity store by their SCIM resource ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The SCIM resource ID of the user to delete. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check scimClient->/Users/["c3d4e5f6-a7b8-9012-cdef-123456789012"].delete();
@@ -369,7 +370,7 @@ check scimClient->/Users/["c3d4e5f6-a7b8-9012-cdef-123456789012"].delete();
 
 </details>
 
-#### Group Operations
+#### Group operations
 
 <details>
 <summary>Filter Groups</summary>
@@ -378,22 +379,22 @@ check scimClient->/Users/["c3d4e5f6-a7b8-9012-cdef-123456789012"].delete();
 
 Retrieves a list of groups, optionally filtered by a SCIM filter expression.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetGroupQueries` | No | Query parameters including `filter`, `startIndex`, `count`, `domain`, `attributes`, and `excludedAttributes`. |
 
-**Returns:** `GroupsListResponseObject|error`
+Returns: `GroupsListResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:GroupsListResponseObject groupList = check scimClient->/Groups();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -427,7 +428,7 @@ scim:GroupsListResponseObject groupList = check scimClient->/Groups();
 
 Creates a new group in the identity store.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -435,9 +436,9 @@ Creates a new group in the identity store.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateGroupQueries` | No | Query parameters including `attributes` and `excludedAttributes`. |
 
-**Returns:** `GroupResponseObject|error`
+Returns: `GroupResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:GroupRequestObject newGroup = {
@@ -450,7 +451,7 @@ scim:GroupRequestObject newGroup = {
 scim:GroupResponseObject createdGroup = check scimClient->/Groups.post(newGroup);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -472,16 +473,16 @@ scim:GroupResponseObject createdGroup = check scimClient->/Groups.post(newGroup)
 
 Searches for groups using a SCIM search request body with filter and pagination parameters.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `GroupSearchRequestObject` | Yes | Search request with `schemas`, `filter`, and `startIndex`. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `GroupSearchResponseObject|error`
+Returns: `GroupSearchResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:GroupSearchRequestObject groupSearch = {
@@ -491,7 +492,7 @@ scim:GroupSearchRequestObject groupSearch = {
 scim:GroupSearchResponseObject groupSearchResult = check scimClient->/Groups/\.search.post(groupSearch);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -520,7 +521,7 @@ scim:GroupSearchResponseObject groupSearchResult = check scimClient->/Groups/\.s
 
 Retrieves a specific group by its SCIM resource ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -528,15 +529,15 @@ Retrieves a specific group by its SCIM resource ID.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetGroupByIdQueries` | No | Query parameters including `attributes` and `excludedAttributes`. |
 
-**Returns:** `GroupResponseObject|error`
+Returns: `GroupResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:GroupResponseObject group = check scimClient->/Groups/["f6a7b8c9-d0e1-2345-fghi-456789012345"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -558,7 +559,7 @@ scim:GroupResponseObject group = check scimClient->/Groups/["f6a7b8c9-d0e1-2345-
 
 Replaces all attributes of an existing group with the provided values (full update).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -567,9 +568,9 @@ Replaces all attributes of an existing group with the provided values (full upda
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UpdateGroupQueries` | No | Query parameters including `attributes` and `excludedAttributes`. |
 
-**Returns:** `GroupPutResponseObject|error`
+Returns: `GroupPutResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:GroupPutRequestObject updatedGroup = {
@@ -582,7 +583,7 @@ scim:GroupPutRequestObject updatedGroup = {
 scim:GroupPutResponseObject updatedResult = check scimClient->/Groups/["f6a7b8c9-d0e1-2345-fghi-456789012345"].put(updatedGroup);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -608,7 +609,7 @@ scim:GroupPutResponseObject updatedResult = check scimClient->/Groups/["f6a7b8c9
 
 Partially updates an existing group with the specified patch operations (e.g., add/remove members).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -617,9 +618,9 @@ Partially updates an existing group with the specified patch operations (e.g., a
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `PatchGroupQueries` | No | Query parameters including `attributes` and `excludedAttributes`. |
 
-**Returns:** `PatchGroupOperationResponseObject|error`
+Returns: `PatchGroupOperationResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:PatchGroupOperationRequestObject groupPatch = {
@@ -636,7 +637,7 @@ scim:PatchGroupOperationRequestObject groupPatch = {
 scim:PatchGroupOperationResponseObject patchedGroup = check scimClient->/Groups/["f6a7b8c9-d0e1-2345-fghi-456789012345"].patch(groupPatch);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -662,16 +663,16 @@ scim:PatchGroupOperationResponseObject patchedGroup = check scimClient->/Groups/
 
 Deletes a group from the identity store by its SCIM resource ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The SCIM resource ID of the group to delete. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check scimClient->/Groups/["f6a7b8c9-d0e1-2345-fghi-456789012345"].delete();
@@ -681,7 +682,7 @@ check scimClient->/Groups/["f6a7b8c9-d0e1-2345-fghi-456789012345"].delete();
 
 </details>
 
-#### Bulk Operations
+#### Bulk operations
 
 <details>
 <summary>Bulk Create/Update/Replace/Delete Resources</summary>
@@ -690,16 +691,16 @@ check scimClient->/Groups/["f6a7b8c9-d0e1-2345-fghi-456789012345"].delete();
 
 Performs bulk create, update, replace, or delete operations on SCIM resources (users and/or groups) in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Bulk_body` | Yes | A bulk request object (one of `BulkUserCreateObject`, `BulkUserUpdateObject`, `BulkUserReplaceObject`, `BulkUserDeleteObject`, `BulkGroupCreateObject`, `BulkGroupUpdateObject`, `BulkGroupReplaceObject`, or `BulkGroupDeleteObject`). |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `BulkUserResponseObject|error`
+Returns: `BulkUserResponseObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:BulkUserCreateObject bulkReq = {
@@ -731,7 +732,7 @@ scim:BulkUserCreateObject bulkReq = {
 scim:BulkUserResponseObject bulkResult = check scimClient->/Bulk.post(bulkReq);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -747,7 +748,7 @@ scim:BulkUserResponseObject bulkResult = check scimClient->/Bulk.post(bulkReq);
 
 </details>
 
-#### Discovery Operations
+#### Discovery operations
 
 <details>
 <summary>Get Service Provider Config</summary>
@@ -756,21 +757,21 @@ scim:BulkUserResponseObject bulkResult = check scimClient->/Bulk.post(bulkReq);
 
 Retrieves the SCIM Service Provider configuration, which describes the SCIM specification features available.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `SPConfigResponse|error`
+Returns: `SPConfigResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:SPConfigResponse spConfig = check scimClient->/ServiceProviderConfig();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -795,21 +796,21 @@ scim:SPConfigResponse spConfig = check scimClient->/ServiceProviderConfig();
 
 Retrieves the resource types supported by the SCIM service provider (e.g., User, Group).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `ResourceTypeResponse|error`
+Returns: `ResourceTypeResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 scim:ResourceTypeResponse resourceTypes = check scimClient->/ResourceTypes();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

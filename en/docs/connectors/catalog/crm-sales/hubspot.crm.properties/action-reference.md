@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manage CRM object properties and property groups via the HubSpot Properties API.
 | `circuitBreaker` | <code>http:CircuitBreakerConfig</code> | `()` | Circuit breaker configuration for fault tolerance. |
 | `validation` | <code>boolean</code> | `true` | Enables inbound payload validation via the constraint package. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -58,26 +59,26 @@ final hsproperties:Client hubSpotProperties = check new ({auth});
 
 <div>
 
-**Signature:** `get /[string objectType]`
+Signature: `get /[string objectType]`
 
 Read all existing properties for the specified object type. Returns a list of all properties, including default and custom properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"Contact"`, `"Company"`, `"Deal"`). |
 | `queries` | <code>GetCrmV3PropertiesObjectTypeGetAllQueries</code> | No | Query parameters — `archived` (default `false`) and `properties` (comma-separated field list). |
 
-**Returns:** `CollectionResponsePropertyNoPaging|error`
+Returns: `CollectionResponsePropertyNoPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:CollectionResponsePropertyNoPaging result = check hubSpotProperties->/Contact;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -105,20 +106,20 @@ hsproperties:CollectionResponsePropertyNoPaging result = check hubSpotProperties
 
 <div>
 
-**Signature:** `post /[string objectType]`
+Signature: `post /[string objectType]`
 
 Create a new property for the specified object type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"Contact"`). |
 | `payload` | <code>PropertyCreate</code> | Yes | Property definition including name, label, type, fieldType, groupName, and options. |
 
-**Returns:** `Property|error`
+Returns: `Property|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:PropertyCreate newProperty = {
@@ -140,7 +141,7 @@ hsproperties:PropertyCreate newProperty = {
 hsproperties:Property result = check hubSpotProperties->/Contact.post(payload = newProperty);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -174,11 +175,11 @@ hsproperties:Property result = check hubSpotProperties->/Contact.post(payload = 
 
 <div>
 
-**Signature:** `get /[string objectType]/[string propertyName]`
+Signature: `get /[string objectType]/[string propertyName]`
 
 Read a property identified by its name for the specified object type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -186,15 +187,15 @@ Read a property identified by its name for the specified object type.
 | `propertyName` | <code>string</code> | Yes | The internal name of the property to read. |
 | `queries` | <code>GetCrmV3PropertiesObjectTypePropertyNameGetByNameQueries</code> | No | Query parameters — `archived` (default `false`) and `properties` (comma-separated field list). |
 
-**Returns:** `Property|error`
+Returns: `Property|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:Property result = check hubSpotProperties->/Contact/purchase_frequency;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -226,11 +227,11 @@ hsproperties:Property result = check hubSpotProperties->/Contact/purchase_freque
 
 <div>
 
-**Signature:** `patch /[string objectType]/[string propertyName]`
+Signature: `patch /[string objectType]/[string propertyName]`
 
 Update an existing property identified by its name. Only the fields provided in the payload will be updated.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -238,9 +239,9 @@ Update an existing property identified by its name. Only the fields provided in 
 | `propertyName` | <code>string</code> | Yes | The internal name of the property to update. |
 | `payload` | <code>PropertyUpdate</code> | Yes | Fields to update — label, type, fieldType, groupName, description, options, etc. |
 
-**Returns:** `Property|error`
+Returns: `Property|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:PropertyUpdate update = {
@@ -254,7 +255,7 @@ hsproperties:PropertyUpdate update = {
 hsproperties:Property result = check hubSpotProperties->/Contact/purchase_frequency.patch(payload = update);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -286,20 +287,20 @@ hsproperties:Property result = check hubSpotProperties->/Contact/purchase_freque
 
 <div>
 
-**Signature:** `delete /[string objectType]/[string propertyName]`
+Signature: `delete /[string objectType]/[string propertyName]`
 
 Archive a property identified by its name. Archived properties are hidden from the HubSpot UI but can still be read with the `archived` query parameter.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"Contact"`). |
 | `propertyName` | <code>string</code> | Yes | The internal name of the property to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubSpotProperties->/Contact/purchase_frequency.delete();
@@ -309,27 +310,27 @@ check hubSpotProperties->/Contact/purchase_frequency.delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of properties</summary>
 
 <div>
 
-**Signature:** `post /[string objectType]/batch/create`
+Signature: `post /[string objectType]/batch/create`
 
 Create multiple properties for the specified object type in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"Contact"`). |
 | `payload` | <code>BatchInputPropertyCreate</code> | Yes | An object containing an `inputs` array of `PropertyCreate` records. |
 
-**Returns:** `BatchResponseProperty|BatchResponsePropertyWithErrors|error`
+Returns: `BatchResponseProperty|BatchResponsePropertyWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:BatchInputPropertyCreate batchInput = {
@@ -369,7 +370,7 @@ hsproperties:BatchInputPropertyCreate batchInput = {
 hsproperties:BatchResponseProperty result = check hubSpotProperties->/Contact/batch/create.post(payload = batchInput);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -414,20 +415,20 @@ hsproperties:BatchResponseProperty result = check hubSpotProperties->/Contact/ba
 
 <div>
 
-**Signature:** `post /[string objectType]/batch/read`
+Signature: `post /[string objectType]/batch/read`
 
 Read multiple properties by name for the specified object type in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"Contact"`). |
 | `payload` | <code>BatchReadInputPropertyName</code> | Yes | An object containing an `inputs` array of `PropertyName` records and an `archived` boolean. |
 
-**Returns:** `BatchResponseProperty|BatchResponsePropertyWithErrors|error`
+Returns: `BatchResponseProperty|BatchResponsePropertyWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:BatchReadInputPropertyName batchReadInput = {
@@ -440,7 +441,7 @@ hsproperties:BatchReadInputPropertyName batchReadInput = {
 hsproperties:BatchResponseProperty result = check hubSpotProperties->/Contact/batch/read.post(payload = batchReadInput);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -485,20 +486,20 @@ hsproperties:BatchResponseProperty result = check hubSpotProperties->/Contact/ba
 
 <div>
 
-**Signature:** `post /[string objectType]/batch/archive`
+Signature: `post /[string objectType]/batch/archive`
 
 Archive multiple properties by name for the specified object type in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"Contact"`). |
 | `payload` | <code>BatchInputPropertyName</code> | Yes | An object containing an `inputs` array of `PropertyName` records to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:BatchInputPropertyName batchArchiveInput = {
@@ -514,27 +515,27 @@ check hubSpotProperties->/Contact/batch/archive.post(payload = batchArchiveInput
 
 </details>
 
-#### Property Group Management
+#### Property group management
 
 <details>
 <summary>Create a property group</summary>
 
 <div>
 
-**Signature:** `post /[string objectType]/groups`
+Signature: `post /[string objectType]/groups`
 
 Create a new property group for organizing related properties under the specified object type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"Contact"`). |
 | `payload` | <code>PropertyGroupCreate</code> | Yes | Property group definition including name, label, and optional displayOrder. |
 
-**Returns:** `PropertyGroup|error`
+Returns: `PropertyGroup|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:PropertyGroupCreate groupInput = {
@@ -545,7 +546,7 @@ hsproperties:PropertyGroupCreate groupInput = {
 hsproperties:PropertyGroup result = check hubSpotProperties->/Contact/groups.post(payload = groupInput);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -565,26 +566,26 @@ hsproperties:PropertyGroup result = check hubSpotProperties->/Contact/groups.pos
 
 <div>
 
-**Signature:** `get /[string objectType]/groups/[string groupName]`
+Signature: `get /[string objectType]/groups/[string groupName]`
 
 Read a property group identified by its name for the specified object type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"Contact"`). |
 | `groupName` | <code>string</code> | Yes | The internal name of the property group to read. |
 
-**Returns:** `PropertyGroup|error`
+Returns: `PropertyGroup|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:PropertyGroup result = check hubSpotProperties->/Contact/groups/marketing_preference;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -604,11 +605,11 @@ hsproperties:PropertyGroup result = check hubSpotProperties->/Contact/groups/mar
 
 <div>
 
-**Signature:** `patch /[string objectType]/groups/[string groupName]`
+Signature: `patch /[string objectType]/groups/[string groupName]`
 
 Update an existing property group identified by its name. Only the fields provided in the payload will be updated.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -616,9 +617,9 @@ Update an existing property group identified by its name. Only the fields provid
 | `groupName` | <code>string</code> | Yes | The internal name of the property group to update. |
 | `payload` | <code>PropertyGroupUpdate</code> | Yes | Fields to update — `label` and/or `displayOrder`. |
 
-**Returns:** `PropertyGroup|error`
+Returns: `PropertyGroup|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproperties:PropertyGroupUpdate groupUpdate = {
@@ -628,7 +629,7 @@ hsproperties:PropertyGroupUpdate groupUpdate = {
 hsproperties:PropertyGroup result = check hubSpotProperties->/Contact/groups/marketing_preference.patch(payload = groupUpdate);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -648,20 +649,20 @@ hsproperties:PropertyGroup result = check hubSpotProperties->/Contact/groups/mar
 
 <div>
 
-**Signature:** `delete /[string objectType]/groups/[string groupName]`
+Signature: `delete /[string objectType]/groups/[string groupName]`
 
 Archive a property group identified by its name. Properties within the group are not deleted but become ungrouped.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `objectType` | <code>string</code> | Yes | The CRM object type (e.g., `"Contact"`). |
 | `groupName` | <code>string</code> | Yes | The internal name of the property group to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubSpotProperties->/Contact/groups/marketing_preference.delete();

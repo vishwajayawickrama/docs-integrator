@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -31,7 +32,7 @@ Provides access to the Guidewire InsuranceNow REST API for applications, policie
 | `validation` | `boolean` | `true` | Enable or disable payload validation. |
 | `laxDataBinding` | `boolean` | `true` | Enable lax data binding to ignore unmapped fields. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/guidewire.insnow;
@@ -53,7 +54,7 @@ insnow:Client insnowClient = check new (
 
 ### Operations
 
-#### Address Operations
+#### Address operations
 
 <details>
 <summary>Get supported countries</summary>
@@ -62,22 +63,22 @@ insnow:Client insnowClient = check new (
 
 Retrieves the list of supported countries for address operations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 | `sortType` | `"asc"\|"desc"` | No | Sort order for the results. Defaults to `asc`. |
 
-**Returns:** `ListCountry|error`
+Returns: `ListCountry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:ListCountry countries = check insnowClient->/addresses/countries();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -99,22 +100,22 @@ insnow:ListCountry countries = check insnowClient->/addresses/countries();
 
 Retrieves the address template for a specific country by its ISO code.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `isoCd` | `string` | Yes | ISO country code (e.g., `"US"`). |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `AddressCountryTemplate|error`
+Returns: `AddressCountryTemplate|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:AddressCountryTemplate template = check insnowClient->/addresses/countries/["US"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -140,22 +141,22 @@ insnow:AddressCountryTemplate template = check insnowClient->/addresses/countrie
 
 Fills an address from a Google Places place ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `placeId` | `string` | Yes | Google Places place ID. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `Address|error`
+Returns: `Address|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:Address address = check insnowClient->/addresses/googlePlacesFill(placeId = "ChIJN1t_tDeuEmsRUsoyG83frY4");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -178,16 +179,16 @@ insnow:Address address = check insnowClient->/addresses/googlePlacesFill(placeId
 
 Checks whether a given address is verified.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Address` | Yes | The address to verify. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/addresses/isVerifiedRequest.post({
@@ -210,7 +211,7 @@ check insnowClient->/addresses/isVerifiedRequest.post({
 
 Submits a batch address verification request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -218,9 +219,9 @@ Submits a batch address verification request.
 | `addressType` | `"Combined"\|"Uncombined"` | No | Address type for verification. Defaults to `Combined`. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/addresses/verificationRequest.post(
@@ -243,7 +244,7 @@ check insnowClient->/addresses/verificationRequest.post(
 
 </details>
 
-#### Application Management
+#### Application management
 
 <details>
 <summary>List applications</summary>
@@ -252,7 +253,7 @@ check insnowClient->/addresses/verificationRequest.post(
 
 Retrieves a list of applications (quotes) with optional filtering by customer, status, or date.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -266,15 +267,15 @@ Retrieves a list of applications (quotes) with optional filtering by customer, s
 | `optionalFields` | `string` | No | Comma-separated list of optional fields to include. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `ListApplication|error`
+Returns: `ListApplication|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:ListApplication applications = check insnowClient->/applications(customerId = "CUST-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -301,7 +302,7 @@ insnow:ListApplication applications = check insnowClient->/applications(customer
 
 Creates a new quote or quick-quote application for a given customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -309,9 +310,9 @@ Creates a new quote or quick-quote application for a given customer.
 | `customerId` | `string` | Yes | The customer ID to associate with the application. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/applications.post(
@@ -339,16 +340,16 @@ check insnowClient->/applications.post(
 
 Deletes an application by its system ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `systemId` | `string` | Yes | The system ID of the application to delete. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/applications/["APP-12345"].delete();
@@ -365,16 +366,16 @@ check insnowClient->/applications/["APP-12345"].delete();
 
 Submits a bind request for an application, converting it to an active policy.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `systemId` | `string` | Yes | The system ID of the application to bind. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/applications/["APP-12345"]/bindRequest.post();
@@ -391,16 +392,16 @@ check insnowClient->/applications/["APP-12345"]/bindRequest.post();
 
 Converts a quick-quote application into a full quote.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `systemId` | `string` | Yes | The system ID of the application to convert. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/applications/["APP-12345"]/convertToQuoteRequest.post();
@@ -410,7 +411,7 @@ check insnowClient->/applications/["APP-12345"]/convertToQuoteRequest.post();
 
 </details>
 
-#### Application Documents
+#### Application documents
 
 <details>
 <summary>List application documents</summary>
@@ -419,22 +420,22 @@ check insnowClient->/applications/["APP-12345"]/convertToQuoteRequest.post();
 
 Retrieves the list of documents attached to an application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `systemId` | `string` | Yes | The system ID of the application. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `ListDocument|error`
+Returns: `ListDocument|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:ListDocument docs = check insnowClient->/applications/["APP-12345"]/documents();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -460,7 +461,7 @@ insnow:ListDocument docs = check insnowClient->/applications/["APP-12345"]/docum
 
 Attaches a document to an application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -468,9 +469,9 @@ Attaches a document to an application.
 | `payload` | `Attachment` | Yes | The attachment payload including file content and metadata. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/applications/["APP-12345"]/documents.post({
@@ -491,7 +492,7 @@ check insnowClient->/applications/["APP-12345"]/documents.post({
 
 Deletes a document from an application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -499,9 +500,9 @@ Deletes a document from an application.
 | `documentId` | `string` | Yes | The document ID to delete. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/applications/["APP-12345"]/documents/["DOC-001"].delete();
@@ -518,7 +519,7 @@ check insnowClient->/applications/["APP-12345"]/documents/["DOC-001"].delete();
 
 Downloads the binary content of a document attached to an application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -526,15 +527,15 @@ Downloads the binary content of a document attached to an application.
 | `documentId` | `string` | Yes | The document ID to download. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `byte[]|error`
+Returns: `byte[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] content = check insnowClient->/applications/["APP-12345"]/documents/["DOC-001"]/content();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 <binary content of the document>
@@ -544,7 +545,7 @@ byte[] content = check insnowClient->/applications/["APP-12345"]/documents/["DOC
 
 </details>
 
-#### Driver Management
+#### Driver management
 
 <details>
 <summary>List drivers</summary>
@@ -553,7 +554,7 @@ byte[] content = check insnowClient->/applications/["APP-12345"]/documents/["DOC
 
 Retrieves the list of drivers on an application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -564,15 +565,15 @@ Retrieves the list of drivers on an application.
 | `includeDeleted` | `string` | No | Whether to include deleted drivers. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `ListDriver|error`
+Returns: `ListDriver|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:ListDriver drivers = check insnowClient->/applications/["APP-12345"]/drivers(typeCd = "Driver");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -599,7 +600,7 @@ insnow:ListDriver drivers = check insnowClient->/applications/["APP-12345"]/driv
 
 Adds a new driver to an application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -607,9 +608,9 @@ Adds a new driver to an application.
 | `payload` | `Driver` | Yes | The driver details. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/applications/["APP-12345"]/drivers.post({
@@ -631,7 +632,7 @@ check insnowClient->/applications/["APP-12345"]/drivers.post({
 
 Retrieves a specific driver from an application by driver number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -639,15 +640,15 @@ Retrieves a specific driver from an application by driver number.
 | `driverNumber` | `int:Signed32` | Yes | The driver number. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `Driver|error`
+Returns: `Driver|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:Driver driver = check insnowClient->/applications/["APP-12345"]/drivers/[1]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -671,7 +672,7 @@ insnow:Driver driver = check insnowClient->/applications/["APP-12345"]/drivers/[
 
 Replaces a driver record on an application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -680,9 +681,9 @@ Replaces a driver record on an application.
 | `payload` | `Driver` | Yes | The updated driver details. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `Driver|error`
+Returns: `Driver|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:Driver updated = check insnowClient->/applications/["APP-12345"]/drivers/[1].put({
@@ -693,7 +694,7 @@ insnow:Driver updated = check insnowClient->/applications/["APP-12345"]/drivers/
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -716,7 +717,7 @@ insnow:Driver updated = check insnowClient->/applications/["APP-12345"]/drivers/
 
 Partially updates specific fields on a driver record.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -725,9 +726,9 @@ Partially updates specific fields on a driver record.
 | `payload` | `Driver` | Yes | The fields to update. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `Driver|error`
+Returns: `Driver|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:Driver patched = check insnowClient->/applications/["APP-12345"]/drivers/[1].patch({
@@ -735,7 +736,7 @@ insnow:Driver patched = check insnowClient->/applications/["APP-12345"]/drivers/
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -758,7 +759,7 @@ insnow:Driver patched = check insnowClient->/applications/["APP-12345"]/drivers/
 
 Removes a driver from an application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -766,9 +767,9 @@ Removes a driver from an application.
 | `driverNumber` | `int:Signed32` | Yes | The driver number to delete. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/applications/["APP-12345"]/drivers/[1].delete();
@@ -787,22 +788,22 @@ check insnowClient->/applications/["APP-12345"]/drivers/[1].delete();
 
 Retrieves the list of documents attached to a claim.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `systemId` | `string` | Yes | The system ID of the claim. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `ListDocument|error`
+Returns: `ListDocument|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:ListDocument claimDocs = check insnowClient->/claims/["CLM-56789"]/documents();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -828,7 +829,7 @@ insnow:ListDocument claimDocs = check insnowClient->/claims/["CLM-56789"]/docume
 
 Attaches a document to a claim.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -836,9 +837,9 @@ Attaches a document to a claim.
 | `payload` | `DocumentDetail` | Yes | The document detail payload. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/claims/["CLM-56789"]/documents.post({
@@ -859,22 +860,22 @@ check insnowClient->/claims/["CLM-56789"]/documents.post({
 
 Retrieves the list of notes on a claim.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `systemId` | `string` | Yes | The system ID of the claim. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `ListNote|error`
+Returns: `ListNote|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:ListNote notes = check insnowClient->/claims/["CLM-56789"]/notes();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -901,7 +902,7 @@ insnow:ListNote notes = check insnowClient->/claims/["CLM-56789"]/notes();
 
 Adds a note to a claim.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -909,9 +910,9 @@ Adds a note to a claim.
 | `payload` | `NoteDetail` | Yes | The note detail payload. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check insnowClient->/claims/["CLM-56789"]/notes.post({
@@ -924,7 +925,7 @@ check insnowClient->/claims/["CLM-56789"]/notes.post({
 
 </details>
 
-#### Policy Operations
+#### Policy operations
 
 <details>
 <summary>List policies</summary>
@@ -933,7 +934,7 @@ check insnowClient->/claims/["CLM-56789"]/notes.post({
 
 Retrieves a list of policies with optional filtering by customer, status, or policy number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -950,15 +951,15 @@ Retrieves a list of policies with optional filtering by customer, status, or pol
 | `optionalFields` | `string` | No | Comma-separated list of optional fields to include. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `ListPolicy|error`
+Returns: `ListPolicy|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:ListPolicy policies = check insnowClient->/policies(customerId = "CUST-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -986,7 +987,7 @@ insnow:ListPolicy policies = check insnowClient->/policies(customerId = "CUST-00
 
 Retrieves detailed information about a specific policy.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -994,15 +995,15 @@ Retrieves detailed information about a specific policy.
 | `optionalFields` | `string` | No | Comma-separated list of optional fields to include. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `PolicyDetails|error`
+Returns: `PolicyDetails|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:PolicyDetails policy = check insnowClient->/policies/["POL-99001"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1030,7 +1031,7 @@ insnow:PolicyDetails policy = check insnowClient->/policies/["POL-99001"]();
 
 Partially updates a policy's details.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1038,9 +1039,9 @@ Partially updates a policy's details.
 | `payload` | `PolicyDetails` | Yes | The fields to update on the policy. |
 | `headers` | `map<string\|string[]>` | No | Optional request headers. |
 
-**Returns:** `PolicyDetails|error`
+Returns: `PolicyDetails|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 insnow:PolicyDetails updated = check insnowClient->/policies/["POL-99001"].patch({
@@ -1050,7 +1051,7 @@ insnow:PolicyDetails updated = check insnowClient->/policies/["POL-99001"].patch
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

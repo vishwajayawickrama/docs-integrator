@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Pinecone account, setting up an index, and obtaining the API key and service URL required to use the Pinecone connector.
@@ -7,7 +10,7 @@ This guide walks you through creating a Pinecone account, setting up an index, a
 
 - A Pinecone account. If you do not have one, [sign up for free](https://www.pinecone.io/start/).
 
-## Step 1: Create a Pinecone Index
+## Step 1: Create a Pinecone index
 
 1. Log in to the [Pinecone Console](https://app.pinecone.io/).
 2. In the left sidebar, click **Indexes**, then click **Create Index**.
@@ -21,7 +24,7 @@ This guide walks you through creating a Pinecone account, setting up an index, a
 The index may take a few moments to initialize. Wait until the status shows **Ready** before proceeding.
 :::
 
-## Step 2: Obtain Your API Key
+## Step 2: Obtain your API key
 
 1. In the Pinecone Console, click **API Keys** in the left sidebar.
 2. Copy your default API key, or click **Create API Key** to generate a new one.
@@ -31,7 +34,7 @@ The index may take a few moments to initialize. Wait until the status shows **Re
 Store the API key securely. Do not commit it to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply it at runtime.
 :::
 
-## Step 3: Get the Index Service URL
+## Step 3: Get the index service URL
 
 1. In the Pinecone Console, navigate to **Indexes** and click on your index name.
 2. In the index details page, locate the **Host** value (e.g., `https://my-vectors-abc1234.svc.us-east-1-aws.pinecone.io`).

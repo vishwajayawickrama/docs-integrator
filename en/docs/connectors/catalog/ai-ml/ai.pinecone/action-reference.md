@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -12,7 +13,7 @@ The `ballerinax/ai.pinecone` package exposes the following clients:
 
 ---
 
-## Vector Store
+## Vector store
 
 Implements the ai:VectorStore interface for Pinecone — vector upsert, similarity query, and deletion.
 
@@ -26,7 +27,7 @@ Implements the ai:VectorStore interface for Pinecone — vector upsert, similari
 | `config` | `Configuration` | `{}` | Additional Pinecone configuration (namespace, filters, sparse vector). |
 | `httpConfig` | `vector:ConnectionConfig` | `{}` | HTTP client configuration for the Pinecone connection (timeout, retry, TLS, proxy, etc.). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/ai;
@@ -43,7 +44,7 @@ pinecone:VectorStore vectorStore = check new (
 
 ### Operations
 
-#### Vector Operations
+#### Vector operations
 
 <details>
 <summary>add</summary>
@@ -52,15 +53,15 @@ pinecone:VectorStore vectorStore = check new (
 
 Adds (upserts) an array of vector entries to the Pinecone index.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `entries` | `ai:VectorEntry[]` | Yes | Array of vector entries to add. Each entry contains an embedding, a text chunk, and optional metadata. |
 
-**Returns:** `ai:Error?`
+Returns: `ai:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:VectorEntry[] entries = [
@@ -95,15 +96,15 @@ check vectorStore->add(entries);
 
 Queries the Pinecone index with an embedding vector and returns the top similarity matches.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queryVector` | `ai:VectorStoreQuery` | Yes | The query containing the embedding vector, topK count (1–10,000), and optional metadata filters. |
 
-**Returns:** `ai:VectorMatch[]|ai:Error`
+Returns: `ai:VectorMatch[]|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:VectorMatch[] matches = check vectorStore->query({
@@ -112,7 +113,7 @@ ai:VectorMatch[] matches = check vectorStore->query({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -148,15 +149,15 @@ ai:VectorMatch[] matches = check vectorStore->query({
 
 Deletes vector entries from the Pinecone index by their reference document IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `refDocIds` | `string\|string[]` | Yes | A single document ID or an array of document IDs to delete. |
 
-**Returns:** `ai:Error?`
+Returns: `ai:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check vectorStore->delete(["vec-001", "vec-002"]);

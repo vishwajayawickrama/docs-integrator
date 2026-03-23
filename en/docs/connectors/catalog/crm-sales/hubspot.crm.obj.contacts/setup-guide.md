@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a HubSpot private app and obtaining the access token required to authenticate the HubSpot CRM Contacts connector.
@@ -7,7 +10,7 @@ This guide walks you through creating a HubSpot private app and obtaining the ac
 
 - A HubSpot account. If you do not have one, [sign up for a free account](https://app.hubspot.com/signup-hubspot/crm).
 
-## Step 1: Create a HubSpot Private App
+## Step 1: Create a HubSpot private app
 
 1. Log in to your HubSpot account.
 2. Click the **Settings** gear icon in the top navigation bar.
@@ -15,7 +18,7 @@ This guide walks you through creating a HubSpot private app and obtaining the ac
 4. Click **Create a private app**.
 5. On the **Basic Info** tab, enter a name for your app (e.g., `Ballerina CRM Contacts`) and optionally a description and logo.
 
-## Step 2: Configure Required Scopes
+## Step 2: Configure required scopes
 
 1. Click the **Scopes** tab.
 2. Under **CRM**, find and select the following scopes:
@@ -27,7 +30,7 @@ This guide walks you through creating a HubSpot private app and obtaining the ac
 Grant only the minimum scopes required by your integration. Avoid enabling broad scopes unless necessary.
 :::
 
-## Step 3: Create the App and Copy the Access Token
+## Step 3: Create the app and copy the access token
 
 1. Click **Create app** in the top-right corner.
 2. Review the permissions summary in the confirmation dialog and click **Continue creating**.
@@ -41,7 +44,7 @@ it to source control; use Ballerina's `configurable` feature and a `Config.toml`
 supply it at runtime.
 :::
 
-## Step 4: Rotate or Regenerate the Access Token (if needed)
+## Step 4: Rotate or regenerate the access token (if needed)
 
 1. Go to **Settings** > **Integrations** > **Private Apps**.
 2. Click on your private app name.

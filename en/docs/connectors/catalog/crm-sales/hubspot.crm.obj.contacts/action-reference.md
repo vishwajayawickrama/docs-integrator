@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Provides all HubSpot CRM Contacts API operations — CRUD, batch, search, merge,
 | `validation` | `boolean` | `true` | Enable constraint validation on response payloads. |
 | `laxDataBinding` | `boolean` | `true` | Allow lax data binding to ignore unknown fields in responses. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.obj.contacts as hscontacts;
@@ -54,16 +55,16 @@ hscontacts:Client hubspotClient = check new ({
 
 Enumerates all contacts with optional forward pagination, property selection, and association fetching.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetCrmV3ObjectsContactsGetPageQueries` | No | Optional query parameters including `limit`, `after` (pagination cursor), `properties`, `propertiesWithHistory`, `associations`, and `archived`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include in the request. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging contacts =
@@ -73,7 +74,7 @@ hscontacts:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging con
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -112,16 +113,16 @@ hscontacts:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging con
 
 Creates a new CRM contact record with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SimplePublicObjectInputForCreate` | Yes | Contact creation payload containing `properties` map, optional `associations`, and optional `objectWriteTraceId`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:SimplePublicObject contact = check hubspotClient->/.post({
@@ -136,7 +137,7 @@ hscontacts:SimplePublicObject contact = check hubspotClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -168,7 +169,7 @@ hscontacts:SimplePublicObject contact = check hubspotClient->/.post({
 
 Retrieves a single contact record by its HubSpot internal ID, with optional property and association fetching.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -176,9 +177,9 @@ Retrieves a single contact record by its HubSpot internal ID, with optional prop
 | `queries` | `GetCrmV3ObjectsContactsContactIdGetByIdQueries` | No | Optional query parameters including `properties`, `propertiesWithHistory`, `associations`, and `archived`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:SimplePublicObjectWithAssociations contact =
@@ -187,7 +188,7 @@ hscontacts:SimplePublicObjectWithAssociations contact =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -216,7 +217,7 @@ hscontacts:SimplePublicObjectWithAssociations contact =
 
 Updates properties of an existing contact. Only the fields provided in the payload are modified.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -224,9 +225,9 @@ Updates properties of an existing contact. Only the fields provided in the paylo
 | `payload` | `SimplePublicObjectInput` | Yes | Update payload containing a `properties` map of field names to new values. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:SimplePublicObject updated = check hubspotClient->/["201"].patch({
@@ -237,7 +238,7 @@ hscontacts:SimplePublicObject updated = check hubspotClient->/["201"].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -267,16 +268,16 @@ hscontacts:SimplePublicObject updated = check hubspotClient->/["201"].patch({
 
 Archives (soft-deletes) a contact by its HubSpot ID. Archived contacts can be restored from the HubSpot UI.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `contactId` | `string` | Yes | The HubSpot internal contact ID to archive. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/["201"].delete();
@@ -286,7 +287,7 @@ check hubspotClient->/["201"].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Batch read contacts</summary>
@@ -295,7 +296,7 @@ check hubspotClient->/["201"].delete();
 
 Reads multiple contacts in a single request by internal IDs or a unique property value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -303,9 +304,9 @@ Reads multiple contacts in a single request by internal IDs or a unique property
 | `queries` | `PostCrmV3ObjectsContactsBatchReadReadQueries` | No | Optional `archived` flag (default `false`). |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:BatchResponseSimplePublicObject|hscontacts:BatchResponseSimplePublicObjectWithErrors result =
@@ -318,7 +319,7 @@ hscontacts:BatchResponseSimplePublicObject|hscontacts:BatchResponseSimplePublicO
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -355,16 +356,16 @@ hscontacts:BatchResponseSimplePublicObject|hscontacts:BatchResponseSimplePublicO
 
 Creates multiple contact records in a single API call.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectInputForCreate` | Yes | Batch create input containing an `inputs` array of `SimplePublicObjectInputForCreate` objects, each with a `properties` map. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:BatchResponseSimplePublicObject|hscontacts:BatchResponseSimplePublicObjectWithErrors result =
@@ -382,7 +383,7 @@ hscontacts:BatchResponseSimplePublicObject|hscontacts:BatchResponseSimplePublicO
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -419,16 +420,16 @@ hscontacts:BatchResponseSimplePublicObject|hscontacts:BatchResponseSimplePublicO
 
 Updates properties on multiple existing contacts in a single call.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInput` | Yes | Batch update input with an `inputs` array; each item specifies an `id`, a `properties` map, and an optional `idProperty` for alternate key lookup. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:BatchResponseSimplePublicObject|hscontacts:BatchResponseSimplePublicObjectWithErrors result =
@@ -440,7 +441,7 @@ hscontacts:BatchResponseSimplePublicObject|hscontacts:BatchResponseSimplePublicO
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -477,16 +478,16 @@ hscontacts:BatchResponseSimplePublicObject|hscontacts:BatchResponseSimplePublicO
 
 Creates or updates multiple contacts based on a unique property identifier. Contacts matching the identifier are updated; others are created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectBatchInputUpsert` | Yes | Upsert input with an `inputs` array; each item has `idProperty` (the unique key property name), `id` (the key value), and a `properties` map. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:BatchResponseSimplePublicUpsertObject|hscontacts:BatchResponseSimplePublicUpsertObjectWithErrors result =
@@ -506,7 +507,7 @@ hscontacts:BatchResponseSimplePublicUpsertObject|hscontacts:BatchResponseSimpleP
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -545,16 +546,16 @@ hscontacts:BatchResponseSimplePublicUpsertObject|hscontacts:BatchResponseSimpleP
 
 Archives multiple contacts by their internal IDs in a single call.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `BatchInputSimplePublicObjectId` | Yes | Batch archive input with an `inputs` array of objects each containing an `id` field. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/batch/archive.post({
@@ -578,16 +579,16 @@ check hubspotClient->/batch/archive.post({
 
 Queries contacts using filter groups, property filters, sorting criteria, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicObjectSearchRequest` | Yes | Search request containing `filterGroups` (array of filter groups), `sorts`, `query` (full-text search string), `properties`, `limit`, and `after` (pagination cursor). |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:CollectionResponseWithTotalSimplePublicObjectForwardPaging result =
@@ -610,7 +611,7 @@ hscontacts:CollectionResponseWithTotalSimplePublicObjectForwardPaging result =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -663,16 +664,16 @@ hscontacts:CollectionResponseWithTotalSimplePublicObjectForwardPaging result =
 
 Merges two contact records into one, combining their properties and associations. The primary contact is kept; the other is archived.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicMergeInput` | Yes | Merge input containing `primaryObjectId` (the contact to keep) and `objectIdToMerge` (the contact to merge in and archive). |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscontacts:SimplePublicObject merged = check hubspotClient->/merge.post({
@@ -681,7 +682,7 @@ hscontacts:SimplePublicObject merged = check hubspotClient->/merge.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -709,16 +710,16 @@ hscontacts:SimplePublicObject merged = check hubspotClient->/merge.post({
 
 Permanently and irrecoverably deletes a contact and all associated data for GDPR compliance. This cannot be undone.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `PublicGdprDeleteInput` | Yes | GDPR delete input containing `objectId` (internal contact ID) and optional `idProperty` to specify an alternate unique identifier. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/gdpr\-delete.post({

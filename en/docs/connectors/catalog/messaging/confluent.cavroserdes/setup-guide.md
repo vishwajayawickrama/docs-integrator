@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through enabling the Confluent Schema Registry on Confluent Cloud and obtaining the credentials required to use the Confluent Avro SerDes connector.
@@ -8,7 +11,7 @@ This guide walks you through enabling the Confluent Schema Registry on Confluent
 - A Confluent Cloud account. If you do not have one, [sign up for a free trial](https://www.confluent.io/confluent-cloud/).
 - An active Confluent Cloud environment with a Kafka cluster created.
 
-## Step 1: Enable Schema Registry for Your Environment
+## Step 1: Enable schema registry for your environment
 
 Confluent Cloud provides one Schema Registry per environment. To enable it:
 
@@ -23,7 +26,7 @@ Confluent Cloud provides one Schema Registry per environment. To enable it:
 Schema Registry is enabled per environment, not per cluster. All clusters in the same environment share the same Schema Registry endpoint.
 :::
 
-## Step 2: Retrieve the Schema Registry Endpoint URL
+## Step 2: Retrieve the schema registry endpoint URL
 
 1. In Confluent Cloud, navigate to your environment.
 2. In the **Schema Registry** panel on the right side of the environment page, copy the
@@ -35,7 +38,7 @@ Schema Registry is enabled per environment, not per cluster. All clusters in the
 
 This is the `baseUrl` you will use when initializing the `cregistry:Client`.
 
-## Step 3: Create Schema Registry API Keys
+## Step 3: Create schema registry API keys
 
 1. In the **Schema Registry** panel on the environment page, click **View & manage schemas**
    or navigate to **Schema Registry** > **API Keys**.
@@ -50,7 +53,7 @@ This is the `baseUrl` you will use when initializing the `cregistry:Client`.
 Store the API key and secret securely. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime rather than hard-coding them in your source.
 :::
 
-## Step 4: Configure Schema Registry Authentication Properties
+## Step 4: Configure schema registry authentication properties
 
 The `cregistry:Client` accepts authentication details through the `originals` map using
 standard Confluent Schema Registry client properties. Set the following keys in your

@@ -12,7 +12,7 @@ This guide walks you through creating a HubSpot Private App or OAuth app and obt
 
 - A HubSpot account with admin access. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 
-## Create a HubSpot Developer Account (OAuth 2.0)
+## Create a HubSpot developer account (OAuth 2.0)
 
 If you plan to use OAuth 2.0 authentication:
 
@@ -21,7 +21,7 @@ If you plan to use OAuth 2.0 authentication:
 3. Log in to your developer account.
 
 
-## Create an OAuth App
+## Create an OAuth app
 
 1. In your HubSpot developer account, navigate to **Apps** in the top navigation.
 2. Click **Create app**.
@@ -38,7 +38,7 @@ If you plan to use OAuth 2.0 authentication:
 You will need the Client ID, Client Secret, and a Refresh Token to configure the connector with OAuth 2.0.
 :::
 
-## Obtain a Refresh Token
+## Obtain a refresh token
 
 1. Construct the authorization URL, replacing `<YOUR_CLIENT_ID>` and `<YOUR_REDIRECT_URI>`:
 
@@ -68,7 +68,7 @@ You will need the Client ID, Client Secret, and a Refresh Token to configure the
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange in step 4.
 :::
 
-## Alternative — Create a Private App
+## Alternative — create a private app
 
 If you prefer using a Private App access token instead of OAuth 2.0:
 
@@ -86,6 +86,6 @@ If you prefer using a Private App access token instead of OAuth 2.0:
 Private App access tokens do not expire but cannot be refreshed. Store them securely and do not commit them to source control.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a MongoDB instance and obtaining the connection details required to use the MongoDB connector.
@@ -7,7 +10,7 @@ This guide walks you through setting up a MongoDB instance and obtaining the con
 
 - A running MongoDB instance (v3.6 or later). You can use [MongoDB Atlas](https://www.mongodb.com/atlas) for a cloud-hosted instance, or install MongoDB Community Edition locally.
 
-## Step 1: Set Up a MongoDB Instance
+## Step 1: Set up a MongoDB instance
 
 **Option A — MongoDB Atlas (Cloud)**
 
@@ -22,7 +25,7 @@ This guide walks you through setting up a MongoDB instance and obtaining the con
 1. Download and install MongoDB Community Edition from the [official download page](https://www.mongodb.com/try/download/community).
 2. Start the `mongod` service using the default settings (localhost:27017).
 
-## Step 2: Create a Database User
+## Step 2: Create a database user
 
 **For MongoDB Atlas:**
 
@@ -47,7 +50,7 @@ This guide walks you through setting up a MongoDB instance and obtaining the con
     })
     ```
 
-## Step 3: Configure Network Access
+## Step 3: Configure network access
 
 **For MongoDB Atlas:**
 
@@ -64,7 +67,7 @@ Ensure that MongoDB is listening on the appropriate network interface. By defaul
 Allowing access from all IP addresses (0.0.0.0/0) is suitable for development only. In production, restrict access to specific IP addresses or CIDR ranges.
 :::
 
-## Step 4: Get the Connection String
+## Step 4: Get the connection string
 
 **For MongoDB Atlas:**
 

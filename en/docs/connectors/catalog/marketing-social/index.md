@@ -3,11 +3,11 @@ title: "Marketing & Social Media"
 description: "Marketing and social media connectors available in WSO2 Integrator."
 ---
 
-# Marketing & Social Media Connectors
+# Marketing & Social Media
 
 <!-- TODO: Searchable grid/table with: name, icon, 1-line description, supported operations, link to detail page -->
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -22,7 +22,7 @@ description: "Marketing and social media connectors available in WSO2 Integrator
 | [Salesforce Marketing Cloud](salesforce.marketingcloud/overview.md) | Digital marketing platform with journeys, campaigns, contacts, data extensions, assets, and transactional email | Create, Read, Update, Delete, Search, Send, Import | OAuth 2.0 (Client Credentials) |
 | [Twitter](twitter/overview.md) | Social media platform with tweet management, user lookup, DMs, likes, retweets, bookmarks, and lists | Create, Read, Delete, Search, Like, Retweet, Bookmark, DM, Follow | OAuth 2.0 (PKCE / App-Only Bearer Token) |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

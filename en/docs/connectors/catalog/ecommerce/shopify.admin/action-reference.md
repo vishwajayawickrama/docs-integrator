@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -22,7 +23,7 @@ Shopify Admin REST API — manage customers, products, orders, fulfillments, web
 |-------|------|---------|-------------|
 | `xShopifyAccessToken` | `string` | Required | The Shopify Admin API access token (`X-Shopify-Access-Token` header). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/shopify.admin;
@@ -39,7 +40,7 @@ admin:Client shopify = check new (apiKeyConfig, storeUrl);
 
 ### Operations
 
-#### Customer Management
+#### Customer management
 
 <details>
 <summary>getCustomers</summary>
@@ -48,7 +49,7 @@ admin:Client shopify = check new (apiKeyConfig, storeUrl);
 
 Retrieves a list of customers with optional filtering by IDs, date ranges, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -61,15 +62,15 @@ Retrieves a list of customers with optional filtering by IDs, date ranges, and p
 | `'limit` | `int?` | No | Maximum number of results to show (default: 50, max: 250). |
 | `fields` | `string?` | No | Comma-separated list of fields to include in the response. |
 
-**Returns:** `CustomerList|error`
+Returns: `CustomerList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:CustomerList customers = check shopify->getCustomers('limit = 10);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -99,15 +100,15 @@ admin:CustomerList customers = check shopify->getCustomers('limit = 10);
 
 Creates a new customer record.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateCustomer` | Yes | The Customer object to be created. |
 
-**Returns:** `CustomerObject|error`
+Returns: `CustomerObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:CreateCustomer payload = {
@@ -120,7 +121,7 @@ admin:CreateCustomer payload = {
 admin:CustomerObject result = check shopify->createCustomer(payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -149,22 +150,22 @@ admin:CustomerObject result = check shopify->createCustomer(payload);
 
 Retrieves a single customer by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `customerId` | `string` | Yes | The customer ID. |
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 
-**Returns:** `CustomerObject|error`
+Returns: `CustomerObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:CustomerObject customer = check shopify->getCustomer("6940095127745");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -190,16 +191,16 @@ admin:CustomerObject customer = check shopify->getCustomer("6940095127745");
 
 Updates an existing customer.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `customerId` | `string` | Yes | The customer ID. |
 | `payload` | `UpdateCustomer` | Yes | The Customer object with updated fields. |
 
-**Returns:** `CustomerObject|error`
+Returns: `CustomerObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:CustomerObject updated = check shopify->updateCustomer("6940095127745", {
@@ -210,7 +211,7 @@ admin:CustomerObject updated = check shopify->updateCustomer("6940095127745", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -235,7 +236,7 @@ admin:CustomerObject updated = check shopify->updateCustomer("6940095127745", {
 
 Searches for customers matching a supplied query.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -244,15 +245,15 @@ Searches for customers matching a supplied query.
 | `'limit` | `int?` | No | Maximum number of results (default: 50, max: 250). |
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 
-**Returns:** `CustomerList|error`
+Returns: `CustomerList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:CustomerList results = check shopify->searchCustomers(query = "steve");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -271,7 +272,7 @@ admin:CustomerList results = check shopify->searchCustomers(query = "steve");
 
 </details>
 
-#### Product Management
+#### Product management
 
 <details>
 <summary>getProducts</summary>
@@ -280,7 +281,7 @@ admin:CustomerList results = check shopify->searchCustomers(query = "steve");
 
 Retrieves a list of products with optional filtering by title, vendor, status, collection, and date ranges.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -292,15 +293,15 @@ Retrieves a list of products with optional filtering by title, vendor, status, c
 | `status` | `string?` | No | Filter by status: `active`, `archived`, or `draft` (default: `active`). |
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 
-**Returns:** `ProductList|error`
+Returns: `ProductList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:ProductList products = check shopify->getProducts(status = "active", 'limit = 5);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -328,15 +329,15 @@ admin:ProductList products = check shopify->getProducts(status = "active", 'limi
 
 Creates a new product.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateProduct` | Yes | The Product object to be created. |
 
-**Returns:** `ProductObject|error`
+Returns: `ProductObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:ProductObject product = check shopify->createProduct({
@@ -350,7 +351,7 @@ admin:ProductObject product = check shopify->createProduct({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -377,22 +378,22 @@ admin:ProductObject product = check shopify->createProduct({
 
 Retrieves a single product by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `productId` | `string` | Yes | The product ID. |
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 
-**Returns:** `ProductObject|error`
+Returns: `ProductObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:ProductObject product = check shopify->getProduct("7982605344961");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -417,16 +418,16 @@ admin:ProductObject product = check shopify->getProduct("7982605344961");
 
 Updates a product and its variants and images.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `productId` | `string` | Yes | The product ID. |
 | `payload` | `UpdateProduct` | Yes | The Product object with updated fields. |
 
-**Returns:** `ProductObject|error`
+Returns: `ProductObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:ProductObject updated = check shopify->updateProduct("7982605344961", {
@@ -437,7 +438,7 @@ admin:ProductObject updated = check shopify->updateProduct("7982605344961", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -454,7 +455,7 @@ admin:ProductObject updated = check shopify->updateProduct("7982605344961", {
 
 </details>
 
-#### Product Variants
+#### Product variants
 
 <details>
 <summary>getProductVariants</summary>
@@ -463,7 +464,7 @@ admin:ProductObject updated = check shopify->updateProduct("7982605344961", {
 
 Retrieves a list of product variants for a given product.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -472,15 +473,15 @@ Retrieves a list of product variants for a given product.
 | `'limit` | `int?` | No | Maximum results per page. |
 | `sinceId` | `string?` | No | Restrict results to after the specified ID. |
 
-**Returns:** `ProductVariantList|error`
+Returns: `ProductVariantList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:ProductVariantList variants = check shopify->getProductVariants("7982605344961");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -508,16 +509,16 @@ admin:ProductVariantList variants = check shopify->getProductVariants("798260534
 
 Creates a new product variant.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `productId` | `string` | Yes | The product ID. |
 | `payload` | `CreateProductVariant` | Yes | The Product variant object to be created. |
 
-**Returns:** `ProductVariantObject|error`
+Returns: `ProductVariantObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:ProductVariantObject variant = check shopify->createProductVariant("7982605344961", {
@@ -529,7 +530,7 @@ admin:ProductVariantObject variant = check shopify->createProductVariant("798260
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -554,22 +555,22 @@ admin:ProductVariantObject variant = check shopify->createProductVariant("798260
 
 Retrieves a single product variant by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `variantId` | `string` | Yes | The variant ID. |
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 
-**Returns:** `ProductVariantObject|error`
+Returns: `ProductVariantObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:ProductVariantObject variant = check shopify->getProductVariant("43503271895233");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -594,16 +595,16 @@ admin:ProductVariantObject variant = check shopify->getProductVariant("435032718
 
 Updates an existing product variant.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `variantId` | `string` | Yes | The variant ID. |
 | `payload` | `UpdateProductVariant` | Yes | The Product variant object with updated fields. |
 
-**Returns:** `ProductVariantObject|error`
+Returns: `ProductVariantObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:ProductVariantObject updated = check shopify->updateProductVariant("43503271895233", {
@@ -613,7 +614,7 @@ admin:ProductVariantObject updated = check shopify->updateProductVariant("435032
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -629,7 +630,7 @@ admin:ProductVariantObject updated = check shopify->updateProductVariant("435032
 
 </details>
 
-#### Order Management
+#### Order management
 
 <details>
 <summary>getOrders</summary>
@@ -638,7 +639,7 @@ admin:ProductVariantObject updated = check shopify->updateProductVariant("435032
 
 Retrieves a list of orders with optional filtering by status, financial status, fulfillment status, and date ranges.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -649,15 +650,15 @@ Retrieves a list of orders with optional filtering by status, financial status, 
 | `fulfillmentStatus` | `string?` | No | Filter by fulfillment status: `shipped`, `partial`, `unshipped`, `any`, or `unfulfilled`. |
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 
-**Returns:** `OrderList|error`
+Returns: `OrderList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderList orders = check shopify->getOrders(status = "open", 'limit = 10);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -686,15 +687,15 @@ admin:OrderList orders = check shopify->getOrders(status = "open", 'limit = 10);
 
 Creates an order. By default, product inventory is not claimed.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateOrder` | Yes | The Order object to be created. |
 
-**Returns:** `OrderObject|error`
+Returns: `OrderObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderObject newOrder = check shopify->createOrder({
@@ -713,7 +714,7 @@ admin:OrderObject newOrder = check shopify->createOrder({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -747,22 +748,22 @@ admin:OrderObject newOrder = check shopify->createOrder({
 
 Retrieves a specific order by ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `orderId` | `string` | Yes | The order ID. |
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 
-**Returns:** `OrderObject|error`
+Returns: `OrderObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderObject order = check shopify->getOrder("5553109696705");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -788,16 +789,16 @@ admin:OrderObject order = check shopify->getOrder("5553109696705");
 
 Updates an existing order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `orderId` | `string` | Yes | The order ID. |
 | `payload` | `UpdateOrder` | Yes | The Order object with updated fields. |
 
-**Returns:** `OrderObject|error`
+Returns: `OrderObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderObject updated = check shopify->updateOrder("5553109696705", {
@@ -808,7 +809,7 @@ admin:OrderObject updated = check shopify->updateOrder("5553109696705", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -834,7 +835,7 @@ admin:OrderObject updated = check shopify->updateOrder("5553109696705", {
 
 Retrieves fulfillments associated with an order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -844,15 +845,15 @@ Retrieves fulfillments associated with an order.
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 | `'limit` | `int?` | No | Maximum results (default: 50, max: 250). |
 
-**Returns:** `OrderFulfillmentsList|error`
+Returns: `OrderFulfillmentsList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderFulfillmentsList fulfillments = check shopify->getOrderFulfillments("5553109696705");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -880,16 +881,16 @@ admin:OrderFulfillmentsList fulfillments = check shopify->getOrderFulfillments("
 
 Creates a fulfillment for the specified order and line items. If no line item IDs are specified, all unfulfilled and partially fulfilled line items are fulfilled.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `orderId` | `string` | Yes | The order ID. |
 | `payload` | `CreateOrderFulfillment` | Yes | The fulfillment object to be created. |
 
-**Returns:** `OrderFulfillmentObject|error`
+Returns: `OrderFulfillmentObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderFulfillmentObject fulfillment = check shopify->createOrderFulfillment("5553109696705", {
@@ -901,7 +902,7 @@ admin:OrderFulfillmentObject fulfillment = check shopify->createOrderFulfillment
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -919,7 +920,7 @@ admin:OrderFulfillmentObject fulfillment = check shopify->createOrderFulfillment
 
 </details>
 
-#### Draft Orders
+#### Draft orders
 
 <details>
 <summary>createDraftOrder</summary>
@@ -928,7 +929,7 @@ admin:OrderFulfillmentObject fulfillment = check shopify->createOrderFulfillment
 
 Creates a draft order for deferred or manual order workflows.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -936,9 +937,9 @@ Creates a draft order for deferred or manual order workflows.
 | `customerId` | `string?` | No | Used to load the customer and associate their email. |
 | `useCustomerDefaultAddress` | `boolean?` | No | Load customer shipping information if `true`. |
 
-**Returns:** `DraftOrderObject|error`
+Returns: `DraftOrderObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:DraftOrderObject draft = check shopify->createDraftOrder({
@@ -957,7 +958,7 @@ admin:DraftOrderObject draft = check shopify->createDraftOrder({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -979,7 +980,7 @@ admin:DraftOrderObject draft = check shopify->createDraftOrder({
 
 </details>
 
-#### Transactions & Refunds
+#### Transactions & refunds
 
 <details>
 <summary>createTransactionForOrder</summary>
@@ -988,7 +989,7 @@ admin:DraftOrderObject draft = check shopify->createDraftOrder({
 
 Creates a transaction for an order (e.g., capture, sale, or external payment).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -996,9 +997,9 @@ Creates a transaction for an order (e.g., capture, sale, or external payment).
 | `payload` | `CreateTransaction` | Yes | The Transaction object to be created. |
 | `'source` | `string?` | No | Set to `external` for cash transactions. |
 
-**Returns:** `TransactionObject|error`
+Returns: `TransactionObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:TransactionObject txn = check shopify->createTransactionForOrder("5553109696705", {
@@ -1009,7 +1010,7 @@ admin:TransactionObject txn = check shopify->createTransactionForOrder("55531096
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1035,16 +1036,16 @@ admin:TransactionObject txn = check shopify->createTransactionForOrder("55531096
 
 Creates a refund for an order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `orderId` | `string` | Yes | The order ID. |
 | `payload` | `CreateRefund` | Yes | The Refund object to be created. |
 
-**Returns:** `RefundObject|error`
+Returns: `RefundObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:RefundObject refund = check shopify->createRefundForOrder("5553109696705", {
@@ -1057,7 +1058,7 @@ admin:RefundObject refund = check shopify->createRefundForOrder("5553109696705",
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1074,7 +1075,7 @@ admin:RefundObject refund = check shopify->createRefundForOrder("5553109696705",
 
 </details>
 
-#### Order Risks
+#### Order risks
 
 <details>
 <summary>getOrderRisks</summary>
@@ -1083,21 +1084,21 @@ admin:RefundObject refund = check shopify->createRefundForOrder("5553109696705",
 
 Retrieves a list of all order risks for an order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `orderId` | `string` | Yes | The order ID. |
 
-**Returns:** `OrderRiskList|error`
+Returns: `OrderRiskList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderRiskList risks = check shopify->getOrderRisks("5553109696705");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1127,16 +1128,16 @@ admin:OrderRiskList risks = check shopify->getOrderRisks("5553109696705");
 
 Creates an order risk for an order.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `orderId` | `string` | Yes | The order ID. |
 | `payload` | `CreateOrderRisk` | Yes | The order risk object to be created. |
 
-**Returns:** `OrderRiskObject|error`
+Returns: `OrderRiskObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderRiskObject risk = check shopify->createOrderRisk("5553109696705", {
@@ -1151,7 +1152,7 @@ admin:OrderRiskObject risk = check shopify->createOrderRisk("5553109696705", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1177,22 +1178,22 @@ admin:OrderRiskObject risk = check shopify->createOrderRisk("5553109696705", {
 
 Retrieves a single order risk by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `orderId` | `string` | Yes | The order ID. |
 | `riskId` | `string` | Yes | The order risk ID. |
 
-**Returns:** `OrderRiskObject|error`
+Returns: `OrderRiskObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderRiskObject risk = check shopify->getOrderRisk("5553109696705", "8723457891");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1217,7 +1218,7 @@ admin:OrderRiskObject risk = check shopify->getOrderRisk("5553109696705", "87234
 
 Updates an order risk.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1225,9 +1226,9 @@ Updates an order risk.
 | `riskId` | `string` | Yes | The order risk ID. |
 | `payload` | `UpdateOrderRisk` | Yes | The order risk object with updated fields. |
 
-**Returns:** `OrderRiskObject|error`
+Returns: `OrderRiskObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:OrderRiskObject updated = check shopify->updateOrderRisk("5553109696705", "8723457891", {
@@ -1238,7 +1239,7 @@ admin:OrderRiskObject updated = check shopify->updateOrderRisk("5553109696705", 
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1255,7 +1256,7 @@ admin:OrderRiskObject updated = check shopify->updateOrderRisk("5553109696705", 
 
 </details>
 
-#### Webhook Management
+#### Webhook management
 
 <details>
 <summary>getWebhooks</summary>
@@ -1264,7 +1265,7 @@ admin:OrderRiskObject updated = check shopify->updateOrderRisk("5553109696705", 
 
 Retrieves a list of webhook subscriptions with optional filtering by address, topic, and date ranges.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1273,15 +1274,15 @@ Retrieves a list of webhook subscriptions with optional filtering by address, to
 | `'limit` | `int?` | No | Maximum results (default: 50, max: 250). |
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 
-**Returns:** `WebhookList|error`
+Returns: `WebhookList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:WebhookList webhooks = check shopify->getWebhooks(topic = "orders/create");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1308,15 +1309,15 @@ admin:WebhookList webhooks = check shopify->getWebhooks(topic = "orders/create")
 
 Creates a new webhook subscription by specifying both an address and a topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateWebhook` | Yes | The webhook subscription object to be created. |
 
-**Returns:** `WebhookObject|error`
+Returns: `WebhookObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:WebhookObject webhook = check shopify->createWebhook({
@@ -1328,7 +1329,7 @@ admin:WebhookObject webhook = check shopify->createWebhook({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1353,22 +1354,22 @@ admin:WebhookObject webhook = check shopify->createWebhook({
 
 Retrieves a single webhook subscription by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `webhookId` | `string` | Yes | The webhook ID. |
 | `fields` | `string?` | No | Comma-separated list of fields to include. |
 
-**Returns:** `WebhookObject|error`
+Returns: `WebhookObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:WebhookObject webhook = check shopify->getWebhook("1071340091");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1392,16 +1393,16 @@ admin:WebhookObject webhook = check shopify->getWebhook("1071340091");
 
 Updates a webhook subscription's topic or address URI.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `webhookId` | `string` | Yes | The webhook ID. |
 | `payload` | `UpdateWebhook` | Yes | The webhook object with updated fields. |
 
-**Returns:** `WebhookObject|error`
+Returns: `WebhookObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:WebhookObject updated = check shopify->updateWebhook("1071340091", {
@@ -1411,7 +1412,7 @@ admin:WebhookObject updated = check shopify->updateWebhook("1071340091", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1434,22 +1435,22 @@ admin:WebhookObject updated = check shopify->updateWebhook("1071340091", {
 
 Retrieves a count of existing webhook subscriptions, optionally filtered by address or topic.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `address` | `string?` | No | Filter by the URI that receives the POST request. |
 | `topic` | `string?` | No | Filter by webhook topic. |
 
-**Returns:** `WebhookCountObject|error`
+Returns: `WebhookCountObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 admin:WebhookCountObject count = check shopify->getWebhookCount();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -12,7 +13,7 @@ The `ballerinax/aws.lambda` package exposes the following clients:
 
 ---
 
-## Function Annotation
+## Function annotation
 
 Marks a Ballerina function for deployment as an AWS Lambda function. This is a compiler extension — not a client you instantiate.
 
@@ -23,7 +24,7 @@ Marks a Ballerina function for deployment as an AWS Lambda function. This is a c
 | `ctx` | `lambda:Context` | Required | The Lambda execution context providing request metadata (request ID, deadline, ARN, trace ID, remaining execution time). |
 | `input` | `json\|lambda:SQSEvent\|lambda:S3Event\|lambda:DynamoDBEvent\|lambda:SESEvent\|lambda:APIGatewayProxyRequest` | Required | The event payload. Use `json` for generic input, or a domain-specific event type for AWS service triggers. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/aws.lambda;
@@ -40,7 +41,7 @@ public function echo(lambda:Context ctx, json input) returns json {
 
 ### Operations
 
-#### Generic Lambda Functions
+#### Generic Lambda functions
 
 <details>
 <summary>echo</summary>
@@ -49,16 +50,16 @@ public function echo(lambda:Context ctx, json input) returns json {
 
 A basic Lambda function that receives generic JSON input and returns it as-is. Demonstrates the simplest function signature.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ctx` | `lambda:Context` | Yes | The Lambda execution context. |
 | `input` | `json` | Yes | The JSON payload sent to the Lambda function. |
 
-**Returns:** `json`
+Returns: `json`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 @lambda:Function
@@ -67,7 +68,7 @@ public function echo(lambda:Context ctx, json input) returns json {
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"key": "value", "message": "Hello from Lambda"}
@@ -84,16 +85,16 @@ public function echo(lambda:Context ctx, json input) returns json {
 
 A Lambda function that extracts and returns execution context information including request ID, deadline, invoked function ARN, trace ID, and remaining execution time.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ctx` | `lambda:Context` | Yes | The Lambda execution context. |
 | `input` | `json` | Yes | The JSON payload (unused in this example). |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 @lambda:Function
@@ -109,7 +110,7 @@ public function ctxinfo(lambda:Context ctx, json input) returns json|error {
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -125,7 +126,7 @@ public function ctxinfo(lambda:Context ctx, json input) returns json|error {
 
 </details>
 
-#### SQS Event Handler
+#### SQS event handler
 
 <details>
 <summary>notifySQS</summary>
@@ -134,16 +135,16 @@ public function ctxinfo(lambda:Context ctx, json input) returns json|error {
 
 A Lambda function triggered by an Amazon SQS message. Receives an `SQSEvent` containing one or more SQS records and extracts the message body.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ctx` | `lambda:Context` | Yes | The Lambda execution context. |
 | `event` | `lambda:SQSEvent` | Yes | The SQS event containing an array of `SQSRecord` entries. |
 
-**Returns:** `json`
+Returns: `json`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 @lambda:Function
@@ -153,7 +154,7 @@ public function notifySQS(lambda:Context ctx,
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "Hello from SQS queue"
@@ -163,7 +164,7 @@ public function notifySQS(lambda:Context ctx,
 
 </details>
 
-#### S3 Event Handler
+#### S3 event handler
 
 <details>
 <summary>notifyS3</summary>
@@ -172,16 +173,16 @@ public function notifySQS(lambda:Context ctx,
 
 A Lambda function triggered by an Amazon S3 bucket notification. Receives an `S3Event` and extracts the object key from the first record.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ctx` | `lambda:Context` | Yes | The Lambda execution context. |
 | `event` | `lambda:S3Event` | Yes | The S3 event containing an array of `S3Record` entries with bucket and object details. |
 
-**Returns:** `json`
+Returns: `json`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 @lambda:Function
@@ -191,7 +192,7 @@ public function notifyS3(lambda:Context ctx,
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "uploads/my-file.txt"
@@ -201,7 +202,7 @@ public function notifyS3(lambda:Context ctx,
 
 </details>
 
-#### DynamoDB Event Handler
+#### DynamoDB event handler
 
 <details>
 <summary>notifyDynamoDB</summary>
@@ -210,16 +211,16 @@ public function notifyS3(lambda:Context ctx,
 
 A Lambda function triggered by a DynamoDB Streams event. Receives a `DynamoDBEvent` and extracts the primary key information from the stream record.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ctx` | `lambda:Context` | Yes | The Lambda execution context. |
 | `event` | `lambda:DynamoDBEvent` | Yes | The DynamoDB event containing an array of `DynamoDBRecord` entries with stream record details. |
 
-**Returns:** `json`
+Returns: `json`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 @lambda:Function
@@ -229,7 +230,7 @@ public function notifyDynamoDB(lambda:Context ctx,
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "{\"id\":{\"S\":\"12345\"}}"
@@ -239,7 +240,7 @@ public function notifyDynamoDB(lambda:Context ctx,
 
 </details>
 
-#### SES Event Handler
+#### SES event handler
 
 <details>
 <summary>notifySES</summary>
@@ -248,16 +249,16 @@ public function notifyDynamoDB(lambda:Context ctx,
 
 A Lambda function triggered by an Amazon SES email receipt notification. Receives an `SESEvent` and extracts the email subject from the common headers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ctx` | `lambda:Context` | Yes | The Lambda execution context. |
 | `event` | `lambda:SESEvent` | Yes | The SES event containing an array of `SESRecord` entries with mail and receipt details. |
 
-**Returns:** `json`
+Returns: `json`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 @lambda:Function
@@ -267,7 +268,7 @@ public function notifySES(lambda:Context ctx,
 }
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "Welcome to our service"
@@ -277,7 +278,7 @@ public function notifySES(lambda:Context ctx,
 
 </details>
 
-#### API Gateway Event Handler
+#### API gateway event handler
 
 <details>
 <summary>apigwRequest</summary>
@@ -286,16 +287,16 @@ public function notifySES(lambda:Context ctx,
 
 A Lambda function triggered by an Amazon API Gateway proxy request. Receives an `APIGatewayProxyRequest` with HTTP method, path, headers, query parameters, and body.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ctx` | `lambda:Context` | Yes | The Lambda execution context. |
 | `request` | `lambda:APIGatewayProxyRequest` | Yes | The API Gateway proxy request containing HTTP method, path, headers, query string parameters, and body. |
 
-**Returns:** `()`
+Returns: `()`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 @lambda:Function

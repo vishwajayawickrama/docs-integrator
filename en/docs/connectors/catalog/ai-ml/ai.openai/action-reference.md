@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -13,7 +14,7 @@ The `ballerinax/ai.openai` package exposes the following clients:
 
 ---
 
-## Model Provider
+## Model provider
 
 Provides chat completion and structured generation using OpenAI GPT models.
 
@@ -28,7 +29,7 @@ Provides chat completion and structured generation using OpenAI GPT models.
 | `temperature` | `decimal` | `0.7` | Controls randomness in the model's output. Lower values produce more deterministic results. |
 | `connectionConfig` | `ConnectionConfig` | `{}` | Additional HTTP connection configuration (HTTP version, timeout, retry, SSL, proxy, etc.). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/ai;
@@ -44,7 +45,7 @@ final ai:ModelProvider openaiModel = check new openai:ModelProvider(
 
 ### Operations
 
-#### Chat Completion
+#### Chat completion
 
 <details>
 <summary>chat</summary>
@@ -53,7 +54,7 @@ final ai:ModelProvider openaiModel = check new openai:ModelProvider(
 
 Sends a list of chat messages to the OpenAI model and returns an assistant response. Supports tool/function calling when tool definitions are provided.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -61,9 +62,9 @@ Sends a list of chat messages to the OpenAI model and returns an assistant respo
 | `tools` | `ai:ChatCompletionFunctions[]` | Yes | Tool definitions available for the model to invoke. Pass an empty array if no tools are needed. |
 | `stop` | `string?` | No | A stop sequence that causes the model to stop generating. Defaults to `()`. |
 
-**Returns:** `ai:ChatAssistantMessage|ai:Error`
+Returns: `ai:ChatAssistantMessage|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/ai;
@@ -75,7 +76,7 @@ ai:ChatMessage[] messages = [
 ai:ChatAssistantMessage response = check openaiModel->chat(messages, []);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"role": "assistant", "content": "The capital of France is Paris."}
@@ -85,7 +86,7 @@ ai:ChatAssistantMessage response = check openaiModel->chat(messages, []);
 
 </details>
 
-#### Structured Generation
+#### Structured generation
 
 <details>
 <summary>generate</summary>
@@ -94,16 +95,16 @@ ai:ChatAssistantMessage response = check openaiModel->chat(messages, []);
 
 Sends a natural language prompt to the model and returns a typed Ballerina value matching the specified type descriptor. Uses tool-based extraction internally to produce structured output.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `prompt` | `ai:Prompt` | Yes | A tagged template literal prompt that can include text, image documents, file documents, and interpolated values. |
 | `td` | `typedesc<anydata>` | No | Type descriptor specifying the expected return type (e.g., `int`, `string`, a record type, or an array type). Inferred from the call site. |
 
-**Returns:** `td|ai:Error`
+Returns: `td|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Review record {|
@@ -117,7 +118,7 @@ Review result = check openaiModel->generate(`Rate this blog out of 10.
     Content: "Ballerina is a cloud-native programming language..."`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"title": "Ballerina for Integration", "rating": 8, "summary": "A well-written introduction to Ballerina's integration capabilities."}
@@ -127,7 +128,7 @@ Review result = check openaiModel->generate(`Rate this blog out of 10.
 
 </details>
 
-#### Chat with Tool Calling
+#### Chat with tool calling
 
 <details>
 <summary>chat (with tools)</summary>
@@ -136,7 +137,7 @@ Review result = check openaiModel->generate(`Rate this blog out of 10.
 
 Sends chat messages along with tool/function definitions. The model may respond with tool call requests instead of (or in addition to) text content, enabling agentic workflows.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -144,9 +145,9 @@ Sends chat messages along with tool/function definitions. The model may respond 
 | `tools` | `ai:ChatCompletionFunctions[]` | Yes | Tool/function definitions the model can choose to call. |
 | `stop` | `string?` | No | A stop sequence to halt the completion. |
 
-**Returns:** `ai:ChatAssistantMessage|ai:Error`
+Returns: `ai:ChatAssistantMessage|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/ai;
@@ -172,7 +173,7 @@ ai:ChatMessage[] messages = [
 ai:ChatAssistantMessage response = check openaiModel->chat(messages, tools);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"role": "assistant", "content": null, "toolCalls": [{"name": "get_weather", "arguments": {"location": "San Francisco"}, "id": "call_abc123"}]}
@@ -182,7 +183,7 @@ ai:ChatAssistantMessage response = check openaiModel->chat(messages, tools);
 
 </details>
 
-#### Multi-Modal Generation
+#### Multi-Modal generation
 
 <details>
 <summary>generate (with image document)</summary>
@@ -191,16 +192,16 @@ ai:ChatAssistantMessage response = check openaiModel->chat(messages, tools);
 
 Generates a structured response from a prompt that includes an image document. Supports both URL-based and binary image content. Requires a vision-capable model such as GPT-4o.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `prompt` | `ai:Prompt` | Yes | A tagged template literal embedding `ai:ImageDocument` values with URL or binary content. |
 | `td` | `typedesc<anydata>` | No | Type descriptor for the expected return type. |
 
-**Returns:** `td|ai:Error`
+Returns: `td|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/ai;
@@ -215,7 +216,7 @@ ai:ImageDocument img = {
 string description = check openaiModel->generate(`Describe the following image. ${img}.`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "A bar chart showing quarterly revenue growth from Q1 to Q4 2025, with Q4 reaching $12.5M."
@@ -232,16 +233,16 @@ string description = check openaiModel->generate(`Describe the following image. 
 
 Generates a structured response from a prompt that includes a file document (e.g., PDF). Currently supports URL-based file content only.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `prompt` | `ai:Prompt` | Yes | A tagged template literal embedding `ai:FileDocument` values with a URL. |
 | `td` | `typedesc<anydata>` | No | Type descriptor for the expected return type. |
 
-**Returns:** `td|ai:Error`
+Returns: `td|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/ai;
@@ -256,7 +257,7 @@ ai:FileDocument pdf = {
 string summary = check openaiModel->generate(`Summarize the following PDF. ${pdf}.`);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "The report covers annual performance metrics across three departments, highlighting a 15% increase in overall productivity."
@@ -268,7 +269,7 @@ string summary = check openaiModel->generate(`Summarize the following PDF. ${pdf
 
 ---
 
-## Embedding Provider
+## Embedding provider
 
 Generates text embeddings using OpenAI embedding models for semantic search, clustering, and similarity tasks.
 
@@ -281,7 +282,7 @@ Generates text embeddings using OpenAI embedding models for semantic search, clu
 | `serviceUrl` | `string` | `https://api.openai.com/v1` | The base URL of the OpenAI API endpoint. |
 | `connectionConfig` | `ConnectionConfig` | `{}` | Additional HTTP connection configuration (HTTP version, timeout, retry, SSL, proxy, etc.). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/ai;
@@ -297,7 +298,7 @@ final ai:EmbeddingProvider openaiEmbeddings = check new openai:EmbeddingProvider
 
 ### Operations
 
-#### Embedding Operations
+#### Embedding operations
 
 <details>
 <summary>embed</summary>
@@ -306,15 +307,15 @@ final ai:EmbeddingProvider openaiEmbeddings = check new openai:EmbeddingProvider
 
 Generates an embedding vector for a single text chunk using the configured OpenAI embedding model.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `chunk` | `ai:Chunk` | Yes | A text chunk to embed. Contains the text content and optional metadata. |
 
-**Returns:** `ai:Embedding|ai:Error`
+Returns: `ai:Embedding|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/ai;
@@ -326,7 +327,7 @@ ai:Chunk chunk = {
 ai:Embedding embedding = check openaiEmbeddings->embed(chunk);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"index": 0, "vector": [0.0023064255, -0.009327292, 0.015797347, -0.0077816844, ...], "chunk": {"text": "Ballerina is a cloud-native programming language for integration."}}
@@ -343,15 +344,15 @@ ai:Embedding embedding = check openaiEmbeddings->embed(chunk);
 
 Generates embedding vectors for multiple text chunks in a single API call for efficient batch processing.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `chunks` | `ai:Chunk[]` | Yes | An array of text chunks to embed. |
 
-**Returns:** `ai:Embedding[]|ai:Error`
+Returns: `ai:Embedding[]|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/ai;
@@ -365,7 +366,7 @@ ai:Chunk[] chunks = [
 ai:Embedding[] embeddings = check openaiEmbeddings->batchEmbed(chunks);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"index": 0, "vector": [0.0023064255, -0.009327292, ...], "chunk": {"text": "Ballerina is a cloud-native programming language."}}, {"index": 1, "vector": [0.0012548763, -0.007463821, ...], "chunk": {"text": "OpenAI provides powerful language models."}}, {"index": 2, "vector": [0.0045127893, -0.011284756, ...], "chunk": {"text": "Embeddings are useful for semantic search."}}]

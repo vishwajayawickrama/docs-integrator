@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -24,7 +25,7 @@ Executes SQL statements, retrieves results, and monitors execution status via th
 | `auth` | `StaticAuthConfig\|EC2IAMRoleConfig` | Required | AWS authentication — static access key credentials or EC2 IAM role configuration. |
 | `dbAccessConfig` | `Cluster\|WorkGroup` | `()` | Default database access configuration. Can be overridden per-statement via `ExecutionConfig`. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/aws.redshiftdata;
@@ -51,7 +52,7 @@ redshiftdata:Client redshift = check new ({
 
 ### Operations
 
-#### Statement Execution
+#### Statement execution
 
 <details>
 <summary>execute</summary>
@@ -60,7 +61,7 @@ redshiftdata:Client redshift = check new ({
 
 Runs a SQL statement (DML or DDL) asynchronously and returns a statement identifier for tracking.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -70,9 +71,9 @@ Runs a SQL statement (DML or DDL) asynchronously and returns a statement identif
 | `statementName` | `string` | No | A name to assign to the statement (1–500 characters). |
 | `withEvent` | `boolean` | No | If `true`, sends an event to Amazon EventBridge when the statement completes. |
 
-**Returns:** `ExecutionResponse|Error`
+Returns: `ExecutionResponse|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 redshiftdata:ExecutionResponse response = check redshift->execute(
@@ -80,7 +81,7 @@ redshiftdata:ExecutionResponse response = check redshift->execute(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"createdAt": [1700000000, 0], "statementId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"}
@@ -97,7 +98,7 @@ redshiftdata:ExecutionResponse response = check redshift->execute(
 
 Runs one or more SQL statements (DML or DDL) asynchronously in a single batch. Maximum batch size is 40 statements.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -107,9 +108,9 @@ Runs one or more SQL statements (DML or DDL) asynchronously in a single batch. M
 | `statementName` | `string` | No | A name to assign to the batch statement (1–500 characters). |
 | `withEvent` | `boolean` | No | If `true`, sends an event to Amazon EventBridge when the batch completes. |
 
-**Returns:** `ExecutionResponse|Error`
+Returns: `ExecutionResponse|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 redshiftdata:ExecutionResponse response = check redshift->batchExecute([
@@ -119,7 +120,7 @@ redshiftdata:ExecutionResponse response = check redshift->batchExecute([
 ]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"createdAt": [1700000000, 0], "statementId": "b2c3d4e5-f6a7-8901-bcde-f12345678901"}
@@ -129,7 +130,7 @@ redshiftdata:ExecutionResponse response = check redshift->batchExecute([
 
 </details>
 
-#### Result Retrieval
+#### Result retrieval
 
 <details>
 <summary>getResultAsStream</summary>
@@ -138,16 +139,16 @@ redshiftdata:ExecutionResponse response = check redshift->batchExecute([
 
 Retrieves the results of a previously executed SQL statement as a stream of typed records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `statementId` | `StatementId` | Yes | The UUID identifier of the executed SQL statement. |
 | `rowTypes` | `typedesc<record {}>` | No | The type descriptor of the record to map each result row to. |
 
-**Returns:** `stream<rowTypes, Error?>|Error`
+Returns: `stream<rowTypes, Error?>|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type User record {|
@@ -165,7 +166,7 @@ check from User user in resultStream
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "name": "Alice", "email": "alice@example.com"}
@@ -177,7 +178,7 @@ check from User user in resultStream
 
 </details>
 
-#### Statement Monitoring
+#### Statement monitoring
 
 <details>
 <summary>describe</summary>
@@ -186,15 +187,15 @@ check from User user in resultStream
 
 Retrieves the execution status and metadata for a previously executed SQL statement.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `statementId` | `StatementId` | Yes | The UUID identifier of the SQL statement to describe. |
 
-**Returns:** `DescriptionResponse|Error`
+Returns: `DescriptionResponse|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 redshiftdata:DescriptionResponse description = check redshift->describe(
@@ -202,7 +203,7 @@ redshiftdata:DescriptionResponse description = check redshift->describe(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -223,7 +224,7 @@ redshiftdata:DescriptionResponse description = check redshift->describe(
 
 </details>
 
-#### Resource Cleanup
+#### Resource cleanup
 
 <details>
 <summary>close</summary>
@@ -233,9 +234,9 @@ redshiftdata:DescriptionResponse description = check redshift->describe(
 Gracefully closes the AWS Redshift Data API client and releases associated resources.
 
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check redshift->close();

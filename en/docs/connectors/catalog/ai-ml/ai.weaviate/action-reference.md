@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -12,7 +13,7 @@ The `ballerinax/ai.weaviate` package exposes the following clients:
 
 ---
 
-## Vector Store
+## Vector store
 
 Provides vector storage, similarity search, and deletion operations against a Weaviate collection.
 
@@ -31,7 +32,7 @@ Provides vector storage, similarity search, and deletion operations against a We
 | `httpConfig.secureSocket` | `http:ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `httpConfig.proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ai.weaviate;
@@ -51,7 +52,7 @@ weaviate:VectorStore vectorStore = check new (
 
 ### Operations
 
-#### Vector Entry Management
+#### Vector entry management
 
 <details>
 <summary>add</summary>
@@ -60,15 +61,15 @@ weaviate:VectorStore vectorStore = check new (
 
 Adds one or more vector entries to the Weaviate collection. Each entry includes an embedding vector, a content chunk, and optional metadata. Handles UTC timestamp serialization automatically.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `entries` | `ai:VectorEntry[]` | Yes | Array of vector entries to add. Each entry contains an `id`, `embedding` (float array), and a `chunk` with content and metadata. |
 
-**Returns:** `ai:Error?`
+Returns: `ai:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/uuid;
@@ -103,7 +104,7 @@ ai:Error? result = vectorStore.add([
 
 </details>
 
-#### Vector Search
+#### Vector search
 
 <details>
 <summary>query</summary>
@@ -112,15 +113,15 @@ ai:Error? result = vectorStore.add([
 
 Queries the vector store using vector similarity search. Supports optional metadata filtering with comparison and logical operators. Returns matched entries ranked by certainty score.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `query` | `ai:VectorStoreQuery` | Yes | Query object containing the search `embedding` vector, optional `topK` limit, and optional `filters` for metadata-based filtering. |
 
-**Returns:** `ai:VectorMatch[]|ai:Error`
+Returns: `ai:VectorMatch[]|ai:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ai:VectorMatch[] matches = check vectorStore.query({
@@ -137,7 +138,7 @@ ai:VectorMatch[] matches = check vectorStore.query({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -160,7 +161,7 @@ ai:VectorMatch[] matches = check vectorStore.query({
 
 </details>
 
-#### Entry Deletion
+#### Entry deletion
 
 <details>
 <summary>delete</summary>
@@ -169,15 +170,15 @@ ai:VectorMatch[] matches = check vectorStore.query({
 
 Deletes one or more vector entries from the Weaviate collection by ID. Supports both single ID and batch deletion with transactional integrity.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ids` | `string\|string[]` | Yes | A single entry ID or an array of entry IDs to delete from the collection. |
 
-**Returns:** `ai:Error?`
+Returns: `ai:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 // Delete a single entry

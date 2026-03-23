@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up an AWS account, creating an IAM role, and configuring the AWS CLI — the prerequisites needed before deploying Ballerina functions to AWS Lambda.
@@ -8,7 +11,7 @@ This guide walks you through setting up an AWS account, creating an IAM role, an
 - An active AWS account. If you do not have one, [create an AWS account](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/).
 - The [AWS CLI](https://aws.amazon.com/cli/) installed and configured on your machine.
 
-## Step 1: Create an IAM User
+## Step 1: Create an IAM user
 
 1. Log in to the [AWS Management Console](https://console.aws.amazon.com/).
 2. Navigate to the **IAM** service.
@@ -32,7 +35,7 @@ aws configure
 
 This stores your credentials locally so the AWS CLI can authenticate your requests.
 
-## Step 3: Create an IAM Role for Lambda Execution
+## Step 3: Create an IAM role for Lambda execution
 
 1. In the AWS Management Console, navigate to **IAM** > **Roles**.
 2. Click **Create role**.

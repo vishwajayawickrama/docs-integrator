@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through obtaining a Trello API key and token required to use the Trello connector.
@@ -7,7 +10,7 @@ This guide walks you through obtaining a Trello API key and token required to us
 
 - An active Trello account. If you do not have one, [sign up for free at trello.com](https://trello.com/signup).
 
-## Step 1: Get Your API Key
+## Step 1: Get your API key
 
 1. Log in to your Trello account.
 2. Navigate to [https://trello.com/power-ups/admin](https://trello.com/power-ups/admin).
@@ -22,7 +25,7 @@ This guide walks you through obtaining a Trello API key and token required to us
 If you previously generated a key at trello.com/app-key, that flow has been replaced by the Power-Up Admin portal.
 :::
 
-## Step 2: Generate an API Token
+## Step 2: Generate an API token
 
 1. On the same API Key page, find the **Token** link next to your API key.
 2. Click the link — this opens an authorization page.
@@ -38,7 +41,7 @@ Use Ballerina's `configurable` feature and a `Config.toml` file to supply them a
 The token grants access to your Trello account. Treat it like a password and revoke it if compromised.
 :::
 
-## Step 3: Identify Your Board and List IDs
+## Step 3: Identify your board and list iDs
 
 To work with specific boards and lists, you need their IDs:
 

@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -24,7 +25,7 @@ Trello REST API — boards, lists, cards, members, labels, checklists, search, w
 | `config` | `ConnectionConfig` | `{}` | HTTP client connection configuration. |
 | `serviceUrl` | `string` | `"https://api.trello.com/1"` | Base URL for the Trello API. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/trello;
@@ -49,21 +50,21 @@ trello:Client trello = check new ({
 
 Retrieves a board by its Trello ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the board. |
 
-**Returns:** `Board|error`
+Returns: `Board|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Board board = check trello->/boards/[boardId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678901", "name": "My Project Board", "desc": "Board for tracking tasks", "closed": false, "url": "https://trello.com/b/abc123/my-project-board"}
@@ -80,15 +81,15 @@ trello:Board board = check trello->/boards/[boardId];
 
 Creates a new board.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `PostBoardsQueries` | Yes | Query parameters including `name` (required), `defaultLabels`, `defaultLists`, `desc`, `idOrganization`, and more. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/boards.post(queries = {name: "New Project Board"});
@@ -105,16 +106,16 @@ _ = check trello->/boards.post(queries = {name: "New Project Board"});
 
 Updates a board's properties such as name, description, or closed status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the board. |
 | `queries` | `PutBoardsIdQueries` | No | Query parameters for fields to update. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/boards/[boardId].put(queries = {name: "Updated Board Name", desc: "New description"});
@@ -131,15 +132,15 @@ _ = check trello->/boards/[boardId].put(queries = {name: "Updated Board Name", d
 
 Permanently deletes a board.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the board. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/boards/[boardId].delete();
@@ -156,21 +157,21 @@ _ = check trello->/boards/[boardId].delete();
 
 Retrieves all lists on a board.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the board. |
 
-**Returns:** `TrelloList[]|error`
+Returns: `TrelloList[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:TrelloList[] lists = check trello->/boards/[boardId]/lists;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678902", "name": "To Do", "closed": false, "pos": 16384, "idBoard": "60d5f2c8e4b0a12345678901"}, {"id": "60d5f2c8e4b0a12345678903", "name": "In Progress", "closed": false, "pos": 32768, "idBoard": "60d5f2c8e4b0a12345678901"}]
@@ -187,22 +188,22 @@ trello:TrelloList[] lists = check trello->/boards/[boardId]/lists;
 
 Creates a new list on a board.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the board. |
 | `queries` | `PostBoardsIdListsQueries` | Yes | Query parameters including `name` (required) and `pos`. |
 
-**Returns:** `TrelloList|error`
+Returns: `TrelloList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:TrelloList newList = check trello->/boards/[boardId]/lists.post(queries = {name: "Done"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678904", "name": "Done", "closed": false, "pos": 49152, "idBoard": "60d5f2c8e4b0a12345678901"}
@@ -219,15 +220,15 @@ trello:TrelloList newList = check trello->/boards/[boardId]/lists.post(queries =
 
 Retrieves all members of a board.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the board. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/boards/[boardId]/members;
@@ -244,15 +245,15 @@ _ = check trello->/boards/[boardId]/members;
 
 Retrieves all labels on a board.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the board. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/boards/[boardId]/labels;
@@ -269,16 +270,16 @@ _ = check trello->/boards/[boardId]/labels;
 
 Creates a new label on a board.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | The ID of the board. |
 | `queries` | `PostBoardsIdLabelsQueries` | Yes | Query parameters including `name` and `color`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/boards/[boardId]/labels.post(queries = {name: "Urgent", color: "red"});
@@ -295,21 +296,21 @@ _ = check trello->/boards/[boardId]/labels.post(queries = {name: "Urgent", color
 
 Retrieves all custom field definitions on a board.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the board. |
 
-**Returns:** `CustomField[]|error`
+Returns: `CustomField[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:CustomField[] fields = check trello->/boards/[boardId]/customFields;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678910", "idModel": "60d5f2c8e4b0a12345678901", "name": "Priority", "type": "list", "pos": 1}]
@@ -328,21 +329,21 @@ trello:CustomField[] fields = check trello->/boards/[boardId]/customFields;
 
 Retrieves a list by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the list. |
 
-**Returns:** `TrelloList|error`
+Returns: `TrelloList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:TrelloList list = check trello->/lists/[listId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678902", "name": "To Do", "closed": false, "pos": 16384, "idBoard": "60d5f2c8e4b0a12345678901"}
@@ -359,16 +360,16 @@ trello:TrelloList list = check trello->/lists/[listId];
 
 Updates a list's properties such as name, position, or closed status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the list. |
 | `queries` | `PutListsIdQueries` | No | Query parameters for fields to update. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/lists/[listId].put(queries = {name: "Completed"});
@@ -385,21 +386,21 @@ _ = check trello->/lists/[listId].put(queries = {name: "Completed"});
 
 Retrieves all cards in a list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the list. |
 
-**Returns:** `Card[]|error`
+Returns: `Card[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Card[] cards = check trello->/lists/[listId]/cards;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678905", "name": "Design mockups", "desc": "Create UI mockups", "closed": false, "idList": "60d5f2c8e4b0a12345678902", "pos": 16384}]
@@ -416,15 +417,15 @@ trello:Card[] cards = check trello->/lists/[listId]/cards;
 
 Archives all cards in the specified list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the list. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/lists/[listId]/archiveAllCards.post();
@@ -441,16 +442,16 @@ _ = check trello->/lists/[listId]/archiveAllCards.post();
 
 Moves all cards in a list to another board and/or list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the list. |
 | `queries` | `PostListsIdMoveallcardsQueries` | Yes | Query parameters including target `idBoard` and `idList`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/lists/[listId]/moveAllCards.post(queries = {idBoard: targetBoardId, idList: targetListId});
@@ -467,21 +468,21 @@ _ = check trello->/lists/[listId]/moveAllCards.post(queries = {idBoard: targetBo
 
 Retrieves the board that a list belongs to.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the list. |
 
-**Returns:** `Board|error`
+Returns: `Board|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Board board = check trello->/lists/[listId]/board;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678901", "name": "My Project Board", "closed": false}
@@ -500,15 +501,15 @@ trello:Board board = check trello->/lists/[listId]/board;
 
 Creates a new card on a specified list.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `PostCardsQueries` | Yes | Query parameters including `idList` (required), `name`, `desc`, `pos`, `due`, `idMembers`, `idLabels`, and more. |
 
-**Returns:** `Card|error`
+Returns: `Card|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Card card = check trello->/cards.post(queries = {
@@ -518,7 +519,7 @@ trello:Card card = check trello->/cards.post(queries = {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678905", "name": "Implement login feature", "desc": "Add OAuth 2.0 login support", "closed": false, "idList": "60d5f2c8e4b0a12345678902", "url": "https://trello.com/c/xyz789"}
@@ -535,21 +536,21 @@ trello:Card card = check trello->/cards.post(queries = {
 
 Retrieves a card by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 
-**Returns:** `Card|error`
+Returns: `Card|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Card card = check trello->/cards/[cardId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678905", "name": "Implement login feature", "desc": "Add OAuth 2.0 login support", "closed": false, "idList": "60d5f2c8e4b0a12345678902", "pos": 16384, "due": "2026-04-01T12:00:00.000Z"}
@@ -566,22 +567,22 @@ trello:Card card = check trello->/cards/[cardId];
 
 Updates a card's properties such as name, description, due date, or list assignment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 | `queries` | `PutCardsIdQueries` | No | Query parameters for fields to update. |
 
-**Returns:** `Card|error`
+Returns: `Card|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Card updated = check trello->/cards/[cardId].put(queries = {name: "Updated card name"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678905", "name": "Updated card name", "closed": false, "idList": "60d5f2c8e4b0a12345678902"}
@@ -598,15 +599,15 @@ trello:Card updated = check trello->/cards/[cardId].put(queries = {name: "Update
 
 Permanently deletes a card.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 
-**Returns:** `TrelloList|error`
+Returns: `TrelloList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/cards/[cardId].delete();
@@ -623,21 +624,21 @@ _ = check trello->/cards/[cardId].delete();
 
 Retrieves the actions (activity history) on a card.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 
-**Returns:** `Action[]|error`
+Returns: `Action[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Action[] actions = check trello->/cards/[cardId]/actions;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678920", "type": "updateCard", "date": "2026-03-15T10:30:00.000Z", "idMemberCreator": "60d5f2c8e4b0a12345678930"}]
@@ -654,21 +655,21 @@ trello:Action[] actions = check trello->/cards/[cardId]/actions;
 
 Retrieves all attachments on a card.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 
-**Returns:** `InlineResponseItems2001[]|error`
+Returns: `InlineResponseItems2001[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:InlineResponseItems2001[] attachments = check trello->/cards/[cardId]/attachments;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678940", "name": "design.png", "url": "https://trello.com/1/cards/abc/attachments/xyz/download/design.png", "bytes": 204800}]
@@ -685,16 +686,16 @@ trello:InlineResponseItems2001[] attachments = check trello->/cards/[cardId]/att
 
 Creates an attachment on a card.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 | `queries` | `PostCardsIdAttachmentsQueries` | No | Query parameters including `name`, `url`, `mimeType`. |
 
-**Returns:** `InlineResponseItems2002[]|error`
+Returns: `InlineResponseItems2002[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:InlineResponseItems2002[] attachment = check trello->/cards/[cardId]/attachments.post(
@@ -702,7 +703,7 @@ trello:InlineResponseItems2002[] attachment = check trello->/cards/[cardId]/atta
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678941", "name": "Reference Doc", "url": "https://example.com/doc.pdf"}]
@@ -719,16 +720,16 @@ trello:InlineResponseItems2002[] attachment = check trello->/cards/[cardId]/atta
 
 Adds a comment to a card.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 | `queries` | `PostCardsIdActionsCommentsQueries` | Yes | Query parameters including `text` (required). |
 
-**Returns:** `Action|error`
+Returns: `Action|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Action comment = check trello->/cards/[cardId]/actions/comments.post(
@@ -736,7 +737,7 @@ trello:Action comment = check trello->/cards/[cardId]/actions/comments.post(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678950", "type": "commentCard", "date": "2026-03-17T08:00:00.000Z", "data": {"text": "This task is now in review."}}
@@ -753,16 +754,16 @@ trello:Action comment = check trello->/cards/[cardId]/actions/comments.post(
 
 Adds an existing label to a card.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 | `queries` | `PostCardsIdIdlabelsQueries` | Yes | Query parameters including `value` (the label ID). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/cards/[cardId]/idLabels.post(queries = {value: labelId});
@@ -779,16 +780,16 @@ _ = check trello->/cards/[cardId]/idLabels.post(queries = {value: labelId});
 
 Adds a member to a card.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 | `queries` | `PostCardsIdIdmembersQueries` | Yes | Query parameters including `value` (the member ID). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/cards/[cardId]/idMembers.post(queries = {value: memberId});
@@ -805,21 +806,21 @@ _ = check trello->/cards/[cardId]/idMembers.post(queries = {value: memberId});
 
 Retrieves all custom field values set on a card.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the card. |
 
-**Returns:** `CustomFieldItems[]|error`
+Returns: `CustomFieldItems[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:CustomFieldItems[] items = check trello->/cards/[cardId]/customFieldItems;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678960", "idCustomField": "60d5f2c8e4b0a12345678910", "idModel": "60d5f2c8e4b0a12345678905", "value": {"text": "High"}}]
@@ -838,15 +839,15 @@ trello:CustomFieldItems[] items = check trello->/cards/[cardId]/customFieldItems
 
 Creates a new checklist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `PostChecklistsQueries` | Yes | Query parameters including `idCard` (required), `name`, `pos`, `idChecklistSource`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/checklists.post(queries = {idCard: cardId, name: "Launch Checklist"});
@@ -863,15 +864,15 @@ _ = check trello->/checklists.post(queries = {idCard: cardId, name: "Launch Chec
 
 Retrieves a checklist by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the checklist. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/checklists/[checklistId];
@@ -888,15 +889,15 @@ _ = check trello->/checklists/[checklistId];
 
 Retrieves all check items on a checklist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the checklist. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/checklists/[checklistId]/checkItems;
@@ -913,16 +914,16 @@ _ = check trello->/checklists/[checklistId]/checkItems;
 
 Creates a new check item on a checklist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the checklist. |
 | `queries` | `PostChecklistsIdCheckitemsQueries` | Yes | Query parameters including `name` (required), `pos`, `checked`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/checklists/[checklistId]/checkItems.post(queries = {name: "Write unit tests"});
@@ -939,16 +940,16 @@ _ = check trello->/checklists/[checklistId]/checkItems.post(queries = {name: "Wr
 
 Deletes a check item from a checklist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the checklist. |
 | `idCheckItem` | `TrelloID` | Yes | The ID of the check item. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/checklists/[checklistId]/checkItems/[checkItemId].delete();
@@ -967,21 +968,21 @@ _ = check trello->/checklists/[checklistId]/checkItems/[checkItemId].delete();
 
 Retrieves a label by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the label. |
 
-**Returns:** `Label|error`
+Returns: `Label|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Label label = check trello->/labels/[labelId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678970", "name": "Urgent", "color": "red", "idBoard": "60d5f2c8e4b0a12345678901"}
@@ -998,16 +999,16 @@ trello:Label label = check trello->/labels/[labelId];
 
 Updates a label's name or color.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the label. |
 | `queries` | `PutLabelsIdQueries` | No | Query parameters for fields to update. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/labels/[labelId].put(queries = {name: "Critical", color: "red"});
@@ -1024,15 +1025,15 @@ _ = check trello->/labels/[labelId].put(queries = {name: "Critical", color: "red
 
 Deletes a label.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the label. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/labels/[labelId].delete();
@@ -1051,21 +1052,21 @@ _ = check trello->/labels/[labelId].delete();
 
 Retrieves a member by their ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the member. |
 
-**Returns:** `Member|error`
+Returns: `Member|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Member member = check trello->/members/[memberId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678930", "fullName": "Jane Smith", "username": "janesmith", "email": "jane@example.com"}
@@ -1083,15 +1084,15 @@ trello:Member member = check trello->/members/[memberId];
 Retrieves the authenticated member's profile.
 
 
-**Returns:** `Member|error`
+Returns: `Member|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Member me = check trello->/members/me;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678930", "fullName": "Jane Smith", "username": "janesmith", "email": "jane@example.com"}
@@ -1108,21 +1109,21 @@ trello:Member me = check trello->/members/me;
 
 Retrieves all boards a member belongs to.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the member. |
 
-**Returns:** `Board[]|error`
+Returns: `Board[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Board[] boards = check trello->/members/[memberId]/boards;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678901", "name": "My Project Board", "closed": false}]
@@ -1139,21 +1140,21 @@ trello:Board[] boards = check trello->/members/[memberId]/boards;
 
 Retrieves all cards assigned to a member.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the member. |
 
-**Returns:** `Card[]|error`
+Returns: `Card[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Card[] cards = check trello->/members/[memberId]/cards;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678905", "name": "Implement login feature", "idList": "60d5f2c8e4b0a12345678902"}]
@@ -1170,21 +1171,21 @@ trello:Card[] cards = check trello->/members/[memberId]/cards;
 
 Retrieves all organizations a member belongs to.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the member. |
 
-**Returns:** `Organization[]|error`
+Returns: `Organization[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Organization[] orgs = check trello->/members/[memberId]/organizations;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678980", "name": "myteam", "displayName": "My Team"}]
@@ -1203,21 +1204,21 @@ trello:Organization[] orgs = check trello->/members/[memberId]/organizations;
 
 Retrieves an organization (workspace) by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the organization. |
 
-**Returns:** `Organization|error`
+Returns: `Organization|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Organization org = check trello->/organizations/[orgId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678980", "name": "myteam", "displayName": "My Team", "desc": "Our development team workspace"}
@@ -1234,21 +1235,21 @@ trello:Organization org = check trello->/organizations/[orgId];
 
 Retrieves all boards belonging to an organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the organization. |
 
-**Returns:** `Board[]|error`
+Returns: `Board[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Board[] boards = check trello->/organizations/[orgId]/boards;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678901", "name": "My Project Board", "closed": false, "idOrganization": "60d5f2c8e4b0a12345678980"}]
@@ -1265,21 +1266,21 @@ trello:Board[] boards = check trello->/organizations/[orgId]/boards;
 
 Retrieves all members of an organization.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the organization. |
 
-**Returns:** `Member[]|error`
+Returns: `Member[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Member[] members = check trello->/organizations/[orgId]/members;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678930", "fullName": "Jane Smith", "username": "janesmith"}]
@@ -1298,22 +1299,22 @@ trello:Member[] members = check trello->/organizations/[orgId]/members;
 
 Retrieves a specific field on an action.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the action. |
 | `field` | `ActionFields` | Yes | The field to retrieve. |
 
-**Returns:** `Action|error`
+Returns: `Action|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Action action = check trello->/actions/[actionId]/data;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678920", "type": "commentCard", "date": "2026-03-17T08:00:00.000Z"}
@@ -1330,16 +1331,16 @@ trello:Action action = check trello->/actions/[actionId]/data;
 
 Updates the text of a comment action.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the action. |
 | `queries` | `PutActionsIdTextQueries` | Yes | Query parameters including `value` (the new comment text). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/actions/[actionId]/text.put(queries = {value: "Updated comment text"});
@@ -1356,15 +1357,15 @@ _ = check trello->/actions/[actionId]/text.put(queries = {value: "Updated commen
 
 Deletes an action (only works for comment actions).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the action. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/actions/[actionId].delete();
@@ -1381,21 +1382,21 @@ _ = check trello->/actions/[actionId].delete();
 
 Retrieves the board associated with an action.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the action. |
 
-**Returns:** `Board|error`
+Returns: `Board|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Board board = check trello->/actions/[actionId]/board;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678901", "name": "My Project Board"}
@@ -1414,21 +1415,21 @@ trello:Board board = check trello->/actions/[actionId]/board;
 
 Searches for boards, cards, members, and organizations matching a query.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetSearchQueries` | Yes | Query parameters including `query` (required), `modelTypes`, `idBoards`, `idOrganizations`, and more. |
 
-**Returns:** `InlineResponse2001|error`
+Returns: `InlineResponse2001|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:InlineResponse2001 results = check trello->/search(queries = {query: "login feature"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"cards": [{"id": "60d5f2c8e4b0a12345678905", "name": "Implement login feature"}], "boards": [], "organizations": []}
@@ -1445,21 +1446,21 @@ trello:InlineResponse2001 results = check trello->/search(queries = {query: "log
 
 Searches for Trello members by name or username.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `GetSearchMembersQueries` | Yes | Query parameters including `query` (required), `limit`, `idBoard`, `idOrganization`. |
 
-**Returns:** `Member[]|error`
+Returns: `Member[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Member[] members = check trello->/search/members(queries = {query: "jane"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"id": "60d5f2c8e4b0a12345678930", "fullName": "Jane Smith", "username": "janesmith"}]
@@ -1478,15 +1479,15 @@ trello:Member[] members = check trello->/search/members(queries = {query: "jane"
 
 Creates a new webhook for receiving callbacks on model changes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `WebhooksBody` | Yes | Request body with `callbackURL`, `idModel`, `description`, and `active` fields. |
 
-**Returns:** `Webhook|error`
+Returns: `Webhook|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Webhook webhook = check trello->/webhooks.post({
@@ -1496,7 +1497,7 @@ trello:Webhook webhook = check trello->/webhooks.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678990", "description": "Board change notifications", "idModel": "60d5f2c8e4b0a12345678901", "callbackURL": "https://myapp.example.com/trello/webhook", "active": true}
@@ -1513,21 +1514,21 @@ trello:Webhook webhook = check trello->/webhooks.post({
 
 Retrieves a webhook by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the webhook. |
 
-**Returns:** `Webhook|error`
+Returns: `Webhook|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Webhook webhook = check trello->/webhooks/[webhookId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678990", "description": "Board change notifications", "idModel": "60d5f2c8e4b0a12345678901", "callbackURL": "https://myapp.example.com/trello/webhook", "active": true}
@@ -1544,16 +1545,16 @@ trello:Webhook webhook = check trello->/webhooks/[webhookId];
 
 Updates a webhook's callback URL, model, or active status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the webhook. |
 | `payload` | `WebhooksIdBody` | Yes | Request body with fields to update. |
 
-**Returns:** `Webhook|error`
+Returns: `Webhook|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Webhook updated = check trello->/webhooks/[webhookId].put({
@@ -1562,7 +1563,7 @@ trello:Webhook updated = check trello->/webhooks/[webhookId].put({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678990", "description": "Updated webhook", "active": false}
@@ -1579,15 +1580,15 @@ trello:Webhook updated = check trello->/webhooks/[webhookId].put({
 
 Deletes a webhook.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the webhook. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/webhooks/[webhookId].delete();
@@ -1597,7 +1598,7 @@ _ = check trello->/webhooks/[webhookId].delete();
 
 </details>
 
-#### Custom Fields
+#### Custom fields
 
 <details>
 <summary>Create a new Custom Field on a Board</summary>
@@ -1606,15 +1607,15 @@ _ = check trello->/webhooks/[webhookId].delete();
 
 Creates a new custom field definition on a board.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CustomFieldsBody` | Yes | Request body with custom field configuration. |
 
-**Returns:** `CustomField|error`
+Returns: `CustomField|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:CustomField field = check trello->/customFields.post({
@@ -1626,7 +1627,7 @@ trello:CustomField field = check trello->/customFields.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678910", "idModel": "60d5f2c8e4b0a12345678901", "name": "Priority", "type": "list", "pos": 1}
@@ -1643,21 +1644,21 @@ trello:CustomField field = check trello->/customFields.post({
 
 Retrieves a custom field definition by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the custom field. |
 
-**Returns:** `CustomField|error`
+Returns: `CustomField|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:CustomField field = check trello->/customFields/[customFieldId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678910", "idModel": "60d5f2c8e4b0a12345678901", "name": "Priority", "type": "list"}
@@ -1674,15 +1675,15 @@ trello:CustomField field = check trello->/customFields/[customFieldId];
 
 Deletes a custom field definition and removes it from all cards.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the custom field. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/customFields/[customFieldId].delete();
@@ -1701,21 +1702,21 @@ _ = check trello->/customFields/[customFieldId].delete();
 
 Retrieves a notification by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the notification. |
 
-**Returns:** `Notification|error`
+Returns: `Notification|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Notification notif = check trello->/notifications/[notificationId];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678995", "type": "addedToCard", "unread": true, "date": "2026-03-17T09:00:00.000Z"}
@@ -1732,22 +1733,22 @@ trello:Notification notif = check trello->/notifications/[notificationId];
 
 Updates a notification's read status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `TrelloID` | Yes | The ID of the notification. |
 | `queries` | `PutNotificationsIdQueries` | No | Query parameters including `unread`. |
 
-**Returns:** `Notification|error`
+Returns: `Notification|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Notification notif = check trello->/notifications/[notificationId].put(queries = {unread: false});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678995", "type": "addedToCard", "unread": false}
@@ -1766,21 +1767,21 @@ trello:Notification notif = check trello->/notifications/[notificationId].put(qu
 
 Retrieves information about an API token.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `tokenValue` | `string` | Yes | The token value. |
 
-**Returns:** `Token|error`
+Returns: `Token|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 trello:Token tokenInfo = check trello->/tokens/[apiToken];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "60d5f2c8e4b0a12345678998", "identifier": "Ballerina Connector", "idMember": "60d5f2c8e4b0a12345678930", "dateExpires": null}
@@ -1797,15 +1798,15 @@ trello:Token tokenInfo = check trello->/tokens/[apiToken];
 
 Revokes and deletes a token.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `tokenValue` | `string` | Yes | The token value. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 _ = check trello->/tokens/[apiToken].delete();

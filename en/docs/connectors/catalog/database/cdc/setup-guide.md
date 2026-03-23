@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through configuring your database server to emit change events that the CDC connector can consume.
@@ -8,7 +11,7 @@ This guide walks you through configuring your database server to emit change eve
 - A running MySQL, PostgreSQL, Microsoft SQL Server, or Oracle database instance.
 - A database user with sufficient privileges to enable CDC (replication, log reading).
 
-## Step 1: Enable Binary Logging in MySQL
+## Step 1: Enable binary logging in MySQL
 
 The CDC connector uses MySQL's binary log (binlog) to capture row-level changes. To enable it:
 
@@ -36,7 +39,7 @@ The CDC connector uses MySQL's binary log (binlog) to capture row-level changes.
 MySQL 5.7+ and MySQL 8.x are supported. The `binlog_format` must be set to `ROW` — `STATEMENT` and `MIXED` formats are not supported by Debezium.
 :::
 
-## Step 2: Create a CDC Database User (MySQL)
+## Step 2: Create a CDC database user (MySQL)
 
 Create a dedicated database user with the minimum privileges required for CDC:
 
@@ -50,7 +53,7 @@ FLUSH PRIVILEGES;
 Use a dedicated user with least-privilege access for CDC rather than a general admin account.
 :::
 
-## Step 3: Enable Logical Replication in PostgreSQL
+## Step 3: Enable logical replication in PostgreSQL
 
 For PostgreSQL, logical replication must be enabled before the connector can capture changes:
 
@@ -74,7 +77,7 @@ For PostgreSQL, logical replication must be enabled before the connector can cap
 PostgreSQL 10 or later is required for logical replication support.
 :::
 
-## Step 4: Enable CDC in Microsoft SQL Server
+## Step 4: Enable CDC in Microsoft SQL server
 
 For SQL Server, CDC must be enabled at both the database and table level:
 
@@ -100,7 +103,7 @@ For SQL Server, CDC must be enabled at both the database and table level:
 CDC in SQL Server requires Enterprise, Developer, or Evaluation edition. Standard edition supports it from SQL Server 2016 SP1 onwards.
 :::
 
-## Step 5: Enable LogMiner in Oracle
+## Step 5: Enable logMiner in Oracle
 
 For Oracle, the connector reads changes via LogMiner. The following setup is required:
 

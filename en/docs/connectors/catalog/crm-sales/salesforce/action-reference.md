@@ -1,3 +1,6 @@
+---
+title: Actions
+---
 # Actions
 
 The Salesforce connector spans 5 packages:
@@ -37,7 +40,7 @@ REST API — record CRUD, SOQL/SOSL, metadata, reports, actions.
 | `secureSocket` | `ClientSecureSocket` | `()` | SSL/TLS configuration. |
 | `proxy` | `ProxyConfig` | `()` | Proxy server configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/salesforce;
@@ -67,7 +70,7 @@ salesforce:Client salesforceClient = check new ({
 
 Retrieves a record by its Salesforce ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -75,15 +78,15 @@ Retrieves a record by its Salesforce ID.
 | `id` | `string` | Yes | The Salesforce record ID. |
 | `returnType` | `typedesc<record {}>` | No | Expected return type. |
 
-**Returns:** `returnType|error`
+Returns: `returnType|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} account = check salesforceClient->getById("Account", "0015g00000XXXXX");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"Id": "0015g00000XXXXX", "Name": "Acme Corporation", "Industry": "Technology"}
@@ -96,16 +99,16 @@ record {} account = check salesforceClient->getById("Account", "0015g00000XXXXX"
 
 Creates a new record of the specified sObject type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sobjectName` | `string` | Yes | API name of the sObject. |
 | `recordPayload` | `record {}` | Yes | Fields and values for the new record. |
 
-**Returns:** `CreationResponse|error`
+Returns: `CreationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesforce:CreationResponse res = check salesforceClient->create("Account", {
@@ -114,7 +117,7 @@ salesforce:CreationResponse res = check salesforceClient->create("Account", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "0015g00000YYYYY", "success": true, "errors": []}
@@ -127,7 +130,7 @@ salesforce:CreationResponse res = check salesforceClient->create("Account", {
 
 Updates an existing record identified by its Salesforce ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -135,9 +138,9 @@ Updates an existing record identified by its Salesforce ID.
 | `id` | `string` | Yes | The Salesforce record ID to update. |
 | `recordPayload` | `record {}` | Yes | Fields and new values to apply. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check salesforceClient->update("Account", "0015g00000XXXXX", {
@@ -152,16 +155,16 @@ check salesforceClient->update("Account", "0015g00000XXXXX", {
 
 Deletes a record by its Salesforce ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sobjectName` | `string` | Yes | API name of the sObject. |
 | `id` | `string` | Yes | The Salesforce record ID to delete. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check salesforceClient->delete("Account", "0015g00000XXXXX");
@@ -174,7 +177,7 @@ check salesforceClient->delete("Account", "0015g00000XXXXX");
 
 Retrieves a record using an external ID field.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -183,15 +186,15 @@ Retrieves a record using an external ID field.
 | `externalId` | `string` | Yes | The external ID value. |
 | `returnType` | `typedesc<record {}>` | No | Expected return type. |
 
-**Returns:** `returnType|error`
+Returns: `returnType|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} account = check salesforceClient->getByExternalId("Account", "External_Id__c", "EXT-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"Id": "0015g00000XXXXX", "Name": "Acme Corp", "External_Id__c": "EXT-001"}
@@ -204,7 +207,7 @@ record {} account = check salesforceClient->getByExternalId("Account", "External
 
 Creates or updates a record based on an external ID field.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -213,9 +216,9 @@ Creates or updates a record based on an external ID field.
 | `externalId` | `string` | Yes | The external ID value. |
 | `recordPayload` | `record {}` | Yes | Fields and values for the upsert. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check salesforceClient->upsert("Account", "External_Id__c", "EXT-001", {
@@ -226,23 +229,23 @@ check salesforceClient->upsert("Account", "External_Id__c", "EXT-001", {
 
 </details>
 
-#### Query & Search
+#### Query & search
 
 <details>
 <summary>query</summary>
 
 Executes a SOQL query and returns matching records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `soql` | `string` | Yes | A valid SOQL query string. |
 | `returnType` | `typedesc<record {}>` | No | Expected record type for results. |
 
-**Returns:** `stream<returnType, error?>|error`
+Returns: `stream<returnType, error?>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<record {}, error?> results = check salesforceClient->query(
@@ -254,7 +257,7 @@ check from record {} account in results
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"totalSize": 1, "done": true, "records": [{"Id": "0015g00000XXXXX", "Name": "Acme Corp"}]}
@@ -267,15 +270,15 @@ check from record {} account in results
 
 Executes a SOSL search and returns matching records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sosl` | `string` | Yes | A valid SOSL search string. |
 
-**Returns:** `stream<record {}, error?>|error`
+Returns: `stream<record {}, error?>|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 stream<record {}, error?> results = check salesforceClient->search(
@@ -289,27 +292,27 @@ check from record {} item in results
 
 </details>
 
-#### Metadata & Utilities
+#### Metadata & utilities
 
 <details>
 <summary>getAvailableApiVersions</summary>
 
 Returns a list of all available Salesforce API versions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `Version[]|error`
+Returns: `Version[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesforce:Version[] versions = check salesforceClient->getAvailableApiVersions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"label": "Winter '24", "url": "/services/data/v59.0", "version": "59.0"}]
@@ -322,14 +325,14 @@ salesforce:Version[] versions = check salesforceClient->getAvailableApiVersions(
 
 Retrieves metadata about the current Salesforce org.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `OrganizationMetadata|error`
+Returns: `OrganizationMetadata|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesforce:OrganizationMetadata meta = check salesforceClient->getOrganizationMetaData();
@@ -342,14 +345,14 @@ salesforce:OrganizationMetadata meta = check salesforceClient->getOrganizationMe
 
 Returns a list of all available sObject types in the org.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `SObjectMetaData[]|error`
+Returns: `SObjectMetaData[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesforce:SObjectMetaData[] objects = check salesforceClient->describeGlobal();
@@ -362,15 +365,15 @@ salesforce:SObjectMetaData[] objects = check salesforceClient->describeGlobal();
 
 Returns metadata describing a specific sObject type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sobjectName` | `string` | Yes | API name of the sObject. |
 
-**Returns:** `SObjectMetaData|error`
+Returns: `SObjectMetaData|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesforce:SObjectMetaData meta = check salesforceClient->getSobjectMetaData("Account");
@@ -385,14 +388,14 @@ salesforce:SObjectMetaData meta = check salesforceClient->getSobjectMetaData("Ac
 
 Returns a list of all reports available in the org.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `Report[]|error`
+Returns: `Report[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesforce:Report[] reports = check salesforceClient->listReports();
@@ -405,15 +408,15 @@ salesforce:Report[] reports = check salesforceClient->listReports();
 
 Executes a Salesforce report and returns its results.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `reportId` | `string` | Yes | The ID of the report to run. |
 
-**Returns:** `ReportResults|error`
+Returns: `ReportResults|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 salesforce:ReportResults results = check salesforceClient->runReport("00O5g000005XXXXX");
@@ -423,7 +426,7 @@ salesforce:ReportResults results = check salesforceClient->runReport("00O5g00000
 
 ---
 
-## Apex Client
+## Apex client
 
 Execute custom Apex REST endpoints exposed by your Salesforce org.
 
@@ -436,7 +439,7 @@ Execute custom Apex REST endpoints exposed by your Salesforce org.
 | `httpVersion` | `HttpVersion` | `HTTP_2_0` | HTTP protocol version. |
 | `timeout` | `decimal` | `60` | Request timeout in seconds. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/salesforce.apex;
@@ -466,16 +469,16 @@ apex:Client apexClient = check new ({
 
 Sends a GET request to a custom Apex REST endpoint.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `requestPath` | `string` | Yes | The relative path of the Apex REST resource (e.g., `"/MyEndpoint/"`). |
 | `returnType` | `typedesc<record {}>` | No | Expected return type. |
 
-**Returns:** `returnType|error`
+Returns: `returnType|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} response = check apexClient->get("/MyApexEndpoint/");
@@ -488,7 +491,7 @@ record {} response = check apexClient->get("/MyApexEndpoint/");
 
 Sends a POST request to a custom Apex REST endpoint.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -496,9 +499,9 @@ Sends a POST request to a custom Apex REST endpoint.
 | `payload` | `record {}` | Yes | Request body payload. |
 | `returnType` | `typedesc<record {}>` | No | Expected return type. |
 
-**Returns:** `returnType|error`
+Returns: `returnType|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 record {} result = check apexClient->post("/MyApexEndpoint/", {
@@ -514,16 +517,16 @@ record {} result = check apexClient->post("/MyApexEndpoint/", {
 
 Sends a PUT request to a custom Apex REST endpoint.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `requestPath` | `string` | Yes | The relative path of the Apex REST resource. |
 | `payload` | `record {}` | Yes | Request body payload. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check apexClient->put("/MyApexEndpoint/EXT-001", {
@@ -538,16 +541,16 @@ check apexClient->put("/MyApexEndpoint/EXT-001", {
 
 Sends a PATCH request to a custom Apex REST endpoint.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `requestPath` | `string` | Yes | The relative path of the Apex REST resource. |
 | `payload` | `record {}` | Yes | Request body payload. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check apexClient->patch("/MyApexEndpoint/EXT-001", {
@@ -562,15 +565,15 @@ check apexClient->patch("/MyApexEndpoint/EXT-001", {
 
 Sends a DELETE request to a custom Apex REST endpoint.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `requestPath` | `string` | Yes | The relative path of the Apex REST resource. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check apexClient->delete("/MyApexEndpoint/EXT-001");
@@ -580,7 +583,7 @@ check apexClient->delete("/MyApexEndpoint/EXT-001");
 
 ---
 
-## Bulk Client
+## Bulk client
 
 Bulk API v1 — manage jobs and batches for large-scale CSV/JSON/XML data operations.
 
@@ -593,7 +596,7 @@ Bulk API v1 — manage jobs and batches for large-scale CSV/JSON/XML data operat
 | `httpVersion` | `HttpVersion` | `HTTP_2_0` | HTTP protocol version. |
 | `timeout` | `decimal` | `60` | Request timeout in seconds. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/salesforce.bulk;
@@ -616,14 +619,14 @@ bulk:Client bulkClient = check new ({
 
 ### Operations
 
-#### Job Management
+#### Job management
 
 <details>
 <summary>createJob</summary>
 
 Creates a new Bulk API v1 job for the given operation and sObject.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -631,15 +634,15 @@ Creates a new Bulk API v1 job for the given operation and sObject.
 | `sobjectName` | `string` | Yes | API name of the sObject. |
 | `contentType` | `ContentType` | Yes | Content type of the batch data: `CSV`, `JSON`, or `XML`. |
 
-**Returns:** `JobInfo|error`
+Returns: `JobInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 bulk:JobInfo job = check bulkClient->createJob(bulk:INSERT, "Contact", bulk:CSV);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "7505g000005XXXXX", "operation": "insert", "object": "Contact", "state": "Open"}
@@ -652,16 +655,16 @@ bulk:JobInfo job = check bulkClient->createJob(bulk:INSERT, "Contact", bulk:CSV)
 
 Adds a batch of records to an open Bulk API v1 job.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the open job. |
 | `batchData` | `string|json|xml` | Yes | The batch payload in the format matching the job's content type. |
 
-**Returns:** `BatchInfo|error`
+Returns: `BatchInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string csvData = "FirstName,LastName,Email\nJohn,Doe,john@example.com\nJane,Doe,jane@example.com";
@@ -675,15 +678,15 @@ bulk:BatchInfo batch = check bulkClient->addBatch(job.id, csvData);
 
 Closes an open Bulk API v1 job, signalling that no more batches will be added.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the job to close. |
 
-**Returns:** `JobInfo|error`
+Returns: `JobInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 bulk:JobInfo closedJob = check bulkClient->closeJob(job.id);
@@ -696,22 +699,22 @@ bulk:JobInfo closedJob = check bulkClient->closeJob(job.id);
 
 Returns the current status and metadata of a specific batch.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the job. |
 | `batchId` | `string` | Yes | The ID of the batch. |
 
-**Returns:** `BatchInfo|error`
+Returns: `BatchInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 bulk:BatchInfo batchInfo = check bulkClient->getBatchInfo(job.id, batch.id);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "7515g000001XXXXX", "jobId": "7505g000005XXXXX", "state": "Completed", "numberRecordsProcessed": 2, "numberRecordsFailed": 0}
@@ -724,16 +727,16 @@ bulk:BatchInfo batchInfo = check bulkClient->getBatchInfo(job.id, batch.id);
 
 Retrieves the results of a completed batch.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the job. |
 | `batchId` | `string` | Yes | The ID of the completed batch. |
 
-**Returns:** `Result[]|error`
+Returns: `Result[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 bulk:Result[] results = check bulkClient->getBatchResults(job.id, batch.id);
@@ -743,7 +746,7 @@ bulk:Result[] results = check bulkClient->getBatchResults(job.id, batch.id);
 
 ---
 
-## Bulk V2 Client
+## Bulk V2 client
 
 Bulk API v2 — simplified ingest and query jobs optimised for large-scale data loads.
 
@@ -756,7 +759,7 @@ Bulk API v2 — simplified ingest and query jobs optimised for large-scale data 
 | `httpVersion` | `HttpVersion` | `HTTP_2_0` | HTTP protocol version. |
 | `timeout` | `decimal` | `60` | Request timeout in seconds. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/salesforce.bulkv2;
@@ -779,22 +782,22 @@ bulkv2:Client bulkV2Client = check new ({
 
 ### Operations
 
-#### Ingest Jobs
+#### Ingest jobs
 
 <details>
 <summary>createIngestJob</summary>
 
 Creates a Bulk API v2 ingest job for inserting, updating, or deleting records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `IngestJobConfig` | Yes | Ingest job configuration including `object`, `operation`, and `lineEnding`. |
 
-**Returns:** `IngestJobInfo|error`
+Returns: `IngestJobInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 bulkv2:IngestJobInfo ingestJob = check bulkV2Client->createIngestJob({
@@ -804,7 +807,7 @@ bulkv2:IngestJobInfo ingestJob = check bulkV2Client->createIngestJob({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "7505g000005YYYYY", "operation": "insert", "object": "Contact", "state": "Open"}
@@ -817,16 +820,16 @@ bulkv2:IngestJobInfo ingestJob = check bulkV2Client->createIngestJob({
 
 Uploads CSV data to an open ingest job.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the open ingest job. |
 | `csvData` | `string` | Yes | CSV data to upload. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string csvData = "FirstName,LastName,Email\nAlice,Smith,alice@example.com";
@@ -840,15 +843,15 @@ check bulkV2Client->addDataToIngestJob(ingestJob.id, csvData);
 
 Marks an ingest job as ready to be processed.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the ingest job to close. |
 
-**Returns:** `IngestJobInfo|error`
+Returns: `IngestJobInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 bulkv2:IngestJobInfo closedJob = check bulkV2Client->closeIngestJob(ingestJob.id);
@@ -861,15 +864,15 @@ bulkv2:IngestJobInfo closedJob = check bulkV2Client->closeIngestJob(ingestJob.id
 
 Returns the current status of an ingest job.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the ingest job. |
 
-**Returns:** `IngestJobInfo|error`
+Returns: `IngestJobInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 bulkv2:IngestJobInfo info = check bulkV2Client->getIngestJobInfo(ingestJob.id);
@@ -882,15 +885,15 @@ bulkv2:IngestJobInfo info = check bulkV2Client->getIngestJobInfo(ingestJob.id);
 
 Returns CSV results for records that were successfully processed.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of a completed ingest job. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string successCsv = check bulkV2Client->getSuccessfulResults(ingestJob.id);
@@ -903,15 +906,15 @@ string successCsv = check bulkV2Client->getSuccessfulResults(ingestJob.id);
 
 Returns CSV results for records that failed processing.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of a completed ingest job. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string failedCsv = check bulkV2Client->getFailedResults(ingestJob.id);
@@ -919,22 +922,22 @@ string failedCsv = check bulkV2Client->getFailedResults(ingestJob.id);
 
 </details>
 
-#### Query Jobs
+#### Query jobs
 
 <details>
 <summary>createQueryJob</summary>
 
 Creates a Bulk API v2 query job to export records using SOQL.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `QueryJobConfig` | Yes | Query job config containing `operation` and `query` fields. |
 
-**Returns:** `QueryJobInfo|error`
+Returns: `QueryJobInfo|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 bulkv2:QueryJobInfo queryJob = check bulkV2Client->createQueryJob({
@@ -950,16 +953,16 @@ bulkv2:QueryJobInfo queryJob = check bulkV2Client->createQueryJob({
 
 Retrieves results from a completed query job as a CSV string.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `jobId` | `string` | Yes | The ID of the completed query job. |
 | `maxRecords` | `int` | No | Maximum number of records to return per request. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string resultCsv = check bulkV2Client->getQueryJobResults(queryJob.id, maxRecords = 1000);
@@ -969,7 +972,7 @@ string resultCsv = check bulkV2Client->getQueryJobResults(queryJob.id, maxRecord
 
 ---
 
-## Soap Client
+## Soap client
 
 SOAP API — lead conversion using the Salesforce SOAP protocol.
 
@@ -982,7 +985,7 @@ SOAP API — lead conversion using the Salesforce SOAP protocol.
 | `httpVersion` | `HttpVersion` | `HTTP_2_0` | HTTP protocol version. |
 | `timeout` | `decimal` | `60` | Request timeout in seconds. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/salesforce.soap;
@@ -1005,22 +1008,22 @@ soap:Client soapClient = check new ({
 
 ### Operations
 
-#### Lead Conversion
+#### Lead conversion
 
 <details>
 <summary>convertLead</summary>
 
 Converts one or more leads into accounts, contacts, and optionally opportunities.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `leadConverts` | `LeadConvert[]` | Yes | Array of `LeadConvert` records specifying leads to convert and conversion options. |
 
-**Returns:** `LeadConvertResult[]|error`
+Returns: `LeadConvertResult[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 soap:LeadConvert[] leads = [
@@ -1034,7 +1037,7 @@ soap:LeadConvert[] leads = [
 soap:LeadConvertResult[] results = check soapClient->convertLead(leads);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"leadId": "00Q5g000005XXXXX", "accountId": "0015g00000XXXXX", "contactId": "0035g00000XXXXX", "opportunityId": "0065g00000XXXXX", "success": true}]

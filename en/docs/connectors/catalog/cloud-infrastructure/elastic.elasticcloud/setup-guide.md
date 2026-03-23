@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating an Elastic Cloud account and generating the API key required to authenticate the Elastic Cloud connector.
@@ -7,7 +10,7 @@ This guide walks you through creating an Elastic Cloud account and generating th
 
 - An Elastic Cloud account. If you do not have one, [sign up for a free trial](https://cloud.elastic.co/registration).
 
-## Step 1: Sign up and log in to Elastic Cloud
+## Step 1: Sign up and log in to Elastic cloud
 
 1. Visit the [Elastic Cloud registration page](https://cloud.elastic.co/registration).
 2. Fill in your account details including email, password, and organization information.
@@ -15,7 +18,7 @@ This guide walks you through creating an Elastic Cloud account and generating th
 4. Complete your profile setup, accept the terms of service, and choose your subscription plan.
 5. Log in at [cloud.elastic.co/login](https://cloud.elastic.co/login) using your credentials (or Google/Microsoft SSO).
 
-## Step 2: Create an Elastic Cloud deployment
+## Step 2: Create an Elastic cloud deployment
 
 1. From the Elastic Cloud console dashboard, click **Create deployment**.
 2. Choose your cloud provider (AWS, Google Cloud, or Azure) and region.
@@ -26,7 +29,7 @@ This guide walks you through creating an Elastic Cloud account and generating th
 You can also create deployments programmatically using the connector after obtaining your API key.
 :::
 
-## Step 3: Navigate to Organization settings
+## Step 3: Navigate to organization settings
 
 1. From the dashboard, click **Organization** in the top navigation.
 2. Go to the organization management page to view your Organization ID and settings.

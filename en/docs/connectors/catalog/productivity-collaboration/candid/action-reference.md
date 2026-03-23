@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -20,7 +21,7 @@ Available clients:
 
 ---
 
-## Essentials Client
+## Essentials client
 
 Search for nonprofits and look up available search filters.
 
@@ -37,7 +38,7 @@ Search for nonprofits and look up available search filters.
 | `validation` | `boolean` | `true` | Enable/disable payload validation. |
 | `laxDataBinding` | `boolean` | `true` | Use lax data binding for responses. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/candid.essentials;
@@ -53,7 +54,7 @@ essentials:Client essentialsClient = check new (apiKeyConfig);
 
 ### Operations
 
-#### Nonprofit Search
+#### Nonprofit search
 
 <details>
 <summary>Search nonprofits (v3)</summary>
@@ -62,16 +63,16 @@ essentials:Client essentialsClient = check new (apiKeyConfig);
 
 Searches Candid's nonprofit database using the v3 Essentials API with keywords, filters, sorting, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `V3Query` | Yes | Search query with optional `searchTerms`, `size`, `from`, `sort`, and `filters`. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `V3EssentialsResponse|error`
+Returns: `V3EssentialsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 essentials:V3Query query = {
@@ -82,7 +83,7 @@ essentials:V3Query query = {
 essentials:V3EssentialsResponse result = check essentialsClient->/v3.post(query);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -124,16 +125,16 @@ essentials:V3EssentialsResponse result = check essentialsClient->/v3.post(query)
 
 Searches Candid's nonprofit database using the v2 Essentials API.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Query` | Yes | Search query with optional `searchTerms`, `size`, `from`, `sort`, and `filters`. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `V2EssentialsResponse|error`
+Returns: `V2EssentialsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 essentials:Query query = {
@@ -143,7 +144,7 @@ essentials:Query query = {
 essentials:V2EssentialsResponse result = check essentialsClient->/v2.post(query);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -172,16 +173,16 @@ essentials:V2EssentialsResponse result = check essentialsClient->/v2.post(query)
 
 Searches Candid's nonprofit database using the v1 Essentials API.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Query` | Yes | Search query with optional `searchTerms`, `size`, `from`, `sort`, and `filters`. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `V1EssentialsResponse|error`
+Returns: `V1EssentialsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 essentials:Query query = {
@@ -190,7 +191,7 @@ essentials:Query query = {
 essentials:V1EssentialsResponse result = check essentialsClient->/v1.post(query);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -210,7 +211,7 @@ essentials:V1EssentialsResponse result = check essentialsClient->/v1.post(query)
 
 </details>
 
-#### Filter Lookups
+#### Filter lookups
 
 <details>
 <summary>Get all available filter names</summary>
@@ -219,21 +220,21 @@ essentials:V1EssentialsResponse result = check essentialsClient->/v1.post(query)
 
 Retrieves all available filter names that can be used in Essentials search queries.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EssentialsLookupResponse|error`
+Returns: `EssentialsLookupResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 essentials:EssentialsLookupResponse result = check essentialsClient->/lookup;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -260,22 +261,22 @@ essentials:EssentialsLookupResponse result = check essentialsClient->/lookup;
 
 Retrieves all filterable items (keys and values) for a given filter name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `filterName` | `string` | Yes | The filter name to look up (e.g., `"geography.state"`). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EssentialsFilteredLookupResponse|error`
+Returns: `EssentialsFilteredLookupResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 essentials:EssentialsFilteredLookupResponse result = check essentialsClient->/lookup/["geography.state"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -300,7 +301,7 @@ essentials:EssentialsFilteredLookupResponse result = check essentialsClient->/lo
 
 Retrieves details for a specific key or value within a given filter.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -308,15 +309,15 @@ Retrieves details for a specific key or value within a given filter.
 | `keyOrValue` | `string` | Yes | The specific key or value to look up (e.g., `"NY"`). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EssentialsFilteredLookupResponse|error`
+Returns: `EssentialsFilteredLookupResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 essentials:EssentialsFilteredLookupResponse result = check essentialsClient->/lookup/["geography.state"]/["NY"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -334,7 +335,7 @@ essentials:EssentialsFilteredLookupResponse result = check essentialsClient->/lo
 
 ---
 
-## Premier Client
+## Premier client
 
 Retrieve detailed nonprofit profiles and download PDF reports.
 
@@ -351,7 +352,7 @@ Retrieve detailed nonprofit profiles and download PDF reports.
 | `validation` | `boolean` | `true` | Enable/disable payload validation. |
 | `laxDataBinding` | `boolean` | `true` | Use lax data binding for responses. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/candid.premier;
@@ -367,7 +368,7 @@ premier:Client premierClient = check new (apiKeyConfig);
 
 ### Operations
 
-#### Nonprofit Profiles
+#### Nonprofit profiles
 
 <details>
 <summary>Get nonprofit profile (v3)</summary>
@@ -376,22 +377,22 @@ premier:Client premierClient = check new (apiKeyConfig);
 
 Retrieves a comprehensive nonprofit profile by EIN using the v3 Premier API, including financials, people, DEI data, and program descriptions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ein` | `string` | Yes | Employer Identification Number of the nonprofit (e.g., `"13-1837418"`). |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `V3PublicProfile|error`
+Returns: `V3PublicProfile|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 premier:V3PublicProfile result = check premierClient->/v3/["13-1837418"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -432,22 +433,22 @@ premier:V3PublicProfile result = check premierClient->/v3/["13-1837418"];
 
 Retrieves a nonprofit profile by EIN using the deprecated v2 Premier API.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ein` | `string` | Yes | Employer Identification Number of the nonprofit. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `V2PublicProfile|error`
+Returns: `V2PublicProfile|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 premier:V2PublicProfile result = check premierClient->/v2/["13-1837418"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -473,22 +474,22 @@ premier:V2PublicProfile result = check premierClient->/v2/["13-1837418"];
 
 Retrieves a nonprofit profile by EIN using the deprecated v1 Premier API.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ein` | `string` | Yes | Employer Identification Number of the nonprofit. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `V1PublicProfile|error`
+Returns: `V1PublicProfile|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 premier:V1PublicProfile result = check premierClient->/v1/["13-1837418"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -507,7 +508,7 @@ premier:V1PublicProfile result = check premierClient->/v1/["13-1837418"];
 
 </details>
 
-#### PDF Reports
+#### PDF reports
 
 <details>
 <summary>Download Pro PDF report</summary>
@@ -516,16 +517,16 @@ premier:V1PublicProfile result = check premierClient->/v1/["13-1837418"];
 
 Downloads a Pro PDF report for the specified nonprofit, containing detailed profile and financial information.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ein` | `string` | Yes | Employer Identification Number of the nonprofit. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response result = check premierClient->/v1/propdf/["13-1837418"];
@@ -543,16 +544,16 @@ byte[] pdfBytes = check result.getBinaryPayload();
 
 Downloads a Financial Trends Analysis (FTA) PDF report for the specified nonprofit.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ein` | `string` | Yes | Employer Identification Number of the nonprofit. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response result = check premierClient->/v1/ftapdf/["13-1837418"];
@@ -565,7 +566,7 @@ byte[] pdfBytes = check result.getBinaryPayload();
 
 ---
 
-## Charity Check PDF Client
+## Charity check PDF client
 
 Download Charity Check PDF reports for IRS compliance verification.
 
@@ -582,7 +583,7 @@ Download Charity Check PDF reports for IRS compliance verification.
 | `validation` | `boolean` | `true` | Enable/disable payload validation. |
 | `laxDataBinding` | `boolean` | `true` | Use lax data binding for responses. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/candid.charitycheckpdf;
@@ -598,7 +599,7 @@ charitycheckpdf:Client charityCheckClient = check new (apiKeyConfig);
 
 ### Operations
 
-#### PDF Download
+#### PDF download
 
 <details>
 <summary>Download Charity Check PDF</summary>
@@ -607,16 +608,16 @@ charitycheckpdf:Client charityCheckClient = check new (apiKeyConfig);
 
 Downloads a Charity Check PDF report for the specified nonprofit, providing IRS compliance verification information.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ein` | `string` | Yes | Employer Identification Number of the nonprofit. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response result = check charityCheckClient->/v1/pdf/["13-1837418"];

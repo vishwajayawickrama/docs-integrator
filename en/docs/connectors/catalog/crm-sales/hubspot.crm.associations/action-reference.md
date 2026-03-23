@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Manages HubSpot CRM associations — reading, creating, labeling, and archiving 
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable constraint validation on response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.associations as hscrmassociations;
@@ -50,18 +51,18 @@ hscrmassociations:Client hubspotClient = check new ({
 
 ### Operations
 
-#### Single-Record Associations
+#### Single-Record associations
 
 <details>
 <summary>List associations of an object by type</summary>
 
 <div>
 
-**Signature:** `get /objects/[objectType]/[objectId]/associations/[toObjectType]`
+Signature: `get /objects/[objectType]/[objectId]/associations/[toObjectType]`
 
 Returns all associations of the specified type for a given CRM object, with optional pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -71,16 +72,16 @@ Returns all associations of the specified type for a given CRM object, with opti
 | `limit` | `int:Signed32` | No | Maximum number of associations to return per page. Defaults to `500`. |
 | `after` | `string` | No | Pagination cursor returned by a previous response to fetch the next page. |
 
-**Returns:** `CollectionResponseMultiAssociatedObjectWithLabelForwardPaging|error`
+Returns: `CollectionResponseMultiAssociatedObjectWithLabelForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscrmassociations:CollectionResponseMultiAssociatedObjectWithLabelForwardPaging associations =
     check hubspotClient->/objects/["deals"]/[123]/associations/["companies"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -124,11 +125,11 @@ hscrmassociations:CollectionResponseMultiAssociatedObjectWithLabelForwardPaging 
 
 <div>
 
-**Signature:** `put /objects/[objectType]/[objectId]/associations/[toObjectType]/[toObjectId]`
+Signature: `put /objects/[objectType]/[objectId]/associations/[toObjectType]/[toObjectId]`
 
 Creates or updates labeled association relationships between two specific CRM records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -138,9 +139,9 @@ Creates or updates labeled association relationships between two specific CRM re
 | `toObjectId` | `int:Signed32` | Yes | The ID of the target CRM record. |
 | `payload` | `AssociationSpec[]` | Yes | Array of association specs, each with an `associationCategory` and `associationTypeId`. |
 
-**Returns:** `LabelsBetweenObjectPair|error`
+Returns: `LabelsBetweenObjectPair|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscrmassociations:LabelsBetweenObjectPair result =
@@ -149,7 +150,7 @@ hscrmassociations:LabelsBetweenObjectPair result =
     ]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -170,11 +171,11 @@ hscrmassociations:LabelsBetweenObjectPair result =
 
 <div>
 
-**Signature:** `put /objects/[fromObjectType]/[fromObjectId]/associations/default/[toObjectType]/[toObjectId]`
+Signature: `put /objects/[fromObjectType]/[fromObjectId]/associations/default/[toObjectType]/[toObjectId]`
 
 Creates a default HubSpot-defined association between two specific CRM records without specifying a label.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -183,16 +184,16 @@ Creates a default HubSpot-defined association between two specific CRM records w
 | `toObjectType` | `string` | Yes | The CRM object type of the target record (e.g., `"companies"`). |
 | `toObjectId` | `int:Signed32` | Yes | The ID of the target CRM record. |
 
-**Returns:** `BatchResponsePublicDefaultAssociation|error`
+Returns: `BatchResponsePublicDefaultAssociation|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscrmassociations:BatchResponsePublicDefaultAssociation result =
     check hubspotClient->/objects/["deals"]/[123]/associations/default/["companies"]/[456].put();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -220,11 +221,11 @@ hscrmassociations:BatchResponsePublicDefaultAssociation result =
 
 <div>
 
-**Signature:** `delete /objects/[objectType]/[objectId]/associations/[toObjectType]/[toObjectId]`
+Signature: `delete /objects/[objectType]/[objectId]/associations/[toObjectType]/[toObjectId]`
 
 Permanently removes all association labels between two specified CRM records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -233,9 +234,9 @@ Permanently removes all association labels between two specified CRM records.
 | `toObjectType` | `string` | Yes | The CRM object type of the target record. |
 | `toObjectId` | `int:Signed32` | Yes | The ID of the target CRM record. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/objects/["deals"]/[123]/associations/["companies"]/[456].delete();
@@ -245,18 +246,18 @@ check hubspotClient->/objects/["deals"]/[123]/associations/["companies"]/[456].d
 
 </details>
 
-#### Batch Associations
+#### Batch associations
 
 <details>
 <summary>Read associations</summary>
 
 <div>
 
-**Signature:** `post /associations/[fromObjectType]/[toObjectType]/batch/read`
+Signature: `post /associations/[fromObjectType]/[toObjectType]/batch/read`
 
 Reads associations of a specific type for a batch of source CRM records in a single API call.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -264,9 +265,9 @@ Reads associations of a specific type for a batch of source CRM records in a sin
 | `toObjectType` | `string` | Yes | The CRM object type of the associated records (e.g., `"companies"`). |
 | `payload` | `BatchInputPublicFetchAssociationsBatchRequest` | Yes | Batch request containing the list of source object IDs to look up. |
 
-**Returns:** `BatchResponsePublicAssociationMultiWithLabel|BatchResponsePublicAssociationMultiWithLabelWithErrors|error`
+Returns: `BatchResponsePublicAssociationMultiWithLabel|BatchResponsePublicAssociationMultiWithLabelWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscrmassociations:BatchResponsePublicAssociationMultiWithLabel|
@@ -276,7 +277,7 @@ hscrmassociations:BatchResponsePublicAssociationMultiWithLabel|
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -319,11 +320,11 @@ hscrmassociations:BatchResponsePublicAssociationMultiWithLabel|
 
 <div>
 
-**Signature:** `post /associations/[fromObjectType]/[toObjectType]/batch/associate/default`
+Signature: `post /associations/[fromObjectType]/[toObjectType]/batch/associate/default`
 
 Creates default HubSpot-defined associations between multiple pairs of CRM records in one request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -331,9 +332,9 @@ Creates default HubSpot-defined associations between multiple pairs of CRM recor
 | `toObjectType` | `string` | Yes | The CRM object type of the target records (e.g., `"companies"`). |
 | `payload` | `BatchInputPublicDefaultAssociationMultiPost` | Yes | Batch input with a list of `from`/`to` object ID pairs. |
 
-**Returns:** `BatchResponsePublicDefaultAssociation|error`
+Returns: `BatchResponsePublicDefaultAssociation|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscrmassociations:BatchResponsePublicDefaultAssociation result =
@@ -345,7 +346,7 @@ hscrmassociations:BatchResponsePublicDefaultAssociation result =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -380,11 +381,11 @@ hscrmassociations:BatchResponsePublicDefaultAssociation result =
 
 <div>
 
-**Signature:** `post /associations/[fromObjectType]/[toObjectType]/batch/create`
+Signature: `post /associations/[fromObjectType]/[toObjectType]/batch/create`
 
 Creates custom labeled associations between multiple pairs of CRM records in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -392,9 +393,9 @@ Creates custom labeled associations between multiple pairs of CRM records in a s
 | `toObjectType` | `string` | Yes | The CRM object type of the target records (e.g., `"companies"`). |
 | `payload` | `BatchInputPublicAssociationMultiPost` | Yes | Batch input with object ID pairs and their association type specs. |
 
-**Returns:** `BatchResponseLabelsBetweenObjectPair|BatchResponseLabelsBetweenObjectPairWithErrors|error`
+Returns: `BatchResponseLabelsBetweenObjectPair|BatchResponseLabelsBetweenObjectPairWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscrmassociations:BatchResponseLabelsBetweenObjectPair|
@@ -415,7 +416,7 @@ hscrmassociations:BatchResponseLabelsBetweenObjectPair|
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -450,11 +451,11 @@ hscrmassociations:BatchResponseLabelsBetweenObjectPair|
 
 <div>
 
-**Signature:** `post /associations/[fromObjectType]/[toObjectType]/batch/labels/archive`
+Signature: `post /associations/[fromObjectType]/[toObjectType]/batch/labels/archive`
 
 Removes specific association labels from multiple CRM record pairs without deleting the entire association relationship.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -462,9 +463,9 @@ Removes specific association labels from multiple CRM record pairs without delet
 | `toObjectType` | `string` | Yes | The CRM object type of the target records. |
 | `payload` | `BatchInputPublicAssociationMultiPost` | Yes | Batch input specifying the record pairs and the association types (labels) to remove. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/associations/["deals"]/["companies"]/batch/labels/archive.post({
@@ -487,11 +488,11 @@ check hubspotClient->/associations/["deals"]/["companies"]/batch/labels/archive.
 
 <div>
 
-**Signature:** `post /associations/[fromObjectType]/[toObjectType]/batch/archive`
+Signature: `post /associations/[fromObjectType]/[toObjectType]/batch/archive`
 
 Removes all association links between multiple source/target CRM record pairs in a single batch request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -499,9 +500,9 @@ Removes all association links between multiple source/target CRM record pairs in
 | `toObjectType` | `string` | Yes | The CRM object type of the target records. |
 | `payload` | `BatchInputPublicAssociationMultiArchive` | Yes | Batch input with source objects and their associated target IDs to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubspotClient->/associations/["deals"]/["companies"]/batch/archive.post({
@@ -516,33 +517,33 @@ check hubspotClient->/associations/["deals"]/["companies"]/batch/archive.post({
 
 </details>
 
-#### Usage Reports
+#### Usage reports
 
 <details>
 <summary>Generate high-usage report</summary>
 
 <div>
 
-**Signature:** `post /associations/usage/high-usage-report/[userId]`
+Signature: `post /associations/usage/high-usage-report/[userId]`
 
 Triggers generation of a high-usage associations report for the specified HubSpot user, useful for monitoring API consumption.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `userId` | `int:Signed32` | Yes | The HubSpot user ID for whom the report will be generated. |
 
-**Returns:** `ReportCreationResponse|error`
+Returns: `ReportCreationResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hscrmassociations:ReportCreationResponse report =
     check hubspotClient->/associations/usage/"high-usage-report"/[12345].post();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

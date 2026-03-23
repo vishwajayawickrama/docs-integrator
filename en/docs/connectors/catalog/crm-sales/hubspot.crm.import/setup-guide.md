@@ -13,7 +13,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 - A HubSpot account with admin access. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 - A HubSpot developer account. [Create one here](https://developers.hubspot.com/get-started) if you do not have one.
 
-## Create a HubSpot App
+## Create a HubSpot app
 
 1. Log in to your [HubSpot developer account](https://app.hubspot.com/developer).
 2. Click **Apps** in the top navigation.
@@ -22,7 +22,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 5. Optionally add a description and logo.
 
 
-## Configure OAuth Scopes
+## Configure OAuth scopes
 
 1. Navigate to the **Auth** tab of your app.
 2. Under **Scopes**, add the following scope:
@@ -35,7 +35,7 @@ This guide walks you through creating a HubSpot app and obtaining the OAuth 2.0 
 Store the Client ID and Client Secret securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Install the App and Authorize Access
+## Install the app and authorize access
 
 1. Construct the following authorization URL, replacing the placeholders:
 
@@ -49,7 +49,7 @@ Store the Client ID and Client Secret securely. Do not commit them to source con
 5. After authorization, HubSpot redirects to your callback URL with a `code` query parameter. Copy the `code` value.
 
 
-## Exchange the Authorization Code for Tokens
+## Exchange the authorization code for tokens
 
 Exchange the authorization code for access and refresh tokens using a POST request:
 
@@ -75,6 +75,6 @@ Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the tok
 HubSpot access tokens expire after 6 hours. The connector automatically refreshes them using the refresh token.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating an Azure AI Search service and obtaining the API key and endpoint URL required to use the connector.
@@ -7,7 +10,7 @@ This guide walks you through creating an Azure AI Search service and obtaining t
 
 - An active Microsoft Azure account. If you do not have one, [sign up for a free Azure account](https://azure.microsoft.com/free/).
 
-## Step 1: Create an Azure AI Search Service
+## Step 1: Create an Azure AI search service
 
 1. Sign in to the [Azure Portal](https://portal.azure.com).
 2. Click **Create a resource** and search for **Azure AI Search**.
@@ -25,7 +28,7 @@ This guide walks you through creating an Azure AI Search service and obtaining t
 The Free tier allows one search service per subscription with limited storage and throughput. For production workloads, consider the Basic or Standard tiers.
 :::
 
-## Step 2: Create a Search Index
+## Step 2: Create a search index
 
 1. In your Azure AI Search service, navigate to **Indexes** in the left menu.
 2. Click **Add index** to create a new index.
@@ -38,7 +41,7 @@ The Free tier allows one search service per subscription with limited storage an
 Note the index name — you will need it when constructing the service URL for the connector (e.g., `https://<service-name>.search.windows.net/indexes/<index-name>`).
 :::
 
-## Step 3: Get the API Key and Service URL
+## Step 3: Get the API key and service URL
 
 1. In your Azure AI Search service, navigate to **Settings > Keys** in the left menu.
 2. Copy one of the **Admin keys** (for full read-write access) or a **Query key** (for read-only search access).

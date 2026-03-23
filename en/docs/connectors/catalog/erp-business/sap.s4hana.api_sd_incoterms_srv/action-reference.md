@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Provides read access to SAP S/4HANA Incoterms classifications, versions, and the
 | `proxy` | `http:ProxyConfig?` | `()` | HTTP proxy server configuration. |
 | `validation` | `boolean` | `true` | Enables constraint validation on request and response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.api_sd_incoterms_srv as incoterms;
@@ -50,7 +51,7 @@ incoterms:Client incotermsClient = check new (
 
 ### Operations
 
-#### Incoterms Classifications
+#### Incoterms classifications
 
 <details>
 <summary>listA_IncotermsClassifications</summary>
@@ -59,23 +60,23 @@ incoterms:Client incotermsClient = check new (
 
 Reads the IDs and descriptions of all Incoterms classifications.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers to include in the request. |
 | `queries` | `ListA_IncotermsClassificationsQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$expand`, `$inlinecount`, `$select`. |
 
-**Returns:** `CollectionOfA_IncotermsClassificationWrapper|error`
+Returns: `CollectionOfA_IncotermsClassificationWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:CollectionOfA_IncotermsClassificationWrapper result =
     check incotermsClient->listA_IncotermsClassifications();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -112,7 +113,7 @@ incoterms:CollectionOfA_IncotermsClassificationWrapper result =
 
 Reads the ID and description of a specific Incoterms classification identified by its key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -120,16 +121,16 @@ Reads the ID and description of a specific Incoterms classification identified b
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetA_IncotermsClassificationQueries` | No | OData query options: `$expand`, `$select`. |
 
-**Returns:** `A_IncotermsClassificationWrapper|error`
+Returns: `A_IncotermsClassificationWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:A_IncotermsClassificationWrapper result =
     check incotermsClient->getA_IncotermsClassification("CIF");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -147,7 +148,7 @@ incoterms:A_IncotermsClassificationWrapper result =
 
 </details>
 
-#### Incoterms Classification Texts
+#### Incoterms classification texts
 
 <details>
 <summary>listA_IncotermsClassificationTexts</summary>
@@ -156,23 +157,23 @@ incoterms:A_IncotermsClassificationWrapper result =
 
 Reads the text descriptions of all Incoterms classifications across all available languages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `ListA_IncotermsClassificationTextsQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$inlinecount`, `$select`. |
 
-**Returns:** `CollectionOfA_IncotermsClassificationTextWrapper|error`
+Returns: `CollectionOfA_IncotermsClassificationTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:CollectionOfA_IncotermsClassificationTextWrapper result =
     check incotermsClient->listA_IncotermsClassificationTexts();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -198,7 +199,7 @@ incoterms:CollectionOfA_IncotermsClassificationTextWrapper result =
 
 Reads the text description of a specific Incoterms classification in a specific language.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -207,16 +208,16 @@ Reads the text description of a specific Incoterms classification in a specific 
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetA_IncotermsClassificationTextQueries` | No | OData query options: `$select`. |
 
-**Returns:** `A_IncotermsClassificationTextWrapper|error`
+Returns: `A_IncotermsClassificationTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:A_IncotermsClassificationTextWrapper result =
     check incotermsClient->getA_IncotermsClassificationText("CIF", "EN");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -239,7 +240,7 @@ incoterms:A_IncotermsClassificationTextWrapper result =
 
 Reads all language descriptions for a specific Incoterms classification via the navigation property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -247,16 +248,16 @@ Reads all language descriptions for a specific Incoterms classification via the 
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `ListIncotermsClassificationTextsOfA_IncotermsClassificationQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$inlinecount`, `$select`. |
 
-**Returns:** `CollectionOfA_IncotermsClassificationTextWrapper|error`
+Returns: `CollectionOfA_IncotermsClassificationTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:CollectionOfA_IncotermsClassificationTextWrapper result =
     check incotermsClient->listIncotermsClassificationTextsOfA_IncotermsClassification("CIF");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -274,7 +275,7 @@ incoterms:CollectionOfA_IncotermsClassificationTextWrapper result =
 
 </details>
 
-#### Incoterms Versions
+#### Incoterms versions
 
 <details>
 <summary>listA_IncotermsVersions</summary>
@@ -283,23 +284,23 @@ incoterms:CollectionOfA_IncotermsClassificationTextWrapper result =
 
 Reads the IDs and descriptions of all available Incoterms versions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `ListA_IncotermsVersionsQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$expand`, `$inlinecount`, `$select`. |
 
-**Returns:** `CollectionOfA_IncotermsVersionWrapper|error`
+Returns: `CollectionOfA_IncotermsVersionWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:CollectionOfA_IncotermsVersionWrapper result =
     check incotermsClient->listA_IncotermsVersions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -329,7 +330,7 @@ incoterms:CollectionOfA_IncotermsVersionWrapper result =
 
 Reads the ID and description of a specific Incoterms version by its key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -337,16 +338,16 @@ Reads the ID and description of a specific Incoterms version by its key.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetA_IncotermsVersionQueries` | No | OData query options: `$expand`, `$select`. |
 
-**Returns:** `A_IncotermsVersionWrapper|error`
+Returns: `A_IncotermsVersionWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:A_IncotermsVersionWrapper result =
     check incotermsClient->getA_IncotermsVersion("2020");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -363,7 +364,7 @@ incoterms:A_IncotermsVersionWrapper result =
 
 </details>
 
-#### Incoterms Version Texts
+#### Incoterms version texts
 
 <details>
 <summary>listA_IncotermsVersionTexts</summary>
@@ -372,23 +373,23 @@ incoterms:A_IncotermsVersionWrapper result =
 
 Reads the text descriptions of all Incoterms versions across all available languages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `ListA_IncotermsVersionTextsQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$inlinecount`, `$select`. |
 
-**Returns:** `CollectionOfA_IncotermsVersionTextWrapper|error`
+Returns: `CollectionOfA_IncotermsVersionTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:CollectionOfA_IncotermsVersionTextWrapper result =
     check incotermsClient->listA_IncotermsVersionTexts();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -414,7 +415,7 @@ incoterms:CollectionOfA_IncotermsVersionTextWrapper result =
 
 Reads the text description of a specific Incoterms version in a specific language.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -423,16 +424,16 @@ Reads the text description of a specific Incoterms version in a specific languag
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetA_IncotermsVersionTextQueries` | No | OData query options: `$select`. |
 
-**Returns:** `A_IncotermsVersionTextWrapper|error`
+Returns: `A_IncotermsVersionTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:A_IncotermsVersionTextWrapper result =
     check incotermsClient->getA_IncotermsVersionText("2020", "EN");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -455,7 +456,7 @@ incoterms:A_IncotermsVersionTextWrapper result =
 
 Reads all language descriptions for a specific Incoterms version via the navigation property.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -463,16 +464,16 @@ Reads all language descriptions for a specific Incoterms version via the navigat
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `ListIncotermsVersionTextsOfA_IncotermsVersionQueries` | No | OData query options: `$top`, `$skip`, `$filter`, `$orderby`, `$inlinecount`, `$select`. |
 
-**Returns:** `CollectionOfA_IncotermsVersionTextWrapper|error`
+Returns: `CollectionOfA_IncotermsVersionTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 incoterms:CollectionOfA_IncotermsVersionTextWrapper result =
     check incotermsClient->listIncotermsVersionTextsOfA_IncotermsVersion("2020");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -490,7 +491,7 @@ incoterms:CollectionOfA_IncotermsVersionTextWrapper result =
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>performBatchOperation</summary>
@@ -499,16 +500,16 @@ incoterms:CollectionOfA_IncotermsVersionTextWrapper result =
 
 Sends multiple OData read requests as a single HTTP `$batch` call, reducing round trips to the SAP server.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `http:Request` | Yes | An `http:Request` object containing the multipart/mixed batch payload with individual OData request parts. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers to include in the outer batch request. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Request batchRequest = new;
@@ -528,7 +529,7 @@ batchRequest.setTextPayload(
 http:Response batchResponse = check incotermsClient->performBatchOperation(batchRequest);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP/1.1 200 OK

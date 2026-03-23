@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Manages HubSpot CRM discount objects — CRUD, batch operations, and search.
 | `proxy` | <code>http:ProxyConfig</code> | `()` | Proxy server configuration. |
 | `validation` | <code>boolean</code> | `true` | Enable/disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.commerce.discounts;
@@ -50,34 +51,34 @@ discounts:Client discountsClient = check new ({
 
 ### Operations
 
-#### Single Record Operations
+#### Single record operations
 
 <details>
 <summary>List discounts</summary>
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieves a page of discount records with optional property selection, associations, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 | `queries` | <code>GetCrmV3ObjectsDiscountsQueries</code> | No | Query parameters including `'limit`, `after`, `properties`, `propertiesWithHistory`, and `associations`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 discounts:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
     check discountsClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -114,20 +115,20 @@ discounts:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging resp
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new discount record with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | Discount properties and optional associations. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 discounts:SimplePublicObject response = check discountsClient->/.post({
@@ -141,7 +142,7 @@ discounts:SimplePublicObject response = check discountsClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -170,11 +171,11 @@ discounts:SimplePublicObject response = check discountsClient->/.post({
 
 <div>
 
-**Signature:** `get /[string discountId]`
+Signature: `get /[string discountId]`
 
 Retrieves a single discount record by its ID, with optional property selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -182,16 +183,16 @@ Retrieves a single discount record by its ID, with optional property selection.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 | `queries` | <code>GetCrmV3ObjectsDiscountsDiscountIdQueries</code> | No | Query parameters including `properties`, `propertiesWithHistory`, and `associations`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 discounts:SimplePublicObjectWithAssociations response =
     check discountsClient->/[discountId].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -218,11 +219,11 @@ discounts:SimplePublicObjectWithAssociations response =
 
 <div>
 
-**Signature:** `patch /[string discountId]`
+Signature: `patch /[string discountId]`
 
 Updates an existing discount record's properties by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -231,9 +232,9 @@ Updates an existing discount record's properties by its ID.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 | `queries` | <code>PatchCrmV3ObjectsDiscountsDiscountIdQueries</code> | No | Query parameters including `idProperty`. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 discounts:SimplePublicObject response = check discountsClient->/[discountId].patch({
@@ -243,7 +244,7 @@ discounts:SimplePublicObject response = check discountsClient->/[discountId].pat
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -270,20 +271,20 @@ discounts:SimplePublicObject response = check discountsClient->/[discountId].pat
 
 <div>
 
-**Signature:** `delete /[string discountId]`
+Signature: `delete /[string discountId]`
 
 Archives (soft-deletes) a discount record by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `discountId` | <code>string</code> | Yes | The ID of the discount to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check discountsClient->/[discountId].delete();
@@ -293,27 +294,27 @@ check discountsClient->/[discountId].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of discounts</summary>
 
 <div>
 
-**Signature:** `post /batch/create`
+Signature: `post /batch/create`
 
 Creates multiple discount records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | Batch of discount inputs to create. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 discounts:BatchResponseSimplePublicObject|discounts:BatchResponseSimplePublicObjectWithErrors response =
@@ -341,7 +342,7 @@ discounts:BatchResponseSimplePublicObject|discounts:BatchResponseSimplePublicObj
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -384,11 +385,11 @@ discounts:BatchResponseSimplePublicObject|discounts:BatchResponseSimplePublicObj
 
 <div>
 
-**Signature:** `post /batch/read`
+Signature: `post /batch/read`
 
 Reads multiple discount records by their IDs or a unique property value in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -396,9 +397,9 @@ Reads multiple discount records by their IDs or a unique property value in a sin
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 | `queries` | <code>PostCrmV3ObjectsDiscountsBatchReadQueries</code> | No | Query parameters including `archived`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 discounts:BatchResponseSimplePublicObject|discounts:BatchResponseSimplePublicObjectWithErrors response =
@@ -411,7 +412,7 @@ discounts:BatchResponseSimplePublicObject|discounts:BatchResponseSimplePublicObj
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -454,20 +455,20 @@ discounts:BatchResponseSimplePublicObject|discounts:BatchResponseSimplePublicObj
 
 <div>
 
-**Signature:** `post /batch/update`
+Signature: `post /batch/update`
 
 Updates multiple discount records' properties in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | Batch of discount updates with IDs and properties. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 discounts:BatchResponseSimplePublicObject|discounts:BatchResponseSimplePublicObjectWithErrors response =
@@ -489,7 +490,7 @@ discounts:BatchResponseSimplePublicObject|discounts:BatchResponseSimplePublicObj
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -532,20 +533,20 @@ discounts:BatchResponseSimplePublicObject|discounts:BatchResponseSimplePublicObj
 
 <div>
 
-**Signature:** `post /batch/archive`
+Signature: `post /batch/archive`
 
 Archives (soft-deletes) multiple discount records by their IDs in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | Batch of discount IDs to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check discountsClient->/batch/archive.post({
@@ -565,20 +566,20 @@ check discountsClient->/batch/archive.post({
 
 <div>
 
-**Signature:** `post /batch/upsert`
+Signature: `post /batch/upsert`
 
 Creates or updates multiple discount records using unique property values to determine whether to create or update.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | Batch of discount upsert inputs with ID properties and values. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 discounts:BatchResponseSimplePublicUpsertObject|discounts:BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -598,7 +599,7 @@ discounts:BatchResponseSimplePublicUpsertObject|discounts:BatchResponseSimplePub
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -633,20 +634,20 @@ discounts:BatchResponseSimplePublicUpsertObject|discounts:BatchResponseSimplePub
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for discount records using filters, query text, sorting, and property selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search request with optional `query`, `filterGroups`, `sorts`, `properties`, `'limit`, and `after`. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Request headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 discounts:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -668,7 +669,7 @@ discounts:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

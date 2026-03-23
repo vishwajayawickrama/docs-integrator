@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manage HubSpot CRM quote objects — CRUD, batch operations, and search.
 | `circuitBreaker` | <code>http:CircuitBreakerConfig</code> | `()` | Circuit breaker configuration for fault tolerance. |
 | `validation` | <code>boolean</code> | `true` | Enable inbound payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.commerce.quotes as quotes;
@@ -58,27 +59,27 @@ quotes:Client quotesClient = check new ({
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieves a paginated list of quotes with optional property selection and association expansion.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetCrmV3ObjectsQuotesGetPageQueries</code> | No | Query parameters including `limit`, `after`, `properties`, `associations`, and `archived`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
     check quotesClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -114,20 +115,20 @@ CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new quote with specified properties and optional associations to other CRM objects.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | Quote properties and associations. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 SimplePublicObject response = check quotesClient->/.post({
@@ -140,7 +141,7 @@ SimplePublicObject response = check quotesClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -167,11 +168,11 @@ SimplePublicObject response = check quotesClient->/.post({
 
 <div>
 
-**Signature:** `get /[string quoteId]`
+Signature: `get /[string quoteId]`
 
 Retrieves a single quote by its ID with optional property selection and association expansion.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -179,16 +180,16 @@ Retrieves a single quote by its ID with optional property selection and associat
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetCrmV3ObjectsQuotesQuoteIdGetByIdQueries</code> | No | Query parameters including `properties`, `associations`, and `archived`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 SimplePublicObjectWithAssociations response =
     check quotesClient->/[quoteId].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -215,11 +216,11 @@ SimplePublicObjectWithAssociations response =
 
 <div>
 
-**Signature:** `patch /[string quoteId]`
+Signature: `patch /[string quoteId]`
 
 Updates an existing quote's properties by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -228,9 +229,9 @@ Updates an existing quote's properties by its ID.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>PatchCrmV3ObjectsQuotesQuoteIdUpdateQueries</code> | No | Query parameters including `idProperty`. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 SimplePublicObject response = check quotesClient->/[quoteId].patch({
@@ -241,7 +242,7 @@ SimplePublicObject response = check quotesClient->/[quoteId].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -268,20 +269,20 @@ SimplePublicObject response = check quotesClient->/[quoteId].patch({
 
 <div>
 
-**Signature:** `delete /[string quoteId]`
+Signature: `delete /[string quoteId]`
 
 Archives (soft-deletes) a quote by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `quoteId` | <code>string</code> | Yes | The ID of the quote to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check quotesClient->/[quoteId].delete();
@@ -291,18 +292,18 @@ check quotesClient->/[quoteId].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Read a batch of quotes by internal ID, or unique property values</summary>
 
 <div>
 
-**Signature:** `post /batch/read`
+Signature: `post /batch/read`
 
 Reads multiple quotes by their IDs or unique property values in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -310,9 +311,9 @@ Reads multiple quotes by their IDs or unique property values in a single request
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>PostCrmV3ObjectsQuotesBatchReadReadQueries</code> | No | Query parameters including `archived`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response =
@@ -326,7 +327,7 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -369,20 +370,20 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
 
 <div>
 
-**Signature:** `post /batch/create`
+Signature: `post /batch/create`
 
 Creates multiple quotes in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | Batch input containing an array of quote creation payloads. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response =
@@ -408,7 +409,7 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -451,20 +452,20 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
 
 <div>
 
-**Signature:** `post /batch/update`
+Signature: `post /batch/update`
 
 Updates multiple quotes' properties in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | Batch input containing an array of quote update payloads with IDs. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors response =
@@ -486,7 +487,7 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -529,20 +530,20 @@ BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors respon
 
 <div>
 
-**Signature:** `post /batch/upsert`
+Signature: `post /batch/upsert`
 
 Creates or updates multiple quotes in a single request based on unique property values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | Batch input containing an array of quote upsert payloads. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -561,7 +562,7 @@ BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -594,20 +595,20 @@ BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithE
 
 <div>
 
-**Signature:** `post /batch/archive`
+Signature: `post /batch/archive`
 
 Archives multiple quotes in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | Batch input containing an array of quote IDs to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check quotesClient->/batch/archive.post({
@@ -629,20 +630,20 @@ check quotesClient->/batch/archive.post({
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for quotes using filters, query strings, sorting, and property selection.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search request with optional query, filters, sorts, properties, limit, and pagination. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -663,7 +664,7 @@ CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

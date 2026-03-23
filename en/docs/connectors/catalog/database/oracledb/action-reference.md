@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Connects to an Oracle Database and executes SQL queries, DML statements, batch o
 | `options` | `Options?` | `()` | Oracle-specific connection options (SSL, timeouts, XA datasource, auto-commit). |
 | `connectionPool` | `sql:ConnectionPool?` | `()` | Connection pool configuration (max open connections, min idle, max lifetime). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/oracledb;
@@ -55,7 +56,7 @@ oracledb:Client oracleClient = check new (
 
 ### Operations
 
-#### Query Operations
+#### Query operations
 
 <details>
 <summary>query</summary>
@@ -64,16 +65,16 @@ oracledb:Client oracleClient = check new (
 
 Executes a parameterized SQL query and returns the results as a stream of records.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query to execute, supporting inline parameterized values. |
 | `rowType` | `typedesc<record {}>` | No | The expected record type for each row in the result set. |
 
-**Returns:** `stream<rowType, sql:Error?>`
+Returns: `stream<rowType, sql:Error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Customer record {|
@@ -92,7 +93,7 @@ check from Customer customer in customers
     };
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "name": "Acme Corp", "email": "contact@acme.com"}
@@ -110,16 +111,16 @@ check from Customer customer in customers
 
 Executes a parameterized SQL query that returns at most one row. Returns the result directly rather than as a stream.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query to execute (should return a single row). |
 | `returnType` | `typedesc<anydata>` | No | The expected return type (a record type or a primitive type like `int`, `string`). |
 
-**Returns:** `returnType|sql:Error`
+Returns: `returnType|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 int count = check oracleClient->queryRow(
@@ -127,7 +128,7 @@ int count = check oracleClient->queryRow(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 42
@@ -137,7 +138,7 @@ int count = check oracleClient->queryRow(
 
 </details>
 
-#### DML Operations
+#### DML operations
 
 <details>
 <summary>execute</summary>
@@ -146,15 +147,15 @@ int count = check oracleClient->queryRow(
 
 Executes a parameterized DML statement (INSERT, UPDATE, DELETE) or DDL statement and returns the execution result.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The DML or DDL statement to execute. |
 
-**Returns:** `sql:ExecutionResult|sql:Error`
+Returns: `sql:ExecutionResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ExecutionResult result = check oracleClient->execute(
@@ -162,7 +163,7 @@ sql:ExecutionResult result = check oracleClient->execute(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"affectedRowCount": 1, "lastInsertId": 101}
@@ -179,15 +180,15 @@ sql:ExecutionResult result = check oracleClient->execute(
 
 Executes a batch of parameterized DML statements. All statements must use the same SQL template with different parameter values.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQueries` | `sql:ParameterizedQuery[]` | Yes | An array of parameterized queries to execute as a batch. Must not be empty. |
 
-**Returns:** `sql:ExecutionResult[]|sql:Error`
+Returns: `sql:ExecutionResult[]|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:ParameterizedQuery[] insertQueries = [
@@ -199,7 +200,7 @@ sql:ParameterizedQuery[] insertQueries = [
 sql:ExecutionResult[] results = check oracleClient->batchExecute(insertQueries);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [
@@ -213,7 +214,7 @@ sql:ExecutionResult[] results = check oracleClient->batchExecute(insertQueries);
 
 </details>
 
-#### Stored Procedure Calls
+#### Stored procedure calls
 
 <details>
 <summary>call</summary>
@@ -222,16 +223,16 @@ sql:ExecutionResult[] results = check oracleClient->batchExecute(insertQueries);
 
 Calls a stored procedure or function. Supports IN, OUT, and INOUT parameters, and can return multiple result sets.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedCallQuery` | Yes | The stored procedure call query with parameters. |
 | `rowTypes` | `typedesc<record {}>[]` | No | Array of record types for each result set returned by the procedure. |
 
-**Returns:** `sql:ProcedureCallResult|sql:Error`
+Returns: `sql:ProcedureCallResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 sql:IntegerOutParameter idOut = new;
@@ -245,7 +246,7 @@ int? customerId = check idOut.get(int);
 string? customerName = check nameOut.get(string);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"executionResult": {"affectedRowCount": -1}, "queryResult": null}
@@ -255,7 +256,7 @@ string? customerName = check nameOut.get(string);
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
@@ -265,9 +266,9 @@ string? customerName = check nameOut.get(string);
 Closes the client connection and releases the associated connection pool resources. Should be called when the client is no longer needed.
 
 
-**Returns:** `sql:Error?`
+Returns: `sql:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check oracleClient.close();
@@ -277,7 +278,7 @@ check oracleClient.close();
 
 </details>
 
-#### Oracle-Specific Types
+#### Oracle-Specific types
 
 <details>
 <summary>query (with VARRAY)</summary>
@@ -286,16 +287,16 @@ check oracleClient.close();
 
 Queries data that includes Oracle VARRAY columns by mapping them to Ballerina array types.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query targeting a table with VARRAY columns. |
 | `rowType` | `typedesc<record {}>` | No | Record type with array-typed fields for VARRAY columns. |
 
-**Returns:** `stream<rowType, sql:Error?>`
+Returns: `stream<rowType, sql:Error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type Product record {|
@@ -310,7 +311,7 @@ stream<Product, sql:Error?> products = oracleClient->query(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "name": "Laptop", "price": 999.99, "reviews": ["Great product", "Fast delivery"]}
@@ -327,15 +328,15 @@ stream<Product, sql:Error?> products = oracleClient->query(
 
 Inserts data containing Oracle VARRAY values using the `VarrayValue` typed value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The INSERT statement with VARRAY parameters. |
 
-**Returns:** `sql:ExecutionResult|sql:Error`
+Returns: `sql:ExecutionResult|sql:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 oracledb:VarrayValue reviewsVal = new ({
@@ -348,7 +349,7 @@ sql:ExecutionResult result = check oracleClient->execute(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"affectedRowCount": 1, "lastInsertId": null}
@@ -365,16 +366,16 @@ sql:ExecutionResult result = check oracleClient->execute(
 
 Queries data that includes Oracle INTERVAL YEAR TO MONTH columns, mapped to the `IntervalYearToMonth` record type.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sqlQuery` | `sql:ParameterizedQuery` | Yes | The SQL query targeting a table with INTERVAL YEAR TO MONTH columns. |
 | `rowType` | `typedesc<record {}>` | No | Record type with `IntervalYearToMonth` fields. |
 
-**Returns:** `stream<rowType, sql:Error?>`
+Returns: `stream<rowType, sql:Error?>`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 type ProductWarranty record {|
@@ -388,7 +389,7 @@ stream<ProductWarranty, sql:Error?> products = oracleClient->query(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1, "name": "Laptop", "warranty_period": {"sign": 1, "years": 2, "months": 6}}

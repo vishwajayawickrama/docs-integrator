@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Manage HubSpot call engagement records — CRUD, batch operations, and search.
 | `compression` | <code>http:Compression</code> | `COMPRESSION_AUTO` | HTTP compression configuration. |
 | `validation` | <code>boolean</code> | `true` | Enable or disable payload validation. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/hubspot.crm.engagements.calls;
@@ -58,27 +59,27 @@ calls:Client callsClient = check new ({
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Retrieves a page of call engagement records with optional filtering by properties, associations, and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetCrmV3ObjectsCallsGetPageQueries</code> | No | Query parameters including `limit`, `after`, `properties`, `associations`, and `archived`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calls:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response =
     check callsClient->/.get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -114,20 +115,20 @@ calls:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging response
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new call engagement record with the specified properties and optional associations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | Call properties and optional associations. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calls:SimplePublicObject response = check callsClient->/.post({
@@ -156,7 +157,7 @@ calls:SimplePublicObject response = check callsClient->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -188,11 +189,11 @@ calls:SimplePublicObject response = check callsClient->/.post({
 
 <div>
 
-**Signature:** `get /[string callId]`
+Signature: `get /[string callId]`
 
 Retrieves a single call engagement record by its ID, with optional property and association details.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -200,16 +201,16 @@ Retrieves a single call engagement record by its ID, with optional property and 
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>GetCrmV3ObjectsCallsCallIdGetByIdQueries</code> | No | Query parameters including `properties`, `associations`, and `archived`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calls:SimplePublicObjectWithAssociations response =
     check callsClient->/["48093927432"].get();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -239,11 +240,11 @@ calls:SimplePublicObjectWithAssociations response =
 
 <div>
 
-**Signature:** `patch /[string callId]`
+Signature: `patch /[string callId]`
 
 Updates the properties of an existing call engagement record.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -252,9 +253,9 @@ Updates the properties of an existing call engagement record.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>PatchCrmV3ObjectsCallsCallIdUpdateQueries</code> | No | Query parameters including `idProperty`. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calls:SimplePublicObject response = check callsClient->/["48093927432"].patch({
@@ -265,7 +266,7 @@ calls:SimplePublicObject response = check callsClient->/["48093927432"].patch({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -292,20 +293,20 @@ calls:SimplePublicObject response = check callsClient->/["48093927432"].patch({
 
 <div>
 
-**Signature:** `delete /[string callId]`
+Signature: `delete /[string callId]`
 
 Archives (soft-deletes) a call engagement record by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `callId` | <code>string</code> | Yes | The ID of the call to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check callsClient->/["48093927432"].delete();
@@ -315,27 +316,27 @@ check callsClient->/["48093927432"].delete();
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of calls</summary>
 
 <div>
 
-**Signature:** `post /batch/create`
+Signature: `post /batch/create`
 
 Creates multiple call engagement records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | Batch of call inputs with properties and optional associations. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calls:BatchResponseSimplePublicObject|calls:BatchResponseSimplePublicObjectWithErrors response =
@@ -361,7 +362,7 @@ calls:BatchResponseSimplePublicObject|calls:BatchResponseSimplePublicObjectWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -406,11 +407,11 @@ calls:BatchResponseSimplePublicObject|calls:BatchResponseSimplePublicObjectWithE
 
 <div>
 
-**Signature:** `post /batch/read`
+Signature: `post /batch/read`
 
 Retrieves multiple call engagement records by their IDs in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -418,9 +419,9 @@ Retrieves multiple call engagement records by their IDs in a single request.
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 | `queries` | <code>PostCrmV3ObjectsCallsBatchReadReadQueries</code> | No | Query parameters including `archived`. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calls:BatchResponseSimplePublicObject|calls:BatchResponseSimplePublicObjectWithErrors response =
@@ -433,7 +434,7 @@ calls:BatchResponseSimplePublicObject|calls:BatchResponseSimplePublicObjectWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -476,20 +477,20 @@ calls:BatchResponseSimplePublicObject|calls:BatchResponseSimplePublicObjectWithE
 
 <div>
 
-**Signature:** `post /batch/update`
+Signature: `post /batch/update`
 
 Updates properties on multiple call engagement records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | Batch of call IDs with updated properties. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calls:BatchResponseSimplePublicObject|calls:BatchResponseSimplePublicObjectWithErrors response =
@@ -513,7 +514,7 @@ calls:BatchResponseSimplePublicObject|calls:BatchResponseSimplePublicObjectWithE
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -556,20 +557,20 @@ calls:BatchResponseSimplePublicObject|calls:BatchResponseSimplePublicObjectWithE
 
 <div>
 
-**Signature:** `post /batch/archive`
+Signature: `post /batch/archive`
 
 Archives (soft-deletes) multiple call engagement records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | Batch of call IDs to archive. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check callsClient->/batch/archive.post({
@@ -589,20 +590,20 @@ check callsClient->/batch/archive.post({
 
 <div>
 
-**Signature:** `post /batch/upsert`
+Signature: `post /batch/upsert`
 
 Creates or updates multiple call records in a single request, matching by a unique property value.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | Batch of call inputs with an `idProperty` for matching and properties to set. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calls:BatchResponseSimplePublicUpsertObject|calls:BatchResponseSimplePublicUpsertObjectWithErrors response =
@@ -620,7 +621,7 @@ calls:BatchResponseSimplePublicUpsertObject|calls:BatchResponseSimplePublicUpser
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -654,20 +655,20 @@ calls:BatchResponseSimplePublicUpsertObject|calls:BatchResponseSimplePublicUpser
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for call engagement records using filters, property conditions, and sorting criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search request with filter groups, sorting, properties to return, and pagination. |
 | `headers` | <code>map&lt;string&#124;string[]&gt;</code> | No | Optional HTTP headers. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 calls:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
@@ -689,7 +690,7 @@ calls:CollectionResponseWithTotalSimplePublicObjectForwardPaging response =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

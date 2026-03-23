@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -16,7 +17,7 @@ For event-driven integration, see the [Trigger Reference](trigger-reference.md).
 
 ---
 
-## Queue Manager
+## Queue manager
 
 Connects to an IBM MQ queue manager and provides access to queues and topics.
 
@@ -33,7 +34,7 @@ Connects to an IBM MQ queue manager and provides access to queues and topics.
 | `sslCipherSuite` | `SslCipherSuite` | `()` | SSL cipher suite (e.g., `TLS12ORHIGHER`). |
 | `secureSocket` | `SecureSocket` | `()` | SSL/TLS trust store and key store configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ibm.ibmmq;
@@ -57,7 +58,7 @@ ibmmq:QueueManager queueManager = check new (
 
 ### Operations
 
-#### Queue and Topic Access
+#### Queue and topic access
 
 <details>
 <summary>accessQueue</summary>
@@ -66,22 +67,22 @@ ibmmq:QueueManager queueManager = check new (
 
 Opens and returns a queue object for the specified queue name with the given access options.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queueName` | `string` | Yes | Name of the queue to access (e.g., `"DEV.QUEUE.1"`). |
 | `options` | `int` | Yes | Queue open options (e.g., `ibmmq:MQOO_OUTPUT` for producing, `ibmmq:MQOO_INPUT_AS_Q_DEF` for consuming). |
 
-**Returns:** `ibmmq:Queue|ibmmq:Error`
+Returns: `ibmmq:Queue|ibmmq:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ibmmq:Queue queue = check queueManager.accessQueue("DEV.QUEUE.1", ibmmq:MQOO_OUTPUT);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ibmmq:Queue object
@@ -98,7 +99,7 @@ ibmmq:Queue object
 
 Opens and returns a topic object for the specified topic name and topic string.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -107,9 +108,9 @@ Opens and returns a topic object for the specified topic name and topic string.
 | `openTopicOption` | `OPEN_TOPIC_OPTION` | Yes | Whether to open as a subscription (`OPEN_AS_SUBSCRIPTION`) or publication (`OPEN_AS_PUBLICATION`). |
 | `options` | `int` | Yes | Additional open options (e.g., `ibmmq:MQOO_OUTPUT`). |
 
-**Returns:** `ibmmq:Topic|ibmmq:Error`
+Returns: `ibmmq:Topic|ibmmq:Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ibmmq:Topic topic = check queueManager.accessTopic(
@@ -117,7 +118,7 @@ ibmmq:Topic topic = check queueManager.accessTopic(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 ibmmq:Topic object
@@ -127,7 +128,7 @@ ibmmq:Topic object
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>disconnect</summary>
@@ -137,9 +138,9 @@ ibmmq:Topic object
 Disconnects from the IBM MQ queue manager and releases all associated resources.
 
 
-**Returns:** `ibmmq:Error?`
+Returns: `ibmmq:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check queueManager.disconnect();
@@ -166,7 +167,7 @@ Provides operations to put messages onto and get messages from an IBM MQ queue.
 | `userID` | `string` | `()` | User ID for authentication. |
 | `password` | `string` | `()` | Password for authentication. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ibm.ibmmq;
@@ -191,7 +192,7 @@ ibmmq:Queue queue = check queueManager.accessQueue("DEV.QUEUE.1", ibmmq:MQOO_OUT
 
 ### Operations
 
-#### Message Operations
+#### Message operations
 
 <details>
 <summary>put</summary>
@@ -200,16 +201,16 @@ ibmmq:Queue queue = check queueManager.accessQueue("DEV.QUEUE.1", ibmmq:MQOO_OUT
 
 Puts a message onto the queue.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `ibmmq:Message` | Yes | The message to put on the queue. Must include a `payload` field with the message content as `byte[]`. |
 | `options` | `int` | No | Put message options (default: `MQPMO_NO_SYNCPOINT`). |
 
-**Returns:** `ibmmq:Error?`
+Returns: `ibmmq:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check queue->put({
@@ -228,7 +229,7 @@ check queue->put({
 
 Gets a message from the queue. Returns `nil` if no message is available within the wait interval.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -236,15 +237,15 @@ Gets a message from the queue. Returns `nil` if no message is available within t
 | `waitInterval` | `int` | No | Maximum time to wait for a message in seconds (default: `10`). |
 | `matchOptions` | `MatchOptions` | No | Message selection criteria (match by message ID or correlation ID). |
 
-**Returns:** `ibmmq:Message|ibmmq:Error?`
+Returns: `ibmmq:Message|ibmmq:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ibmmq:Message? message = check queue->get(options = ibmmq:MQGMO_WAIT, waitInterval = 5);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -262,7 +263,7 @@ ibmmq:Message? message = check queue->get(options = ibmmq:MQGMO_WAIT, waitInterv
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
@@ -272,9 +273,9 @@ ibmmq:Message? message = check queue->get(options = ibmmq:MQGMO_WAIT, waitInterv
 Closes the queue and releases associated resources.
 
 
-**Returns:** `ibmmq:Error?`
+Returns: `ibmmq:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check queue->close();
@@ -301,7 +302,7 @@ Provides operations to publish messages to and receive messages from an IBM MQ t
 | `userID` | `string` | `()` | User ID for authentication. |
 | `password` | `string` | `()` | Password for authentication. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ibm.ibmmq;
@@ -328,7 +329,7 @@ ibmmq:Topic topic = check queueManager.accessTopic(
 
 ### Operations
 
-#### Message Operations
+#### Message operations
 
 <details>
 <summary>put</summary>
@@ -337,16 +338,16 @@ ibmmq:Topic topic = check queueManager.accessTopic(
 
 Puts a message to the topic using the native MQ API.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `ibmmq:Message` | Yes | The message to publish. Must include a `payload` field with the message content as `byte[]`. |
 | `options` | `int` | No | Put message options (default: `MQPMO_NO_SYNCPOINT`). |
 
-**Returns:** `ibmmq:Error?`
+Returns: `ibmmq:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check topic->put({
@@ -365,15 +366,15 @@ check topic->put({
 
 Sends a message to the topic using the JMS API. Recommended for use with durable subscriptions and JMS consumers.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `ibmmq:Message` | Yes | The message to send. Must include a `payload` field with the message content as `byte[]`. |
 
-**Returns:** `ibmmq:Error?`
+Returns: `ibmmq:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check topic->send({
@@ -392,7 +393,7 @@ check topic->send({
 
 Gets a message from the topic subscription. Returns `nil` if no message is available within the wait interval.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -400,15 +401,15 @@ Gets a message from the topic subscription. Returns `nil` if no message is avail
 | `waitInterval` | `int` | No | Maximum time to wait for a message in seconds (default: `10`). |
 | `matchOptions` | `MatchOptions` | No | Message selection criteria (match by message ID or correlation ID). |
 
-**Returns:** `ibmmq:Message|ibmmq:Error?`
+Returns: `ibmmq:Message|ibmmq:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 ibmmq:Message? message = check topic->get(options = ibmmq:MQGMO_WAIT, waitInterval = 5);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -426,7 +427,7 @@ ibmmq:Message? message = check topic->get(options = ibmmq:MQGMO_WAIT, waitInterv
 
 </details>
 
-#### Connection Management
+#### Connection management
 
 <details>
 <summary>close</summary>
@@ -436,9 +437,9 @@ ibmmq:Message? message = check topic->get(options = ibmmq:MQGMO_WAIT, waitInterv
 Closes the topic and releases associated resources.
 
 
-**Returns:** `ibmmq:Error?`
+Returns: `ibmmq:Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check topic->close();

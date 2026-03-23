@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -12,7 +13,7 @@ The `ballerinax/newrelic` package exposes the following clients:
 
 ---
 
-## New Relic Module
+## New relic module
 
 Observability extension that automatically registers a New Relic metrics reporter and an OpenTelemetry trace provider with the Ballerina runtime on module initialization.
 
@@ -33,7 +34,7 @@ Observability extension that automatically registers a New Relic metrics reporte
 | `metricReporterClientTimeout` | `int` | `10000` | HTTP client timeout in milliseconds for metric POST requests to New Relic. |
 | `additionalAttributes` | `map<string>` | `{}` | Static key-value pairs added as custom attributes to every exported metric. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 // Add the dependency in Ballerina.toml:
@@ -53,7 +54,7 @@ import ballerinax/newrelic as _;
 
 ### Operations
 
-#### Metrics Reporting
+#### Metrics reporting
 
 <details>
 <summary>HTTP service metrics export</summary>
@@ -64,9 +65,9 @@ Automatically collects per-service, per-resource HTTP metrics from the Ballerina
 
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/http;
@@ -94,9 +95,9 @@ Automatically tracks Kafka publisher counts, consumer counts, and publish error 
 
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerinax/newrelic as _;
@@ -111,7 +112,7 @@ import ballerinax/newrelic as _;
 
 </details>
 
-#### Distributed Tracing
+#### Distributed tracing
 
 <details>
 <summary>OpenTelemetry trace export</summary>
@@ -122,9 +123,9 @@ Registers an OpenTelemetry-compatible trace provider that captures distributed s
 
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/http;
@@ -146,7 +147,7 @@ service /checkout on new http:Listener(9091) {
 
 </details>
 
-#### Multi-account Telemetry
+#### Multi-account telemetry
 
 <details>
 <summary>Fan-out to multiple New Relic accounts</summary>
@@ -157,9 +158,9 @@ When `apiKey` is set to an array of License Keys (or multiple keys are supplied 
 
 
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 // Config.toml — fan out to two accounts:

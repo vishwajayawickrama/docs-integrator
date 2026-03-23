@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Salesforce Connected App and obtaining the OAuth 2.0 credentials required to use the Salesforce connector.
@@ -7,10 +10,10 @@ This guide walks you through creating a Salesforce Connected App and obtaining t
 
 - An active Salesforce account. If you do not have one, [sign up for a free Developer Edition](https://developer.salesforce.com/signup).
 
-## Step 1: Create a Connected App
+## Step 1: Create a connected app
 
 1. Log in to your Salesforce org.
-2. Click the gear icon in the top-right corner and select **Setup**.
+2. Click the gear icon in the top-right corner and select Setup.
 3. In the Quick Find box, type `App Manager` and select **App Manager**.
 4. Click **New Connected App** in the top-right corner.
 5. Fill in the following required fields under **Basic Information**:
@@ -18,7 +21,7 @@ This guide walks you through creating a Salesforce Connected App and obtaining t
     - **API Name**: Auto-populated from the name.
     - **Contact Email**: Enter your email address.
 
-## Step 2: Enable OAuth Settings
+## Step 2: Enable OAuth settings
 
 1. Under **API (Enable OAuth Settings)**, check **Enable OAuth Settings**.
 2. Set the **Callback URL** to `https://login.salesforce.com/services/oauth2/success` (or your own redirect URI).
@@ -32,7 +35,7 @@ This guide walks you through creating a Salesforce Connected App and obtaining t
 It may take 2–10 minutes for the Connected App to become active after saving.
 :::
 
-## Step 3: Get the Consumer Key and Consumer Secret
+## Step 3: Get the consumer key and consumer secret
 
 1. After saving, click **Manage Consumer Details** (you may need to verify your identity).
 2. Copy the **Consumer Key** — this is your `clientId`.
@@ -43,7 +46,7 @@ Store the Consumer Key and Consumer Secret securely. Do not commit them to sourc
 Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 4: Generate a Refresh Token
+## Step 4: Generate a refresh token
 
 Use the Salesforce OAuth 2.0 Authorization Code flow to obtain a refresh token:
 
@@ -75,7 +78,7 @@ Use the Salesforce OAuth 2.0 Authorization Code flow to obtain a refresh token:
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange in step 5.
 :::
 
-## Step 5: Get Your Instance Base URL
+## Step 5: Get your instance base URL
 
 The `baseUrl` is the Salesforce instance URL for your org. It looks like:
 

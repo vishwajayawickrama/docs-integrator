@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a PayPal REST API application and obtaining the OAuth 2.0 client credentials required to use the PayPal Orders connector.
@@ -7,7 +10,7 @@ This guide walks you through creating a PayPal REST API application and obtainin
 
 - A PayPal Developer account. If you do not have one, [sign up at the PayPal Developer Dashboard](https://developer.paypal.com/).
 
-## Step 1: Create a Sandbox Business Account
+## Step 1: Create a sandbox business account
 
 1. Log in to the [PayPal Developer Dashboard](https://developer.paypal.com/dashboard/).
 2. Navigate to **Testing Tools** > **Sandbox Accounts**.
@@ -18,7 +21,7 @@ This guide walks you through creating a PayPal REST API application and obtainin
 A default sandbox Business and Personal account are usually created automatically when you sign up for a PayPal Developer account.
 :::
 
-## Step 2: Create a REST API Application
+## Step 2: Create a REST API application
 
 1. In the Developer Dashboard, go to **Apps & Credentials**.
 2. Make sure the **Sandbox** toggle is selected.
@@ -27,7 +30,7 @@ A default sandbox Business and Personal account are usually created automaticall
 5. Select your sandbox Business account as the **Sandbox Business Account**.
 6. Click **Create App**.
 
-## Step 3: Get the Client ID and Client Secret
+## Step 3: Get the client ID and client secret
 
 1. After creating the app, you are taken to the app details page.
 2. Copy the **Client ID** — this is your `clientId`.
@@ -38,7 +41,7 @@ Store the Client ID and Client Secret securely. Do not commit them to source con
 Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 4: Configure for Live (Production)
+## Step 4: Configure for live (production)
 
 When you are ready to go live:
 

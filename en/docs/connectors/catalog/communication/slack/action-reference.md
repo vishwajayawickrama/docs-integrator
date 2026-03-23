@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Provides access to all Slack Web API methods for messaging, conversations, users
 | `validation` | `boolean` | `true` | Enable response payload validation against the Slack API schema. |
 | `laxDataBinding` | `boolean` | `true` | Allow lax data binding for API responses with extra fields. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/slack;
@@ -54,7 +55,7 @@ slack:Client slackClient = check new ({
 
 Sends a message to a public channel, private channel, or direct message.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -64,9 +65,9 @@ Sends a message to a public channel, private channel, or direct message.
 | `thread_ts` | `string` | No | Timestamp of the parent message to reply to as a thread. |
 | `mrkdwn` | `boolean` | No | Whether to parse Slack markdown in the message text. |
 
-**Returns:** `ChatPostMessageResponse|error`
+Returns: `ChatPostMessageResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ChatPostMessageResponse response = check slackClient->/chat\.postMessage.post({
@@ -75,7 +76,7 @@ slack:ChatPostMessageResponse response = check slackClient->/chat\.postMessage.p
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -102,7 +103,7 @@ slack:ChatPostMessageResponse response = check slackClient->/chat\.postMessage.p
 
 Updates the text of an existing message in a channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -110,9 +111,9 @@ Updates the text of an existing message in a channel.
 | `ts` | `string` | Yes | Timestamp of the message to update. |
 | `text` | `string` | No | New message text. |
 
-**Returns:** `ChatUpdateResponse|error`
+Returns: `ChatUpdateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ChatUpdateResponse response = check slackClient->/chat\.update.post({
@@ -122,7 +123,7 @@ slack:ChatUpdateResponse response = check slackClient->/chat\.update.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -144,16 +145,16 @@ slack:ChatUpdateResponse response = check slackClient->/chat\.update.post({
 
 Deletes a message from a channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | Yes | Channel ID containing the message. |
 | `ts` | `string` | Yes | Timestamp of the message to delete. |
 
-**Returns:** `ChatDeleteResponse|error`
+Returns: `ChatDeleteResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ChatDeleteResponse response = check slackClient->/chat\.delete.post({
@@ -162,7 +163,7 @@ slack:ChatDeleteResponse response = check slackClient->/chat\.delete.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -183,16 +184,16 @@ slack:ChatDeleteResponse response = check slackClient->/chat\.delete.post({
 
 Retrieves a permanent, public URL for a specific message.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | Yes | Channel ID containing the message. |
 | `message_ts` | `string` | Yes | Timestamp of the message. |
 
-**Returns:** `ChatGetPermalinkResponse|error`
+Returns: `ChatGetPermalinkResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ChatGetPermalinkResponse response = check slackClient->/chat\.getPermalink({
@@ -201,7 +202,7 @@ slack:ChatGetPermalinkResponse response = check slackClient->/chat\.getPermalink
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -222,7 +223,7 @@ slack:ChatGetPermalinkResponse response = check slackClient->/chat\.getPermalink
 
 Sends an ephemeral message to a user in a channel — visible only to that user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -230,9 +231,9 @@ Sends an ephemeral message to a user in a channel — visible only to that user.
 | `user` | `string` | Yes | User ID of the recipient. |
 | `text` | `string` | No | Message text. |
 
-**Returns:** `ChatPostEphemeralResponse|error`
+Returns: `ChatPostEphemeralResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ChatPostEphemeralResponse response = check slackClient->/chat\.postEphemeral.post({
@@ -242,7 +243,7 @@ slack:ChatPostEphemeralResponse response = check slackClient->/chat\.postEphemer
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -262,7 +263,7 @@ slack:ChatPostEphemeralResponse response = check slackClient->/chat\.postEphemer
 
 Schedules a message to be sent to a channel at a specified future time.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -270,9 +271,9 @@ Schedules a message to be sent to a channel at a specified future time.
 | `post_at` | `int` | Yes | Unix timestamp (seconds) indicating when to send the message. |
 | `text` | `string` | No | Message text. |
 
-**Returns:** `ChatScheduleMessageResponse|error`
+Returns: `ChatScheduleMessageResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ChatScheduleMessageResponse response = check slackClient->/chat\.scheduleMessage.post({
@@ -282,7 +283,7 @@ slack:ChatScheduleMessageResponse response = check slackClient->/chat\.scheduleM
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -308,16 +309,16 @@ slack:ChatScheduleMessageResponse response = check slackClient->/chat\.scheduleM
 
 Returns a list of scheduled messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | No | Filter to a specific channel ID. |
 | `limit` | `int` | No | Maximum number of results to return. |
 
-**Returns:** `ChatScheduledMessagesListResponse|error`
+Returns: `ChatScheduledMessagesListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ChatScheduledMessagesListResponse response = check slackClient->/chat\.scheduledMessages\.list({
@@ -325,7 +326,7 @@ slack:ChatScheduledMessagesListResponse response = check slackClient->/chat\.sch
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -356,7 +357,7 @@ slack:ChatScheduledMessagesListResponse response = check slackClient->/chat\.sch
 
 Returns a list of all channels in the Slack workspace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -365,9 +366,9 @@ Returns a list of all channels in the Slack workspace.
 | `exclude_archived` | `boolean` | No | Exclude archived channels from the results. |
 | `cursor` | `string` | No | Pagination cursor returned from a previous response. |
 
-**Returns:** `ConversationsListResponse|error`
+Returns: `ConversationsListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ConversationsListResponse response = check slackClient->/conversations\.list({
@@ -377,7 +378,7 @@ slack:ConversationsListResponse response = check slackClient->/conversations\.li
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -401,7 +402,7 @@ slack:ConversationsListResponse response = check slackClient->/conversations\.li
 
 Fetches a conversation's message history including all messages posted in the channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -411,9 +412,9 @@ Fetches a conversation's message history including all messages posted in the ch
 | `latest` | `string` | No | Only return messages before this Unix timestamp. |
 | `cursor` | `string` | No | Pagination cursor. |
 
-**Returns:** `ConversationsHistoryResponse|error`
+Returns: `ConversationsHistoryResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ConversationsHistoryResponse response = check slackClient->/conversations\.history({
@@ -422,7 +423,7 @@ slack:ConversationsHistoryResponse response = check slackClient->/conversations\
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -447,7 +448,7 @@ slack:ConversationsHistoryResponse response = check slackClient->/conversations\
 
 Retrieves all replies in a message thread.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -455,9 +456,9 @@ Retrieves all replies in a message thread.
 | `ts` | `string` | Yes | Timestamp of the parent (thread root) message. |
 | `limit` | `int` | No | Maximum number of replies to return. |
 
-**Returns:** `ConversationsRepliesResponse|error`
+Returns: `ConversationsRepliesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ConversationsRepliesResponse response = check slackClient->/conversations\.replies({
@@ -466,7 +467,7 @@ slack:ConversationsRepliesResponse response = check slackClient->/conversations\
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -491,16 +492,16 @@ slack:ConversationsRepliesResponse response = check slackClient->/conversations\
 
 Creates a new public or private channel in the workspace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `name` | `string` | Yes | Name of the channel to create (lowercase, no spaces). |
 | `is_private` | `boolean` | No | Set to `true` to create a private channel. |
 
-**Returns:** `ConversationsCreateResponse|error`
+Returns: `ConversationsCreateResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ConversationsCreateResponse response = check slackClient->/conversations\.create.post({
@@ -509,7 +510,7 @@ slack:ConversationsCreateResponse response = check slackClient->/conversations\.
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -536,15 +537,15 @@ slack:ConversationsCreateResponse response = check slackClient->/conversations\.
 
 Retrieves detailed information about a specific conversation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | Yes | Channel ID to retrieve information about. |
 
-**Returns:** `ConversationsInfoResponse|error`
+Returns: `ConversationsInfoResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ConversationsInfoResponse response = check slackClient->/conversations\.info({
@@ -552,7 +553,7 @@ slack:ConversationsInfoResponse response = check slackClient->/conversations\.in
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -580,16 +581,16 @@ slack:ConversationsInfoResponse response = check slackClient->/conversations\.in
 
 Invites one or more users to join a channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | Yes | Channel ID to invite users to. |
 | `users` | `string` | Yes | Comma-separated list of user IDs to invite. |
 
-**Returns:** `ConversationsInviteErrorResponse|error`
+Returns: `ConversationsInviteErrorResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ConversationsInviteErrorResponse response = check slackClient->/conversations\.invite.post({
@@ -598,7 +599,7 @@ slack:ConversationsInviteErrorResponse response = check slackClient->/conversati
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -622,7 +623,7 @@ slack:ConversationsInviteErrorResponse response = check slackClient->/conversati
 
 Retrieves the list of member user IDs for a conversation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -630,9 +631,9 @@ Retrieves the list of member user IDs for a conversation.
 | `limit` | `int` | No | Maximum number of members to return per page. |
 | `cursor` | `string` | No | Pagination cursor. |
 
-**Returns:** `ConversationsMembersResponse|error`
+Returns: `ConversationsMembersResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ConversationsMembersResponse response = check slackClient->/conversations\.members({
@@ -641,7 +642,7 @@ slack:ConversationsMembersResponse response = check slackClient->/conversations\
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -662,16 +663,16 @@ slack:ConversationsMembersResponse response = check slackClient->/conversations\
 
 Sets the topic for a conversation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | Yes | Channel ID. |
 | `topic` | `string` | Yes | New topic text. |
 
-**Returns:** `ConversationsSetTopicResponse|error`
+Returns: `ConversationsSetTopicResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ConversationsSetTopicResponse response = check slackClient->/conversations\.setTopic.post({
@@ -680,7 +681,7 @@ slack:ConversationsSetTopicResponse response = check slackClient->/conversations
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -707,15 +708,15 @@ slack:ConversationsSetTopicResponse response = check slackClient->/conversations
 
 Archives a conversation so it can no longer receive messages.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | Yes | Channel ID to archive. |
 
-**Returns:** `ConversationsArchiveResponse|error`
+Returns: `ConversationsArchiveResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:ConversationsArchiveResponse response = check slackClient->/conversations\.archive.post({
@@ -723,7 +724,7 @@ slack:ConversationsArchiveResponse response = check slackClient->/conversations\
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ok": true}
@@ -742,22 +743,22 @@ slack:ConversationsArchiveResponse response = check slackClient->/conversations\
 
 Returns a list of all users in the workspace, including deactivated accounts.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `limit` | `int` | No | Maximum number of users to return per page. |
 | `cursor` | `string` | No | Pagination cursor. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/users\.list({limit: 100});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -782,21 +783,21 @@ slack:DefaultSuccessResponse response = check slackClient->/users\.list({limit: 
 
 Retrieves detailed information about a specific user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `user` | `string` | Yes | User ID to retrieve. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/users\.info({user: "U0000001"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -827,21 +828,21 @@ slack:DefaultSuccessResponse response = check slackClient->/users\.info({user: "
 
 Gets the current presence status of a user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `user` | `string` | Yes | User ID to check presence for. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/users\.getPresence({user: "U0000001"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -866,7 +867,7 @@ slack:DefaultSuccessResponse response = check slackClient->/users\.getPresence({
 
 Lists all conversations the calling user or a specified user may access.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -874,9 +875,9 @@ Lists all conversations the calling user or a specified user may access.
 | `types` | `string` | No | Comma-separated list of channel types: `public_channel`, `private_channel`, `mpim`, `im`. |
 | `limit` | `int` | No | Maximum number of conversations to return. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/users\.conversations({
@@ -885,7 +886,7 @@ slack:DefaultSuccessResponse response = check slackClient->/users\.conversations
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -912,7 +913,7 @@ slack:DefaultSuccessResponse response = check slackClient->/users\.conversations
 
 Uploads a file to Slack and optionally shares it to one or more channels.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -922,9 +923,9 @@ Uploads a file to Slack and optionally shares it to one or more channels.
 | `title` | `string` | No | Title of the file displayed in Slack. |
 | `initial_comment` | `string` | No | Message text to post alongside the file. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/files\.upload.post({
@@ -936,7 +937,7 @@ slack:DefaultSuccessResponse response = check slackClient->/files\.upload.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -964,7 +965,7 @@ slack:DefaultSuccessResponse response = check slackClient->/files\.upload.post({
 
 Returns a list of files within the workspace, optionally filtered by channel or user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -973,9 +974,9 @@ Returns a list of files within the workspace, optionally filtered by channel or 
 | `count` | `int` | No | Number of files to return per page. |
 | `types` | `string` | No | Filter by file types (e.g., `images`, `pdfs`, `snippets`, `spaces`). |
 
-**Returns:** `FilesListResponse|error`
+Returns: `FilesListResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:FilesListResponse response = check slackClient->/files\.list({
@@ -984,7 +985,7 @@ slack:FilesListResponse response = check slackClient->/files\.list({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1008,21 +1009,21 @@ slack:FilesListResponse response = check slackClient->/files\.list({
 
 Gets detailed information about a specific file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `file` | `string` | Yes | File ID to retrieve. |
 
-**Returns:** `FilesInfoResponse|error`
+Returns: `FilesInfoResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:FilesInfoResponse response = check slackClient->/files\.info({file: "F0000FILE1"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1051,15 +1052,15 @@ slack:FilesInfoResponse response = check slackClient->/files\.info({file: "F0000
 
 Deletes a file from Slack.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `file` | `string` | Yes | File ID to delete. |
 
-**Returns:** `FilesDeleteResponse|error`
+Returns: `FilesDeleteResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:FilesDeleteResponse response = check slackClient->/files\.delete.post({
@@ -1067,7 +1068,7 @@ slack:FilesDeleteResponse response = check slackClient->/files\.delete.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ok": true}
@@ -1086,7 +1087,7 @@ slack:FilesDeleteResponse response = check slackClient->/files\.delete.post({
 
 Searches for messages matching a query string across the workspace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1096,9 +1097,9 @@ Searches for messages matching a query string across the workspace.
 | `sort` | `string` | No | Sort results by `score` (relevance) or `timestamp`. |
 | `sort_dir` | `string` | No | Sort direction: `asc` or `desc`. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/search\.messages({
@@ -1109,7 +1110,7 @@ slack:DefaultSuccessResponse response = check slackClient->/search\.messages({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1141,7 +1142,7 @@ slack:DefaultSuccessResponse response = check slackClient->/search\.messages({
 
 Searches for files matching a query string across the workspace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1149,9 +1150,9 @@ Searches for files matching a query string across the workspace.
 | `count` | `int` | No | Number of results per page. |
 | `page` | `int` | No | Page number. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/search\.files({
@@ -1160,7 +1161,7 @@ slack:DefaultSuccessResponse response = check slackClient->/search\.files({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1188,7 +1189,7 @@ slack:DefaultSuccessResponse response = check slackClient->/search\.files({
 
 Adds an emoji reaction to a message.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1196,9 +1197,9 @@ Adds an emoji reaction to a message.
 | `name` | `string` | Yes | Emoji name without surrounding colons (e.g., `"thumbsup"`, `"tada"`). |
 | `timestamp` | `string` | Yes | Timestamp of the message to react to. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/reactions\.add.post({
@@ -1208,7 +1209,7 @@ slack:DefaultSuccessResponse response = check slackClient->/reactions\.add.post(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ok": true}
@@ -1225,7 +1226,7 @@ slack:DefaultSuccessResponse response = check slackClient->/reactions\.add.post(
 
 Removes an emoji reaction previously added to a message.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1233,9 +1234,9 @@ Removes an emoji reaction previously added to a message.
 | `name` | `string` | Yes | Emoji name to remove. |
 | `timestamp` | `string` | Yes | Timestamp of the reacted message. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/reactions\.remove.post({
@@ -1245,7 +1246,7 @@ slack:DefaultSuccessResponse response = check slackClient->/reactions\.remove.po
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ok": true}
@@ -1262,7 +1263,7 @@ slack:DefaultSuccessResponse response = check slackClient->/reactions\.remove.po
 
 Gets all emoji reactions for a specified message.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1270,9 +1271,9 @@ Gets all emoji reactions for a specified message.
 | `timestamp` | `string` | No | Message timestamp. |
 | `file` | `string` | No | File ID (use instead of channel and timestamp for file reactions). |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/reactions\.get({
@@ -1281,7 +1282,7 @@ slack:DefaultSuccessResponse response = check slackClient->/reactions\.get({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1311,16 +1312,16 @@ slack:DefaultSuccessResponse response = check slackClient->/reactions\.get({
 
 Pins a message to a channel for quick reference.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | Yes | Channel ID where the item will be pinned. |
 | `timestamp` | `string` | No | Timestamp of the message to pin. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/pins\.add.post({
@@ -1329,7 +1330,7 @@ slack:DefaultSuccessResponse response = check slackClient->/pins\.add.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ok": true}
@@ -1346,21 +1347,21 @@ slack:DefaultSuccessResponse response = check slackClient->/pins\.add.post({
 
 Lists all items pinned to a channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | Yes | Channel ID to list pinned items from. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/pins\.list({channel: "C1234567890"});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1392,16 +1393,16 @@ slack:DefaultSuccessResponse response = check slackClient->/pins\.list({channel:
 
 Removes a pinned item from a channel.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `channel` | `string` | Yes | Channel ID. |
 | `timestamp` | `string` | No | Timestamp of the message to unpin. |
 
-**Returns:** `DefaultSuccessResponse|error`
+Returns: `DefaultSuccessResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:DefaultSuccessResponse response = check slackClient->/pins\.remove.post({
@@ -1410,7 +1411,7 @@ slack:DefaultSuccessResponse response = check slackClient->/pins\.remove.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ok": true}
@@ -1430,15 +1431,15 @@ slack:DefaultSuccessResponse response = check slackClient->/pins\.remove.post({
 Verifies the authentication token and returns information about the authenticated user and workspace.
 
 
-**Returns:** `AuthTestResponse|error`
+Returns: `AuthTestResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:AuthTestResponse response = check slackClient->/auth\.test();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1464,21 +1465,21 @@ slack:AuthTestResponse response = check slackClient->/auth\.test();
 
 Revokes an access token, invalidating it for future API calls.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `test` | `boolean` | No | Set to `true` for a dry run — the token is not actually revoked. |
 
-**Returns:** `AuthRevokeResponse|error`
+Returns: `AuthRevokeResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:AuthRevokeResponse response = check slackClient->/auth\.revoke();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"ok": true, "revoked": true}
@@ -1495,21 +1496,21 @@ slack:AuthRevokeResponse response = check slackClient->/auth\.revoke();
 
 Gets information about a bot user associated with the workspace.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `bot` | `string` | No | Bot ID to retrieve. Defaults to the bot associated with the current token. |
 
-**Returns:** `BotsInfoResponse|error`
+Returns: `BotsInfoResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 slack:BotsInfoResponse response = check slackClient->/bots\.info();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

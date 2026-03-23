@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -30,7 +31,7 @@ Provides access to the core features of Alfresco Content Services via the REST A
 | `circuitBreaker` | `http:CircuitBreakerConfig` | `()` | Circuit breaker configuration for fault tolerance. |
 | `compression` | `http:Compression` | `COMPRESSION_AUTO` | Specifies the way of handling compression (`accept-encoding`) header. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/alfresco;
@@ -49,7 +50,7 @@ alfresco:Client alfrescoClient = check new ({
 
 ### Operations
 
-#### Node Operations
+#### Node operations
 
 <details>
 <summary>getNode</summary>
@@ -58,7 +59,7 @@ alfresco:Client alfrescoClient = check new ({
 
 Retrieves metadata for a node by its ID. Supports well-known aliases: `-my-`, `-shared-`, `-root-`.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -66,15 +67,15 @@ Retrieves metadata for a node by its ID. Supports well-known aliases: `-my-`, `-
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetNodeQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `NodeEntry|error`
+Returns: `NodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeEntry nodeResponse = check alfrescoClient->getNode("-root-");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -104,7 +105,7 @@ alfresco:NodeEntry nodeResponse = check alfrescoClient->getNode("-root-");
 
 Creates a new node (file or folder) as a child of the specified parent node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -113,9 +114,9 @@ Creates a new node (file or folder) as a child of the specified parent node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateNodeQueries` | No | Query parameters including `autoRename`, `include`, and `fields`. |
 
-**Returns:** `NodeEntry|error`
+Returns: `NodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeBodyCreate payload = {
@@ -129,7 +130,7 @@ alfresco:NodeBodyCreate payload = {
 alfresco:NodeEntry createdNode = check alfrescoClient->createNode("-root-", payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -160,7 +161,7 @@ alfresco:NodeEntry createdNode = check alfrescoClient->createNode("-root-", payl
 
 Updates the metadata of an existing node (e.g., name, properties, permissions).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -169,9 +170,9 @@ Updates the metadata of an existing node (e.g., name, properties, permissions).
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UpdateNodeQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `NodeEntry|error`
+Returns: `NodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeEntry updatedNode = check alfrescoClient->updateNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -182,7 +183,7 @@ alfresco:NodeEntry updatedNode = check alfrescoClient->updateNode("a1b2c3d4-e5f6
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -212,7 +213,7 @@ alfresco:NodeEntry updatedNode = check alfrescoClient->updateNode("a1b2c3d4-e5f6
 
 Deletes the specified node. By default, moves the node to the trash can (archive).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -220,9 +221,9 @@ Deletes the specified node. By default, moves the node to the trash can (archive
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `DeleteNodeQueries` | No | Query parameters including `permanent` (boolean to permanently delete instead of archiving). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
@@ -239,7 +240,7 @@ check alfrescoClient->deleteNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 
 Lists the child nodes of a specified parent node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -247,15 +248,15 @@ Lists the child nodes of a specified parent node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListNodeChildrenQueries` | No | Query parameters including `skipCount`, `maxItems`, `orderBy`, `where`, `include`, and `fields`. |
 
-**Returns:** `NodeChildAssociationPaging|error`
+Returns: `NodeChildAssociationPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeChildAssociationPaging children = check alfrescoClient->listNodeChildren("-root-");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -280,7 +281,7 @@ alfresco:NodeChildAssociationPaging children = check alfrescoClient->listNodeChi
 
 Copies a node to a new target parent. Optionally renames the copy.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -289,9 +290,9 @@ Copies a node to a new target parent. Optionally renames the copy.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CopyNodeQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `NodeEntry|error`
+Returns: `NodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeEntry copiedNode = check alfrescoClient->copyNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -300,7 +301,7 @@ alfresco:NodeEntry copiedNode = check alfrescoClient->copyNode("a1b2c3d4-e5f6-78
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -328,7 +329,7 @@ alfresco:NodeEntry copiedNode = check alfrescoClient->copyNode("a1b2c3d4-e5f6-78
 
 Moves a node to a new target parent. Optionally renames the node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -337,9 +338,9 @@ Moves a node to a new target parent. Optionally renames the node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `MoveNodeQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `NodeEntry|error`
+Returns: `NodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeEntry movedNode = check alfrescoClient->moveNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -347,7 +348,7 @@ alfresco:NodeEntry movedNode = check alfrescoClient->moveNode("a1b2c3d4-e5f6-789
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -376,7 +377,7 @@ alfresco:NodeEntry movedNode = check alfrescoClient->moveNode("a1b2c3d4-e5f6-789
 
 Locks a node to prevent concurrent modifications.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -385,9 +386,9 @@ Locks a node to prevent concurrent modifications.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `LockNodeQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `NodeEntry|error`
+Returns: `NodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeEntry lockedNode = check alfrescoClient->lockNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -397,7 +398,7 @@ alfresco:NodeEntry lockedNode = check alfrescoClient->lockNode("a1b2c3d4-e5f6-78
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -425,7 +426,7 @@ alfresco:NodeEntry lockedNode = check alfrescoClient->lockNode("a1b2c3d4-e5f6-78
 
 Unlocks a previously locked node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -433,15 +434,15 @@ Unlocks a previously locked node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UnlockNodeQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `NodeEntry|error`
+Returns: `NodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeEntry unlockedNode = check alfrescoClient->unlockNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -462,7 +463,7 @@ alfresco:NodeEntry unlockedNode = check alfrescoClient->unlockNode("a1b2c3d4-e5f
 
 </details>
 
-#### Node Content Operations
+#### Node content operations
 
 <details>
 <summary>getNodeContent</summary>
@@ -471,7 +472,7 @@ alfresco:NodeEntry unlockedNode = check alfrescoClient->unlockNode("a1b2c3d4-e5f
 
 Retrieves the binary content of a node (file download).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -479,15 +480,15 @@ Retrieves the binary content of a node (file download).
 | `headers` | `GetNodeContentHeaders` | No | Headers including `If-Modified-Since` and `Range`. |
 | `queries` | `GetNodeContentQueries` | No | Query parameters including `attachment`. |
 
-**Returns:** `byte[]|error?`
+Returns: `byte[]|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[]? fileContent = check alfrescoClient->getNodeContent("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 <binary content bytes>
@@ -504,7 +505,7 @@ byte[]? fileContent = check alfrescoClient->getNodeContent("a1b2c3d4-e5f6-7890-a
 
 Updates the binary content of a node (file upload/replace).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -513,9 +514,9 @@ Updates the binary content of a node (file upload/replace).
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UpdateNodeContentQueries` | No | Query parameters including `majorVersion`, `comment`, `name`, `include`, and `fields`. |
 
-**Returns:** `NodeEntry|error`
+Returns: `NodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 import ballerina/io;
@@ -524,7 +525,7 @@ byte[] fileContent = check io:fileReadBytes("resources/hello.txt");
 alfresco:NodeEntry result = check alfrescoClient->updateNodeContent("a1b2c3d4-e5f6-7890-abcd-ef1234567890", fileContent);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -551,7 +552,7 @@ alfresco:NodeEntry result = check alfrescoClient->updateNodeContent("a1b2c3d4-e5
 
 </details>
 
-#### Comment Operations
+#### Comment operations
 
 <details>
 <summary>listComments</summary>
@@ -560,7 +561,7 @@ alfresco:NodeEntry result = check alfrescoClient->updateNodeContent("a1b2c3d4-e5
 
 Lists comments on a specified node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -568,15 +569,15 @@ Lists comments on a specified node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListCommentsQueries` | No | Query parameters including `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `CommentPaging|error`
+Returns: `CommentPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:CommentPaging comments = check alfrescoClient->listComments("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -613,7 +614,7 @@ alfresco:CommentPaging comments = check alfrescoClient->listComments("a1b2c3d4-e
 
 Creates a new comment on a specified node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -622,9 +623,9 @@ Creates a new comment on a specified node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateCommentQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `CommentEntry|error`
+Returns: `CommentEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:CommentEntry comment = check alfrescoClient->createComment("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -632,7 +633,7 @@ alfresco:CommentEntry comment = check alfrescoClient->createComment("a1b2c3d4-e5
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -662,7 +663,7 @@ alfresco:CommentEntry comment = check alfrescoClient->createComment("a1b2c3d4-e5
 
 Updates the content of an existing comment.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -672,9 +673,9 @@ Updates the content of an existing comment.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UpdateCommentQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `CommentEntry|error`
+Returns: `CommentEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:CommentEntry updated = check alfrescoClient->updateComment("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "comment-002", {
@@ -682,7 +683,7 @@ alfresco:CommentEntry updated = check alfrescoClient->updateComment("a1b2c3d4-e5
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -712,7 +713,7 @@ alfresco:CommentEntry updated = check alfrescoClient->updateComment("a1b2c3d4-e5
 
 Deletes a comment from a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -720,9 +721,9 @@ Deletes a comment from a node.
 | `commentId` | `string` | Yes | The identifier of the comment. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteComment("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "comment-002");
@@ -732,7 +733,7 @@ check alfrescoClient->deleteComment("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "com
 
 </details>
 
-#### Tag Operations
+#### Tag operations
 
 <details>
 <summary>listTagsForNode</summary>
@@ -741,7 +742,7 @@ check alfrescoClient->deleteComment("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "com
 
 Lists all tags assigned to a specific node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -749,15 +750,15 @@ Lists all tags assigned to a specific node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListTagsForNodeQueries` | No | Query parameters including `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `TagPaging|error`
+Returns: `TagPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:TagPaging tags = check alfrescoClient->listTagsForNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -781,7 +782,7 @@ alfresco:TagPaging tags = check alfrescoClient->listTagsForNode("a1b2c3d4-e5f6-7
 
 Creates and assigns a new tag to a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -790,9 +791,9 @@ Creates and assigns a new tag to a node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateTagForNodeQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `TagEntry|error`
+Returns: `TagEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:TagEntry tag = check alfrescoClient->createTagForNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -800,7 +801,7 @@ alfresco:TagEntry tag = check alfrescoClient->createTagForNode("a1b2c3d4-e5f6-78
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"id": "tag-001", "tag": "important"}}
@@ -817,7 +818,7 @@ alfresco:TagEntry tag = check alfrescoClient->createTagForNode("a1b2c3d4-e5f6-78
 
 Removes a tag from a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -825,9 +826,9 @@ Removes a tag from a node.
 | `tagId` | `string` | Yes | The identifier of the tag. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteTagFromNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "tag-001");
@@ -844,22 +845,22 @@ check alfrescoClient->deleteTagFromNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890", 
 
 Lists all tags in the repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListTagsQueries` | No | Query parameters including `skipCount`, `maxItems`, `orderBy`, and `fields`. |
 
-**Returns:** `TagPaging|error`
+Returns: `TagPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:TagPaging allTags = check alfrescoClient->listTags();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -885,7 +886,7 @@ alfresco:TagPaging allTags = check alfrescoClient->listTags();
 
 Retrieves a tag by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -893,15 +894,15 @@ Retrieves a tag by its ID.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetTagQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `TagEntry|error`
+Returns: `TagEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:TagEntry tag = check alfrescoClient->getTag("tag-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"id": "tag-001", "tag": "important"}}
@@ -918,7 +919,7 @@ alfresco:TagEntry tag = check alfrescoClient->getTag("tag-001");
 
 Updates the value of an existing tag.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -927,9 +928,9 @@ Updates the value of an existing tag.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UpdateTagQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `TagEntry|error`
+Returns: `TagEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:TagEntry updatedTag = check alfrescoClient->updateTag("tag-001", {
@@ -937,7 +938,7 @@ alfresco:TagEntry updatedTag = check alfrescoClient->updateTag("tag-001", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"id": "tag-001", "tag": "critical"}}
@@ -947,7 +948,7 @@ alfresco:TagEntry updatedTag = check alfrescoClient->updateTag("tag-001", {
 
 </details>
 
-#### Rating Operations
+#### Rating operations
 
 <details>
 <summary>listRatings</summary>
@@ -956,7 +957,7 @@ alfresco:TagEntry updatedTag = check alfrescoClient->updateTag("tag-001", {
 
 Lists all ratings for a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -964,15 +965,15 @@ Lists all ratings for a node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListRatingsQueries` | No | Query parameters including `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `RatingPaging|error`
+Returns: `RatingPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:RatingPaging ratings = check alfrescoClient->listRatings("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -996,7 +997,7 @@ alfresco:RatingPaging ratings = check alfrescoClient->listRatings("a1b2c3d4-e5f6
 
 Creates a rating for a node. Supports `likes` (boolean) and `fiveStar` (integer) schemes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1005,9 +1006,9 @@ Creates a rating for a node. Supports `likes` (boolean) and `fiveStar` (integer)
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateRatingQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `RatingEntry|error`
+Returns: `RatingEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:RatingEntry rating = check alfrescoClient->createRating("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -1016,7 +1017,7 @@ alfresco:RatingEntry rating = check alfrescoClient->createRating("a1b2c3d4-e5f6-
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"id": "likes", "aggregate": {"numberOfRatings": 4}, "myRating": true}}
@@ -1033,7 +1034,7 @@ alfresco:RatingEntry rating = check alfrescoClient->createRating("a1b2c3d4-e5f6-
 
 Retrieves a specific rating for a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1042,15 +1043,15 @@ Retrieves a specific rating for a node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetRatingQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `RatingEntry|error`
+Returns: `RatingEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:RatingEntry rating = check alfrescoClient->getRating("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "likes");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"id": "likes", "aggregate": {"numberOfRatings": 4}, "myRating": true}}
@@ -1067,7 +1068,7 @@ alfresco:RatingEntry rating = check alfrescoClient->getRating("a1b2c3d4-e5f6-789
 
 Removes the current user's rating from a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1075,9 +1076,9 @@ Removes the current user's rating from a node.
 | `ratingId` | `string` | Yes | The identifier of the rating. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteRating("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "likes");
@@ -1087,7 +1088,7 @@ check alfrescoClient->deleteRating("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "like
 
 </details>
 
-#### Version Operations
+#### Version operations
 
 <details>
 <summary>listVersionHistory</summary>
@@ -1096,7 +1097,7 @@ check alfrescoClient->deleteRating("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "like
 
 Lists the version history of a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1104,15 +1105,15 @@ Lists the version history of a node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListVersionHistoryQueries` | No | Query parameters including `skipCount`, `maxItems`, `include`, and `fields`. |
 
-**Returns:** `VersionPaging|error`
+Returns: `VersionPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:VersionPaging versions = check alfrescoClient->listVersionHistory("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1137,7 +1138,7 @@ alfresco:VersionPaging versions = check alfrescoClient->listVersionHistory("a1b2
 
 Retrieves metadata for a specific version of a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1145,15 +1146,15 @@ Retrieves metadata for a specific version of a node.
 | `versionId` | `string` | Yes | The version identifier (e.g., `1.0`, `2.0`). |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `VersionEntry|error`
+Returns: `VersionEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:VersionEntry version = check alfrescoClient->getVersion("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "1.0");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1182,7 +1183,7 @@ alfresco:VersionEntry version = check alfrescoClient->getVersion("a1b2c3d4-e5f6-
 
 Deletes a specific version from the version history of a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1190,9 +1191,9 @@ Deletes a specific version from the version history of a node.
 | `versionId` | `string` | Yes | The version identifier. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteVersion("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "1.0");
@@ -1209,7 +1210,7 @@ check alfrescoClient->deleteVersion("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "1.0
 
 Retrieves the binary content of a specific version of a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1218,15 +1219,15 @@ Retrieves the binary content of a specific version of a node.
 | `headers` | `GetVersionContentHeaders` | No | Headers including `If-Modified-Since` and `Range`. |
 | `queries` | `GetVersionContentQueries` | No | Query parameters including `attachment`. |
 
-**Returns:** `byte[]|error?`
+Returns: `byte[]|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[]? versionContent = check alfrescoClient->getVersionContent("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "1.0");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 <binary content bytes>
@@ -1243,7 +1244,7 @@ byte[]? versionContent = check alfrescoClient->getVersionContent("a1b2c3d4-e5f6-
 
 Reverts the node to a previous version, creating a new version entry.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1253,9 +1254,9 @@ Reverts the node to a previous version, creating a new version entry.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `RevertVersionQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `VersionEntry|error`
+Returns: `VersionEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:VersionEntry revertedVersion = check alfrescoClient->revertVersion("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "1.0", {
@@ -1264,7 +1265,7 @@ alfresco:VersionEntry revertedVersion = check alfrescoClient->revertVersion("a1b
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1285,7 +1286,7 @@ alfresco:VersionEntry revertedVersion = check alfrescoClient->revertVersion("a1b
 
 </details>
 
-#### Rendition Operations
+#### Rendition operations
 
 <details>
 <summary>listRenditions</summary>
@@ -1294,7 +1295,7 @@ alfresco:VersionEntry revertedVersion = check alfrescoClient->revertVersion("a1b
 
 Lists all renditions for a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1302,15 +1303,15 @@ Lists all renditions for a node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListRenditionsQueries` | No | Query parameters including `where`. |
 
-**Returns:** `RenditionPaging|error`
+Returns: `RenditionPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:RenditionPaging renditions = check alfrescoClient->listRenditions("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1335,7 +1336,7 @@ alfresco:RenditionPaging renditions = check alfrescoClient->listRenditions("a1b2
 
 Creates a rendition for a node (e.g., `doclib` thumbnail or `pdf` preview).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1343,9 +1344,9 @@ Creates a rendition for a node (e.g., `doclib` thumbnail or `pdf` preview).
 | `payload` | `RenditionBodyCreate` | Yes | The rendition ID to create (e.g., `doclib`, `pdf`). |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->createRendition("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -1364,7 +1365,7 @@ check alfrescoClient->createRendition("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
 
 Retrieves rendition information for a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1372,15 +1373,15 @@ Retrieves rendition information for a node.
 | `renditionId` | `string` | Yes | The name of the rendition (e.g., `doclib`, `pdf`). |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `RenditionEntry|error`
+Returns: `RenditionEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:RenditionEntry rendition = check alfrescoClient->getRendition("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "pdf");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"id": "pdf", "content": {"mimeType": "application/pdf", "mimeTypeName": "Adobe PDF Document", "sizeInBytes": 8192}, "status": "CREATED"}}
@@ -1397,7 +1398,7 @@ alfresco:RenditionEntry rendition = check alfrescoClient->getRendition("a1b2c3d4
 
 Retrieves the binary content of a rendition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1406,15 +1407,15 @@ Retrieves the binary content of a rendition.
 | `headers` | `GetRenditionContentHeaders` | No | Headers including `If-Modified-Since` and `Range`. |
 | `queries` | `GetRenditionContentQueries` | No | Query parameters including `attachment` and `placeholder`. |
 
-**Returns:** `byte[]|error?`
+Returns: `byte[]|error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[]? renditionContent = check alfrescoClient->getRenditionContent("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "pdf");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 <binary content bytes>
@@ -1424,7 +1425,7 @@ byte[]? renditionContent = check alfrescoClient->getRenditionContent("a1b2c3d4-e
 
 </details>
 
-#### Association Operations
+#### Association operations
 
 <details>
 <summary>listSecondaryChildren</summary>
@@ -1433,7 +1434,7 @@ byte[]? renditionContent = check alfrescoClient->getRenditionContent("a1b2c3d4-e
 
 Lists secondary child associations for a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1441,15 +1442,15 @@ Lists secondary child associations for a node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListSecondaryChildrenQueries` | No | Query parameters including `where`, `include`, `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `NodeChildAssociationPaging|error`
+Returns: `NodeChildAssociationPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeChildAssociationPaging secondaryChildren = check alfrescoClient->listSecondaryChildren("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1471,7 +1472,7 @@ alfresco:NodeChildAssociationPaging secondaryChildren = check alfrescoClient->li
 
 Creates a secondary child association between two nodes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1480,9 +1481,9 @@ Creates a secondary child association between two nodes.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateSecondaryChildAssociationQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `ChildAssociationEntry|error`
+Returns: `ChildAssociationEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:ChildAssociationEntry assoc = check alfrescoClient->createSecondaryChildAssociation("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -1491,7 +1492,7 @@ alfresco:ChildAssociationEntry assoc = check alfrescoClient->createSecondaryChil
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"childId": "f7e8d9c0-b1a2-3456-7890-abcdef123456", "assocType": "cm:contains"}}
@@ -1508,7 +1509,7 @@ alfresco:ChildAssociationEntry assoc = check alfrescoClient->createSecondaryChil
 
 Deletes a secondary child association.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1517,9 +1518,9 @@ Deletes a secondary child association.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `DeleteSecondaryChildAssociationQueries` | No | Query parameters including `assocType`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteSecondaryChildAssociation("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "f7e8d9c0-b1a2-3456-7890-abcdef123456");
@@ -1536,7 +1537,7 @@ check alfrescoClient->deleteSecondaryChildAssociation("a1b2c3d4-e5f6-7890-abcd-e
 
 Lists the parent nodes of a specified node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1544,15 +1545,15 @@ Lists the parent nodes of a specified node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListParentsQueries` | No | Query parameters including `where`, `include`, `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `NodeAssociationPaging|error`
+Returns: `NodeAssociationPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeAssociationPaging parents = check alfrescoClient->listParents("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1576,7 +1577,7 @@ alfresco:NodeAssociationPaging parents = check alfrescoClient->listParents("a1b2
 
 Lists the target peer associations of a node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1584,15 +1585,15 @@ Lists the target peer associations of a node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListTargetAssociationsQueries` | No | Query parameters including `where`, `include`, `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `NodeAssociationPaging|error`
+Returns: `NodeAssociationPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeAssociationPaging targets = check alfrescoClient->listTargetAssociations("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1614,7 +1615,7 @@ alfresco:NodeAssociationPaging targets = check alfrescoClient->listTargetAssocia
 
 Creates a peer-to-peer association between two nodes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1623,9 +1624,9 @@ Creates a peer-to-peer association between two nodes.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateAssociationQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `AssociationEntry|error`
+Returns: `AssociationEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:AssociationEntry assoc = check alfrescoClient->createAssociation("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {
@@ -1634,7 +1635,7 @@ alfresco:AssociationEntry assoc = check alfrescoClient->createAssociation("a1b2c
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"targetId": "f7e8d9c0-b1a2-3456-7890-abcdef123456", "assocType": "cm:references"}}
@@ -1651,7 +1652,7 @@ alfresco:AssociationEntry assoc = check alfrescoClient->createAssociation("a1b2c
 
 Deletes a peer-to-peer association.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1660,9 +1661,9 @@ Deletes a peer-to-peer association.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `DeleteAssociationQueries` | No | Query parameters including `assocType`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteAssociation("a1b2c3d4-e5f6-7890-abcd-ef1234567890", "f7e8d9c0-b1a2-3456-7890-abcdef123456");
@@ -1679,7 +1680,7 @@ check alfrescoClient->deleteAssociation("a1b2c3d4-e5f6-7890-abcd-ef1234567890", 
 
 Lists the source peer associations of a node (i.e., nodes that point to this node).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1687,15 +1688,15 @@ Lists the source peer associations of a node (i.e., nodes that point to this nod
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListSourceAssociationsQueries` | No | Query parameters including `where`, `include`, and `fields`. |
 
-**Returns:** `NodeAssociationPaging|error`
+Returns: `NodeAssociationPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeAssociationPaging sources = check alfrescoClient->listSourceAssociations("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1710,7 +1711,7 @@ alfresco:NodeAssociationPaging sources = check alfrescoClient->listSourceAssocia
 
 </details>
 
-#### Deleted Node (Trash Can) Operations
+#### Deleted node (trash can) operations
 
 <details>
 <summary>listDeletedNodes</summary>
@@ -1719,22 +1720,22 @@ alfresco:NodeAssociationPaging sources = check alfrescoClient->listSourceAssocia
 
 Lists nodes in the trash can (archived/deleted nodes).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListDeletedNodesQueries` | No | Query parameters including `skipCount`, `maxItems`, and `include`. |
 
-**Returns:** `DeletedNodesPaging|error`
+Returns: `DeletedNodesPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:DeletedNodesPaging deletedNodes = check alfrescoClient->listDeletedNodes();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1758,7 +1759,7 @@ alfresco:DeletedNodesPaging deletedNodes = check alfrescoClient->listDeletedNode
 
 Retrieves metadata for a specific deleted node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1766,15 +1767,15 @@ Retrieves metadata for a specific deleted node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetDeletedNodeQueries` | No | Query parameters including `include`. |
 
-**Returns:** `DeletedNodeEntry|error`
+Returns: `DeletedNodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:DeletedNodeEntry deletedNode = check alfrescoClient->getDeletedNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1801,16 +1802,16 @@ alfresco:DeletedNodeEntry deletedNode = check alfrescoClient->getDeletedNode("a1
 
 Permanently deletes a node from the trash can.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `nodeId` | `string` | Yes | The identifier of the deleted node. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteDeletedNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
@@ -1827,7 +1828,7 @@ check alfrescoClient->deleteDeletedNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 
 Restores a deleted node from the trash can to its original or a specified location.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1836,15 +1837,15 @@ Restores a deleted node from the trash can to its original or a specified locati
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `RestoreDeletedNodeQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `NodeEntry|error`
+Returns: `NodeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodeEntry restoredNode = check alfrescoClient->restoreDeletedNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890", {});
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1865,7 +1866,7 @@ alfresco:NodeEntry restoredNode = check alfrescoClient->restoreDeletedNode("a1b2
 
 </details>
 
-#### Download Operations
+#### Download operations
 
 <details>
 <summary>createDownload</summary>
@@ -1874,7 +1875,7 @@ alfresco:NodeEntry restoredNode = check alfrescoClient->restoreDeletedNode("a1b2
 
 Creates a download ZIP for one or more nodes. Returns a download entry with a status to poll.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1882,9 +1883,9 @@ Creates a download ZIP for one or more nodes. Returns a download entry with a st
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateDownloadQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `DownloadEntry|error`
+Returns: `DownloadEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:DownloadEntry download = check alfrescoClient->createDownload({
@@ -1892,7 +1893,7 @@ alfresco:DownloadEntry download = check alfrescoClient->createDownload({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1918,7 +1919,7 @@ alfresco:DownloadEntry download = check alfrescoClient->createDownload({
 
 Retrieves the status of a download request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1926,15 +1927,15 @@ Retrieves the status of a download request.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetDownloadQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `DownloadEntry|error`
+Returns: `DownloadEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:DownloadEntry status = check alfrescoClient->getDownload("dl-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1960,16 +1961,16 @@ alfresco:DownloadEntry status = check alfrescoClient->getDownload("dl-001");
 
 Cancels a download request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `downloadId` | `string` | Yes | The identifier of the download. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->cancelDownload("dl-001");
@@ -1979,7 +1980,7 @@ check alfrescoClient->cancelDownload("dl-001");
 
 </details>
 
-#### People Operations
+#### People operations
 
 <details>
 <summary>listPeople</summary>
@@ -1988,22 +1989,22 @@ check alfrescoClient->cancelDownload("dl-001");
 
 Lists all people (users) in the repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListPeopleQueries` | No | Query parameters including `skipCount`, `maxItems`, `orderBy`, and `fields`. |
 
-**Returns:** `PersonPaging|error`
+Returns: `PersonPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:PersonPaging people = check alfrescoClient->listPeople();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2028,7 +2029,7 @@ alfresco:PersonPaging people = check alfrescoClient->listPeople();
 
 Creates a new person (user) in the repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2036,9 +2037,9 @@ Creates a new person (user) in the repository.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreatePersonQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `PersonEntry|error`
+Returns: `PersonEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:PersonEntry person = check alfrescoClient->createPerson({
@@ -2050,7 +2051,7 @@ alfresco:PersonEntry person = check alfrescoClient->createPerson({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2075,7 +2076,7 @@ alfresco:PersonEntry person = check alfrescoClient->createPerson({
 
 Retrieves details for a specific person.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2083,15 +2084,15 @@ Retrieves details for a specific person.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetPersonQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `PersonEntry|error`
+Returns: `PersonEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:PersonEntry person = check alfrescoClient->getPerson("-me-");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2115,7 +2116,7 @@ alfresco:PersonEntry person = check alfrescoClient->getPerson("-me-");
 
 Updates details of an existing person.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2124,9 +2125,9 @@ Updates details of an existing person.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UpdatePersonQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `PersonEntry|error`
+Returns: `PersonEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:PersonEntry updatedPerson = check alfrescoClient->updatePerson("jsmith", {
@@ -2134,7 +2135,7 @@ alfresco:PersonEntry updatedPerson = check alfrescoClient->updatePerson("jsmith"
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2160,7 +2161,7 @@ alfresco:PersonEntry updatedPerson = check alfrescoClient->updatePerson("jsmith"
 
 Requests a password reset for a person. Sends a reset email.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2168,9 +2169,9 @@ Requests a password reset for a person. Sends a reset email.
 | `payload` | `ClientBody` | Yes | The client name for the password reset. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->requestPasswordReset("jsmith", {
@@ -2189,7 +2190,7 @@ check alfrescoClient->requestPasswordReset("jsmith", {
 
 Resets the password for a person using a reset token.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2197,9 +2198,9 @@ Resets the password for a person using a reset token.
 | `payload` | `PasswordResetBody` | Yes | The new password and reset token. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->resetPassword("jsmith", {
@@ -2212,7 +2213,7 @@ check alfrescoClient->resetPassword("jsmith", {
 
 </details>
 
-#### Site Operations
+#### Site operations
 
 <details>
 <summary>listSites</summary>
@@ -2221,22 +2222,22 @@ check alfrescoClient->resetPassword("jsmith", {
 
 Lists all sites in the repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListSitesQueries` | No | Query parameters including `skipCount`, `maxItems`, `orderBy`, `where`, and `fields`. |
 
-**Returns:** `SitePaging|error`
+Returns: `SitePaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SitePaging sites = check alfrescoClient->listSites();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2260,7 +2261,7 @@ alfresco:SitePaging sites = check alfrescoClient->listSites();
 
 Creates a new site.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2268,9 +2269,9 @@ Creates a new site.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateSiteQueries` | No | Query parameters including `skipConfiguration`, `skipAddToFavorites`, and `fields`. |
 
-**Returns:** `SiteEntry|error`
+Returns: `SiteEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SiteEntry site = check alfrescoClient->createSite({
@@ -2280,7 +2281,7 @@ alfresco:SiteEntry site = check alfrescoClient->createSite({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2305,7 +2306,7 @@ alfresco:SiteEntry site = check alfrescoClient->createSite({
 
 Retrieves details of a specific site.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2313,15 +2314,15 @@ Retrieves details of a specific site.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetSiteQueries` | No | Query parameters including `relations` and `fields`. |
 
-**Returns:** `SiteEntry|error`
+Returns: `SiteEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SiteEntry site = check alfrescoClient->getSite("engineering");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2346,7 +2347,7 @@ alfresco:SiteEntry site = check alfrescoClient->getSite("engineering");
 
 Updates the properties of an existing site.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2355,9 +2356,9 @@ Updates the properties of an existing site.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UpdateSiteQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `SiteEntry|error`
+Returns: `SiteEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SiteEntry updatedSite = check alfrescoClient->updateSite("engineering", {
@@ -2366,7 +2367,7 @@ alfresco:SiteEntry updatedSite = check alfrescoClient->updateSite("engineering",
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2391,7 +2392,7 @@ alfresco:SiteEntry updatedSite = check alfrescoClient->updateSite("engineering",
 
 Deletes a site.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2399,9 +2400,9 @@ Deletes a site.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `DeleteSiteQueries` | No | Query parameters including `permanent`. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteSite("marketing");
@@ -2411,7 +2412,7 @@ check alfrescoClient->deleteSite("marketing");
 
 </details>
 
-#### Site Membership Operations
+#### Site membership operations
 
 <details>
 <summary>listSiteMemberships</summary>
@@ -2420,7 +2421,7 @@ check alfrescoClient->deleteSite("marketing");
 
 Lists all members of a specific site.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2428,15 +2429,15 @@ Lists all members of a specific site.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListSiteMembershipsQueries` | No | Query parameters including `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `SiteMemberPaging|error`
+Returns: `SiteMemberPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SiteMemberPaging members = check alfrescoClient->listSiteMemberships("engineering");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2461,7 +2462,7 @@ alfresco:SiteMemberPaging members = check alfrescoClient->listSiteMemberships("e
 
 Adds a person as a member of a site with a specified role.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2470,9 +2471,9 @@ Adds a person as a member of a site with a specified role.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateSiteMembershipQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `SiteMemberEntry|error`
+Returns: `SiteMemberEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SiteMemberEntry member = check alfrescoClient->createSiteMembership("engineering", {
@@ -2481,7 +2482,7 @@ alfresco:SiteMemberEntry member = check alfrescoClient->createSiteMembership("en
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2504,7 +2505,7 @@ alfresco:SiteMemberEntry member = check alfrescoClient->createSiteMembership("en
 
 Removes a person from a site.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2512,9 +2513,9 @@ Removes a person from a site.
 | `personId` | `string` | Yes | The identifier of the person. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteSiteMembership("engineering", "jsmith");
@@ -2524,7 +2525,7 @@ check alfrescoClient->deleteSiteMembership("engineering", "jsmith");
 
 </details>
 
-#### Group Operations
+#### Group operations
 
 <details>
 <summary>listGroups</summary>
@@ -2533,22 +2534,22 @@ check alfrescoClient->deleteSiteMembership("engineering", "jsmith");
 
 Lists all groups in the repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListGroupsQueries` | No | Query parameters including `skipCount`, `maxItems`, `orderBy`, `where`, `include`, and `fields`. |
 
-**Returns:** `GroupPaging|error`
+Returns: `GroupPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:GroupPaging groups = check alfrescoClient->listGroups();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2573,7 +2574,7 @@ alfresco:GroupPaging groups = check alfrescoClient->listGroups();
 
 Creates a new group.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2581,9 +2582,9 @@ Creates a new group.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateGroupQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `GroupEntry|error`
+Returns: `GroupEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:GroupEntry group = check alfrescoClient->createGroup({
@@ -2592,7 +2593,7 @@ alfresco:GroupEntry group = check alfrescoClient->createGroup({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2615,7 +2616,7 @@ alfresco:GroupEntry group = check alfrescoClient->createGroup({
 
 Retrieves details of a specific group.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2623,15 +2624,15 @@ Retrieves details of a specific group.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetGroupQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `GroupEntry|error`
+Returns: `GroupEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:GroupEntry group = check alfrescoClient->getGroup("GROUP_DEVELOPERS");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2654,7 +2655,7 @@ alfresco:GroupEntry group = check alfrescoClient->getGroup("GROUP_DEVELOPERS");
 
 Updates the display name of a group.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2663,9 +2664,9 @@ Updates the display name of a group.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `UpdateGroupQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `GroupEntry|error`
+Returns: `GroupEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:GroupEntry updatedGroup = check alfrescoClient->updateGroup("GROUP_DEVELOPERS", {
@@ -2673,7 +2674,7 @@ alfresco:GroupEntry updatedGroup = check alfrescoClient->updateGroup("GROUP_DEVE
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2696,7 +2697,7 @@ alfresco:GroupEntry updatedGroup = check alfrescoClient->updateGroup("GROUP_DEVE
 
 Deletes a group.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2704,9 +2705,9 @@ Deletes a group.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `DeleteGroupQueries` | No | Query parameters including `cascade` (boolean to delete sub-groups). |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteGroup("GROUP_DEVELOPERS");
@@ -2723,7 +2724,7 @@ check alfrescoClient->deleteGroup("GROUP_DEVELOPERS");
 
 Lists members of a specific group.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2731,15 +2732,15 @@ Lists members of a specific group.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListGroupMembershipsQueries` | No | Query parameters including `skipCount`, `maxItems`, `orderBy`, and `where`. |
 
-**Returns:** `GroupMemberPaging|error`
+Returns: `GroupMemberPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:GroupMemberPaging members = check alfrescoClient->listGroupMemberships("GROUP_DEVELOPERS");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2763,7 +2764,7 @@ alfresco:GroupMemberPaging members = check alfrescoClient->listGroupMemberships(
 
 Adds a person or group as a member of a group.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2772,9 +2773,9 @@ Adds a person or group as a member of a group.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateGroupMembershipQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `GroupMemberEntry|error`
+Returns: `GroupMemberEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:GroupMemberEntry member = check alfrescoClient->createGroupMembership("GROUP_DEVELOPERS", {
@@ -2783,7 +2784,7 @@ alfresco:GroupMemberEntry member = check alfrescoClient->createGroupMembership("
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"id": "jsmith", "displayName": "Jane Smith", "memberType": "PERSON"}}
@@ -2800,7 +2801,7 @@ alfresco:GroupMemberEntry member = check alfrescoClient->createGroupMembership("
 
 Removes a member from a group.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2808,9 +2809,9 @@ Removes a member from a group.
 | `groupMemberId` | `string` | Yes | The identifier of the member to remove. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteGroupMembership("GROUP_DEVELOPERS", "jsmith");
@@ -2820,7 +2821,7 @@ check alfrescoClient->deleteGroupMembership("GROUP_DEVELOPERS", "jsmith");
 
 </details>
 
-#### Shared Link Operations
+#### Shared link operations
 
 <details>
 <summary>listSharedLinks</summary>
@@ -2829,22 +2830,22 @@ check alfrescoClient->deleteGroupMembership("GROUP_DEVELOPERS", "jsmith");
 
 Lists all shared links the current user has access to.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListSharedLinksQueries` | No | Query parameters including `skipCount`, `maxItems`, `where`, `include`, and `fields`. |
 
-**Returns:** `SharedLinkPaging|error`
+Returns: `SharedLinkPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SharedLinkPaging sharedLinks = check alfrescoClient->listSharedLinks();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2868,7 +2869,7 @@ alfresco:SharedLinkPaging sharedLinks = check alfrescoClient->listSharedLinks();
 
 Creates a shared link for a node, enabling external sharing.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2876,9 +2877,9 @@ Creates a shared link for a node, enabling external sharing.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateSharedLinkQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `SharedLinkEntry|error`
+Returns: `SharedLinkEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SharedLinkEntry sharedLink = check alfrescoClient->createSharedLink({
@@ -2886,7 +2887,7 @@ alfresco:SharedLinkEntry sharedLink = check alfrescoClient->createSharedLink({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2910,7 +2911,7 @@ alfresco:SharedLinkEntry sharedLink = check alfrescoClient->createSharedLink({
 
 Retrieves details of a shared link.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2918,15 +2919,15 @@ Retrieves details of a shared link.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetSharedLinkQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `SharedLinkEntry|error`
+Returns: `SharedLinkEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SharedLinkEntry link = check alfrescoClient->getSharedLink("abc123xyz");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -2950,16 +2951,16 @@ alfresco:SharedLinkEntry link = check alfrescoClient->getSharedLink("abc123xyz")
 
 Deletes a shared link.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `sharedId` | `string` | Yes | The identifier of the shared link. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteSharedLink("abc123xyz");
@@ -2976,7 +2977,7 @@ check alfrescoClient->deleteSharedLink("abc123xyz");
 
 Sends an email with a shared link to specified recipients.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -2984,9 +2985,9 @@ Sends an email with a shared link to specified recipients.
 | `payload` | `SharedLinkBodyEmail` | Yes | Email details including `client`, `message`, and `recipientEmails`. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->emailSharedLink("abc123xyz", {
@@ -3000,7 +3001,7 @@ check alfrescoClient->emailSharedLink("abc123xyz", {
 
 </details>
 
-#### Search & Find Operations
+#### Search & find operations
 
 <details>
 <summary>findNodes</summary>
@@ -3009,22 +3010,22 @@ check alfrescoClient->emailSharedLink("abc123xyz", {
 
 Searches for nodes by a term string.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `FindNodesQueries` | Yes | Query parameters including `term` (required), `rootNodeId`, `nodeType`, `include`, `orderBy`, `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `NodePaging|error`
+Returns: `NodePaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:NodePaging results = check alfrescoClient->findNodes(term = "quarterly report");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3048,22 +3049,22 @@ alfresco:NodePaging results = check alfrescoClient->findNodes(term = "quarterly 
 
 Searches for sites by a term string.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `FindSitesQueries` | Yes | Query parameters including `term` (required), `skipCount`, `maxItems`, `orderBy`, and `fields`. |
 
-**Returns:** `SitePaging|error`
+Returns: `SitePaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:SitePaging siteResults = check alfrescoClient->findSites(term = "engineering");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3087,22 +3088,22 @@ alfresco:SitePaging siteResults = check alfrescoClient->findSites(term = "engine
 
 Searches for people by a term string.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `FindPeopleQueries` | Yes | Query parameters including `term` (required), `skipCount`, `maxItems`, `orderBy`, and `fields`. |
 
-**Returns:** `PersonPaging|error`
+Returns: `PersonPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:PersonPaging peopleResults = check alfrescoClient->findPeople(term = "jane");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3119,7 +3120,7 @@ alfresco:PersonPaging peopleResults = check alfrescoClient->findPeople(term = "j
 
 </details>
 
-#### Audit Operations
+#### Audit operations
 
 <details>
 <summary>listAuditApps</summary>
@@ -3128,22 +3129,22 @@ alfresco:PersonPaging peopleResults = check alfrescoClient->findPeople(term = "j
 
 Lists all audit applications in the repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListAuditAppsQueries` | No | Query parameters including `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `AuditAppPaging|error`
+Returns: `AuditAppPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:AuditAppPaging auditApps = check alfrescoClient->listAuditApps();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3167,7 +3168,7 @@ alfresco:AuditAppPaging auditApps = check alfrescoClient->listAuditApps();
 
 Retrieves details of a specific audit application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -3175,15 +3176,15 @@ Retrieves details of a specific audit application.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `GetAuditAppQueries` | No | Query parameters including `fields`. |
 
-**Returns:** `AuditApp|error`
+Returns: `AuditApp|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:AuditApp auditApp = check alfrescoClient->getAuditApp("alfresco-access");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "alfresco-access", "name": "alfresco-access", "isEnabled": true}
@@ -3200,7 +3201,7 @@ alfresco:AuditApp auditApp = check alfrescoClient->getAuditApp("alfresco-access"
 
 Lists audit entries for a specific audit application.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -3208,15 +3209,15 @@ Lists audit entries for a specific audit application.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListAuditEntriesForAuditAppQueries` | No | Query parameters including `skipCount`, `maxItems`, `where`, `include`, `orderBy`, and `fields`. |
 
-**Returns:** `AuditEntryPaging|error`
+Returns: `AuditEntryPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:AuditEntryPaging entries = check alfrescoClient->listAuditEntriesForAuditApp("alfresco-access");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3240,7 +3241,7 @@ alfresco:AuditEntryPaging entries = check alfrescoClient->listAuditEntriesForAud
 
 Lists audit entries associated with a specific node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -3248,15 +3249,15 @@ Lists audit entries associated with a specific node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListAuditEntriesForNodeQueries` | No | Query parameters including `skipCount`, `maxItems`, and `fields`. |
 
-**Returns:** `AuditEntryPaging|error`
+Returns: `AuditEntryPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:AuditEntryPaging nodeAudit = check alfrescoClient->listAuditEntriesForNode("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3273,7 +3274,7 @@ alfresco:AuditEntryPaging nodeAudit = check alfrescoClient->listAuditEntriesForN
 
 </details>
 
-#### Action Operations
+#### Action operations
 
 <details>
 <summary>listActions</summary>
@@ -3282,22 +3283,22 @@ alfresco:AuditEntryPaging nodeAudit = check alfrescoClient->listAuditEntriesForN
 
 Lists all available action definitions in the repository.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListActionsQueries` | No | Query parameters including `skipCount`, `maxItems`, `orderBy`, and `fields`. |
 
-**Returns:** `ActionDefinitionList|error`
+Returns: `ActionDefinitionList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:ActionDefinitionList actions = check alfrescoClient->listActions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3322,22 +3323,22 @@ alfresco:ActionDefinitionList actions = check alfrescoClient->listActions();
 
 Retrieves details of a specific action definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `actionDefinitionId` | `string` | Yes | The identifier of the action definition. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `ActionDefinitionEntry|error`
+Returns: `ActionDefinitionEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:ActionDefinitionEntry actionDef = check alfrescoClient->actionDetails("copy");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3366,16 +3367,16 @@ alfresco:ActionDefinitionEntry actionDef = check alfrescoClient->actionDetails("
 
 Executes an action against a target node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ActionBodyExec` | Yes | The action definition ID, target node ID, and optional parameters. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `ActionExecResultEntry|error`
+Returns: `ActionExecResultEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:ActionExecResultEntry result = check alfrescoClient->actionExec({
@@ -3387,7 +3388,7 @@ alfresco:ActionExecResultEntry result = check alfrescoClient->actionExec({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"id": "action-exec-001"}}
@@ -3404,7 +3405,7 @@ alfresco:ActionExecResultEntry result = check alfrescoClient->actionExec({
 
 Lists the action definitions applicable to a specific node.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -3412,15 +3413,15 @@ Lists the action definitions applicable to a specific node.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `NodeActionsQueries` | No | Query parameters including `skipCount`, `maxItems`, `orderBy`, and `fields`. |
 
-**Returns:** `ActionDefinitionList|error`
+Returns: `ActionDefinitionList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:ActionDefinitionList nodeActions = check alfrescoClient->nodeActions("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3441,7 +3442,7 @@ alfresco:ActionDefinitionList nodeActions = check alfrescoClient->nodeActions("a
 
 </details>
 
-#### Favorites & Activities
+#### Favorites & activities
 
 <details>
 <summary>listFavorites</summary>
@@ -3450,7 +3451,7 @@ alfresco:ActionDefinitionList nodeActions = check alfrescoClient->nodeActions("a
 
 Lists all favorites for a person.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -3458,15 +3459,15 @@ Lists all favorites for a person.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListFavoritesQueries` | No | Query parameters including `skipCount`, `maxItems`, `where`, `include`, `orderBy`, and `fields`. |
 
-**Returns:** `FavoritePaging|error`
+Returns: `FavoritePaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:FavoritePaging favorites = check alfrescoClient->listFavorites("-me-");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3490,7 +3491,7 @@ alfresco:FavoritePaging favorites = check alfrescoClient->listFavorites("-me-");
 
 Creates a new favorite for a person (file, folder, or site).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -3499,9 +3500,9 @@ Creates a new favorite for a person (file, folder, or site).
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `CreateFavoriteQueries` | No | Query parameters including `include` and `fields`. |
 
-**Returns:** `FavoriteEntry|error`
+Returns: `FavoriteEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:FavoriteEntry favorite = check alfrescoClient->createFavorite("-me-", {
@@ -3513,7 +3514,7 @@ alfresco:FavoriteEntry favorite = check alfrescoClient->createFavorite("-me-", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3535,7 +3536,7 @@ alfresco:FavoriteEntry favorite = check alfrescoClient->createFavorite("-me-", {
 
 Removes a favorite for a person.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -3543,9 +3544,9 @@ Removes a favorite for a person.
 | `favoriteId` | `string` | Yes | The identifier of the favorite. |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check alfrescoClient->deleteFavorite("-me-", "a1b2c3d4-e5f6-7890-abcd-ef1234567890");
@@ -3562,7 +3563,7 @@ check alfrescoClient->deleteFavorite("-me-", "a1b2c3d4-e5f6-7890-abcd-ef12345678
 
 Lists activities (activity feed) for a person.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -3570,15 +3571,15 @@ Lists activities (activity feed) for a person.
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 | `queries` | `ListActivitiesForPersonQueries` | No | Query parameters including `skipCount`, `maxItems`, `who`, `siteId`, and `fields`. |
 
-**Returns:** `ActivityPaging|error`
+Returns: `ActivityPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:ActivityPaging activities = check alfrescoClient->listActivitiesForPerson("-me-");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -3595,7 +3596,7 @@ alfresco:ActivityPaging activities = check alfrescoClient->listActivitiesForPers
 
 </details>
 
-#### Probe Operations
+#### Probe operations
 
 <details>
 <summary>getProbe</summary>
@@ -3604,22 +3605,22 @@ alfresco:ActivityPaging activities = check alfrescoClient->listActivitiesForPers
 
 Checks the health/readiness of the Alfresco repository. Used for liveness and readiness probes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `probeId` | `string` | Yes | The probe identifier (`-ready-` or `-live-`). |
 | `headers` | `map<string\|string[]>` | No | Headers to be sent with the request. |
 
-**Returns:** `ProbeEntry|error`
+Returns: `ProbeEntry|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 alfresco:ProbeEntry probe = check alfrescoClient->getProbe("-ready-");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"entry": {"message": "READY"}}

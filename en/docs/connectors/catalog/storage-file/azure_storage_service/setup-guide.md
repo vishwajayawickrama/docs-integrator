@@ -12,7 +12,7 @@ This guide walks you through creating an Azure Storage account and obtaining the
 
 - An active Microsoft Azure account. If you do not have one, [sign up for a free account](https://azure.microsoft.com/en-us/free/).
 
-## Create an Azure Storage Account
+## Create an Azure storage account
 
 1. Log in to the [Azure Portal](https://portal.azure.com/).
 2. In the left-hand menu, click **Storage accounts**, then click **+ Create**.
@@ -27,7 +27,7 @@ This guide walks you through creating an Azure Storage account and obtaining the
 5. Once deployment completes, click **Go to resource**.
 
 
-## Retrieve the Storage Account Access Key
+## Retrieve the storage account access key
 
 1. In your Storage account overview, navigate to **Security + networking** → **Access keys** in the left-hand menu.
 2. Click **Show keys** to reveal the key values.
@@ -40,7 +40,7 @@ Use Ballerina's `configurable` feature and a `Config.toml` file to supply it at 
 
 :::
 
-## Generate a Shared Access Signature (SAS) — optional
+## Generate a shared access signature (SAS) — optional
 
 If you prefer scoped, time-limited access instead of a full account key:
 
@@ -58,7 +58,7 @@ When using a SAS token, set `authorizationMethod` to `"SAS"` in your `Connection
 
 :::
 
-## Enable Azure File Service (for Files sub-module)
+## Enable Azure file service (for files sub-module)
 
 Azure File Shares are available by default in general-purpose v2 storage accounts. To create a file share:
 
@@ -70,6 +70,6 @@ Azure File Shares are available by default in general-purpose v2 storage account
 Note the file share name — it is used as the `fileShareName` parameter in the Files connector operations.
 
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

@@ -1,3 +1,6 @@
+---
+title: Actions
+---
 # Actions
 
 The `ballerinax/rabbitmq` package exposes the following clients:
@@ -29,7 +32,7 @@ Publish messages, consume messages, and manage queues and exchanges on a RabbitM
 | `validation` | `boolean` | `true` | Enable constraint validation for messages. |
 | `secureSocket` | `SecureSocket` | `()` | TLS/SSL configuration for secure connections. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/rabbitmq;
@@ -42,23 +45,23 @@ rabbitmq:Client rabbitmqClient = check new (host, port);
 
 ### Operations
 
-#### Queue Management
+#### Queue management
 
 <details>
 <summary>queueDeclare</summary>
 
 Declares a queue on the RabbitMQ server. Creates the queue if it does not exist.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `name` | `string` | Yes | The name of the queue to declare. |
 | `config` | `QueueConfig?` | No | Queue configuration (durable, exclusive, autoDelete, arguments). |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check rabbitmqClient->queueDeclare("OrderQueue", config = {
@@ -74,20 +77,20 @@ check rabbitmqClient->queueDeclare("OrderQueue", config = {
 
 Declares a queue with a server-generated unique name and returns the name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string generatedQueueName = check rabbitmqClient->queueAutoGenerate();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "amq.gen-Xa2Kh5Q7F3mR1s0T"
@@ -100,7 +103,7 @@ string generatedQueueName = check rabbitmqClient->queueAutoGenerate();
 
 Deletes a queue from the RabbitMQ server.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -108,9 +111,9 @@ Deletes a queue from the RabbitMQ server.
 | `ifUnused` | `boolean` | No | Delete only if the queue has no consumers. |
 | `ifEmpty` | `boolean` | No | Delete only if the queue is empty. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check rabbitmqClient->queueDelete("OrderQueue");
@@ -123,15 +126,15 @@ check rabbitmqClient->queueDelete("OrderQueue");
 
 Removes all messages from a queue without deleting the queue itself.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queueName` | `string` | Yes | The name of the queue to purge. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check rabbitmqClient->queuePurge("OrderQueue");
@@ -139,14 +142,14 @@ check rabbitmqClient->queuePurge("OrderQueue");
 
 </details>
 
-#### Exchange Management
+#### Exchange management
 
 <details>
 <summary>exchangeDeclare</summary>
 
 Declares an exchange on the RabbitMQ server.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -154,9 +157,9 @@ Declares an exchange on the RabbitMQ server.
 | `exchangeType` | `ExchangeType` | No | The exchange type: `DIRECT_EXCHANGE`, `FANOUT_EXCHANGE`, `TOPIC_EXCHANGE`, or `HEADERS_EXCHANGE`. |
 | `config` | `ExchangeConfig?` | No | Exchange configuration (durable, autoDelete, arguments). |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check rabbitmqClient->exchangeDeclare("OrderExchange", rabbitmq:TOPIC_EXCHANGE, config = {
@@ -171,15 +174,15 @@ check rabbitmqClient->exchangeDeclare("OrderExchange", rabbitmq:TOPIC_EXCHANGE, 
 
 Deletes an exchange from the RabbitMQ server.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `exchangeName` | `string` | Yes | The name of the exchange to delete. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check rabbitmqClient->exchangeDelete("OrderExchange");
@@ -192,7 +195,7 @@ check rabbitmqClient->exchangeDelete("OrderExchange");
 
 Binds a queue to an exchange with a routing/binding key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -200,9 +203,9 @@ Binds a queue to an exchange with a routing/binding key.
 | `exchangeName` | `string` | Yes | The name of the exchange to bind to. |
 | `bindingKey` | `string` | Yes | The binding key for the queue-exchange binding. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check rabbitmqClient->queueBind("OrderQueue", "OrderExchange", "orders.#");
@@ -217,15 +220,15 @@ check rabbitmqClient->queueBind("OrderQueue", "OrderExchange", "orders.#");
 
 Publishes a message to a queue or exchange with the specified routing key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `AnydataMessage` | Yes | The message to publish, containing `content`, `routingKey`, and optionally `exchange` and `properties`. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check rabbitmqClient->publishMessage({
@@ -243,7 +246,7 @@ check rabbitmqClient->publishMessage({
 
 Synchronously retrieves a single message from a queue, including metadata.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -251,15 +254,15 @@ Synchronously retrieves a single message from a queue, including metadata.
 | `autoAck` | `boolean` | No | If `true`, the message is automatically acknowledged. |
 | `T` | `typedesc<AnydataMessage>` | No | Expected message type for data binding. |
 
-**Returns:** `AnydataMessage|error`
+Returns: `AnydataMessage|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 rabbitmq:AnydataMessage message = check rabbitmqClient->consumeMessage("OrderQueue");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"content": "Hello from Ballerina", "routingKey": "OrderQueue", "exchange": "", "deliveryTag": 1}
@@ -272,7 +275,7 @@ rabbitmq:AnydataMessage message = check rabbitmqClient->consumeMessage("OrderQue
 
 Synchronously retrieves only the payload content from a queue message.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -280,15 +283,15 @@ Synchronously retrieves only the payload content from a queue message.
 | `autoAck` | `boolean` | No | If `true`, the message is automatically acknowledged. |
 | `T` | `typedesc<anydata>` | No | Expected payload type for data binding. |
 
-**Returns:** `anydata|error`
+Returns: `anydata|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string payload = check rabbitmqClient->consumePayload("OrderQueue");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "Hello from Ballerina"
@@ -303,16 +306,16 @@ string payload = check rabbitmqClient->consumePayload("OrderQueue");
 
 Acknowledges one or more received messages by delivery tag or message reference.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `ackTarget` | `AnydataMessage|int` | Yes | The message or delivery tag to acknowledge. |
 | `multiple` | `boolean` | No | If `true`, acknowledges all messages up to and including the given delivery tag. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 rabbitmq:AnydataMessage message = check rabbitmqClient->consumeMessage("OrderQueue", autoAck = false);
@@ -326,7 +329,7 @@ check rabbitmqClient->basicAck(message);
 
 Rejects one or more received messages, optionally requeuing them.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -334,9 +337,9 @@ Rejects one or more received messages, optionally requeuing them.
 | `multiple` | `boolean` | No | If `true`, rejects all messages up to and including the given delivery tag. |
 | `requeue` | `boolean` | No | If `true`, rejected messages are requeued rather than discarded. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 rabbitmq:AnydataMessage message = check rabbitmqClient->consumeMessage("OrderQueue", autoAck = false);
@@ -345,23 +348,23 @@ check rabbitmqClient->basicNack(message, requeue = true);
 
 </details>
 
-#### Connection Lifecycle
+#### Connection lifecycle
 
 <details>
 <summary>close</summary>
 
 Closes the RabbitMQ client channel and connection gracefully.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `closeCode` | `int?` | No | The close code to send to the server. |
 | `closeMessage` | `string?` | No | The close message to send to the server. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check rabbitmqClient->close();
@@ -374,16 +377,16 @@ check rabbitmqClient->close();
 
 Force-closes the client connection, discarding any pending operations or exceptions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `closeCode` | `int?` | No | The close code. |
 | `closeMessage` | `string?` | No | The close message. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check rabbitmqClient->'abort();

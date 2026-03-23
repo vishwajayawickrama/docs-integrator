@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through installing and configuring a RabbitMQ server so you can connect to it with the Ballerina RabbitMQ connector.
@@ -7,17 +10,17 @@ This guide walks you through installing and configuring a RabbitMQ server so you
 
 - A running RabbitMQ server instance. If you do not have one, [download and install RabbitMQ](https://www.rabbitmq.com/download.html) or run it via Docker: `docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management`.
 
-## Step 1: Verify the RabbitMQ Server Is Running
+## Step 1: Verify the RabbitMQ server is running
 
 1. Open the RabbitMQ Management UI at `http://localhost:15672` (default credentials: `guest` / `guest`).
-2. Confirm the server is running and accessible on the **Overview** tab.
+2. Confirm the server is running and accessible on the Overview tab.
 3. Note the **host** (e.g., `localhost`) and **AMQP port** (default `5672`) — you will need these to configure the connector.
 
 :::note
 The default `guest` user can only connect from `localhost`. For remote connections, create a dedicated user.
 :::
 
-## Step 2: Create a User (Optional)
+## Step 2: Create a user (optional)
 
 If you need a dedicated user for your integration:
 
@@ -31,7 +34,7 @@ If you need a dedicated user for your integration:
 Store your RabbitMQ credentials securely. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 3: Configure a Virtual Host (Optional)
+## Step 3: Configure a virtual host (optional)
 
 Virtual hosts provide logical separation of resources within a single RabbitMQ instance:
 
@@ -39,7 +42,7 @@ Virtual hosts provide logical separation of resources within a single RabbitMQ i
 2. Click **Add a new virtual host**, enter a name, and click **Add virtual host**.
 3. Assign permissions to your user for the new virtual host.
 
-## Step 4: Enable TLS (Optional)
+## Step 4: Enable TLS (optional)
 
 For production deployments, enable TLS on the RabbitMQ server:
 

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating an Alfresco account and obtaining the Basic Authentication credentials required to use the Alfresco connector.
@@ -7,7 +10,7 @@ This guide walks you through creating an Alfresco account and obtaining the Basi
 
 - An active Alfresco Content Services instance. If you do not have one, [sign up for a free trial](https://www.alfresco.com/try-alfresco-acs).
 
-## Step 1: Set Up Your Alfresco Environment
+## Step 1: Set up your Alfresco environment
 
 1. Go to [Alfresco's trial page](https://www.alfresco.com/try-alfresco-acs) and register for an account.
 2. Once registered, you will receive an email with instructions to set up your Alfresco environment.
@@ -17,7 +20,7 @@ This guide walks you through creating an Alfresco account and obtaining the Basi
 If you are using a self-hosted Alfresco deployment, ensure that the Alfresco REST API is enabled and accessible.
 :::
 
-## Step 2: Obtain Your Credentials
+## Step 2: Obtain your credentials
 
 1. After your environment is set up, note the default **username** and **password** provided in the setup email or configured during installation.
 2. For self-hosted deployments, the default admin credentials are typically `admin` / `admin` — change these immediately in production.
@@ -27,7 +30,7 @@ If you are using a self-hosted Alfresco deployment, ensure that the Alfresco RES
 Store your credentials securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 3: Get Your Service URL
+## Step 3: Get your service URL
 
 1. The service URL is the base URL of your Alfresco Content Services REST API. It typically follows this pattern:
 

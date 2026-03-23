@@ -12,14 +12,14 @@ This guide walks you through creating a HubSpot developer account and obtaining 
 
 - A HubSpot account with access to CRM. If you do not have one, [sign up for a free HubSpot account](https://app.hubspot.com/signup).
 
-## Create a HubSpot Developer Account
+## Create a HubSpot developer account
 
 1. Go to the [HubSpot Developer Portal](https://developers.hubspot.com/).
 2. Click **Create a developer account** (or log in if you already have one).
 3. Complete the registration form and verify your email address.
 
 
-## Create a HubSpot App
+## Create a HubSpot app
 
 1. In the HubSpot Developer Portal, navigate to **Apps** in the top navigation.
 2. Click **Create app**.
@@ -38,7 +38,7 @@ This guide walks you through creating a HubSpot developer account and obtaining 
 The required scopes may vary depending on which operations you plan to use. Add additional scopes as needed for your use case.
 :::
 
-## Get the Client ID and Client Secret
+## Get the client ID and client secret
 
 1. In your app's **Auth** tab, locate the **Client ID** and **Client Secret** fields.
 2. Copy the **Client ID** — this is your `clientId`.
@@ -51,7 +51,7 @@ Use Ballerina's `configurable` feature and a `Config.toml` file to supply them a
 
 :::
 
-## Authorize and Generate a Refresh Token
+## Authorize and generate a refresh token
 
 Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 
@@ -84,7 +84,7 @@ Use the HubSpot OAuth 2.0 Authorization Code flow to obtain a refresh token:
 Use a tool like [Postman](https://www.postman.com/) or `curl` to perform the token exchange in step 5.
 :::
 
-## Alternative: Use a Private App Access Token
+## Alternative: Use a private app access token
 
 If you prefer not to use OAuth 2.0, you can use a HubSpot Private App:
 
@@ -98,6 +98,6 @@ If you prefer not to use OAuth 2.0, you can use a HubSpot Private App:
 Private app tokens do not expire automatically but should still be stored securely and rotated periodically.
 :::
 
-## Next Steps
+## Next steps
 
 - [Actions Reference](action-reference.md) - Available operations

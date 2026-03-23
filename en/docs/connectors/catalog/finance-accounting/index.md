@@ -3,11 +3,11 @@ title: "Finance & Accounting"
 description: "Finance and accounting connectors available in WSO2 Integrator."
 ---
 
-# Finance & Accounting Connectors
+# Finance & Accounting
 
 <!-- TODO: Searchable grid/table with: name, icon, 1-line description, supported operations, link to detail page -->
 
-## Available Connectors
+## Available connectors
 
 | Connector | Description | Operations | Authentication |
 |-----------|-------------|------------|----------------|
@@ -17,7 +17,7 @@ description: "Finance and accounting connectors available in WSO2 Integrator."
 | [PayPal Subscriptions](paypal.subscriptions/overview.md) | PayPal recurring billing platform for creating subscription plans and managing subscription lifecycles | Create, Read, Update, Activate, Deactivate, Suspend, Cancel, Revise, Capture, List | OAuth 2.0 |
 | [Stripe](stripe/overview.md) | Payment processing platform with customers, charges, invoices, subscriptions, and payouts | Create, Read, Update, Delete, List | API Key (Bearer Token) |
 
-## What's Next
+## What's next
 
 - [Connection Configuration](configuration.md) — How to set up connections
 - [Authentication Methods](authentication.md) — Supported auth types

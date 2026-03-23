@@ -6,7 +6,7 @@ description: "Overview of the ballerinax/hubspot.crm.obj.schemas connector for W
 HubSpot CRM Schemas lets you define, retrieve, update, and delete custom object types in the HubSpot CRM, along with their properties and inter-object associations. The Ballerina `ballerinax/hubspot.crm.obj.schemas` connector (v2.0.0) provides full programmatic access to the HubSpot CRM Object Schemas API, enabling you to model custom data structures that fit your business needs directly from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Retrieve all custom object schemas or fetch a specific schema by its object type ID or fully qualified name
 - Create new custom object schemas with user-defined properties, display labels, required fields, and searchable property configuration
@@ -27,14 +27,14 @@ Actions are operations you invoke on HubSpot from your integration — listing s
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## HubSpot CRM Schemas Connector Documentation
+## HubSpot CRM schemas connector documentation
 
 * **[HubSpot CRM Schemas Connector Setup Guide](setup-guide.md)**: This guide walks you through creating a HubSpot Private App and obtaining the access token required to use the HubSpot CRM Schemas connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

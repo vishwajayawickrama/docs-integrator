@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Publishes messages to a Google Cloud Pub/Sub topic.
 | `enableMessageOrdering` | `boolean` | `false` | Enable message ordering using ordering keys. |
 | `retryConfig` | `RetryConfig` | `()` | Retry configuration with exponential backoff for publish failures. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/gcloud.pubsub;
@@ -53,15 +54,15 @@ pubsub:Publisher publisher = check new (project, topic,
 
 Publishes a message to the configured Pub/Sub topic. The message data can be `string`, `json`, `xml`, or `byte[]` — non-byte types are automatically serialized.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `message` | `Message` | Yes | The message record containing `data`, optional `attributes`, and optional `orderingKey`. |
 
-**Returns:** `string|Error`
+Returns: `string|Error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string messageId = check publisher->publish({
@@ -70,7 +71,7 @@ string messageId = check publisher->publish({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "1234567890123456"
@@ -87,15 +88,15 @@ string messageId = check publisher->publish({
 
 Gracefully shuts down the publisher, flushing any pending batched messages before closing.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `timeout` | `decimal` | No | Maximum time in seconds to wait for graceful shutdown. Defaults to `10.0`. |
 
-**Returns:** `Error?`
+Returns: `Error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check publisher->close();

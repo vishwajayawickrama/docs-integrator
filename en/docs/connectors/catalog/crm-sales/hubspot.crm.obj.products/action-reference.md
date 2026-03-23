@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -28,7 +29,7 @@ Manage HubSpot CRM product records — individual and batch CRUD, upsert, and se
 | `proxy` | <code>http:ProxyConfig</code> | `()` | Proxy server configuration. |
 | `circuitBreaker` | <code>http:CircuitBreakerConfig</code> | `()` | Circuit breaker configuration. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerina/oauth2;
@@ -50,33 +51,33 @@ hsproducts:Client hubSpotProducts = check new ({
 
 ### Operations
 
-#### Individual Product Operations
+#### Individual product operations
 
 <details>
 <summary>List</summary>
 
 <div>
 
-**Signature:** `get /`
+Signature: `get /`
 
 Returns a paginated list of all products in the portal with optional property and association data.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | <code>GetGetPageQueries</code> | No | Optional query parameters including `limit`, `after` (cursor), `properties`, `propertiesWithHistory`, `associations`, and `archived`. |
 
-**Returns:** `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
+Returns: `CollectionResponseSimplePublicObjectWithAssociationsForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproducts:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging productsResponse =
     check hubSpotProducts->/;
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -114,19 +115,19 @@ hsproducts:CollectionResponseSimplePublicObjectWithAssociationsForwardPaging pro
 
 <div>
 
-**Signature:** `post /`
+Signature: `post /`
 
 Creates a new product record with the supplied properties.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>SimplePublicObjectInputForCreate</code> | Yes | Product properties and optional associations to set on creation. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproducts:SimplePublicObject newProduct = check hubSpotProducts->/.post({
@@ -139,7 +140,7 @@ hsproducts:SimplePublicObject newProduct = check hubSpotProducts->/.post({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -168,27 +169,27 @@ hsproducts:SimplePublicObject newProduct = check hubSpotProducts->/.post({
 
 <div>
 
-**Signature:** `get /[string productId]`
+Signature: `get /[string productId]`
 
 Retrieves a single product by its internal HubSpot ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `productId` | <code>string</code> | Yes | The internal HubSpot product ID. |
 | `queries` | <code>GetProductIdGetByIdQueries</code> | No | Optional query parameters for `properties`, `propertiesWithHistory`, `associations`, and `archived`. |
 
-**Returns:** `SimplePublicObjectWithAssociations|error`
+Returns: `SimplePublicObjectWithAssociations|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproducts:SimplePublicObjectWithAssociations product =
     check hubSpotProducts->/["12345"];
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -217,11 +218,11 @@ hsproducts:SimplePublicObjectWithAssociations product =
 
 <div>
 
-**Signature:** `patch /[string productId]`
+Signature: `patch /[string productId]`
 
 Updates specified properties on an existing product record.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -229,9 +230,9 @@ Updates specified properties on an existing product record.
 | `payload` | <code>SimplePublicObjectInput</code> | Yes | Map of property names and their new values. |
 | `queries` | <code>PatchProductIdUpdateQueries</code> | No | Optional query parameter for `idProperty` when targeting by a unique property. |
 
-**Returns:** `SimplePublicObject|error`
+Returns: `SimplePublicObject|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproducts:SimplePublicObject updated = check hubSpotProducts->/["12345"].patch({
@@ -242,7 +243,7 @@ hsproducts:SimplePublicObject updated = check hubSpotProducts->/["12345"].patch(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -269,19 +270,19 @@ hsproducts:SimplePublicObject updated = check hubSpotProducts->/["12345"].patch(
 
 <div>
 
-**Signature:** `delete /[string productId]`
+Signature: `delete /[string productId]`
 
 Archives (soft-deletes) a product by its internal ID. Archived products are hidden from the CRM but not permanently deleted.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `productId` | <code>string</code> | Yes | The internal HubSpot product ID to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubSpotProducts->/["12345"].delete();
@@ -298,19 +299,19 @@ check hubSpotProducts->/["12345"].delete();
 
 <div>
 
-**Signature:** `post /search`
+Signature: `post /search`
 
 Searches for products matching the supplied filter groups, returning matching records with optional property projections and pagination.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>PublicObjectSearchRequest</code> | Yes | Search request containing `filterGroups`, `sorts`, `properties`, `limit`, and `after` cursor. |
 
-**Returns:** `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
+Returns: `CollectionResponseWithTotalSimplePublicObjectForwardPaging|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproducts:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResponse =
@@ -332,7 +333,7 @@ hsproducts:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResp
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -368,26 +369,26 @@ hsproducts:CollectionResponseWithTotalSimplePublicObjectForwardPaging searchResp
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>Create a batch of products</summary>
 
 <div>
 
-**Signature:** `post /batch/create`
+Signature: `post /batch/create`
 
 Creates multiple product records in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectInputForCreate</code> | Yes | List of product input objects, each containing a `properties` map. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproducts:BatchResponseSimplePublicObject batchCreated =
@@ -400,7 +401,7 @@ hsproducts:BatchResponseSimplePublicObject batchCreated =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -435,20 +436,20 @@ hsproducts:BatchResponseSimplePublicObject batchCreated =
 
 <div>
 
-**Signature:** `post /batch/read`
+Signature: `post /batch/read`
 
 Retrieves multiple products by their internal IDs or a unique property value in a single request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchReadInputSimplePublicObjectId</code> | Yes | List of product IDs and optional `properties` and `propertiesWithHistory` to return. |
 | `queries` | <code>PostBatchReadReadQueries</code> | No | Optional query parameter `archived` to include archived products. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproducts:BatchResponseSimplePublicObject batchRead =
@@ -458,7 +459,7 @@ hsproducts:BatchResponseSimplePublicObject batchRead =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -501,19 +502,19 @@ hsproducts:BatchResponseSimplePublicObject batchRead =
 
 <div>
 
-**Signature:** `post /batch/update`
+Signature: `post /batch/update`
 
 Updates multiple product records in a single request, each identified by internal ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInput</code> | Yes | List of product update inputs, each containing an `id` and `properties` map. |
 
-**Returns:** `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicObject|BatchResponseSimplePublicObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproducts:BatchResponseSimplePublicObject batchResponse =
@@ -525,7 +526,7 @@ hsproducts:BatchResponseSimplePublicObject batchResponse =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -558,19 +559,19 @@ hsproducts:BatchResponseSimplePublicObject batchResponse =
 
 <div>
 
-**Signature:** `post /batch/upsert`
+Signature: `post /batch/upsert`
 
 Creates or updates multiple products based on a unique identifier property. Records matching the ID property are updated; non-matching records are created.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectBatchInputUpsert</code> | Yes | List of upsert inputs, each with an `id`, `idProperty`, and `properties` map. |
 
-**Returns:** `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
+Returns: `BatchResponseSimplePublicUpsertObject|BatchResponseSimplePublicUpsertObjectWithErrors|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 hsproducts:BatchResponseSimplePublicUpsertObject upsertResponse =
@@ -590,7 +591,7 @@ hsproducts:BatchResponseSimplePublicUpsertObject upsertResponse =
     });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -627,19 +628,19 @@ hsproducts:BatchResponseSimplePublicUpsertObject upsertResponse =
 
 <div>
 
-**Signature:** `post /batch/archive`
+Signature: `post /batch/archive`
 
 Archives multiple product records in a single request by their internal IDs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | <code>BatchInputSimplePublicObjectId</code> | Yes | List of product IDs to archive. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check hubSpotProducts->/batch/archive.post({

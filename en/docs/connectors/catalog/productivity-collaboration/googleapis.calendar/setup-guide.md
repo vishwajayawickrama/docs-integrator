@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Google Cloud Platform project and obtaining the OAuth 2.0 credentials required to use the Google Calendar connector.
@@ -8,20 +11,20 @@ This guide walks you through creating a Google Cloud Platform project and obtain
 - A Google account. If you do not have one, [sign up here](https://accounts.google.com/signup).
 - Access to [Google Cloud Platform (GCP)](https://console.cloud.google.com/). If you do not have a GCP account, [sign up here](https://cloud.google.com/).
 
-## Step 1: Create a Google Cloud Platform Project
+## Step 1: Create a Google cloud platform project
 
 1. Open the [Google Cloud Platform console](https://console.cloud.google.com/).
 2. Click on the project drop-down menu in the top navigation bar.
 3. Select an existing project or click **New Project** to create a new one.
 4. Enter a project name (e.g., `Ballerina Calendar Integration`) and click **Create**.
 
-## Step 2: Enable the Google Calendar API
+## Step 2: Enable the Google calendar API
 
 1. In the GCP console, navigate to **APIs & Services > Library**.
 2. Search for **Google Calendar API**.
 3. Click on the **Google Calendar API** result and click **Enable**.
 
-## Step 3: Configure the OAuth Consent Screen
+## Step 3: Configure the OAuth consent screen
 
 1. Navigate to **APIs & Services > OAuth consent screen**.
 2. Select **External** as the user type (or **Internal** if you are using Google Workspace and only need access within your organization).
@@ -38,7 +41,7 @@ This guide walks you through creating a Google Cloud Platform project and obtain
 For production applications, you will need to complete the verification process. For development and testing, you can add test users on the OAuth consent screen.
 :::
 
-## Step 4: Create OAuth Client Credentials
+## Step 4: Create OAuth client credentials
 
 1. Navigate to **APIs & Services > Credentials**.
 2. Click **Create Credentials** and select **OAuth client ID**.
@@ -52,7 +55,7 @@ For production applications, you will need to complete the verification process.
 Store the Client ID and Client Secret securely. Do not commit them to source control. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 5: Obtain a Refresh Token
+## Step 5: Obtain a refresh token
 
 Use the [Google OAuth 2.0 Playground](https://developers.google.com/oauthplayground) to obtain tokens:
 

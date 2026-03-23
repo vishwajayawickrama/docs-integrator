@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating an Azure Function App and configuring the Azure resources and credentials required by the Azure Functions connector.
@@ -8,14 +11,14 @@ This guide walks you through creating an Azure Function App and configuring the 
 - An active Microsoft Azure account. If you do not have one, [sign up for a free Azure account](https://azure.microsoft.com/free/).
 - Access to the [Azure Portal](https://portal.azure.com/) or the Azure CLI (`az login`).
 
-## Step 1: Create a Resource Group
+## Step 1: Create a resource group
 
 1. Log in to the [Azure Portal](https://portal.azure.com/).
 2. In the left navigation, select **Resource groups**, then click **+ Create**.
 3. Choose your **Subscription**, enter a **Resource group name** (e.g., `my-functions-rg`), and select a **Region**.
 4. Click **Review + create**, then **Create**.
 
-## Step 2: Create an Azure Storage Account
+## Step 2: Create an Azure storage account
 
 Azure Functions requires a Storage Account for internal runtime state and for Queue and Blob triggers.
 
@@ -29,7 +32,7 @@ Azure Functions requires a Storage Account for internal runtime state and for Qu
 The storage account name must be globally unique across all Azure subscriptions. Use only lowercase letters and digits, 3–24 characters.
 :::
 
-## Step 3: Create the Azure Function App
+## Step 3: Create the Azure function app
 
 1. In the Azure Portal, search for **Function App** and click **+ Create**.
 2. Fill in the required fields:
@@ -47,7 +50,7 @@ The storage account name must be globally unique across all Azure subscriptions.
 You must select **Windows** as the operating system. The connector's custom handler is not supported on Linux-hosted Function Apps.
 :::
 
-## Step 4: Configure Application Settings
+## Step 4: Configure application settings
 
 Application settings in Azure Functions act as environment variables. Connection strings and
 credentials referenced in your trigger and binding annotations must be added here.
@@ -68,14 +71,14 @@ credentials referenced in your trigger and binding annotations must be added her
 You can use custom names for these settings instead of the defaults. Set the `connection` field (Queue/Blob) or `connectionStringSetting` field (CosmosDB) in the trigger annotation to the exact name of your custom App Setting.
 :::
 
-## Step 5: Get the CosmosDB Connection String (if using CosmosDB)
+## Step 5: Get the cosmosDB connection string (if using cosmosDB)
 
 1. In the Azure Portal, open your **Azure Cosmos DB** account.
 2. Under **Settings**, select **Keys**.
 3. Copy the **PRIMARY CONNECTION STRING**.
 4. Add it as an Application Setting (e.g., `CosmosDBConnection`) in your Function App as described in the previous step.
 
-## Step 6: Get Twilio Credentials (if using Twilio SMS output)
+## Step 6: Get Twilio credentials (if using Twilio SMS output)
 
 1. Log in to the [Twilio Console](https://console.twilio.com/).
 2. From the dashboard, copy your **Account SID** and **Auth Token**.

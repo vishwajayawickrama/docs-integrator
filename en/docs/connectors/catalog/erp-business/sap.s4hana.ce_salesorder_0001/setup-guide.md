@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through configuring SAP S/4HANA Cloud to expose the Sales Order Integration API and obtaining the credentials required to use the connector.
@@ -7,7 +10,7 @@ This guide walks you through configuring SAP S/4HANA Cloud to expose the Sales O
 
 - An active SAP S/4HANA Cloud tenant with system administrator access.
 
-## Step 1: Create a Communication User
+## Step 1: Create a communication user
 
 1. Log in to your SAP S/4HANA Cloud tenant as a system administrator.
 2. Open the **Communication Management** app and select **Maintain Communication Users**.
@@ -20,7 +23,7 @@ This guide walks you through configuring SAP S/4HANA Cloud to expose the Sales O
 Record the username and password securely — you will need them when configuring the Ballerina connector. Do not reuse an existing dialog user for API communication.
 :::
 
-## Step 2: Create a Communication System
+## Step 2: Create a communication system
 
 1. In the **Communication Management** app, select **Communication Systems**.
 2. Click **New** and enter a **System ID** (e.g., `BALLERINA_INTEGRATION`) and a **System Name**.
@@ -28,7 +31,7 @@ Record the username and password securely — you will need them when configurin
 4. Under **Users for Inbound Communication**, click **+** to add the communication user you created in the previous step.
 5. Click **Save**.
 
-## Step 3: Create a Communication Arrangement for Sales Order Integration
+## Step 3: Create a communication arrangement for sales order integration
 
 1. In the **Communication Management** app, select **Communication Arrangements**.
 2. Click **New**.

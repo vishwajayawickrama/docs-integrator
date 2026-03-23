@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -32,7 +33,7 @@ Provides programmatic access to Salesforce Marketing Cloud REST APIs for journey
 | `validation` | `boolean` | `true` | Enable/disable payload validation. |
 | `laxDataBinding` | `boolean` | `true` | Enable/disable lax data binding for responses. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/salesforce.marketingcloud as mc;
@@ -53,7 +54,7 @@ mc:Client mcClient = check new (subDomain, {
 
 ### Operations
 
-#### Event Management
+#### Event management
 
 <details>
 <summary>getEventDefinitions</summary>
@@ -62,22 +63,22 @@ mc:Client mcClient = check new (subDomain, {
 
 Retrieves a list of event definitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetEventDefinitionsQueries` | No | Query parameters for filtering and pagination. |
 
-**Returns:** `EventDefinitionList|error`
+Returns: `EventDefinitionList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:EventDefinitionList events = check mcClient->getEventDefinitions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"count": 2, "items": [{"id": "a1b2c3d4", "name": "Welcome Event", "type": "APIEvent", "eventDefinitionKey": "welcome-event-key"}, {"id": "e5f6g7h8", "name": "Purchase Event", "type": "APIEvent", "eventDefinitionKey": "purchase-event-key"}]}
@@ -94,16 +95,16 @@ mc:EventDefinitionList events = check mcClient->getEventDefinitions();
 
 Creates a new event definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `EventDefinition` | Yes | The event definition to create. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EventDefinition|error`
+Returns: `EventDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:EventDefinition event = check mcClient->createEventDefinition({
@@ -113,7 +114,7 @@ mc:EventDefinition event = check mcClient->createEventDefinition({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "f9e8d7c6", "name": "New Signup Event", "type": "APIEvent", "eventDefinitionKey": "new-signup-event", "createdDate": "2025-01-15T10:30:00Z"}
@@ -130,22 +131,22 @@ mc:EventDefinition event = check mcClient->createEventDefinition({
 
 Retrieves an event definition by its key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `eventDefinitionKey` | `string` | Yes | Key of the event definition. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EventDefinition|error`
+Returns: `EventDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:EventDefinition event = check mcClient->getEventDefinitionByKey("welcome-event-key");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3d4", "name": "Welcome Event", "type": "APIEvent", "eventDefinitionKey": "welcome-event-key"}
@@ -162,7 +163,7 @@ mc:EventDefinition event = check mcClient->getEventDefinitionByKey("welcome-even
 
 Updates an event definition identified by its key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -170,9 +171,9 @@ Updates an event definition identified by its key.
 | `payload` | `EventDefinition` | Yes | Updated event definition payload. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EventDefinition|error`
+Returns: `EventDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:EventDefinition updated = check mcClient->updateEventDefinitionByKey("welcome-event-key", {
@@ -182,7 +183,7 @@ mc:EventDefinition updated = check mcClient->updateEventDefinitionByKey("welcome
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3d4", "name": "Updated Welcome Event", "type": "APIEvent", "eventDefinitionKey": "welcome-event-key"}
@@ -199,22 +200,22 @@ mc:EventDefinition updated = check mcClient->updateEventDefinitionByKey("welcome
 
 Deletes an event definition by its key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `eventDefinitionKey` | `string` | Yes | Key of the event definition. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check mcClient->deleteEventDefinitionByKey("welcome-event-key");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "Event definition deleted successfully"}
@@ -231,7 +232,7 @@ json result = check mcClient->deleteEventDefinitionByKey("welcome-event-key");
 
 Updates an event definition identified by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -239,9 +240,9 @@ Updates an event definition identified by its ID.
 | `payload` | `EventDefinition` | Yes | Updated event definition payload. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EventDefinition|error`
+Returns: `EventDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:EventDefinition updated = check mcClient->updateEventDefinitionById("a1b2c3d4", {
@@ -251,7 +252,7 @@ mc:EventDefinition updated = check mcClient->updateEventDefinitionById("a1b2c3d4
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "a1b2c3d4", "name": "Renamed Event", "type": "APIEvent", "eventDefinitionKey": "welcome-event-key"}
@@ -268,22 +269,22 @@ mc:EventDefinition updated = check mcClient->updateEventDefinitionById("a1b2c3d4
 
 Deletes an event definition by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `eventDefinitionId` | `string` | Yes | ID of the event definition. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check mcClient->deleteEventDefinitionById("a1b2c3d4");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "Event definition deleted successfully"}
@@ -300,16 +301,16 @@ json result = check mcClient->deleteEventDefinitionById("a1b2c3d4");
 
 Fires an entry event to inject a contact into a journey.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `FireEvent` | Yes | The event payload with contact key and event data. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `FireEventResponse|error`
+Returns: `FireEventResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:FireEventResponse res = check mcClient->fireEntryEvent({
@@ -322,7 +323,7 @@ mc:FireEventResponse res = check mcClient->fireEntryEvent({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"requestId": "r1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6", "eventInstanceId": "e1a2b3c4-d5e6-f7g8-h9i0-j1k2l3m4n5o6"}
@@ -332,7 +333,7 @@ mc:FireEventResponse res = check mcClient->fireEntryEvent({
 
 </details>
 
-#### Journey Management
+#### Journey management
 
 <details>
 <summary>getJourneys</summary>
@@ -341,22 +342,22 @@ mc:FireEventResponse res = check mcClient->fireEntryEvent({
 
 Retrieves a list of journeys (interactions).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetJourneysQueries` | No | Query parameters for filtering and pagination. |
 
-**Returns:** `JourneysList|error`
+Returns: `JourneysList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:JourneysList journeys = check mcClient->getJourneys();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"count": 1, "items": [{"id": "j1a2b3c4-d5e6-f7g8-h9i0", "key": "seasonal-journey", "name": "Seasonal Journey", "status": "Published", "version": 1}]}
@@ -373,16 +374,16 @@ mc:JourneysList journeys = check mcClient->getJourneys();
 
 Creates a new journey (interaction).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `Journey` | Yes | The journey definition to create. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Journey|error`
+Returns: `Journey|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Journey journey = check mcClient->createJourney({
@@ -391,7 +392,7 @@ mc:Journey journey = check mcClient->createJourney({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "j9e8d7c6-b5a4-3210", "key": "welcome-journey-key", "name": "Welcome Journey", "status": "Draft", "version": 1}
@@ -408,16 +409,16 @@ mc:Journey journey = check mcClient->createJourney({
 
 Updates an existing journey version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `UpdateJourney` | Yes | Updated journey payload. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Journey|error`
+Returns: `Journey|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Journey updated = check mcClient->updateJourney({
@@ -427,7 +428,7 @@ mc:Journey updated = check mcClient->updateJourney({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "j1a2b3c4-d5e6-f7g8-h9i0", "key": "seasonal-journey", "name": "Updated Seasonal Journey", "status": "Draft", "version": 2}
@@ -444,7 +445,7 @@ mc:Journey updated = check mcClient->updateJourney({
 
 Retrieves a journey by its ID (UUID).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -452,15 +453,15 @@ Retrieves a journey by its ID (UUID).
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetJourneyByIdQueries` | No | Query parameters (e.g., extras). |
 
-**Returns:** `Journey|error`
+Returns: `Journey|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Journey journey = check mcClient->getJourneyById("j1a2b3c4-d5e6-f7g8-h9i0");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "j1a2b3c4-d5e6-f7g8-h9i0", "key": "seasonal-journey", "name": "Seasonal Journey", "status": "Published", "version": 1}
@@ -477,7 +478,7 @@ mc:Journey journey = check mcClient->getJourneyById("j1a2b3c4-d5e6-f7g8-h9i0");
 
 Updates an existing journey by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -485,9 +486,9 @@ Updates an existing journey by its ID.
 | `payload` | `UpdateJourney` | Yes | Updated journey payload. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Journey|error`
+Returns: `Journey|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Journey updated = check mcClient->updateJourneyById("j1a2b3c4-d5e6-f7g8-h9i0", {
@@ -495,7 +496,7 @@ mc:Journey updated = check mcClient->updateJourneyById("j1a2b3c4-d5e6-f7g8-h9i0"
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "j1a2b3c4-d5e6-f7g8-h9i0", "name": "Renamed Journey", "status": "Draft", "version": 2}
@@ -512,7 +513,7 @@ mc:Journey updated = check mcClient->updateJourneyById("j1a2b3c4-d5e6-f7g8-h9i0"
 
 Deletes a journey by its ID. Deletes all versions unless a version number is specified.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -520,15 +521,15 @@ Deletes a journey by its ID. Deletes all versions unless a version number is spe
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `DeleteJourneyByIdQueries` | No | Query parameters (e.g., versionNumber). |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check mcClient->deleteJourneyById("j1a2b3c4-d5e6-f7g8-h9i0");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "Journey deleted successfully"}
@@ -545,7 +546,7 @@ json result = check mcClient->deleteJourneyById("j1a2b3c4-d5e6-f7g8-h9i0");
 
 Retrieves a journey by its key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -553,15 +554,15 @@ Retrieves a journey by its key.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetJourneyByKeyQueries` | No | Query parameters (e.g., extras). |
 
-**Returns:** `Journey|error`
+Returns: `Journey|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Journey journey = check mcClient->getJourneyByKey("seasonal-journey");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "j1a2b3c4-d5e6-f7g8-h9i0", "key": "seasonal-journey", "name": "Seasonal Journey", "status": "Published", "version": 1}
@@ -578,7 +579,7 @@ mc:Journey journey = check mcClient->getJourneyByKey("seasonal-journey");
 
 Updates an existing journey by its key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -586,9 +587,9 @@ Updates an existing journey by its key.
 | `payload` | `UpdateJourney` | Yes | Updated journey payload. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Journey|error`
+Returns: `Journey|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Journey updated = check mcClient->updateJourneyByKey("seasonal-journey", {
@@ -596,7 +597,7 @@ mc:Journey updated = check mcClient->updateJourneyByKey("seasonal-journey", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "j1a2b3c4-d5e6-f7g8-h9i0", "key": "seasonal-journey", "name": "Updated Seasonal Journey", "status": "Draft", "version": 2}
@@ -613,7 +614,7 @@ mc:Journey updated = check mcClient->updateJourneyByKey("seasonal-journey", {
 
 Deletes a journey by its key. Deletes all versions unless a version number is specified.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -621,15 +622,15 @@ Deletes a journey by its key. Deletes all versions unless a version number is sp
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `DeleteJourneyByKeyQueries` | No | Query parameters (e.g., versionNumber). |
 
-**Returns:** `json|error`
+Returns: `json|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 json result = check mcClient->deleteJourneyByKey("seasonal-journey");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"message": "Journey deleted successfully"}
@@ -639,7 +640,7 @@ json result = check mcClient->deleteJourneyByKey("seasonal-journey");
 
 </details>
 
-#### Contact Membership & Exit
+#### Contact membership & exit
 
 <details>
 <summary>getContactMembership</summary>
@@ -648,16 +649,16 @@ json result = check mcClient->deleteJourneyByKey("seasonal-journey");
 
 Retrieves the list of journeys a contact is currently enrolled in.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ContactMembershipRequest` | Yes | Request containing contact key list. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ContactMembershipResponse|error`
+Returns: `ContactMembershipResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:ContactMembershipResponse membership = check mcClient->getContactMembership({
@@ -665,7 +666,7 @@ mc:ContactMembershipResponse membership = check mcClient->getContactMembership({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"results": {"contactMemberships": [{"contactKey": "user@example.com", "definitionKey": "aa0c871b-d1eb-66fb-c039-0a7cab4e20cd", "journeyName": "Seasonal Journey", "status": "Active"}]}}
@@ -682,16 +683,16 @@ mc:ContactMembershipResponse membership = check mcClient->getContactMembership({
 
 Removes a contact from a journey.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ContactExitRequest` | Yes | Contact exit request payload. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ContactExitResponse|error`
+Returns: `ContactExitResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:ContactExitResponse res = check mcClient->removeContactFromJourney({
@@ -700,7 +701,7 @@ mc:ContactExitResponse res = check mcClient->removeContactFromJourney({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"status": "Accepted", "message": "Contact exit request received"}
@@ -717,16 +718,16 @@ mc:ContactExitResponse res = check mcClient->removeContactFromJourney({
 
 Retrieves the exit status of a contact removal request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ContactExitRequest` | Yes | Contact exit request to check status for. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ContactExitStatusResponse|error`
+Returns: `ContactExitStatusResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:ContactExitStatusResponse status = check mcClient->getContactExitStatus({
@@ -735,7 +736,7 @@ mc:ContactExitStatusResponse status = check mcClient->getContactExitStatus({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"contactKey": "user@example.com", "definitionKey": "seasonal-journey-key", "status": "Completed"}
@@ -745,7 +746,7 @@ mc:ContactExitStatusResponse status = check mcClient->getContactExitStatus({
 
 </details>
 
-#### Email Validation
+#### Email validation
 
 <details>
 <summary>validateEmail</summary>
@@ -754,16 +755,16 @@ mc:ContactExitStatusResponse status = check mcClient->getContactExitStatus({
 
 Validates an email address.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ValidateEmailRequest` | Yes | Request containing the email to validate. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ValidateEmailResponse|error`
+Returns: `ValidateEmailResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:ValidateEmailResponse validation = check mcClient->validateEmail({
@@ -771,7 +772,7 @@ mc:ValidateEmailResponse validation = check mcClient->validateEmail({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"valid": true, "email": "user@example.com"}
@@ -781,7 +782,7 @@ mc:ValidateEmailResponse validation = check mcClient->validateEmail({
 
 </details>
 
-#### Campaign Management
+#### Campaign management
 
 <details>
 <summary>getCampaigns</summary>
@@ -790,22 +791,22 @@ mc:ValidateEmailResponse validation = check mcClient->validateEmail({
 
 Retrieves a list of campaigns.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetCampaignsQueries` | No | Query parameters for filtering and pagination. |
 
-**Returns:** `CampaignList|error`
+Returns: `CampaignList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:CampaignList campaigns = check mcClient->getCampaigns();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"count": 2, "items": [{"id": "c001", "name": "Spring Sale 2025", "description": "Spring promotional campaign", "createdDate": "2025-03-01T00:00:00Z"}, {"id": "c002", "name": "Summer Campaign", "description": "Summer outreach", "createdDate": "2025-06-01T00:00:00Z"}]}
@@ -822,16 +823,16 @@ mc:CampaignList campaigns = check mcClient->getCampaigns();
 
 Creates a new campaign.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `UpsertCampaign` | Yes | Campaign details to create. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Campaign|error`
+Returns: `Campaign|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Campaign campaign = check mcClient->createCampaign({
@@ -840,7 +841,7 @@ mc:Campaign campaign = check mcClient->createCampaign({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "c003", "name": "Holiday Campaign 2025", "description": "End-of-year holiday promotions", "createdDate": "2025-11-01T10:00:00Z"}
@@ -857,7 +858,7 @@ mc:Campaign campaign = check mcClient->createCampaign({
 
 Updates an existing campaign by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -865,9 +866,9 @@ Updates an existing campaign by its ID.
 | `payload` | `UpsertCampaign` | Yes | Updated campaign details. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Campaign|error`
+Returns: `Campaign|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Campaign updated = check mcClient->updateCampaign("c003", {
@@ -876,7 +877,7 @@ mc:Campaign updated = check mcClient->updateCampaign("c003", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": "c003", "name": "Holiday Campaign 2025 — Updated", "description": "Revised holiday promotions", "createdDate": "2025-11-01T10:00:00Z"}
@@ -893,16 +894,16 @@ mc:Campaign updated = check mcClient->updateCampaign("c003", {
 
 Deletes a campaign by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `string` | Yes | ID of the campaign to delete. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mcClient->deleteCampaign("c003");
@@ -912,7 +913,7 @@ check mcClient->deleteCampaign("c003");
 
 </details>
 
-#### Data Extension Operations
+#### Data extension operations
 
 <details>
 <summary>upsertDERowSetByKey</summary>
@@ -921,7 +922,7 @@ check mcClient->deleteCampaign("c003");
 
 Upserts (inserts or updates) a set of rows in a Data Extension by its external key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -929,9 +930,9 @@ Upserts (inserts or updates) a set of rows in a Data Extension by its external k
 | `payload` | `DataExtensionRowSet` | Yes | Array of row objects with keys and values. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DataExtensionRowSet|error`
+Returns: `DataExtensionRowSet|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:DataExtensionRowSet result = check mcClient->upsertDERowSetByKey("DecSeasonal25", [
@@ -945,7 +946,7 @@ mc:DataExtensionRowSet result = check mcClient->upsertDERowSetByKey("DecSeasonal
 ]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"keys": {"id": "user-001"}, "values": {"SubscriberKey": "user@example.com", "EmailAddress": "user@example.com"}}]
@@ -962,7 +963,7 @@ mc:DataExtensionRowSet result = check mcClient->upsertDERowSetByKey("DecSeasonal
 
 Deletes a set of rows from a Data Extension by its external key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -970,9 +971,9 @@ Deletes a set of rows from a Data Extension by its external key.
 | `payload` | `DataExtensionRowSet` | Yes | Array of row objects identifying rows to delete. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `DataExtensionRowSet|error`
+Returns: `DataExtensionRowSet|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:DataExtensionRowSet deleted = check mcClient->deleteDERowSetByKey("DecSeasonal25", [
@@ -982,7 +983,7 @@ mc:DataExtensionRowSet deleted = check mcClient->deleteDERowSetByKey("DecSeasona
 ]);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [{"keys": {"id": "user-001"}, "values": {}}]
@@ -999,7 +1000,7 @@ mc:DataExtensionRowSet deleted = check mcClient->deleteDERowSetByKey("DecSeasona
 
 Asynchronously upserts a set of rows in a Data Extension by its external key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1007,9 +1008,9 @@ Asynchronously upserts a set of rows in a Data Extension by its external key.
 | `payload` | `DataExtensionRowSet` | Yes | Array of row objects with keys and values. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mcClient->upsertDERowSetByKeyAsync("DecSeasonal25", [
@@ -1034,7 +1035,7 @@ check mcClient->upsertDERowSetByKeyAsync("DecSeasonal25", [
 
 Asynchronously deletes a set of rows from a Data Extension by its external key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1042,9 +1043,9 @@ Asynchronously deletes a set of rows from a Data Extension by its external key.
 | `payload` | `DataExtensionRowSet` | Yes | Array of row objects identifying rows to delete. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mcClient->deleteDERowSetByKeyAsync("DecSeasonal25", [
@@ -1058,7 +1059,7 @@ check mcClient->deleteDERowSetByKeyAsync("DecSeasonal25", [
 
 </details>
 
-#### Contact Management
+#### Contact management
 
 <details>
 <summary>searchContactsByAttribute</summary>
@@ -1067,7 +1068,7 @@ check mcClient->deleteDERowSetByKeyAsync("DecSeasonal25", [
 
 Searches contacts by a specific attribute name.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1075,9 +1076,9 @@ Searches contacts by a specific attribute name.
 | `payload` | `ContactAttributeFilterCondition` | Yes | Filter conditions for the search. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `SearchContactsByAttributeResponse|error`
+Returns: `SearchContactsByAttributeResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:SearchContactsByAttributeResponse contacts = check mcClient->searchContactsByAttribute("email", {
@@ -1093,7 +1094,7 @@ mc:SearchContactsByAttributeResponse contacts = check mcClient->searchContactsBy
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"items": [{"contactKey": "user-001", "values": {"Email Address": "user@example.com"}}]}
@@ -1110,16 +1111,16 @@ mc:SearchContactsByAttributeResponse contacts = check mcClient->searchContactsBy
 
 Searches contacts by email address.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SearchContactsByEmailRequest` | Yes | Request containing email addresses to search. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `SearchContactsByEmailResponse|error`
+Returns: `SearchContactsByEmailResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:SearchContactsByEmailResponse results = check mcClient->searchContactsByEmail({
@@ -1127,7 +1128,7 @@ mc:SearchContactsByEmailResponse results = check mcClient->searchContactsByEmail
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"items": [{"contactKey": "user-001", "emailAddress": "user@example.com", "status": "Active"}]}
@@ -1144,16 +1145,16 @@ mc:SearchContactsByEmailResponse results = check mcClient->searchContactsByEmail
 
 Creates a new contact.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `UpsertContactRequest` | Yes | Contact details to create. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `UpsertContactResponse|error`
+Returns: `UpsertContactResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:UpsertContactResponse res = check mcClient->createContact({
@@ -1162,7 +1163,7 @@ mc:UpsertContactResponse res = check mcClient->createContact({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"contactKey": "user-003", "operationStatus": "Created"}
@@ -1179,16 +1180,16 @@ mc:UpsertContactResponse res = check mcClient->createContact({
 
 Updates an existing contact.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `UpsertContactRequest` | Yes | Updated contact details. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `UpsertContactResponse|error`
+Returns: `UpsertContactResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:UpsertContactResponse res = check mcClient->updateContact({
@@ -1197,7 +1198,7 @@ mc:UpsertContactResponse res = check mcClient->updateContact({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"contactKey": "user-003", "operationStatus": "Updated"}
@@ -1214,7 +1215,7 @@ mc:UpsertContactResponse res = check mcClient->updateContact({
 
 Submits a contact delete request.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1222,9 +1223,9 @@ Submits a contact delete request.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `DeleteContactQueries` | No | Query parameters for the delete operation. |
 
-**Returns:** `ContactDeleteResponse|error`
+Returns: `ContactDeleteResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:ContactDeleteResponse res = check mcClient->deleteContact({
@@ -1232,7 +1233,7 @@ mc:ContactDeleteResponse res = check mcClient->deleteContact({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"requestId": "del-001", "status": "Accepted"}
@@ -1249,22 +1250,22 @@ mc:ContactDeleteResponse res = check mcClient->deleteContact({
 
 Retrieves details of contact delete requests.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetContactDeleteRequestsQueries` | No | Query parameters for filtering. |
 
-**Returns:** `ContactDeleteRequestsResponse|error`
+Returns: `ContactDeleteRequestsResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:ContactDeleteRequestsResponse requests = check mcClient->getContactDeleteRequests();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"items": [{"requestId": "del-001", "status": "Completed", "completedDate": "2025-01-16T12:00:00Z"}]}
@@ -1274,7 +1275,7 @@ mc:ContactDeleteRequestsResponse requests = check mcClient->getContactDeleteRequ
 
 </details>
 
-#### Contact Preferences
+#### Contact preferences
 
 <details>
 <summary>getContactPreferencesByKey</summary>
@@ -1283,22 +1284,22 @@ mc:ContactDeleteRequestsResponse requests = check mcClient->getContactDeleteRequ
 
 Retrieves contact preferences by contact key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `contactKey` | `string` | Yes | The contact key. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ContactPreferencesResponse|error`
+Returns: `ContactPreferencesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:ContactPreferencesResponse prefs = check mcClient->getContactPreferencesByKey("user-001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"contactKey": "user-001", "preferences": {"email": {"optedIn": true}, "sms": {"optedIn": false}}}
@@ -1315,16 +1316,16 @@ mc:ContactPreferencesResponse prefs = check mcClient->getContactPreferencesByKey
 
 Creates or updates contact preferences.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ContactPreferencesRequest` | Yes | Preference data to upsert. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `UpsertContactPreferencesResponse|error`
+Returns: `UpsertContactPreferencesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:UpsertContactPreferencesResponse res = check mcClient->upsertContactPreferences({
@@ -1333,7 +1334,7 @@ mc:UpsertContactPreferencesResponse res = check mcClient->upsertContactPreferenc
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"contactKey": "user-001", "operationStatus": "Updated"}
@@ -1350,7 +1351,7 @@ mc:UpsertContactPreferencesResponse res = check mcClient->upsertContactPreferenc
 
 Searches contact preferences based on filter criteria.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1358,9 +1359,9 @@ Searches contact preferences based on filter criteria.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `SearchContactPreferencesQueries` | No | Query parameters for pagination. |
 
-**Returns:** `SearchPreferencesResponse|error`
+Returns: `SearchPreferencesResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:SearchPreferencesResponse results = check mcClient->searchContactPreferences({
@@ -1368,7 +1369,7 @@ mc:SearchPreferencesResponse results = check mcClient->searchContactPreferences(
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"items": [{"contactKey": "user-001", "preferences": {"email": {"optedIn": true}}}, {"contactKey": "user-002", "preferences": {"email": {"optedIn": false}}}]}
@@ -1378,7 +1379,7 @@ mc:SearchPreferencesResponse results = check mcClient->searchContactPreferences(
 
 </details>
 
-#### Asset Management
+#### Asset management
 
 <details>
 <summary>getAssets</summary>
@@ -1387,22 +1388,22 @@ mc:SearchPreferencesResponse results = check mcClient->searchContactPreferences(
 
 Retrieves a list of content assets from Content Builder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetAssetsQueries` | No | Query parameters for filtering and pagination. |
 
-**Returns:** `AssetList|error`
+Returns: `AssetList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:AssetList assets = check mcClient->getAssets();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"count": 1, "items": [{"id": 1001, "name": "hero-banner.png", "assetType": {"name": "png", "id": 28}, "category": {"id": 50, "name": "Images"}}]}
@@ -1419,16 +1420,16 @@ mc:AssetList assets = check mcClient->getAssets();
 
 Creates a new content asset in Content Builder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `UpsertAsset` | Yes | Asset details including name, type, category, and file data. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Asset|error`
+Returns: `Asset|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Asset asset = check mcClient->createAsset({
@@ -1438,7 +1439,7 @@ mc:Asset asset = check mcClient->createAsset({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1002, "name": "promo-image.png", "assetType": {"name": "png", "id": 28}, "category": {"id": 50, "name": "Images"}, "createdDate": "2025-01-15T10:00:00Z"}
@@ -1455,7 +1456,7 @@ mc:Asset asset = check mcClient->createAsset({
 
 Updates an existing content asset by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1463,9 +1464,9 @@ Updates an existing content asset by its ID.
 | `payload` | `UpsertAsset` | Yes | Updated asset details. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Asset|error`
+Returns: `Asset|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Asset updated = check mcClient->updateAsset(1002, {
@@ -1475,7 +1476,7 @@ mc:Asset updated = check mcClient->updateAsset(1002, {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 1002, "name": "promo-image-v2.png", "assetType": {"name": "png", "id": 28}, "category": {"id": 50, "name": "Images"}}
@@ -1492,7 +1493,7 @@ mc:Asset updated = check mcClient->updateAsset(1002, {
 
 Deletes a content asset by its ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1500,9 +1501,9 @@ Deletes a content asset by its ID.
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `DeleteAssetQueries` | No | Query parameters for the delete operation. |
 
-**Returns:** `error?`
+Returns: `error?`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 check mcClient->deleteAsset(1002);
@@ -1512,7 +1513,7 @@ check mcClient->deleteAsset(1002);
 
 </details>
 
-#### Category Management
+#### Category management
 
 <details>
 <summary>getCategories</summary>
@@ -1521,22 +1522,22 @@ check mcClient->deleteAsset(1002);
 
 Retrieves a list of content categories from Content Builder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetCategoriesQueries` | No | Query parameters for filtering and pagination. |
 
-**Returns:** `CategoryList|error`
+Returns: `CategoryList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:CategoryList categories = check mcClient->getCategories();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"count": 2, "items": [{"id": 50, "name": "Images", "parentId": 0}, {"id": 51, "name": "Templates", "parentId": 0}]}
@@ -1553,16 +1554,16 @@ mc:CategoryList categories = check mcClient->getCategories();
 
 Creates a new content category in Content Builder.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateCategory` | Yes | Category details. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `Category|error`
+Returns: `Category|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:Category category = check mcClient->createCategory({
@@ -1571,7 +1572,7 @@ mc:Category category = check mcClient->createCategory({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"id": 52, "name": "Campaign Assets", "parentId": 0}
@@ -1581,7 +1582,7 @@ mc:Category category = check mcClient->createCategory({
 
 </details>
 
-#### Email Messaging
+#### Email messaging
 
 <details>
 <summary>getEmailDefinitions</summary>
@@ -1590,22 +1591,22 @@ mc:Category category = check mcClient->createCategory({
 
 Retrieves a list of email definitions.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 | `queries` | `GetEmailDefinitionsQueries` | No | Query parameters for filtering and pagination. |
 
-**Returns:** `EmailDefinitionList|error`
+Returns: `EmailDefinitionList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:EmailDefinitionList emailDefs = check mcClient->getEmailDefinitions();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"count": 1, "definitions": [{"definitionKey": "welcome-email", "name": "Welcome Email", "status": "Active"}]}
@@ -1622,16 +1623,16 @@ mc:EmailDefinitionList emailDefs = check mcClient->getEmailDefinitions();
 
 Creates a new email definition for transactional messaging.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateEmailDefinition` | Yes | Email definition details. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `EmailDefinition|error`
+Returns: `EmailDefinition|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:EmailDefinition emailDef = check mcClient->createEmailDefinition({
@@ -1643,7 +1644,7 @@ mc:EmailDefinition emailDef = check mcClient->createEmailDefinition({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"definitionKey": "order-confirmation", "name": "Order Confirmation", "status": "Active", "createdDate": "2025-01-15T10:00:00Z"}
@@ -1660,16 +1661,16 @@ mc:EmailDefinition emailDef = check mcClient->createEmailDefinition({
 
 Sends a transactional email message using an email definition.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `SendEmailMessageRequest` | Yes | Email send request with recipient and definition key. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `SendEmailMessageResponse|error`
+Returns: `SendEmailMessageResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:SendEmailMessageResponse res = check mcClient->sendEmailMessage({
@@ -1681,7 +1682,7 @@ mc:SendEmailMessageResponse res = check mcClient->sendEmailMessage({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"requestId": "msg-001", "responses": [{"messageKey": "mk-001", "status": "Accepted"}]}
@@ -1691,7 +1692,7 @@ mc:SendEmailMessageResponse res = check mcClient->sendEmailMessage({
 
 </details>
 
-#### Bulk Data Operations
+#### Bulk data operations
 
 <details>
 <summary>importDataExtensionAsync</summary>
@@ -1700,16 +1701,16 @@ mc:SendEmailMessageResponse res = check mcClient->sendEmailMessage({
 
 Submits an asynchronous import request for a Data Extension file.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `ImportRequest` | Yes | Import request details including file location and Data Extension key. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ImportResponse|error`
+Returns: `ImportResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:ImportResponse res = check mcClient->importDataExtensionAsync({
@@ -1718,7 +1719,7 @@ mc:ImportResponse res = check mcClient->importDataExtensionAsync({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"importId": 12345, "status": "Accepted", "message": "Import request accepted for processing"}
@@ -1735,22 +1736,22 @@ mc:ImportResponse res = check mcClient->importDataExtensionAsync({
 
 Retrieves the summary of a Data Extension import operation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `id` | `int` | Yes | The unique identifier for the import operation. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `ImportSummaryResponse|error`
+Returns: `ImportSummaryResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:ImportSummaryResponse summary = check mcClient->getImportSummary(12345);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"importId": 12345, "status": "Completed", "totalRows": 500, "importedRows": 498, "skippedRows": 2}
@@ -1767,16 +1768,16 @@ mc:ImportSummaryResponse summary = check mcClient->getImportSummary(12345);
 
 Creates a bulk ingest job to insert rows into a Data Extension.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateBulkIngestJob` | Yes | Bulk ingest job configuration. |
 | `headers` | `map<string\|string[]>` | No | Optional HTTP headers. |
 
-**Returns:** `CreateBulkIngestJobResponse|error`
+Returns: `CreateBulkIngestJobResponse|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 mc:CreateBulkIngestJobResponse job = check mcClient->createBulkIngestJob({
@@ -1784,7 +1785,7 @@ mc:CreateBulkIngestJobResponse job = check mcClient->createBulkIngestJob({
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {"jobId": "bulk-001", "status": "Created", "dataExtensionKey": "DecSeasonal25"}

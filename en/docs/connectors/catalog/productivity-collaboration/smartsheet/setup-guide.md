@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through obtaining the API access token or OAuth 2.0 credentials required to use the Smartsheet connector.
@@ -7,7 +10,7 @@ This guide walks you through obtaining the API access token or OAuth 2.0 credent
 
 - An active Smartsheet account. If you do not have one, [sign up for a free trial](https://www.smartsheet.com/try-it).
 
-## Step 1: Generate an API Access Token
+## Step 1: Generate an API access token
 
 1. Log in to your Smartsheet account at [app.smartsheet.com](https://app.smartsheet.com).
 2. Click your **Account** icon in the lower-left corner.
@@ -24,7 +27,7 @@ Store your API access token securely. Do not commit it to source control. Use Ba
 API access tokens inherit the permissions of the user who generates them. Ensure the user has appropriate access to the sheets and workspaces you intend to manage.
 :::
 
-## Step 2: Set Up OAuth 2.0 (Optional — for third-party apps)
+## Step 2: Set up OAuth 2.0 (optional — for third-party apps)
 
 If you are building an application that accesses Smartsheet on behalf of other users, use OAuth 2.0 instead of a personal access token:
 
@@ -43,7 +46,7 @@ If you are building an application that accesses Smartsheet on behalf of other u
 For server-to-server integrations where you only access your own data, the API access token (Step 1) is simpler. Use OAuth 2.0 only when your application needs to act on behalf of other Smartsheet users.
 :::
 
-## Step 3: Obtain a Refresh Token (OAuth 2.0 only)
+## Step 3: Obtain a refresh token (OAuth 2.0 only)
 
 1. Construct the authorization URL, replacing `<CLIENT_ID>` and `<REDIRECT_URL>`:
 

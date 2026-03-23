@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through obtaining the credentials required to connect to the Guidewire InsuranceNow REST API.
@@ -8,7 +11,7 @@ This guide walks you through obtaining the credentials required to connect to th
 - An active Guidewire InsuranceNow environment (sandbox or production) provisioned by your organization or Guidewire.
 - An InsuranceNow user account with API access permissions granted by your system administrator.
 
-## Step 1: Obtain Your InsuranceNow Environment URL
+## Step 1: Obtain your insuranceNow environment URL
 
 1. Contact your Guidewire InsuranceNow administrator or implementation team.
 2. Obtain the base URL for your InsuranceNow REST API environment. It typically follows the pattern:
@@ -23,7 +26,7 @@ This guide walks you through obtaining the credentials required to connect to th
 Use a sandbox environment for development and testing before connecting to production.
 :::
 
-## Step 2: Configure API User Credentials
+## Step 2: Configure API user credentials
 
 The InsuranceNow REST API supports authentication via username/password (basic credentials) or bearer tokens.
 
@@ -43,7 +46,7 @@ The InsuranceNow REST API supports authentication via username/password (basic c
 The authentication method available depends on your InsuranceNow deployment configuration. Contact your Guidewire administrator for the recommended approach.
 :::
 
-## Step 3: Verify API Access
+## Step 3: Verify API access
 
 1. Test your credentials by making a simple API call to the InsuranceNow environment:
 

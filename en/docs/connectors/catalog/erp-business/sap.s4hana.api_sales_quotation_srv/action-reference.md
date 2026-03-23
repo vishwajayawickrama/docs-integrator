@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -29,7 +30,7 @@ Provides full CRUD access to SAP S/4HANA sales quotation data via the API_SALES_
 | `proxy` | `http:ProxyConfig` | `()` | HTTP proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable or disable response payload validation against the OData schema. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/sap.s4hana.api_sales_quotation_srv as quotation;
@@ -51,7 +52,7 @@ quotation:Client quotationClient = check new (
 
 ### Operations
 
-#### Sales Quotation Headers
+#### Sales quotation headers
 
 <details>
 <summary>listA_SalesQuotations</summary>
@@ -60,16 +61,16 @@ quotation:Client quotationClient = check new (
 
 Retrieves a collection of all sales quotation headers accessible to the authenticated user.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `queries` | `ListA_SalesQuotationsQueries` | No | OData system query options such as `$top`, `$skip`, `$filter`, `$select`, and `$expand`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers to include in the request. |
 
-**Returns:** `CollectionOfA_SalesQuotationWrapper|error`
+Returns: `CollectionOfA_SalesQuotationWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SalesQuotationWrapper result = check quotationClient->listA_SalesQuotations(
@@ -77,7 +78,7 @@ quotation:CollectionOfA_SalesQuotationWrapper result = check quotationClient->li
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -111,7 +112,7 @@ quotation:CollectionOfA_SalesQuotationWrapper result = check quotationClient->li
 
 Reads the header data of a single sales quotation identified by its document number.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -119,15 +120,15 @@ Reads the header data of a single sales quotation identified by its document num
 | `queries` | `GetA_SalesQuotationQueries` | No | OData query options (`$select`, `$expand`). |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `A_SalesQuotationWrapper|error`
+Returns: `A_SalesQuotationWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:A_SalesQuotationWrapper result = check quotationClient->getA_SalesQuotation("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -159,16 +160,16 @@ quotation:A_SalesQuotationWrapper result = check quotationClient->getA_SalesQuot
 
 Creates a new sales quotation header in SAP S/4HANA.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `CreateA_SalesQuotation` | Yes | Header fields for the new sales quotation, including `SalesQuotationType`, `SalesOrganization`, `DistributionChannel`, `OrganizationDivision`, and `SoldToParty`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `A_SalesQuotationWrapper|error`
+Returns: `A_SalesQuotationWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:A_SalesQuotationWrapper created = check quotationClient->createA_SalesQuotation({
@@ -180,7 +181,7 @@ quotation:A_SalesQuotationWrapper created = check quotationClient->createA_Sales
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -209,7 +210,7 @@ quotation:A_SalesQuotationWrapper created = check quotationClient->createA_Sales
 
 Updates specific fields of an existing sales quotation header using an OData PATCH (partial update).
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -217,9 +218,9 @@ Updates specific fields of an existing sales quotation header using an OData PAT
 | `payload` | `ModifiedA_SalesQuotationType` | Yes | Fields to update on the sales quotation header (only changed fields need to be supplied). |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check quotationClient->patchA_SalesQuotation("20000001", {
@@ -227,7 +228,7 @@ http:Response _ = check quotationClient->patchA_SalesQuotation("20000001", {
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP 204 No Content
@@ -244,22 +245,22 @@ HTTP 204 No Content
 
 Deletes a sales quotation header and all its associated child entities.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `SalesQuotation` | `string` | Yes | Sales quotation document number to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check quotationClient->deleteA_SalesQuotation("20000099");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP 204 No Content
@@ -269,7 +270,7 @@ HTTP 204 No Content
 
 </details>
 
-#### Sales Quotation Items
+#### Sales quotation items
 
 <details>
 <summary>listItemsOfA_SalesQuotation</summary>
@@ -278,7 +279,7 @@ HTTP 204 No Content
 
 Retrieves all line items for a specific sales quotation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -286,15 +287,15 @@ Retrieves all line items for a specific sales quotation.
 | `queries` | `ListItemsOfA_SalesQuotationQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SalesQuotationItemWrapper|error`
+Returns: `CollectionOfA_SalesQuotationItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SalesQuotationItemWrapper items = check quotationClient->listItemsOfA_SalesQuotation("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -336,7 +337,7 @@ quotation:CollectionOfA_SalesQuotationItemWrapper items = check quotationClient-
 
 Reads a single line item from a sales quotation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -345,15 +346,15 @@ Reads a single line item from a sales quotation.
 | `queries` | `GetA_SalesQuotationItemQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `A_SalesQuotationItemWrapper|error`
+Returns: `A_SalesQuotationItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:A_SalesQuotationItemWrapper item = check quotationClient->getA_SalesQuotationItem("20000001", "10");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -384,7 +385,7 @@ quotation:A_SalesQuotationItemWrapper item = check quotationClient->getA_SalesQu
 
 Creates a new line item on an existing sales quotation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -392,9 +393,9 @@ Creates a new line item on an existing sales quotation.
 | `payload` | `CreateA_SalesQuotationItem` | Yes | Item fields including `Material`, `RequestedQuantity`, and `RequestedQuantityUnit`. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `A_SalesQuotationItemWrapper|error`
+Returns: `A_SalesQuotationItemWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:A_SalesQuotationItemWrapper newItem = check quotationClient->createItemOfA_SalesQuotation("20000001", {
@@ -404,7 +405,7 @@ quotation:A_SalesQuotationItemWrapper newItem = check quotationClient->createIte
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -432,7 +433,7 @@ quotation:A_SalesQuotationItemWrapper newItem = check quotationClient->createIte
 
 Updates specific fields of a sales quotation line item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -441,9 +442,9 @@ Updates specific fields of a sales quotation line item.
 | `payload` | `ModifiedA_SalesQuotationItemType` | Yes | Item fields to update. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check quotationClient->patchA_SalesQuotationItem("20000001", "10", {
@@ -451,7 +452,7 @@ http:Response _ = check quotationClient->patchA_SalesQuotationItem("20000001", "
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP 204 No Content
@@ -468,7 +469,7 @@ HTTP 204 No Content
 
 Deletes a line item from a sales quotation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -476,15 +477,15 @@ Deletes a line item from a sales quotation.
 | `SalesQuotationItem` | `string` | Yes | Item number to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check quotationClient->deleteA_SalesQuotationItem("20000001", "30");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP 204 No Content
@@ -503,7 +504,7 @@ HTTP 204 No Content
 
 Retrieves all header-level partner entries (sold-to, ship-to, bill-to, payer, etc.) for a sales quotation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -511,15 +512,15 @@ Retrieves all header-level partner entries (sold-to, ship-to, bill-to, payer, et
 | `queries` | `ListPartnersOfA_SalesQuotationQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SalesQuotationPartnerWrapper|error`
+Returns: `CollectionOfA_SalesQuotationPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SalesQuotationPartnerWrapper partners = check quotationClient->listPartnersOfA_SalesQuotation("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -559,7 +560,7 @@ quotation:CollectionOfA_SalesQuotationPartnerWrapper partners = check quotationC
 
 Reads a specific partner function entry from a sales quotation header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -568,15 +569,15 @@ Reads a specific partner function entry from a sales quotation header.
 | `queries` | `GetA_SalesQuotationPartnerQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `A_SalesQuotationPartnerWrapper|error`
+Returns: `A_SalesQuotationPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:A_SalesQuotationPartnerWrapper partner = check quotationClient->getA_SalesQuotationPartner("20000001", "AG");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -601,7 +602,7 @@ quotation:A_SalesQuotationPartnerWrapper partner = check quotationClient->getA_S
 
 Updates partner data for a specific partner function on a sales quotation header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -610,9 +611,9 @@ Updates partner data for a specific partner function on a sales quotation header
 | `payload` | `ModifiedA_SalesQuotationPartnerType` | Yes | Partner fields to update. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check quotationClient->patchA_SalesQuotationPartner("20000001", "WE", {
@@ -620,7 +621,7 @@ http:Response _ = check quotationClient->patchA_SalesQuotationPartner("20000001"
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP 204 No Content
@@ -637,7 +638,7 @@ HTTP 204 No Content
 
 Retrieves all item-level partners for a specific sales quotation line item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -646,15 +647,15 @@ Retrieves all item-level partners for a specific sales quotation line item.
 | `queries` | `ListPartnersOfA_SalesQuotationItemQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SalesQuotationItemPartnerWrapper|error`
+Returns: `CollectionOfA_SalesQuotationItemPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SalesQuotationItemPartnerWrapper itemPartners = check quotationClient->listPartnersOfA_SalesQuotationItem("20000001", "10");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -682,7 +683,7 @@ quotation:CollectionOfA_SalesQuotationItemPartnerWrapper itemPartners = check qu
 
 Reads a specific partner function entry from a sales quotation line item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -692,15 +693,15 @@ Reads a specific partner function entry from a sales quotation line item.
 | `queries` | `GetA_SalesQuotationItemPartnerQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `A_SalesQuotationItemPartnerWrapper|error`
+Returns: `A_SalesQuotationItemPartnerWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:A_SalesQuotationItemPartnerWrapper itemPartner = check quotationClient->getA_SalesQuotationItemPartner("20000001", "10", "WE");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -718,7 +719,7 @@ quotation:A_SalesQuotationItemPartnerWrapper itemPartner = check quotationClient
 
 </details>
 
-#### Pricing Elements
+#### Pricing elements
 
 <details>
 <summary>listPricingElementsOfA_SalesQuotation</summary>
@@ -727,7 +728,7 @@ quotation:A_SalesQuotationItemPartnerWrapper itemPartner = check quotationClient
 
 Retrieves all header-level pricing condition records for a sales quotation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -735,15 +736,15 @@ Retrieves all header-level pricing condition records for a sales quotation.
 | `queries` | `ListPricingElementsOfA_SalesQuotationQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SalesQuotationPrcgElmntWrapper|error`
+Returns: `CollectionOfA_SalesQuotationPrcgElmntWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SalesQuotationPrcgElmntWrapper prcgElmnts = check quotationClient->listPricingElementsOfA_SalesQuotation("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -783,7 +784,7 @@ quotation:CollectionOfA_SalesQuotationPrcgElmntWrapper prcgElmnts = check quotat
 
 Reads a specific pricing element (condition record) from a sales quotation header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -793,15 +794,15 @@ Reads a specific pricing element (condition record) from a sales quotation heade
 | `queries` | `GetA_SalesQuotationPrcgElmntQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `A_SalesQuotationPrcgElmntWrapper|error`
+Returns: `A_SalesQuotationPrcgElmntWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:A_SalesQuotationPrcgElmntWrapper prcgElmnt = check quotationClient->getA_SalesQuotationPrcgElmnt("20000001", "10", "10");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -832,7 +833,7 @@ quotation:A_SalesQuotationPrcgElmntWrapper prcgElmnt = check quotationClient->ge
 
 Updates a specific pricing element on a sales quotation header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -842,9 +843,9 @@ Updates a specific pricing element on a sales quotation header.
 | `payload` | `ModifiedA_SalesQuotationPrcgElmntType` | Yes | Pricing element fields to update (e.g., `ConditionRateValue`). |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check quotationClient->patchA_SalesQuotationPrcgElmnt("20000001", "10", "10", {
@@ -852,7 +853,7 @@ http:Response _ = check quotationClient->patchA_SalesQuotationPrcgElmnt("2000000
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP 204 No Content
@@ -869,7 +870,7 @@ HTTP 204 No Content
 
 Retrieves all item-level pricing elements for a sales quotation line item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -878,15 +879,15 @@ Retrieves all item-level pricing elements for a sales quotation line item.
 | `queries` | `ListPricingElementsOfA_SalesQuotationItemQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SalesQuotationItemPrcgElmntWrapper|error`
+Returns: `CollectionOfA_SalesQuotationItemPrcgElmntWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SalesQuotationItemPrcgElmntWrapper itemPrcg = check quotationClient->listPricingElementsOfA_SalesQuotationItem("20000001", "10");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -920,7 +921,7 @@ quotation:CollectionOfA_SalesQuotationItemPrcgElmntWrapper itemPrcg = check quot
 
 Retrieves all text objects associated with a sales quotation header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -928,15 +929,15 @@ Retrieves all text objects associated with a sales quotation header.
 | `queries` | `ListTextsOfA_SalesQuotationQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SalesQuotationTextWrapper|error`
+Returns: `CollectionOfA_SalesQuotationTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SalesQuotationTextWrapper texts = check quotationClient->listTextsOfA_SalesQuotation("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -970,7 +971,7 @@ quotation:CollectionOfA_SalesQuotationTextWrapper texts = check quotationClient-
 
 Reads a specific text object from a sales quotation header by language and text ID.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -980,15 +981,15 @@ Reads a specific text object from a sales quotation header by language and text 
 | `queries` | `GetA_SalesQuotationTextQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `A_SalesQuotationTextWrapper|error`
+Returns: `A_SalesQuotationTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:A_SalesQuotationTextWrapper text = check quotationClient->getA_SalesQuotationText("20000001", "EN", "0001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1012,7 +1013,7 @@ quotation:A_SalesQuotationTextWrapper text = check quotationClient->getA_SalesQu
 
 Updates the long-text content of a text object on a sales quotation header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1022,9 +1023,9 @@ Updates the long-text content of a text object on a sales quotation header.
 | `payload` | `ModifiedA_SalesQuotationTextType` | Yes | Updated text content to write. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check quotationClient->patchA_SalesQuotationText("20000001", "EN", "0001", {
@@ -1032,7 +1033,7 @@ http:Response _ = check quotationClient->patchA_SalesQuotationText("20000001", "
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP 204 No Content
@@ -1049,7 +1050,7 @@ HTTP 204 No Content
 
 Retrieves all text objects for a specific sales quotation line item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1058,15 +1059,15 @@ Retrieves all text objects for a specific sales quotation line item.
 | `queries` | `ListTextsOfA_SalesQuotationItemQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SalesQuotationItemTextWrapper|error`
+Returns: `CollectionOfA_SalesQuotationItemTextWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SalesQuotationItemTextWrapper itemTexts = check quotationClient->listTextsOfA_SalesQuotationItem("20000001", "10");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1088,7 +1089,7 @@ quotation:CollectionOfA_SalesQuotationItemTextWrapper itemTexts = check quotatio
 
 </details>
 
-#### Related Objects
+#### Related objects
 
 <details>
 <summary>listRelatedObjectsOfA_SalesQuotation</summary>
@@ -1097,7 +1098,7 @@ quotation:CollectionOfA_SalesQuotationItemTextWrapper itemTexts = check quotatio
 
 Retrieves all related object associations for a sales quotation header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1105,15 +1106,15 @@ Retrieves all related object associations for a sales quotation header.
 | `queries` | `ListRelatedObjectsOfA_SalesQuotationQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SalesQuotationRelatedObjectWrapper|error`
+Returns: `CollectionOfA_SalesQuotationRelatedObjectWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SalesQuotationRelatedObjectWrapper relObjs = check quotationClient->listRelatedObjectsOfA_SalesQuotation("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1143,7 +1144,7 @@ quotation:CollectionOfA_SalesQuotationRelatedObjectWrapper relObjs = check quota
 
 Creates a new related object association for a sales quotation header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1151,9 +1152,9 @@ Creates a new related object association for a sales quotation header.
 | `payload` | `CreateA_SalesQuotationRelatedObject` | Yes | Related object fields including `SDDocumentRelatedObjectType`, `SDDocRelatedObjectSystem`, and reference values. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `A_SalesQuotationRelatedObjectWrapper|error`
+Returns: `A_SalesQuotationRelatedObjectWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:A_SalesQuotationRelatedObjectWrapper relObj = check quotationClient->createRelatedObjectOfA_SalesQuotation("20000001", {
@@ -1163,7 +1164,7 @@ quotation:A_SalesQuotationRelatedObjectWrapper relObj = check quotationClient->c
 });
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1188,7 +1189,7 @@ quotation:A_SalesQuotationRelatedObjectWrapper relObj = check quotationClient->c
 
 Removes a related object association from a sales quotation header.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1196,15 +1197,15 @@ Removes a related object association from a sales quotation header.
 | `SDDocRelatedObjectSequenceNmbr` | `string` | Yes | Sequence number of the related object entry to delete. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response _ = check quotationClient->deleteA_SalesQuotationRelatedObject("20000001", "2");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP 204 No Content
@@ -1214,7 +1215,7 @@ HTTP 204 No Content
 
 </details>
 
-#### Process Flow
+#### Process flow
 
 <details>
 <summary>listPrecedingProcFlowDocsOfA_SalesQuotation</summary>
@@ -1223,7 +1224,7 @@ HTTP 204 No Content
 
 Retrieves preceding process flow documents (e.g., sales inquiries) linked to a sales quotation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1231,15 +1232,15 @@ Retrieves preceding process flow documents (e.g., sales inquiries) linked to a s
 | `queries` | `ListPrecedingProcFlowDocsOfA_SalesQuotationQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SlsQtanPrecdgProcFlowWrapper|error`
+Returns: `CollectionOfA_SlsQtanPrecdgProcFlowWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SlsQtanPrecdgProcFlowWrapper preceding = check quotationClient->listPrecedingProcFlowDocsOfA_SalesQuotation("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1268,7 +1269,7 @@ quotation:CollectionOfA_SlsQtanPrecdgProcFlowWrapper preceding = check quotation
 
 Retrieves subsequent process flow documents (e.g., sales orders) created from a sales quotation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1276,15 +1277,15 @@ Retrieves subsequent process flow documents (e.g., sales orders) created from a 
 | `queries` | `ListSubsequentProcFlowDocsOfA_SalesQuotationQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SlsQtanSubsqntProcFlowWrapper|error`
+Returns: `CollectionOfA_SlsQtanSubsqntProcFlowWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SlsQtanSubsqntProcFlowWrapper subsequent = check quotationClient->listSubsequentProcFlowDocsOfA_SalesQuotation("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1313,7 +1314,7 @@ quotation:CollectionOfA_SlsQtanSubsqntProcFlowWrapper subsequent = check quotati
 
 Retrieves preceding process flow document items linked to a specific sales quotation line item.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1322,15 +1323,15 @@ Retrieves preceding process flow document items linked to a specific sales quota
 | `queries` | `ListPrecedingProcFlowDocItemsOfA_SalesQuotationItemQueries` | No | OData query options. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `CollectionOfA_SlsQtanItmPrecdgProcFlowWrapper|error`
+Returns: `CollectionOfA_SlsQtanItmPrecdgProcFlowWrapper|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:CollectionOfA_SlsQtanItmPrecdgProcFlowWrapper itemPreceding = check quotationClient->listPrecedingProcFlowDocItemsOfA_SalesQuotationItem("20000001", "10");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1353,7 +1354,7 @@ quotation:CollectionOfA_SlsQtanItmPrecdgProcFlowWrapper itemPreceding = check qu
 
 </details>
 
-#### Approval Actions
+#### Approval actions
 
 <details>
 <summary>releaseApprovalRequest</summary>
@@ -1362,7 +1363,7 @@ quotation:CollectionOfA_SlsQtanItmPrecdgProcFlowWrapper itemPreceding = check qu
 
 Releases (approves) an open approval request on a sales quotation, advancing it to the approved status.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1370,15 +1371,15 @@ Releases (approves) an open approval request on a sales quotation, advancing it 
 | `queries` | `ReleaseApprovalRequestQueries` | No | OData action query parameters. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `FunctionResult_1|error`
+Returns: `FunctionResult_1|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:FunctionResult_1 result = check quotationClient->releaseApprovalRequest("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1402,7 +1403,7 @@ quotation:FunctionResult_1 result = check quotationClient->releaseApprovalReques
 
 Rejects an open approval request on a sales quotation.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -1410,15 +1411,15 @@ Rejects an open approval request on a sales quotation.
 | `queries` | `RejectApprovalRequestQueries` | No | OData action query parameters. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers. |
 
-**Returns:** `FunctionResult_2|error`
+Returns: `FunctionResult_2|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 quotation:FunctionResult_2 result = check quotationClient->rejectApprovalRequest("20000001");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -1435,7 +1436,7 @@ quotation:FunctionResult_2 result = check quotationClient->rejectApprovalRequest
 
 </details>
 
-#### Batch Operations
+#### Batch operations
 
 <details>
 <summary>performBatchOperation</summary>
@@ -1444,16 +1445,16 @@ quotation:FunctionResult_2 result = check quotationClient->rejectApprovalRequest
 
 Sends multiple OData requests as a single HTTP $batch call, reducing network round trips for bulk operations.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `request` | `http:Request` | Yes | An HTTP request with a `multipart/mixed` body containing OData sub-requests per the OData batch specification. |
 | `headers` | `map<string\|string[]>` | No | Additional HTTP headers for the outer batch request. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Request batchRequest = new;
@@ -1462,7 +1463,7 @@ batchRequest.setHeader("Content-Type", "multipart/mixed; boundary=batch_boundary
 http:Response batchResponse = check quotationClient->performBatchOperation(batchRequest);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 HTTP 200 OK — multipart/mixed body containing individual sub-response parts

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through creating a Twitter Developer App and obtaining the OAuth 2.0 credentials required to use the Twitter connector.
@@ -8,7 +11,7 @@ This guide walks you through creating a Twitter Developer App and obtaining the 
 - A Twitter (X) account. If you do not have one, [sign up at x.com](https://x.com).
 - A Twitter Developer account with an approved project. [Apply for access here](https://developer.twitter.com/en/apply-for-access).
 
-## Step 1: Create a Twitter Developer Project
+## Step 1: Create a Twitter developer project
 
 1. Open the [Twitter Developer Portal](https://developer.twitter.com/en/portal/dashboard).
 2. Click on the **Projects & Apps** tab.
@@ -16,7 +19,7 @@ This guide walks you through creating a Twitter Developer App and obtaining the 
 4. Provide a project name, select a use case, and provide a project description.
 5. Within the project, create a new App (or use an existing one).
 
-## Step 2: Set Up User Authentication Settings
+## Step 2: Set up user authentication settings
 
 1. In your App's settings page, scroll down to the **User authentication settings** section.
 2. Click **Set up** to configure user authentication.
@@ -31,7 +34,7 @@ This guide walks you through creating a Twitter Developer App and obtaining the 
 Make sure to select the correct app permissions. If you plan to post tweets or send DMs, you need at least Read and Write permissions.
 :::
 
-## Step 3: Obtain Client ID and Client Secret
+## Step 3: Obtain client ID and client secret
 
 1. After completing the user authentication setup, you will be presented with your **Client ID** and **Client Secret**.
 2. Copy and save both values securely.
@@ -41,7 +44,7 @@ Store the Client ID and Client Secret securely. Do not commit them to source con
 Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 4: Generate an Access Token via OAuth 2.0 PKCE Flow
+## Step 4: Generate an access token via OAuth 2.0 PKCE flow
 
 Use the OAuth 2.0 Authorization Code with PKCE flow to obtain an access token:
 

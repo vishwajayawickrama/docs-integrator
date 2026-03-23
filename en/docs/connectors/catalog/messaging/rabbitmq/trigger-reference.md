@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/rabbitmq` connector supports event-driven message consumption through a `rabbitmq:Listener` and `rabbitmq:Service`. When messages arrive on a subscribed queue, the listener dispatches them to your service callbacks automatically, supporting both one-way message processing and request-reply patterns.
@@ -28,7 +31,7 @@ The listener supports the following connection strategies:
 |-------------|-------------|
 | `ConnectionConfiguration` | Connection settings for the RabbitMQ listener, including authentication, virtual host, timeouts, and TLS. |
 
-**`ConnectionConfiguration` fields:**
+`ConnectionConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -43,7 +46,7 @@ The listener supports the following connection strategies:
 | `heartbeat` | `decimal` | `()` | Heartbeat interval in seconds. |
 | `secureSocket` | `SecureSocket` | `()` | TLS/SSL configuration for secure connections. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Basic listener with default settings:**
 
@@ -95,7 +98,7 @@ listener rabbitmq:Listener channelListener = new ("rabbitmq.example.com", 5671,
 A `rabbitmq:Service` is a Ballerina service attached to a `rabbitmq:Listener`. It is annotated with `@rabbitmq:ServiceConfig` to specify the queue to consume from and acknowledgement mode. Implement `onMessage` for one-way consumption or `onRequest` for request-reply patterns.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -106,7 +109,7 @@ A `rabbitmq:Service` is a Ballerina service attached to a `rabbitmq:Listener`. I
 You can implement either `onMessage` or `onRequest` — not both in the same service. Use `onMessage` for fire-and-forget consumption and `onRequest` when the publisher expects a reply.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -141,7 +144,7 @@ When `autoAck` is set to `true` (the default), messages are acknowledged automat
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `AnydataMessage`
 

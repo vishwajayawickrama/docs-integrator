@@ -1,4 +1,5 @@
 ---
+title: Actions
 toc_max_heading_level: 4
 ---
 
@@ -34,7 +35,7 @@ Manage WSO2 APIM Service Catalog entries — CRUD, definition retrieval, usage l
 | `proxy` | `http:ProxyConfig` | `()` | Proxy server configuration. |
 | `validation` | `boolean` | `true` | Enable or disable constraint validation on request and response payloads. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/wso2.apim.catalog;
@@ -59,7 +60,7 @@ catalog:Client catalogClient = check new ({
 
 ### Operations
 
-#### Service Management
+#### Service management
 
 <details>
 <summary>List services</summary>
@@ -68,7 +69,7 @@ catalog:Client catalogClient = check new ({
 
 Retrieves a paginated list of services registered in the Service Catalog, with optional filtering by name, version, definition type, or service key.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
@@ -82,9 +83,9 @@ Retrieves a paginated list of services registered in the Service Catalog, with o
 | `'limit` | `int` | No | Maximum number of results to return. Default: `25`. |
 | `offset` | `int` | No | Number of results to skip for pagination. Default: `0`. |
 
-**Returns:** `ServiceList|error`
+Returns: `ServiceList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 catalog:ServiceList services = check catalogClient->/services(
@@ -96,7 +97,7 @@ catalog:ServiceList services = check catalogClient->/services(
 );
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -136,15 +137,15 @@ catalog:ServiceList services = check catalogClient->/services(
 
 Registers a new backend service in the Service Catalog with its metadata and optional API definition content.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `catalog:ServiceSchema` | Yes | Service metadata (`serviceMetadata`) and optionally a definition file (`definitionFile`) or inline definition string (`inlineContent`). |
 
-**Returns:** `Service|error`
+Returns: `Service|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 catalog:ServiceSchema payload = {
@@ -160,7 +161,7 @@ catalog:ServiceSchema payload = {
 catalog:Service createdService = check catalogClient->/services.post(payload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -188,21 +189,21 @@ catalog:Service createdService = check catalogClient->/services.post(payload);
 
 Retrieves the full metadata of a specific service from the Service Catalog using its unique identifier.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `serviceId` | `string` | Yes | The unique UUID of the service. |
 
-**Returns:** `Service|error`
+Returns: `Service|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 catalog:Service svc = check catalogClient->/services/["01234567-0123-0123-0123-012345678901"]();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -233,16 +234,16 @@ catalog:Service svc = check catalogClient->/services/["01234567-0123-0123-0123-0
 
 Replaces the metadata and/or definition of an existing service in the Service Catalog.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `serviceId` | `string` | Yes | The unique UUID of the service to update. |
 | `payload` | `catalog:ServiceSchema` | Yes | Updated service metadata and optional definition file or inline content. |
 
-**Returns:** `Service|error`
+Returns: `Service|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 catalog:ServiceSchema updatePayload = {
@@ -258,7 +259,7 @@ catalog:ServiceSchema updatePayload = {
 catalog:Service updated = check catalogClient->/services/["01234567-0123-0123-0123-012345678901"].put(updatePayload);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -286,15 +287,15 @@ catalog:Service updated = check catalogClient->/services/["01234567-0123-0123-01
 
 Removes a service from the Service Catalog. The operation succeeds only if the service is not referenced by any existing APIs.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `serviceId` | `string` | Yes | The unique UUID of the service to delete. |
 
-**Returns:** `http:Response|error`
+Returns: `http:Response|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 http:Response response = check catalogClient->/services/["01234567-0123-0123-0123-012345678901"].delete();
@@ -304,7 +305,7 @@ http:Response response = check catalogClient->/services/["01234567-0123-0123-012
 
 </details>
 
-#### Service Definition & Usage
+#### Service definition & usage
 
 <details>
 <summary>Get service definition</summary>
@@ -313,21 +314,21 @@ http:Response response = check catalogClient->/services/["01234567-0123-0123-012
 
 Retrieves the raw API definition content (e.g., OpenAPI YAML, WSDL XML) stored for the service.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `serviceId` | `string` | Yes | The unique UUID of the service. |
 
-**Returns:** `string|error`
+Returns: `string|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 string definition = check catalogClient->/services/["01234567-0123-0123-0123-012345678901"]/definition();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 "openapi: 3.0.0\ninfo:\n  title: Pizza Shack API\n  version: v1\npaths:\n  /menu:\n    get:\n      summary: List menu items\n      responses:\n        '200':\n          description: OK\n"
@@ -344,21 +345,21 @@ string definition = check catalogClient->/services/["01234567-0123-0123-0123-012
 
 Returns the list of APIs that reference this service in the Service Catalog, allowing you to assess service dependencies before making changes.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `serviceId` | `string` | Yes | The unique UUID of the service. |
 
-**Returns:** `APIList|error`
+Returns: `APIList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 catalog:APIList usageList = check catalogClient->/services/["01234567-0123-0123-0123-012345678901"]/usage();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -379,7 +380,7 @@ catalog:APIList usageList = check catalogClient->/services/["01234567-0123-0123-
 
 </details>
 
-#### Import & Export
+#### Import & export
 
 <details>
 <summary>Import services</summary>
@@ -388,16 +389,16 @@ catalog:APIList usageList = check catalogClient->/services/["01234567-0123-0123-
 
 Bulk-imports one or more services into the Service Catalog from a ZIP archive containing service definition files and metadata.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `payload` | `catalog:Services_import_body` | Yes | Multipart form payload with a `file` field containing the ZIP archive (`fileContent` as `byte[]` and `fileName` as `string`), and an optional `verifier` string. |
 | `overwrite` | `boolean` | No | If true, existing services with matching keys are overwritten. Default: `false`. |
 
-**Returns:** `ServiceInfoList|error`
+Returns: `ServiceInfoList|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] zipContent = check io:fileReadBytes("services-bundle.zip");
@@ -407,7 +408,7 @@ catalog:Services_import_body importBody = {
 catalog:ServiceInfoList result = check catalogClient->/services/'import.post(importBody, overwrite = true);
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {
@@ -442,22 +443,22 @@ catalog:ServiceInfoList result = check catalogClient->/services/'import.post(imp
 
 Exports a service and its API definition as a ZIP archive, identified by service name and version.
 
-**Parameters:**
+Parameters:
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `name` | `string` | Yes | The exact name of the service to export. |
 | `version` | `string` | Yes | The exact version of the service to export. |
 
-**Returns:** `byte[]|error`
+Returns: `byte[]|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 byte[] exportedZip = check catalogClient->/services/export(name = "PizzaShackAPI", version = "v1");
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 [80, 75, 3, 4, 20, 0, 0, 0, 8, 0]
@@ -477,15 +478,15 @@ byte[] exportedZip = check catalogClient->/services/export(name = "PizzaShackAPI
 Retrieves Service Catalog configuration settings, including the list of OAuth2 scopes available for the current user.
 
 
-**Returns:** `Settings|error`
+Returns: `Settings|error`
 
-**Sample code:**
+Sample code:
 
 ```ballerina
 catalog:Settings settings = check catalogClient->/settings();
 ```
 
-**Sample response:**
+Sample response:
 
 ```ballerina
 {

@@ -1,3 +1,6 @@
+---
+title: Setup Guide
+---
 # Setup Guide
 
 This guide walks you through setting up a HubSpot developer account and obtaining the credentials required to use the HubSpot Automation Actions connector.
@@ -8,7 +11,7 @@ This guide walks you through setting up a HubSpot developer account and obtainin
 - A HubSpot account with a **Professional** or higher plan (Marketing Hub, Sales Hub, or Service Hub). If you do not have one, [sign up for a HubSpot account](https://www.hubspot.com/).
 - A HubSpot developer account. If you do not have one, [create a free developer account](https://developers.hubspot.com/).
 
-## Step 1: Create a HubSpot Developer App
+## Step 1: Create a HubSpot developer app
 
 1. Log in to your [HubSpot developer account](https://developers.hubspot.com/).
 2. Navigate to **Apps** in the top navigation bar.
@@ -16,7 +19,7 @@ This guide walks you through setting up a HubSpot developer account and obtainin
 4. Under **App Info**, fill in the **Public app name** (e.g., `Ballerina Automation Connector`).
 5. Click **Save**.
 
-## Step 2: Configure OAuth Settings
+## Step 2: Configure OAuth settings
 
 1. In your app settings, go to the **Auth** tab.
 2. Note down the **Client ID** and **Client Secret** — you will need these for OAuth 2.0 authentication.
@@ -28,7 +31,7 @@ This guide walks you through setting up a HubSpot developer account and obtainin
 The `automation` scope is required for accessing the Automation Actions API endpoints.
 :::
 
-## Step 3: Obtain an OAuth 2.0 Access Token
+## Step 3: Obtain an OAuth 2.0 access token
 
 Use the HubSpot OAuth 2.0 Authorization Code flow to obtain tokens:
 
@@ -59,7 +62,7 @@ Use the HubSpot OAuth 2.0 Authorization Code flow to obtain tokens:
 Store the Client ID, Client Secret, and refresh token securely. Use Ballerina's `configurable` feature and a `Config.toml` file to supply them at runtime.
 :::
 
-## Step 4: Obtain a Developer API Key
+## Step 4: Obtain a developer API key
 
 The Definitions, Functions, and Revisions endpoints require a developer API key:
 
@@ -71,7 +74,7 @@ The Definitions, Functions, and Revisions endpoints require a developer API key:
 Developer API keys provide broad access to your developer account. Keep them confidential and never expose them in client-side code or public repositories.
 :::
 
-## Step 5: Note Your App ID
+## Step 5: Note your app ID
 
 1. In your HubSpot developer account, navigate to **Apps** and select your app.
 2. The **App ID** is displayed in the app settings page or in the URL (e.g., `https://developers.hubspot.com/.../<appId>`).

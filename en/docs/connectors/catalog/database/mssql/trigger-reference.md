@@ -1,3 +1,6 @@
+---
+title: Triggers
+---
 # Triggers
 
 The `ballerinax/mssql` connector supports event-driven integration through Debezium-based Change Data Capture (CDC). When records are created, updated, deleted, or read during an initial snapshot in CDC-enabled tables, the listener receives change events in real time, triggering your service callbacks automatically.
@@ -27,7 +30,7 @@ The listener supports the following connection strategies:
 |-------------|-------------|
 | `MsSqlListenerConfiguration` | Configuration for the MSSQL CDC listener, combining database connection settings with CDC-specific options. |
 
-**`MsSqlListenerConfiguration` fields:**
+`MsSqlListenerConfiguration` fields:
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
@@ -43,7 +46,7 @@ The listener supports the following connection strategies:
 | `offsetStorage` | `cdc:FileOffsetBackingStore\|cdc:KafkaOffsetBackingStore` | File-based | Offset storage backend for tracking CDC position. |
 | `offsetFlushIntervalMs` | `int` | `60000` | Interval in milliseconds between offset flushes. |
 
-### Initializing the Listener
+### Initializing the listener
 
 **Basic CDC listener for a single database:**
 
@@ -77,7 +80,7 @@ listener mssql:CdcListener cdcListener = new ({
 A `cdc:Service` is a Ballerina service attached to a `mssql:CdcListener`. It listens for change events on the configured CDC-enabled tables and implements callbacks for each event type.
 
 
-### Callback Signatures
+### Callback signatures
 
 | Function | Signature | Description |
 |----------|-----------|-------------|
@@ -91,7 +94,7 @@ A `cdc:Service` is a Ballerina service attached to a `mssql:CdcListener`. It lis
 You do not need to implement all callbacks. Only implement the event types relevant to your use case.
 :::
 
-### Full Usage Example
+### Full usage example
 
 ```ballerina
 import ballerina/log;
@@ -144,7 +147,7 @@ CDC must be enabled on the SQL Server database and the specific tables you want 
 
 ---
 
-## Supporting Types
+## Supporting types
 
 ### `MsSqlDatabaseConnection`
 

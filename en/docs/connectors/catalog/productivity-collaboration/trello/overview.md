@@ -1,9 +1,12 @@
+---
+title: Trello Connector Overview
+---
 # Trello Connector Overview
 
 Trello is a web-based project management tool that uses boards, lists, and cards to organize tasks and workflows. The Ballerina `ballerinax/trello` connector (v2.0.1) provides programmatic access to the Trello REST API, enabling you to manage boards, lists, cards, members, labels, checklists, organizations, and more within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on boards, lists, and cards
 - Member and organization management including invitations and role assignments
@@ -25,14 +28,14 @@ Actions are operations you invoke on Trello from your integration — creating c
 
 See the **[Action Reference](action-reference.md)** for the full list of operations, parameters, and sample code for each client.
 
-## Trello Connector Documentation
+## Trello connector documentation
 
 * **[Trello Connector Setup Guide](setup-guide.md)**: This guide walks you through obtaining a Trello API key and token required to use the Trello connector.
 
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

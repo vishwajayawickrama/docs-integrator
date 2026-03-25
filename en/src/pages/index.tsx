@@ -103,7 +103,7 @@ const sections: SectionCard[] = [
   {
     title: 'Develop',
     description: 'Build services, transform data, and test integrations on your machine.',
-    link: '/docs/develop/create-integrations/create-new-integration',
+    link: '/docs/develop/overview',
     icon: <IconDevelop />,
     iconBg: '#EFF6FF',
     iconBgDark: 'rgba(37, 99, 235, 0.15)',
@@ -121,7 +121,7 @@ const sections: SectionCard[] = [
   {
     title: 'GenAI',
     description: 'Build AI-powered integrations with agents, RAG, and MCP servers.',
-    link: '/docs/genai/getting-started/setup',
+    link: '/docs/genai/overview',
     icon: <IconGenAI />,
     iconBg: '#FDF4FF',
     iconBgDark: 'rgba(168, 85, 247, 0.15)',
@@ -130,7 +130,7 @@ const sections: SectionCard[] = [
   {
     title: 'Tutorials',
     description: 'End-to-end walkthroughs, integration patterns, and sample projects.',
-    link: '/docs/tutorials/salesforce-db-sync',
+    link: '/docs/tutorials/overview',
     icon: <IconTutorials />,
     iconBg: '#FFF8EB',
     iconBgDark: 'rgba(217, 119, 6, 0.15)',
@@ -139,7 +139,7 @@ const sections: SectionCard[] = [
   {
     title: 'Deploy & Operate',
     description: 'Docker, Kubernetes, CI/CD, observability, and production security.',
-    link: '/docs/deploy-operate/deploy/local',
+    link: '/docs/deploy-operate/overview',
     icon: <IconDeploy />,
     iconBg: '#ECFEFF',
     iconBgDark: 'rgba(8, 145, 178, 0.15)',
@@ -148,7 +148,7 @@ const sections: SectionCard[] = [
   {
     title: 'Reference',
     description: 'Language reference, configuration keys, CLI commands, and error codes.',
-    link: '/docs/reference/language/syntax',
+    link: '/docs/reference/overview',
     icon: <IconReference />,
     iconBg: '#F1F5F9',
     iconBgDark: 'rgba(100, 116, 139, 0.15)',

@@ -3,7 +3,7 @@
 HubSpot Automation Actions is part of the HubSpot CRM platform, enabling developers to create custom workflow actions (extensions) that integrate external services into HubSpot workflows. The Ballerina `ballerinax/hubspot.automation.actions` connector provides programmatic access to the HubSpot Automation Actions API v4, allowing you to manage extension definitions, custom functions, revisions, and complete workflow callbacks.
 
 
-## Key Features
+## Key features
 
 - Create, read, update, and archive custom workflow extension definitions
 - Manage custom functions attached to extension definitions (pre/post action execution, fetch options)
@@ -30,7 +30,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

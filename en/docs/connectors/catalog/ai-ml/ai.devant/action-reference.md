@@ -28,7 +28,7 @@ Sends binary documents to the Devant AI API and returns an array of semantic chu
 | `strategy` | `devant:ChunkStrategy` | `RECURSIVE` | Chunking strategy: `RECURSIVE`, `SENTENCE`, `PARAGRAPH`, or `CHARACTER`. |
 | `connectionConfig` | `ai:ConnectionConfig` | `{}` | Additional HTTP connection configuration (timeouts, proxy, SSL, etc.). |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ai.devant;
@@ -47,7 +47,7 @@ devant:Chunker chunker = check new (
 
 ### Operations
 
-#### Document Chunking
+#### Document chunking
 
 <details>
 <summary>chunk</summary>
@@ -98,7 +98,7 @@ ai:Chunk[] chunks = check chunker.chunk(doc);
 
 ---
 
-## Binary Data Loader
+## Binary data loader
 
 Loads binary documents from a local file or directory into `ai:Document` objects ready for processing.
 
@@ -108,7 +108,7 @@ Loads binary documents from a local file or directory into `ai:Document` objects
 |-------|------|---------|-------------|
 | `path` | `string` | Required | The absolute or relative file system path to a single file or a directory of files to load. |
 
-### Initializing the Client
+### Initializing the client
 
 ```ballerina
 import ballerinax/ai.devant;
@@ -118,7 +118,7 @@ devant:BinaryDataLoader loader = check new ("./documents/sample.pdf");
 
 ### Operations
 
-#### Document Loading
+#### Document loading
 
 <details>
 <summary>load</summary>

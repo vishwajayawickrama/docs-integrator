@@ -6,7 +6,7 @@ description: "Overview of the ballerinax/hubspot.crm.associations connector for 
 HubSpot CRM Associations is the HubSpot API for creating, reading, and managing relationships between CRM objects such as contacts, companies, deals, and tickets. The Ballerina `ballerinax/hubspot.crm.associations` connector (v2.0.0) provides programmatic access to HubSpot's Associations v4 API, enabling you to define both default HubSpot-defined and custom labeled associations between any two CRM object types within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - List all associations of a specific type between two CRM objects using a paginated GET operation
 - Create or update labeled association relationships between individual pairs of CRM records
@@ -36,7 +36,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

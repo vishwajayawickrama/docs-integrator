@@ -3,7 +3,7 @@
 NATS is a high-performance, cloud-native messaging system that supports publish/subscribe, request/reply, and queue group patterns, as well as persistent messaging through JetStream. The Ballerina `ballerinax/nats` connector (v3.3.0) provides programmatic access to a NATS server for publishing messages, subscribing to subjects, performing request-reply exchanges, and managing JetStream streams and consumers within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Publish messages to any NATS subject with support for `anydata` content types
 - Request-reply messaging pattern with configurable timeout for synchronous interactions
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

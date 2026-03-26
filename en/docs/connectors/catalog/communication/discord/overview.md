@@ -3,7 +3,7 @@
 Discord is a communication platform for communities, teams, and gamers, offering text channels, voice chat, and rich integrations. The Ballerina `ballerinax/discord` connector (v2.0.0) provides programmatic access to the Discord REST API v10, enabling you to manage guilds, channels, messages, members, roles, webhooks, application commands, and more from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Send, retrieve, edit, and delete messages in any channel
 - Full guild (server) management — create, update, and configure guilds
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

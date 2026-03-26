@@ -3,7 +3,7 @@
 Mailchimp is a leading email marketing and automation platform that helps businesses manage audiences, create campaigns, and track engagement. The Ballerina `ballerinax/mailchimp.marketing` connector (v1.0.1) provides programmatic access to the Mailchimp Marketing API v3.0, enabling you to manage audiences, subscribers, campaigns, automations, templates, and more from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on audiences (lists), members, segments, and interest categories
 - Campaign management including creation, scheduling, sending, replication, and content editing
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

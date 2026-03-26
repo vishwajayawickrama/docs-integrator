@@ -6,7 +6,7 @@ description: "Overview of the ballerinax/hubspot.marketing.emails connector for 
 HubSpot Marketing Emails is a tool within the HubSpot marketing platform that lets you create, manage, and send email campaigns. The Ballerina `ballerinax/hubspot.marketing.emails` connector (v1.0.0) provides programmatic access to HubSpot's Marketing Emails API (v3), enabling you to create, update, publish, clone, A/B test, and track statistics for marketing emails from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on marketing emails — create, retrieve, update, and delete
 - List all marketing emails with filtering by publish status, date range, and type
@@ -35,7 +35,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

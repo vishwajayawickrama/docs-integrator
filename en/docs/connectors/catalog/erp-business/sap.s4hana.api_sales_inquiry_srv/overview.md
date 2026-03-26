@@ -3,7 +3,7 @@
 SAP S/4HANA Sales Inquiry (API_SALES_INQUIRY_SRV) is an OData v2 service for reading and managing pre-sales inquiry documents in SAP S/4HANA's Sales and Distribution module. The Ballerina `ballerinax/sap.s4hana.api_sales_inquiry_srv` connector provides typed access to inquiry headers, line items, business partners, and pricing elements, enabling seamless integration of SAP pre-sales data into Ballerina workflows.
 
 
-## Key Features
+## Key features
 
 - Retrieve and list sales inquiry header documents with full OData query support ($filter, $orderby, $top, $skip, $select, $expand)
 - Access individual sales inquiry line items including requested quantities, materials, and net amounts
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

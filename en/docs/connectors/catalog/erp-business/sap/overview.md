@@ -3,7 +3,7 @@
 SAP is a global leader in enterprise resource planning (ERP) software, offering solutions spanning HCM, CRM, SCM, PLM, and more. The Ballerina `ballerinax/sap` connector (v1.3.0) provides an HTTP client for interfacing with APIs across SAP's product suite, with built-in SAP system-compliant CSRF token authentication for seamless integration with services like S/4HANA OData APIs.
 
 
-## Key Features
+## Key features
 
 - HTTP client with built-in CSRF token handling compliant with SAP system requirements
 - Support for all standard HTTP methods: GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -3,7 +3,7 @@
 PayPal is a global payments platform that enables businesses to authorize, capture, refund, and manage payments online. The Ballerina `ballerinax/paypal.payments` connector (v2.0.1) provides programmatic access to the PayPal Payments API v2, enabling you to authorize payments, capture authorized funds, issue refunds, and retrieve payment details within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Show details of authorized payments by authorization ID
 - Capture authorized payments with configurable amounts and payer notes
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -6,7 +6,7 @@ description: "Overview of the ballerinax/hubspot.crm.engagements.communications 
 HubSpot CRM Engagements Communications is a part of the HubSpot CRM platform that manages communication records such as WhatsApp messages, LinkedIn messages, and other messaging interactions. The Ballerina `ballerinax/hubspot.crm.engagements.communications` connector (v2.0.0) provides programmatic access to HubSpot communication records through the CRM API, enabling you to create, retrieve, update, archive, batch-process, and search communication objects within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on HubSpot communication records (create, read, update, archive)
 - Batch operations for creating, reading, updating, upserting, and archiving multiple communications at once
@@ -33,7 +33,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -3,7 +3,7 @@
 HubSpot CRM is a cloud-based customer relationship management platform that helps businesses capture, track, and manage sales leads through structured pipelines. The Ballerina `ballerinax/hubspot.crm.obj.leads` connector (v2.0.0) provides programmatic access to the HubSpot CRM Leads API, enabling full CRUD operations, batch processing, upserts, and search capabilities for lead records within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on individual HubSpot CRM lead records (create, read, update, archive)
 - Batch operations for high-throughput scenarios — batch create, read, update, archive, and upsert
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

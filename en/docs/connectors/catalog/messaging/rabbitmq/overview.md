@@ -3,7 +3,7 @@
 RabbitMQ is an open-source message broker that supports multiple messaging protocols including AMQP 0-9-1. The Ballerina `ballerinax/rabbitmq` connector (v3.3.2) provides programmatic access to RabbitMQ, enabling you to publish messages, consume messages synchronously or asynchronously via listener services, declare and manage queues and exchanges, and build event-driven integration flows.
 
 
-## Key Features
+## Key features
 
 - Publish messages to queues and exchanges with routing key support
 - Asynchronous message consumption via listener services with automatic or manual acknowledgement
@@ -48,7 +48,7 @@ See the **[Trigger Reference](trigger-reference.md)** for listener configuration
 
 * **[Trigger Reference](trigger-reference.md)**: Reference for event-driven integration using the listener and service model.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

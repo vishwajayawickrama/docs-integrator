@@ -3,7 +3,7 @@
 Oracle Database is a multi-model relational database management system widely used for enterprise workloads. The Ballerina `ballerinax/oracledb` connector (v1.15.0) provides programmatic access to Oracle Database through JDBC, enabling you to execute queries, perform CRUD operations, call stored procedures, and work with Oracle-specific data types such as VARRAYs, nested tables, OBJECT types, and interval types within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Execute parameterized SQL queries with streaming result sets via `query` and single-row retrieval via `queryRow`
 - Perform DML operations (INSERT, UPDATE, DELETE) with `execute` and batch operations with `batchExecute`
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -3,7 +3,7 @@
 SAP Sales Quotation is an SAP S/4HANA OData v2 service (API_SALES_QUOTATION_SRV) for managing the full lifecycle of sales quotations in the Sales & Distribution module. The Ballerina `ballerinax/sap.s4hana.api_sales_quotation_srv` connector provides programmatic access to create, read, update, and delete sales quotation headers, line items, partners, pricing elements, texts, and related objects, as well as navigate process flow documents and trigger approval workflow actions.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on sales quotation headers and line items
 - Header- and item-level partner management (sold-to, ship-to, bill-to, payer, and custom partner functions)
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

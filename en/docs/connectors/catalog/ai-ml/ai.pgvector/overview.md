@@ -3,7 +3,7 @@
 pgvector is a PostgreSQL extension that adds support for vector similarity search, enabling storage and retrieval of high-dimensional embeddings alongside relational data. The Ballerina `ballerinax/ai.pgvector` connector (v1.0.3) provides a `VectorStore` client that implements the `ai:VectorStore` interface, allowing you to add, query, and delete vector entries in a PostgreSQL database with pgvector installed.
 
 
-## Key Features
+## Key features
 
 - Store dense, sparse, and hybrid vector embeddings in PostgreSQL with pgvector
 - Similarity search using cosine, Euclidean, or Manhattan distance metrics
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

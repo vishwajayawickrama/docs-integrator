@@ -3,7 +3,7 @@
 Azure AI Search (formerly Azure Cognitive Search) is a cloud search service from Microsoft that provides AI-powered indexing and querying over your content. The Ballerina `ballerinax/azure.ai.search.index` connector (v1.0.1) enables programmatic access to Azure AI Search index operations — searching, retrieving, indexing, autocompleting, and suggesting documents — allowing you to integrate intelligent search into your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full-text search with simple and full Lucene query syntax
 - Semantic search and vector search support for AI-powered relevance ranking
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

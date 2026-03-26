@@ -3,7 +3,7 @@
 PayPal Invoicing is a service that lets merchants create, send, and manage invoices online through PayPal. The Ballerina `ballerinax/paypal.invoices` connector (v1.0.1) provides programmatic access to the PayPal Invoicing API v2, enabling you to create and manage invoices, record payments and refunds, and manage invoice templates from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on invoices — create, read, update, and delete draft invoices
 - Send invoices to recipients and send payment reminders
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

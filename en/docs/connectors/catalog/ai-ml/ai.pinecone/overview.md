@@ -3,7 +3,7 @@
 Pinecone is a fully managed vector database designed for high-performance similarity search in AI applications. The Ballerina `ballerinax/ai.pinecone` connector (v1.1.2) implements the `ai:VectorStore` interface and provides dense, sparse, and hybrid vector search modes, enabling you to store, query, and manage vector embeddings within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Dense, sparse, and hybrid vector search modes for flexible similarity retrieval
 - Vector upsert for adding or updating embeddings in a Pinecone index
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

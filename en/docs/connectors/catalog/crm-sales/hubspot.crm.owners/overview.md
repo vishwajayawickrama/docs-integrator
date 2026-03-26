@@ -6,7 +6,7 @@ description: "Overview of the ballerinax/hubspot.crm.owners connector for WSO2 I
 HubSpot CRM uses owners to assign CRM objects to specific people in your organization. The Ballerina `ballerinax/hubspot.crm.owners` connector (v2.0.0) provides programmatic access to the HubSpot Owners API, enabling you to retrieve owner details, list owners with filtering and pagination, and identify team assignments within your HubSpot account.
 
 
-## Key Features
+## Key features
 
 - List all owners in a HubSpot account with pagination support
 - Filter owners by email address
@@ -33,7 +33,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

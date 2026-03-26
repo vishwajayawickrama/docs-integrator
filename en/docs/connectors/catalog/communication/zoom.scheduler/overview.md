@@ -3,7 +3,7 @@
 Zoom Scheduler is a scheduling service that lets users create availability windows, publish booking pages, and manage scheduled meetings across teams. The Ballerina `ballerinax/zoom.scheduler` connector (v1.0.1) provides programmatic access to the Zoom Scheduler REST API, enabling you to manage schedules, availability, events, and analytics directly from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Manage scheduling availability windows with flexible weekly recurrence rules (per-day time slots)
 - Create, retrieve, update, and delete meeting schedules with configurable capacity, duration, and buffer times
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

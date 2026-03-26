@@ -3,7 +3,7 @@
 People HR is a cloud-based human resource management system that provides tools for managing employee records, holidays, salaries, vacancies, applicants, appraisals, and custom screens. The Ballerina `ballerinax/peoplehr` connector (v2.2.1) provides programmatic access to the People HR REST API (v3.1), enabling you to integrate People HR data into your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full employee lifecycle management — create, retrieve, update, and mark employees as leavers
 - Holiday management — add, retrieve, and delete employee holiday records
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

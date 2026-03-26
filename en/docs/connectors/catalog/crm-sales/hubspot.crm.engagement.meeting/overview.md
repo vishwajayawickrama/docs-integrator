@@ -3,7 +3,7 @@
 HubSpot CRM is a cloud-based customer relationship management platform that tracks meetings, contacts, deals, and other engagement activities. The Ballerina `ballerinax/hubspot.crm.engagement.meeting` connector (v1.0.0) provides programmatic access to the HubSpot Meetings API v3, enabling you to create, read, update, delete, batch-manage, and search meeting engagements within your HubSpot CRM from Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on HubSpot meeting engagements (create, read, update, delete)
 - Batch operations for creating, reading, updating, upserting, and archiving meetings in bulk
@@ -30,7 +30,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

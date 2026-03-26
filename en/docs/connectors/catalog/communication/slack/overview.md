@@ -3,7 +3,7 @@
 Slack is a cloud-based team communication platform that enables real-time messaging, file sharing, and collaboration across channels and workspaces. The Ballerina `ballerinax/slack` connector (v5.0.0) provides programmatic access to the Slack Web API, allowing you to send messages, manage conversations, upload files, search content, and administer workspaces from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Post, update, delete, and schedule messages to Slack channels and users using the Chat API
 - Manage conversations — create, archive, rename, join, and retrieve message history and thread replies
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

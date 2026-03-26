@@ -3,7 +3,7 @@
 Zoom Meetings is a widely used cloud-based video conferencing platform for virtual meetings, webinars, and online collaboration. The Ballerina `ballerinax/zoom.meetings` connector (v1.0.1) provides programmatic access to the Zoom Meetings REST API v2, enabling you to automate meeting lifecycle management, handle registrations, manage cloud recordings, and access reporting data directly from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full meeting lifecycle management — create, retrieve, update, and delete scheduled and recurring meetings
 - Webinar management — create and manage webinars, panelists, polls, registrants, and Q&A
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

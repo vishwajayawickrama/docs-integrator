@@ -3,7 +3,7 @@
 Alfresco is a modern, open-source content management platform that enables organizations to manage enterprise documents, digital assets, and records with efficiency and control. The Ballerina `ballerinax/alfresco` connector (v2.0.1) provides programmatic access to Alfresco Content Services through the REST API Version 1, enabling you to perform core content operations such as uploading and downloading files, managing nodes and folders, setting metadata, handling permissions, and managing sites, groups, and people within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on nodes (files and folders) including create, read, update, delete, copy, move, lock, and unlock
 - Document content upload and download with binary content handling
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

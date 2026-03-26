@@ -3,7 +3,7 @@
 Ollama is an open-source tool for running large language models locally. The Ballerina `ballerinax/ai.ollama` connector (v1.2.1) provides programmatic access to Ollama-hosted models through the `ballerina/ai` model provider interface, enabling chat completions and structured output generation within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Chat completion with support for multi-turn conversations using `ai:ChatMessage` arrays
 - Tool/function calling support — pass tool definitions and receive structured tool call responses
@@ -30,7 +30,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -3,7 +3,7 @@
 Mailchimp Transactional (formerly Mandrill) is a powerful transactional email service for sending personalized, one-to-one emails such as password resets, order confirmations, and welcome messages. The Ballerina `ballerinax/mailchimp.transactional` connector (v1.0.1) provides programmatic access to the Mandrill API, enabling you to send transactional emails, manage templates, configure webhooks, and monitor delivery from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Send transactional emails with full control over recipients, content, attachments, and merge variables
 - Template management — create, update, publish, render, and delete reusable email templates
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

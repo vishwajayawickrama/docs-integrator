@@ -3,7 +3,7 @@
 Weaviate is an open-source vector database that enables storage of data objects alongside vector embeddings from machine learning models for high-performance semantic search. The Ballerina `ballerinax/ai.weaviate` connector (v1.0.2) implements the `ai:VectorStore` interface, providing seamless interaction with Weaviate instances for vector storage, similarity search with metadata filtering, and data management operations.
 
 
-## Key Features
+## Key features
 
 - Implements the standard `ai:VectorStore` interface for consistent vector database interactions
 - Add vector entries with embeddings, content chunks, and custom metadata to Weaviate collections
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

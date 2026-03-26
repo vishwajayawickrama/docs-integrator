@@ -3,7 +3,7 @@
 Salesforce Marketing Cloud is a digital marketing platform that enables businesses to manage customer journeys, campaigns, email messaging, content assets, contacts, and data extensions. The Ballerina `ballerinax/salesforce.marketingcloud` connector (v1.0.1) provides programmatic access to the Marketing Cloud REST APIs, enabling you to automate journey orchestration, contact management, campaign operations, and transactional messaging within your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Journey management — create, update, retrieve, and delete customer journeys (interactions)
 - Event definitions and entry event firing for Journey Builder automation
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

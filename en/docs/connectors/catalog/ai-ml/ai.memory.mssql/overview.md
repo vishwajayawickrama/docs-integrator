@@ -3,7 +3,7 @@
 The `ballerinax/ai.memory.mssql` connector provides a Microsoft SQL Server–backed short-term memory store for AI agent conversations. It implements the `ai:ShortTermMemoryStore` interface from the `ballerina/ai` module, enabling persistent, key-scoped storage and retrieval of chat messages (system, user, assistant, and function roles) with optional in-memory caching and configurable message-count limits.
 
 
-## Key Features
+## Key features
 
 - MSSQL-backed persistence of chat messages across system, user, assistant, and function roles
 - Implements the `ai:ShortTermMemoryStore` interface for seamless integration with Ballerina AI agents
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -3,7 +3,7 @@
 Microsoft SQL Server is a relational database management system used for enterprise data storage and processing. The Ballerina `ballerinax/mssql` connector (v1.16.4) provides programmatic access to MSSQL databases through SQL queries, parameterized statements, stored procedures, batch operations, and Change Data Capture (CDC) event streaming, enabling you to integrate MSSQL data into your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Execute parameterized SQL queries with compile-time safety and SQL injection protection
 - Single-row retrieval via `queryRow` for efficient lookups
@@ -50,7 +50,7 @@ See the **[Trigger Reference](trigger-reference.md)** for listener configuration
 
 * **[Trigger Reference](trigger-reference.md)**: Reference for event-driven integration using the listener and service model.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

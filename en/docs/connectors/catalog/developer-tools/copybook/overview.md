@@ -3,7 +3,7 @@
 The Ballerina `ballerinax/copybook` connector (v1.1.0) is a serialization/deserialization library for working with COBOL copybook data formats commonly used in mainframe integration. It enables Ballerina programs to convert between typed Ballerina records and COBOL copybook byte streams using either ASCII or EBCDIC encoding, bridging modern integration flows with legacy mainframe systems.
 
 
-## Key Features
+## Key features
 
 - Parse COBOL copybook schema definitions from `.cpy` files to drive serialization and deserialization
 - Convert Ballerina `record {}` values to COBOL copybook-formatted byte arrays
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -3,7 +3,7 @@
 OpenAI Fine-Tunes provides APIs for customizing OpenAI models with your own training data. The Ballerina `ballerinax/openai.finetunes` connector (v2.0.0) offers programmatic access to OpenAI's fine-tuning, files, and models endpoints, enabling you to upload training datasets, create and manage fine-tuning jobs, and work with models from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Create, monitor, and cancel fine-tuning jobs for OpenAI models such as GPT-3.5 Turbo
 - Upload, list, retrieve, and delete training and validation files
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

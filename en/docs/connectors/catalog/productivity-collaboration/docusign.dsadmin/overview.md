@@ -3,7 +3,7 @@
 DocuSign is a digital transaction management platform that enables users to securely sign, send, and manage documents electronically. The Ballerina `ballerinax/docusign.dsadmin` connector (v2.0.0) integrates with the DocuSign Admin API, providing programmatic access to manage organizations, users, permissions, groups, identity providers, bulk imports/exports, and account settings across your DocuSign environment.
 
 
-## Key Features
+## Key features
 
 - List and manage organizations the authenticated user belongs to
 - Create, retrieve, update, and close user accounts within an organization
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

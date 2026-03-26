@@ -6,7 +6,7 @@ description: "Overview of the ballerinax/hubspot.marketing.forms connector for W
 HubSpot Marketing Forms allows you to create and manage forms used to capture leads and contact information on your website. The Ballerina `ballerinax/hubspot.marketing.forms` connector (v1.0.0) provides programmatic access to the HubSpot Forms API v3, enabling you to create, read, update, and archive marketing forms from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Create new marketing forms with customizable field groups, styling, and submit actions
 - Retrieve individual form definitions by ID, including archived forms
@@ -35,7 +35,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -3,7 +3,7 @@
 Redis is an open-source, in-memory data structure store used as a database, cache, message broker, and streaming engine. The Ballerina `ballerinax/redis` connector (v3.2.0) provides programmatic access to Redis servers and clusters, enabling you to perform string, list, set, sorted set, hash, and key management operations from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full string operations including get, set, append, increment/decrement, and bit manipulation
 - List operations for queue and stack patterns with blocking pop support
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

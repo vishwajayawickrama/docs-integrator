@@ -3,7 +3,7 @@
 SAP Commerce Cloud is an enterprise e-commerce platform that provides tools for product catalog management, order processing, customer management, and storefront operations. The Ballerina `ballerinax/sap.commerce.webservices` connector (v0.9.0) provides programmatic access to SAP Commerce Cloud through the OCC v2 REST API, enabling you to integrate commerce data and operations into your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Product catalog browsing — list catalogs, catalog versions, categories, and product details
 - Product search and filtering with pagination, sorting, and full-text query support
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

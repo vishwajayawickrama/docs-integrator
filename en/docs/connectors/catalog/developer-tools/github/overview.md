@@ -3,7 +3,7 @@
 GitHub is a widely used platform for version control and collaboration, allowing developers to work together on projects from anywhere. The Ballerina `ballerinax/github` connector (v5.1.0) provides programmatic access to GitHub through its REST API (version 2022-11-28), enabling you to automate tasks, manage repositories, issues, pull requests, and more directly from Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full repository management — create, update, delete, list, and fork repositories
 - Issue tracking — create, update, list, and comment on issues with label and assignee management
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

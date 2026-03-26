@@ -3,7 +3,7 @@
 HubSpot Communication Preferences is a subscription management service that lets you control how contacts receive communications across email, SMS, and WhatsApp channels. The Ballerina `ballerinax/hubspot.marketing.subscriptions` connector (v2.0.0) provides programmatic access to the HubSpot Communication Preferences Subscriptions API (v4), enabling you to read and update subscription statuses, manage opt-outs, and retrieve subscription definitions from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Retrieve and update individual contact subscription statuses across email, SMS, and WhatsApp channels
 - Batch read subscription statuses for multiple contacts in a single request
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

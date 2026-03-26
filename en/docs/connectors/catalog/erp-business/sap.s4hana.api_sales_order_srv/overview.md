@@ -3,7 +3,7 @@
 SAP Sales Order is an S/4HANA OData (A2X) API that provides programmatic access to sales order processing, covering the full lifecycle from order creation to delivery and billing. The Ballerina `ballerinax/sap.s4hana.api_sales_order_srv` connector enables you to create, read, update, and delete sales orders, line items, billing plans, schedule lines, pricing elements, partners, and related documents directly from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on SAP Sales Orders and all sub-entities (items, partners, pricing elements, texts)
 - List and filter sales orders using OData query parameters (`$filter`, `$select`, `$expand`, `$orderby`, `$top`, `$skip`)
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

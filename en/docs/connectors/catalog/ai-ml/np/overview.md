@@ -3,7 +3,7 @@
 The `ballerinax/np` module provides model provider implementations for Ballerina's Natural Programming (NP) feature, enabling seamless integration with OpenAI and Azure OpenAI large language models. By implementing the `np:ModelProvider` interface, it allows Ballerina's built-in `natural` expression blocks to dispatch prompts to an LLM and automatically parse structured responses back into strongly-typed Ballerina records.
 
 
-## Key Features
+## Key features
 
 - OpenAI Chat Completions model provider via the `np.openai` sub-module
 - Azure OpenAI Chat Completions model provider via the `np.azure.openai` sub-module
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

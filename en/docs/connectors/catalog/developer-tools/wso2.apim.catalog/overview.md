@@ -3,7 +3,7 @@
 WSO2 API Manager's Service Catalog is a registry for backend service metadata that enables API-first development by allowing teams to publish and discover services before exposing them as managed APIs. The Ballerina `ballerinax/wso2.apim.catalog` connector (v1.2.2) provides programmatic access to the WSO2 APIM Service Catalog REST API, enabling you to create, retrieve, update, delete, import, and export service definitions — OpenAPI, WSDL, GraphQL SDL, and AsyncAPI — from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on Service Catalog entries — create, retrieve, update, and delete backend service definitions
 - Support for multiple API definition types: OAS2, OAS3, WSDL1, WSDL2, GraphQL SDL, and AsyncAPI
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

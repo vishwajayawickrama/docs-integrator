@@ -6,7 +6,7 @@ description: "Overview of the ballerinax/hubspot.crm.obj.products connector for 
 HubSpot CRM Products is a core object in HubSpot that represents the goods and services you sell, enabling you to associate products with deals and track revenue. The Ballerina `ballerinax/hubspot.crm.obj.products` connector (v2.0.0) provides programmatic access to the HubSpot CRM Products API, allowing you to create, retrieve, update, archive, search, and batch-manage product records within your HubSpot portal.
 
 
-## Key Features
+## Key features
 
 - Create, read, update, and archive individual product records in HubSpot CRM
 - Batch operations for creating, reading, updating, upserting, and archiving multiple products in a single request
@@ -33,7 +33,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

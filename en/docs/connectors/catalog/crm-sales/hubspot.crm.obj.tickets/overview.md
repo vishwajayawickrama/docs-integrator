@@ -3,7 +3,7 @@
 HubSpot is an AI-powered CRM platform that centralizes customer interactions, sales pipelines, and support workflows. The Ballerina `ballerinax/hubspot.crm.obj.tickets` connector (v2.0.0) provides programmatic access to HubSpot's Tickets API, enabling you to create, read, update, delete, search, merge, and batch-manage support ticket records from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on HubSpot ticket records — create, read, update, and archive individual tickets
 - List all tickets with optional filtering by properties, associations, and archive status
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

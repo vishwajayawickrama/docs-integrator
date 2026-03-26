@@ -3,7 +3,7 @@
 SCIM (System for Cross-domain Identity Management) is a widely-adopted standard protocol for automating the exchange of user identity information between identity domains or IT systems. The Ballerina `ballerinax/scim` connector (v1.0.1) provides programmatic access to SCIM 2.0 compliant identity providers and services, enabling you to manage users, groups, and bulk provisioning operations through the SCIM 2.0 REST API.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on SCIM User resources — create, get, update (PUT/PATCH), and delete users by ID
 - Full CRUD operations on SCIM Group resources — create, get, update (PUT/PATCH), and delete groups by ID
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

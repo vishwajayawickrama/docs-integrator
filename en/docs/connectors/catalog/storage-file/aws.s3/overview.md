@@ -3,7 +3,7 @@
 Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance. The Ballerina `ballerinax/aws.s3` connector (v3.5.1) provides programmatic access to the Amazon S3 REST API (2006-03-01), enabling you to manage buckets and objects directly from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Create, list, and delete S3 buckets with optional canned ACL policies
 - Upload objects from strings, JSON, XML, byte arrays, or byte streams with configurable metadata and ACL
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

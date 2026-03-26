@@ -3,7 +3,7 @@
 HubSpot CRM is a cloud-based customer relationship management platform that helps businesses manage contacts, deals, and marketing pipelines. The Ballerina `ballerinax/hubspot.crm.obj.contacts` connector (v1.0.0) provides programmatic access to the HubSpot CRM Contacts API, enabling you to create, read, update, search, merge, and bulk-manage contact records from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on individual HubSpot contacts — create, read, update, and archive by contact ID
 - Batch operations for high-volume workflows — batch read, create, update, upsert, and archive in a single API call
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

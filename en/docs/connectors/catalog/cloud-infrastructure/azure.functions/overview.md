@@ -3,7 +3,7 @@
 Azure Functions is a serverless compute service from Microsoft that lets you run event-driven code without managing infrastructure. The Ballerina `ballerinax/azure.functions` connector (v4.2.0) enables you to build Azure Functions in Ballerina, supporting HTTP, Queue, Blob, CosmosDB, and Timer triggers together with input and output bindings, and compiles to a native Azure Functions deployment artifact.
 
 
-## Key Features
+## Key features
 
 - HTTP trigger with configurable auth levels (anonymous, function, admin) and Ballerina resource function routing
 - Azure Storage Queue trigger and output binding for message-driven integrations
@@ -37,7 +37,7 @@ See the **[Trigger Reference](trigger-reference.md)** for listener configuration
 
 * **[Trigger Reference](trigger-reference.md)**: Reference for event-driven integration using the listener and service model.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -3,7 +3,7 @@
 AWS Lambda is a serverless, event-driven compute service that lets you run code without provisioning or managing servers. The Ballerina `ballerinax/aws.lambda` connector (v3.3.0) is a compiler extension that enables you to write Ballerina functions and deploy them directly as AWS Lambda functions by annotating them with `@lambda:Function`. It supports generic JSON input as well as domain-specific event types for S3, SQS, DynamoDB, SES, and API Gateway triggers.
 
 
-## Key Features
+## Key features
 
 - Annotation-based deployment — mark any Ballerina function with `@lambda:Function` to generate an AWS Lambda function automatically at build time
 - Generic JSON input/output for custom Lambda function invocations
@@ -26,7 +26,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

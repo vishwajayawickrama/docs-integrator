@@ -3,7 +3,7 @@
 Elastic Cloud is a cloud-hosted Elasticsearch service provided by Elastic, offering scalable search and analytics capabilities with enterprise-grade security and management features. The Ballerina `ballerinax/elastic.elasticcloud` connector (v1.0.0) provides programmatic access to the Elastic Cloud REST API, enabling you to manage deployments, extensions, traffic filters, organizations, API keys, and stack versions from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full deployment lifecycle management — create, list, search, update, shutdown, and restore deployments
 - Elasticsearch resource operations including password resets, keystore management, ILM/SLM/CCR enablement, and remote cluster configuration
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

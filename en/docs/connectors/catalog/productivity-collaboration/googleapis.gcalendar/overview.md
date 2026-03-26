@@ -3,7 +3,7 @@
 Google Calendar is a time-management and scheduling service that allows users to create and manage calendars, events, and access control rules. The Ballerina `ballerinax/googleapis.gcalendar` connector (v4.0.1) provides programmatic access to the Google Calendar API v3, enabling you to create, read, update, and delete calendars, events, ACL rules, free/busy queries, and calendar list entries from your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on Google Calendar calendars — create, retrieve, update, patch, and delete
 - Full CRUD operations on calendar events including recurring events, quick-add by text, and event import
@@ -32,7 +32,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

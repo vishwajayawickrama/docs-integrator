@@ -3,7 +3,7 @@
 HubSpot CRM Feedback provides access to HubSpot's Feedback Submissions API, allowing you to retrieve and manage customer feedback data collected through HubSpot surveys and feedback tools. The Ballerina `ballerinax/hubspot.crm.obj.feedback` connector (v2.0.0) supports OAuth 2.0, private app tokens, and bearer token authentication to integrate feedback submission data into your Ballerina integration flows.
 
 
-## Key Features
+## Key features
 
 - Read individual feedback submissions by ID with optional property and association filtering
 - List all feedback submissions with pagination, property selection, and archive filtering
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

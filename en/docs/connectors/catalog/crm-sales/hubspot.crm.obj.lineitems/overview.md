@@ -3,7 +3,7 @@
 HubSpot CRM Line Items represent individual products or services attached to deals in HubSpot, enabling detailed tracking of what is being sold and at what price. The Ballerina `ballerinax/hubspot.crm.obj.lineitems` connector (v2.0.0) provides programmatic access to the HubSpot CRM Line Items API v3, supporting full CRUD operations, batch processing, and advanced search capabilities for line item records within your HubSpot CRM.
 
 
-## Key Features
+## Key features
 
 - Full CRUD operations on individual line item records using HubSpot record IDs
 - Batch create, read, update, archive, and upsert operations for efficient bulk processing
@@ -31,7 +31,7 @@ See the **[Action Reference](action-reference.md)** for the full list of operati
 
 * **[Action Reference](action-reference.md)**: Full reference for all clients — operations, parameters, return types, and sample code.
 
-## How to Contribute
+## How to contribute
 
 As an open source project, WSO2 welcomes contributions from the community.
 

@@ -2,10 +2,10 @@
 
 ## What you'll build
 
-Build a low-code integration that sends a message to a Discord channel using the Discord connector in WSO2 Integrator. The integration uses an Automation entry point to invoke the `createMessage` operation, which posts a message to a specified channel via the Discord REST API.
+Build a low-code integration that sends a message to a Discord channel using the Discord connector in WSO2 Integrator. The integration uses an Automation entry point to invoke the `create_message` operation, which posts a message to a specified channel via the Discord REST API.
 
 **Operations used:**
-- **createMessage** : Posts a text message to a Discord channel using Bearer token authentication
+- **create_message** : Posts a text message to a Discord channel using Bearer token authentication
 
 ## Architecture
 

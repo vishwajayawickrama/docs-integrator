@@ -71,7 +71,7 @@ In the **Configure OracleDB** dialog, scroll down to the **Advanced Configuratio
 
 ## Configuring the OracleDB execute operation
 
-### Step 6: Add an Automation entry point and expand the connection node
+### Step 6: Add an automation entry point and expand the connection node
 
 1. On the canvas, click **+ Add Entry Point** (or the **+** button in the Entry Points panel).
 2. Select **Automation** from the entry point types — an Automation flow is added with **Start** and **End** nodes.

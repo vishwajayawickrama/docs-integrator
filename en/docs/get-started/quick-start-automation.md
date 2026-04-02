@@ -20,13 +20,14 @@ Automations are ideal for data synchronization, report generation, and routine m
 
 1. Open WSO2 Integrator.
 2. Select **Create**.
-3. Set **Integration Name** to `Integration`.
-4. Select **Browse**.
-5. Select the project location and select **Open**.
-6. Select **Create Integration**.
+3. Set **Integration Name** to `Hello_World`.
+4. Set **Project Name** to `Quick_Start`.
+5. Select **Browse**.
+6. Select the project location and select **Open**.
+7. Select **Create Integration**.
 
 <ThemedImage
-    alt="Create the project in WSO2 Integrator"
+    alt="Create the project"
     sources={{
         light: '/img/get-started/quick-start-automation/create-the-project-light.gif',
         dark: '/img/get-started/quick-start-automation/create-the-project-dark.gif',
@@ -35,9 +36,10 @@ Automations are ideal for data synchronization, report generation, and routine m
 
 ## Step 2: Add an automation artifact
 
-1. In the design view, select **+ Add Artifact**.
-2. Select **Automation** artifact.
-3. Select **Create** to create an automation. This directs you to the automation diagram view.
+1. Select **Hello_World**.
+2. In the design view, select **Add Artifact**.
+3. Select **Automation** artifact.
+4. Select **Create**.
 
 <ThemedImage
     alt="Add an automation artifact"
@@ -51,12 +53,12 @@ Automations are ideal for data synchronization, report generation, and routine m
 
 1. Select **+** after the **Start** node to open the node panel.
 2. Select **Call Function** node to the flow.
-3. Select **Println** from the node panel.
+3. Select **Print** from the node panel.
 4. Select **Initialize Array** from the node panel.
 5. Set **Values** to `"Hello World"` and select **Save**.
 
 <ThemedImage
-    alt="Add automation logic"
+    alt="Add logic"
     sources={{
         light: '/img/get-started/quick-start-automation/add-logic-light.gif',
         dark: '/img/get-started/quick-start-automation/add-logic-dark.gif',
@@ -70,7 +72,7 @@ Automations are ideal for data synchronization, report generation, and routine m
 3. Check the terminal output for `Hello World`.
 
 <ThemedImage
-    alt="Run and test the automation"
+    alt="Run and test"
     sources={{
         light: '/img/get-started/quick-start-automation/run-and-test-light.gif',
         dark: '/img/get-started/quick-start-automation/run-and-test-dark.gif',

@@ -43,11 +43,11 @@ On the canvas, click **+ Add Connection** (or the **+** button in the Connection
 
 In the **Configure OracleDB** dialog, scroll down to the **Advanced Configurations** section and expand it. Bind each of the following fields to a Configurable variable so values can be supplied at runtime:
 
-- **host** — The Oracle Database server hostname, bound to a string configurable
-- **port** — The Oracle Database port number, bound to an int configurable
-- **user** — The database username, bound to a string configurable
-- **password** — The database password, bound to a string configurable
-- **database** — The target database/service name, bound to a string configurable
+- **host** : The Oracle Database server hostname, bound to a string configurable
+- **port** : The Oracle Database port number, bound to an int configurable
+- **user** : The database username, bound to a string configurable
+- **password** : The database password, bound to a string configurable
+- **database** : The target database/service name, bound to a string configurable
 
 ![OracleDB connection form fully filled with all parameters before saving](/img/connectors/catalog/database/oracledb/oracledb_screenshot_02_connection_form.png)
 

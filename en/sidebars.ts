@@ -1475,6 +1475,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/communication/slack/setup-guide',
             'connectors/catalog/communication/slack/action-reference',
+            'connectors/catalog/communication/slack/example',
           ],
         },
         {

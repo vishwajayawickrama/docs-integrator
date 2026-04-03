@@ -31,7 +31,7 @@ flowchart LR
 
 In the left sidebar under your project, expand **Connections** and select the **+** icon to open the connector palette.
 
-![AWS SNS connector palette open with search field before any selection](/img/connectors/catalog/communication/awa-sns/sns_screenshot_01_palette.png)
+![AWS SNS connector palette open with search field before any selection](/img/connectors/catalog/communication/aws-sns/sns_screenshot_01_palette.png)
 
 ## Configuring the AWS SNS connection
 
@@ -50,13 +50,13 @@ Fill in the following fields, binding each to a configurable variable:
 - **securityToken** : Optional AWS security token, bound to a configurable variable
 - **region** : AWS region where your SNS topic resides, bound to a configurable variable
 
-![AWS SNS connection form fully filled with all parameters before saving](/img/connectors/catalog/communication/awa-sns/sns_screenshot_02_connection_form.png)
+![AWS SNS connection form fully filled with all parameters before saving](/img/connectors/catalog/communication/aws-sns/sns_screenshot_02_connection_form.png)
 
 ### Step 4: Save the connection
 
 Select **Save Connection**. The `snsClient` connection node appears on the design canvas and is listed under **Connections** in the left sidebar.
 
-![AWS SNS Connections panel showing snsClient entry after saving](/img/connectors/catalog/communication/awa-sns/sns_screenshot_03_connections_list.png)
+![AWS SNS Connections panel showing snsClient entry after saving](/img/connectors/catalog/communication/aws-sns/sns_screenshot_03_connections_list.png)
 
 ### Step 5: Set actual values for your configurables
 
@@ -82,7 +82,7 @@ The automation flow canvas opens with a **Start** node and an **Error Handler** 
 
 Select the **+** button between the **Start** node and the **Error Handler** node to open the node selection panel. Under **Connections**, expand **snsClient** to view all available operations.
 
-![AWS SNS connection node expanded showing all available operations before selection](/img/connectors/catalog/communication/awa-sns/sns_screenshot_04_operations_panel.png)
+![AWS SNS connection node expanded showing all available operations before selection](/img/connectors/catalog/communication/aws-sns/sns_screenshot_04_operations_panel.png)
 
 Select **Publish** to open the configuration form, then fill in the following fields:
 
@@ -91,16 +91,16 @@ Select **Publish** to open the configuration form, then fill in the following fi
 - **Target Type** : Leave as `TOPIC` (default) for publishing to a topic
 - **Result variable** : Auto-generated variable that stores the `sns:PublishMessageResponse`
 
-![AWS SNS publish operation configuration filled with all values](/img/connectors/catalog/communication/awa-sns/sns_screenshot_05_publish_form_filled.png)
+![AWS SNS publish operation configuration filled with all values](/img/connectors/catalog/communication/aws-sns/sns_screenshot_05_publish_form_filled.png)
 
 Select **Save**. The publish node is added to the flow canvas, connected to `snsClient`.
 
-![Completed AWS SNS automation flow](/img/connectors/catalog/communication/awa-sns/sns_screenshot_06_completed_flow.png)
+![Completed AWS SNS automation flow](/img/connectors/catalog/communication/aws-sns/sns_screenshot_06_completed_flow.png)
 
 ## Try it yourself
 
 Try this sample in WSO2 Integration Platform.
 
-[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/connectors/awa.sns_connector_sample)
+[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/connectors/aws.sns_connector_sample)
 
-[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/connectors/awa.sns_connector_sample)
+[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/connectors/aws.sns_connector_sample)

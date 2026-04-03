@@ -401,7 +401,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/communication/aws.sns/setup-guide',
             'connectors/catalog/communication/aws.sns/action-reference',
-            'connectors/catalog/communication/awa-sns/example',
+            'connectors/catalog/communication/aws.sns/example',
           ],
         },
         {

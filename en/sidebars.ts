@@ -1321,6 +1321,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/database/redis/setup-guide',
             'connectors/catalog/database/redis/action-reference',
+            'connectors/catalog/database/redis/example',
           ],
         },
         {

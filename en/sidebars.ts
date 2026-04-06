@@ -347,6 +347,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/cloud-infrastructure/aws.marketplace.mpe/setup-guide',
             'connectors/catalog/cloud-infrastructure/aws.marketplace.mpe/action-reference',
+            'connectors/catalog/cloud-infrastructure/aws.marketplace.mpe/example',
           ],
         },
         {

@@ -9,15 +9,15 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Quick Start: File Integration
 
-**Time:** Under 10 minutes | **What you'll build:** A file integration that watches a directory for new files, processes them, and writes the output.
+**Time:** Under 10 minutes. **What you'll build:** A file integration that watches a directory for new files, processes them, and writes the output.
 
 File integrations are ideal for batch uploads, scheduled file processing, and ETL workflows triggered by files appearing in a folder or FTP server.
 
 ## Prerequisites
 
-- [WSO2 Integrator extension installed](install.md)
+- Install the [WSO2 Integrator extension](install.md).
 
-## Step 1: Create the Project
+## Step 1: Create the project
 
 1. Open WSO2 Integrator.
 2. Select **Create**.
@@ -35,13 +35,13 @@ File integrations are ideal for batch uploads, scheduled file processing, and ET
     }}
 />
 
-## Step 2: Add a File Integration Artifact
+## Step 2: Add a file integration artifact
 
 1. Select **FileTracker**.
 2. In the design view, select **+ Add Artifact**.
 3. Scroll down and select **Local Files** under **File Integration**.
-5. Set **Path** to **"/tmp"**.
-6. Select **Create**.
+4. Set **Path** to **"/tmp"**.
+5. Select **Create**.
 
 <ThemedImage
     alt="Add a File Integration Artifact"
@@ -51,7 +51,7 @@ File integrations are ideal for batch uploads, scheduled file processing, and ET
     }}
 />
 
-## Step 3: Tracking modified files
+## Step 3: Track modified files
 
 1. Select **Add Handler**.
 2. Select **onModify**.
@@ -69,10 +69,10 @@ File integrations are ideal for batch uploads, scheduled file processing, and ET
     }}
 />
 
-## Step 4: Run and Test
+## Step 4: Run and test
 
 1. Select **Run** in the toolbar.
-2. open new terminal and type `echo "test" > /tmp/testfile.txt` to test.
+2. Open a new terminal and run `echo "test" > /tmp/testfile.txt`.
 
 <ThemedImage
     alt="Run and Test"
@@ -82,17 +82,17 @@ File integrations are ideal for batch uploads, scheduled file processing, and ET
     }}
 />
 
-## Supported File Sources
+## Supported file sources
 
-| Source | Transport | Use Case |
+| Source | Transport | Use case |
 |---|---|---|
 | **Local directory** | File system | Development, on-premise batch processing |
 | **FTP** | FTP | Legacy file exchange |
 | **FTPS** | FTP over TLS | Secure legacy file exchange |
 | **SFTP** | SSH File Transfer | Secure file exchange |
 
-## What's Next
+## What's next
 
-- [Quick Start: Automation](quick-start-automation.md) -- Build scheduled jobs
-- [Quick Start: Integration as API](quick-start-api.md) -- Build an HTTP service
-- [File Handlers](/docs/develop/integration-artifacts/overview) -- Advanced file processing patterns
+- [Quick start: Automation](quick-start-automation.md): Build scheduled jobs.
+- [Quick start: Integration as API](quick-start-api.md): Build an HTTP service.
+- [File handlers](/docs/develop/integration-artifacts/overview): Advanced file processing patterns.

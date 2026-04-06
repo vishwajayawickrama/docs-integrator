@@ -1887,7 +1887,7 @@ const sidebars: SidebarsConfig = {
             'tutorials/walkthroughs/cdc-service',
             'tutorials/healthcare-hl7-fhir',
             'tutorials/walkthroughs/edi-ftp-processing',
-            'tutorials/ftp-listener-with-age-filter-and-file-dependency'
+            'tutorials/ftp-listener-with-age-filter-and-file-dependency',
             'tutorials/data-reconciliation',
           ],
         },

@@ -330,6 +330,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/productivity-collaboration/asana/setup-guide',
             'connectors/catalog/productivity-collaboration/asana/action-reference',
+            'connectors/catalog/productivity-collaboration/asana/example',
           ],
         },
         {

@@ -25,19 +25,19 @@ listener websubhub:Listener hubListener = new (port);
 service /hub on hubListener {
 
     remote function onRegisterTopic(websubhub:TopicRegistration msg)
-            returns websubhub:TopicRegistrationSuccess|error {
+            returns websubhub:TopicRegistrationSuccess|websubhub:TopicRegistrationError|error {
         // Validate and persist topic registration
         return websubhub:TOPIC_REGISTRATION_SUCCESS;
     }
 
     remote function onDeregisterTopic(websubhub:TopicDeregistration msg)
-            returns websubhub:TopicDeregistrationSuccess|error {
+            returns websubhub:TopicDeregistrationSuccess|websubhub:TopicDeregistrationError|error {
         // Remove topic registration
         return websubhub:TOPIC_DEREGISTRATION_SUCCESS;
     }
 
     remote function onUpdateMessage(websubhub:UpdateMessage msg)
-            returns websubhub:Acknowledgement|error {
+            returns websubhub:Acknowledgement|websubhub:UpdateMessageError|error {
         // Distribute content update to all topic subscribers
         return websubhub:ACKNOWLEDGEMENT;
     }
@@ -54,7 +54,8 @@ service /hub on hubListener {
     }
 
     remote function onUnsubscription(websubhub:Unsubscription msg)
-            returns websubhub:UnsubscriptionAccepted|error {
+            returns websubhub:UnsubscriptionAccepted|websubhub:BadUnsubscriptionError|
+        websubhub:InternalUnsubscriptionError|error {
         return websubhub:UNSUBSCRIPTION_ACCEPTED;
     }
 

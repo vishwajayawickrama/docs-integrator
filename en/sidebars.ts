@@ -1355,6 +1355,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ecommerce/sap.commerce.webservices/setup-guide',
             'connectors/catalog/ecommerce/sap.commerce.webservices/action-reference',
+            'connectors/catalog/ecommerce/sap.commerce.webservices/example',
           ],
         },
         {

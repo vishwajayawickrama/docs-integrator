@@ -99,6 +99,6 @@ Try this sample in WSO2 Integration Platform.
 
 ## More code examples
 
-The `scim` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-scim/tree/main/examples/), covering the following use cases:
+The `scim` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-scim/tree/main/examples), covering the following use cases:
 
 1. [**Asgardeo Integration**](https://github.com/ballerina-platform/module-ballerinax-scim/tree/main/examples/asgardeo-integration) – Demonstrates how to provision and manage users in Asgardeo using the SCIM connector. This example shows how to securely connect to Asgardeo SCIM API, create new users, and synchronize identity data between systems.

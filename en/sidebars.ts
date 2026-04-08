@@ -1561,6 +1561,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/productivity-collaboration/trello/setup-guide',
             'connectors/catalog/productivity-collaboration/trello/action-reference',
+            'connectors/catalog/productivity-collaboration/trello/example',
           ],
         },
         {

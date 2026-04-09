@@ -7,7 +7,6 @@ description: Organize tests into named groups and run or exclude subsets selecti
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Test Groups
 
 Assign tests to named groups and run or exclude specific subsets using the `--groups` and `--disable-groups` flags. Group tags let you separate fast unit tests from slow integration tests and control what runs at each stage.
 

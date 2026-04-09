@@ -7,7 +7,6 @@ description: Replace external clients and functions with controlled stubs for is
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Mocking
 
 Mocking replaces real clients and functions with controlled stubs so tests run in isolation, without live services or side effects. The `ballerina/test` module supports two approaches: stubbing object methods and replacing functions with `@test:Mock`.
 

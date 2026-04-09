@@ -4,8 +4,6 @@ title: Code coverage and reports
 description: Generate test reports, measure code coverage, enforce coverage thresholds, and configure report formats.
 ---
 
-# Code coverage and reports
-
 Generate HTML test reports to review results at a glance, measure how much of your integration code is exercised by tests, and enforce coverage thresholds in CI/CD pipelines.
 
 ## Test reports

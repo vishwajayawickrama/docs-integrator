@@ -7,8 +7,6 @@ description: Understand the test lifecycle, run tests from the visual designer o
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Execute tests
-
 Ballerina executes test functions through a well-defined lifecycle of setup and teardown stages. You can run tests from the WSO2 Integrator visual designer, the code editor, or the Ballerina CLI, and optionally enable parallel execution for faster feedback.
 
 ## Test execution lifecycle

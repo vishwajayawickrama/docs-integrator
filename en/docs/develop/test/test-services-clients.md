@@ -7,7 +7,6 @@ description: Write integration tests for HTTP services and clients using WSO2 In
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Test Services & Clients
 
 Test your services end-to-end by invoking real endpoints from within a test function, and test your client code by mocking the responses it depends on. The same test infrastructure from [Unit Testing](unit-testing.md) applies — create a test function, open it in the flow diagram, and build your test logic from there.
 

@@ -7,8 +7,6 @@ description: Run parameterized tests with multiple data sets using Ballerina dat
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Data-Driven Tests
-
 Run the same test logic against multiple inputs by attaching a data provider function to a test. The framework calls the test function once per data entry, reporting each case individually so failures are easy to pinpoint.
 
 ## Configuring a data provider

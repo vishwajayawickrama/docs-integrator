@@ -7,7 +7,6 @@ description: Write and run automated tests for your integrations using WSO2 Inte
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Unit Testing
 
 Write automated tests for your integrations using Ballerina's built-in test framework. The framework provides annotations, assertions, and lifecycle hooks to structure reliable, repeatable tests. Test functions are never included in production builds.
 

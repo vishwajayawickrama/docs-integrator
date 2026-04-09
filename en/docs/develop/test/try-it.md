@@ -4,7 +4,6 @@ title: Built-in Try-It Tool
 description: Test running integrations directly from WSO2 Integrator.
 ---
 
-# Built-in Try-It Tool
 
 The built-in Try-It tool lets you test your integrations directly from WSO2 Integrator without switching to an external client. It detects your service endpoints and provides an interface for composing requests, setting parameters and headers, and inspecting responses.
 

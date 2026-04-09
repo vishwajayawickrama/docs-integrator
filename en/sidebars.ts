@@ -953,6 +953,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/hubspot.marketing.campaigns/setup-guide',
             'connectors/catalog/marketing-social/hubspot.marketing.campaigns/action-reference',
+            'connectors/catalog/marketing-social/hubspot.marketing.campaigns/example',
           ],
         },
         {
@@ -1066,6 +1067,7 @@ const sidebars: SidebarsConfig = {
             'connectors/catalog/messaging/kafka/setup-guide',
             'connectors/catalog/messaging/kafka/action-reference',
             'connectors/catalog/messaging/kafka/trigger-reference',
+            'connectors/catalog/messaging/kafka/example',
           ],
         },
         {
@@ -1075,6 +1077,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/mailchimp.marketing/setup-guide',
             'connectors/catalog/marketing-social/mailchimp.marketing/action-reference',
+            'connectors/catalog/marketing-social/mailchimp.marketing/example',
           ],
         },
         {
@@ -1475,6 +1478,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/salesforce.marketingcloud/setup-guide',
             'connectors/catalog/marketing-social/salesforce.marketingcloud/action-reference',
+            'connectors/catalog/marketing-social/salesforce.marketingcloud/example',
           ],
         },
         {
@@ -1583,6 +1587,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/twitter/setup-guide',
             'connectors/catalog/marketing-social/twitter/action-reference',
+            'connectors/catalog/marketing-social/twitter/example',
           ],
         },
         {

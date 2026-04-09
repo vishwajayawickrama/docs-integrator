@@ -664,6 +664,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/erp-business/guidewire.insnow/setup-guide',
             'connectors/catalog/erp-business/guidewire.insnow/action-reference',
+            'connectors/catalog/erp-business/guidewire.insnow/example',
           ],
         },
         {

@@ -2,8 +2,7 @@
 
 ## What you'll build
 
-Build a WSO2 Integrator automation that connects to HubSpot and retrieves all marketing emails from a HubSpot account using the `ballerinax/hubspot.marketing.emails` connector. The integration uses a Bearer Token for authentication and stores connection credentials as configurable variables. The automation runs as a scheduled entry point and returns a paginated list of marketing emails.
-
+Build a WSO2 Integrator automation that connects to HubSpot and retrieves all marketing emails from a HubSpot account using the `ballerinax/hubspot.marketing.emails` connector. The integration uses a Bearer Token for authentication and stores connection credentials as configurable variables. The automation runs as an Automation entry point and returns a paginated list of marketing emails.
 **Operations used:**
 - **get** : Retrieves all marketing emails for a HubSpot account
 

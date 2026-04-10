@@ -6,109 +6,77 @@ description: Build and manage reusable library packages in WSO2 Integrator.
 
 # Library View
 
-The Library View is for building reusable modules that multiple integrations can depend on. Libraries contain shared type definitions, utility functions, custom connectors, and data mapper configurations that you publish to Ballerina Central for organization-wide reuse.
+The Library View is a dedicated view in WSO2 Integrator for creating utilities and shared resources that you can use across multiple integrations. Rather than building executable integration flows, you use the Library View to package shared type definitions, utility functions, custom connections, and data mapper configurations into a centralized module that other integrations can depend on.
 
-## Creating a Library Package
+![Library View overview](/img/develop/project-views/library-view/overview.png)
 
-Create a library project using the CLI:
+## General navigation
 
-```bash
-bal new my-shared-library -t lib
-```
+The general navigation elements in the Library View function exactly as they do in the Integration View:
 
-This generates a library project structure:
+- **Activity bar** — Access the file explorer, global search, source control, and extension marketplace.
+- **Project explorer** — View and manage all artifacts (Connections, Types, Functions, Data Mappers) organized by category.
 
-```
-my-shared-library/
-├── Ballerina.toml
-├── Package.md
-├── Module.md
-└── lib.bal
-```
+For more details on these elements, see the [Integration View](integration-view.md) documentation.
 
-## Library Components
+## Library overview canvas
 
-Libraries typically contain:
+The main canvas provides a central dashboard for your library package. It displays:
 
-### Shared Types
+- **Artifacts summary** — Cards showing the total number of defined Types, Functions, Data Mappers, and Connections in your library.
+- **README** — A section at the bottom for documenting the library's purpose, setup instructions, and usage notes to help users understand how to use it.
 
-```ballerina
-// types.bal
-public type Customer record {|
-    string id;
-    string name;
-    string email;
-    string tier;
-|};
+## Add reusable artifacts
 
-public type Order record {|
-    string orderId;
-    string customerId;
-    OrderItem[] items;
-    decimal total;
-    OrderStatus status;
-|};
+Click the **+ Add Artifacts** button at the top right of the canvas to add a new component to your library. This opens a menu with all available artifact types that can be created in a library package:
 
-public type OrderStatus "pending"|"confirmed"|"shipped"|"delivered"|"cancelled";
-```
+- **Function**
+- **Data Mapper**
+- **Type**
+- **Connection**
+- **Configuration**
 
-### Utility Functions
+![Add artifacts menu](/img/develop/project-views/library-view/add-artifacts.png)
 
-```ballerina
-// utils.bal
-public isolated function formatCurrency(decimal amount, string currency = "USD") returns string {
-    return string `${currency} ${amount.toBalString()}`;
-}
+For detailed information on configuring each specific artifact type, see the [Integration Artifacts](../integration-artifacts/overview.md) documentation.
 
-public isolated function validateEmail(string email) returns boolean {
-    return email.includes("@") && email.includes(".");
-}
-```
+## Artifact management
 
-### Custom Connectors
+Clicking any of the artifact category cards on the main canvas (such as **Functions** or **Types**) navigates to a specific list view for those artifacts.
 
-```ballerina
-// connector.bal
-public client class InternalCrmClient {
-    private final http:Client httpClient;
+![Artifact list view](/img/develop/project-views/library-view/artifact-list.png)
 
-    public function init(string baseUrl) returns error? {
-        self.httpClient = check new (baseUrl);
-    }
+From this view, you can:
 
-    remote function getCustomer(string id) returns Customer|error {
-        return check self.httpClient->get("/customers/" + id);
-    }
-}
-```
+- View all defined artifacts of that specific type.
+- Search for a specific artifact using the search bar.
+- Click the **+ Add [Artifact]** button (e.g., **+ Add Function**) to create a new artifact of that type directly.
 
-## Publishing a Library
+## Toolbar
 
-1. Set your organization in `Ballerina.toml`:
+The toolbar sits at the top of the Library View and provides quick access to actions for configuring and publishing your library.
 
-```toml
-[package]
-org = "myorg"
-name = "shared-types"
-version = "1.0.0"
-```
+![Toolbar](/img/develop/project-views/library-view/toolbar.png)
 
-2. Push to Ballerina Central:
+### Undo and redo
 
-```bash
-bal pack
-bal push
-```
+Click **Undo** or **Redo** in the toolbar to reverse or reapply recent changes to your library artifacts.
 
-3. Use in other integrations:
+### Configure
 
-```ballerina
-import myorg/shared_types;
+Click **Configure** to open the project-level configuration panel. Here you can edit settings such as:
 
-shared_types:Customer customer = check getCustomer("C001");
-```
+- Package metadata (name, version, organization)
+- Build options
+- Dependency management
 
-## What's Next
+### Publish
+
+Unlike standard integration packages, library packages are not executable. Therefore, instead of running or debugging them directly, you publish them.
+
+Click **Publish** to build the library and push it to a central repository (such as Ballerina Central), making the module available for other integrations to import and use.
+
+## What's next
 
 - [Packages & Modules](/docs/develop/organize-code/packages-modules) -- Understand package structure
 - [Publish to Ballerina Central](/docs/connectors/publish-to-central) -- Share your libraries

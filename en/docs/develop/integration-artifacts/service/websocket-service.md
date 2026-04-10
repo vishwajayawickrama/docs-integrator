@@ -1,53 +1,28 @@
 ---
 title: WebSocket Service
-description: Handle real-time bidirectional communication with WebSocket.
+description: Handle real-time bidirectional communication over WebSocket using Ballerina code or the visual designer.
 ---
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 # WebSocket Service
 
 WebSocket services enable persistent, full-duplex communication between clients and the server. Use them for real-time features such as live dashboards, chat applications, collaborative tools, and push notifications.
 
+:::note
+Creating a WebSocket service requires Ballerina code. Once the service exists, you can use the visual designer to implement logic for individual connection handlers.
+:::
+
 ## Creating a WebSocket service
 
-<Tabs>
-<TabItem value="ui" label="Visual Designer" default>
-
-1. Open the **WSO2 Integrator** sidebar in VS Code.
-2. Click **+** next to **Services**.
-3. Select **WebSocket Service** from the artifact type list.
-4. In the creation form, fill in:
-   - **Name** — a name for the service.
-   - **Port** — the WebSocket listener port (default: `8080`).
-   - **Base Path** — the WebSocket endpoint path (e.g., `/ws`).
-5. Click **Create**.
-
-<!-- TODO: add screenshot — WebSocket service creation form -->
-
-6. WSO2 Integrator generates an upgrade resource and a WebSocket service class. The flow designer shows the following handler nodes:
-   - **onOpen** — called when a client successfully upgrades the connection.
-   - **onTextMessage** — called when the client sends a text frame.
-   - **onBinaryMessage** — called when the client sends a binary frame.
-   - **onClose** — called when the connection closes.
-7. Click **onOpen** to add connection initialization logic (for example, broadcasting a welcome message).
-8. Click **onTextMessage** to implement the message handling logic.
-
-<!-- TODO: add screenshot — Flow designer showing WebSocket service with event handler nodes -->
-
-9. Use `caller->writeTextMessage()` or `caller->writeBinaryMessage()` to push messages to the client.
-10. To broadcast to all connected clients, maintain a shared collection of callers and iterate over them in the handler.
-
-<!-- TODO: add screenshot — onTextMessage handler with writeTextMessage action -->
-
-</TabItem>
-<TabItem value="code" label="Ballerina Code">
+A WebSocket service consists of two parts: an **upgrade resource** that handles the initial HTTP-to-WebSocket handshake, and a **connection service class** that implements the per-connection lifecycle callbacks.
 
 ```ballerina
 import ballerina/websocket;
 
-service /ws on new websocket:Listener(8080) {
+configurable int port = 8080;
+
+listener websocket:Listener wsListener = new (port);
+
+service /chat on wsListener {
 
     resource function get .() returns websocket:Service|error {
         return new ChatService();
@@ -58,39 +33,102 @@ service class ChatService {
     *websocket:Service;
 
     remote function onOpen(websocket:Caller caller) returns error? {
-        log:printInfo("Client connected", connectionId = caller.getConnectionId());
+        // Handle new connection
     }
 
     remote function onTextMessage(websocket:Caller caller, string message) returns error? {
-        // Echo the message back
-        check caller->writeTextMessage("Received: " + message);
+        // Handle incoming text message
     }
 
-    remote function onClose(websocket:Caller caller, int statusCode, string reason) {
-        log:printInfo("Client disconnected", reason = reason);
+    remote function onBinaryMessage(websocket:Caller caller, byte[] data) returns error? {
+        // Handle incoming binary message
+    }
+
+    remote function onClose(websocket:Caller caller, int statusCode, string reason) returns error? {
+        // Handle connection close
+    }
+
+    remote function onError(websocket:Caller caller, error err) returns error? {
+        // Handle connection error
+    }
+
+    remote function onIdleTimeout(websocket:Caller caller) returns error? {
+        // Handle idle timeout
     }
 }
 ```
 
-</TabItem>
-</Tabs>
+The `get` resource at the base path handles the WebSocket upgrade. It returns the connection service instance (`new ChatService()`) that the runtime uses to dispatch all subsequent messages for that connection.
 
-## WebSocket lifecycle callbacks
+## Designing logic with the visual designer
+
+Although WebSocket service creation is not supported in the visual designer, you can use it to implement logic for connection handlers defined in code. Once the service exists in the project, it appears in the **Entry Points** sidebar and on the design canvas.
+
+![Design canvas showing the /chat websocket:Service node connected to wsListener](../../../../static/img/develop/integration-artifacts/service/websocket-service/step-designer.png)
+
+Click the service node (or the service name in the sidebar) to open the **WebSocket Service** designer, which lists the upgrade resource handler and the attached listener.
+
+![WebSocket Service designer showing Event Handlers with the upgrade resource](../../../../static/img/develop/integration-artifacts/service/websocket-service/step-service-designer.png)
+
+:::note
+Not all WebSocket service configuration options are available through the visual designer. For full control — including listener configuration and idle timeout settings — use Ballerina code directly.
+:::
+
+## Implementing connection handlers
+
+The `onTextMessage`, `onBinaryMessage`, `onClose`, `onError`, and `onIdleTimeout` handlers are implemented inside the connection service class (for example, `ChatService`) rather than in the main WebSocket service. Access the service class through the **Types** panel in the sidebar.
+
+**Finding the connection service class**
+
+In the upgrade resource flow designer, click the **Return** step. The right panel shows the return expression, including the connection service class being instantiated (for example, `new ChatService()`).
+
+![Flow designer for the GET upgrade resource showing the Return step with new ChatService()](../../../../static/img/develop/integration-artifacts/service/websocket-service/step-flow.png)
+
+**Opening the type diagram**
+
+In the sidebar, expand **Types** and click the connection service class name (for example, `ChatService`). This opens the **Types** view, which shows the type diagram for that class with its methods listed.
+
+![Flow designer for the GET upgrade resource showing the Return step with new ChatService()](../../../../static/img/develop/integration-artifacts/service/websocket-service/step-type-diagram.png)
+
+**Opening the Service Class Designer**
+
+Click the Service Class type node in the diagram to open the **Service Class Designer**. This view shows:
+
+- **Class Variables** — shared state available across all handler methods; use **+ Variable** to add one.
+- **Methods** — the remote functions generated for the connection service.
+
+![Flow designer for the GET upgrade resource showing the Return step with new ChatService()](../../../../static/img/develop/integration-artifacts/service/websocket-service/step-service-class.png)
+
+Click any method row (for example, `onTextMessage`) to open the **flow designer view** for that handler, where you can define the logic for processing messages, handling errors, or cleaning up on close.
+
+## Connection lifecycle callbacks
 
 | Callback | Trigger | Typical use |
 |---|---|---|
 | `onOpen` | Connection upgrade successful | Initialize session state, send welcome message |
-| `onTextMessage` | Text frame received | Parse and route message, broadcast to others |
-| `onBinaryMessage` | Binary frame received | Handle binary payloads (files, media) |
+| `onTextMessage` | Text frame received | Parse and process message, write a response with `caller->writeTextMessage()` |
+| `onBinaryMessage` | Binary frame received | Handle binary payloads such as files or media |
 | `onClose` | Connection closed | Remove client from broadcast list, release resources |
-| `onError` | Connection error | Log and handle errors |
+| `onError` | Connection error | Log and handle error conditions |
+| `onIdleTimeout` | Idle timeout reached | Close or keep-alive the connection |
 
 ## Common patterns
+
+### Echo server
+
+```ballerina
+service class EchoService {
+    *websocket:Service;
+
+    remote function onTextMessage(websocket:Caller caller, string message) returns error? {
+        check caller->writeTextMessage("Echo: " + message);
+    }
+}
+```
 
 ### Broadcast to all connected clients
 
 ```ballerina
-// Shared connection registry
 isolated map<websocket:Caller> connections = {};
 
 service class BroadcastService {
@@ -103,7 +141,6 @@ service class BroadcastService {
     }
 
     remote function onTextMessage(websocket:Caller caller, string message) returns error? {
-        // Broadcast to all connected clients
         lock {
             foreach websocket:Caller conn in connections {
                 check conn->writeTextMessage(message);
@@ -111,7 +148,7 @@ service class BroadcastService {
         }
     }
 
-    remote function onClose(websocket:Caller caller, int statusCode, string reason) {
+    remote function onClose(websocket:Caller caller, int statusCode, string reason) returns error? {
         lock {
             _ = connections.remove(caller.getConnectionId());
         }
@@ -119,7 +156,6 @@ service class BroadcastService {
 }
 ```
 
-## What's next
+## For more details
 
-- [HTTP Service](http-service.md) — expose integration logic over REST
-- [TCP Service](tcp-service.md) — raw TCP for custom binary protocols
+See the [Ballerina WebSocket specification](https://ballerina.io/spec/websocket/) for the complete language-level reference, including TLS configuration, authentication, compression, and custom message dispatching.

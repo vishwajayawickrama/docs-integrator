@@ -113,7 +113,6 @@ const sidebars: SidebarsConfig = {
                 'develop/integration-artifacts/event/rabbitmq',
                 'develop/integration-artifacts/event/mqtt',
                 'develop/integration-artifacts/event/azure-service-bus',
-                'develop/integration-artifacts/event/smtp',
                 'develop/integration-artifacts/event/pop3-imap4',
                 'develop/integration-artifacts/event/salesforce-events',
                 'develop/integration-artifacts/event/twilio',
@@ -302,6 +301,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/storage-file/alfresco/setup-guide',
             'connectors/catalog/storage-file/alfresco/action-reference',
+            'connectors/catalog/storage-file/alfresco/example',
           ],
         },
         {
@@ -329,6 +329,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/productivity-collaboration/asana/setup-guide',
             'connectors/catalog/productivity-collaboration/asana/action-reference',
+            'connectors/catalog/productivity-collaboration/asana/example',
           ],
         },
         {
@@ -357,6 +358,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/cloud-infrastructure/aws.marketplace.mpm/setup-guide',
             'connectors/catalog/cloud-infrastructure/aws.marketplace.mpm/action-reference',
+            'connectors/catalog/cloud-infrastructure/aws.marketplace.mpm/example',
           ],
         },
         {
@@ -386,6 +388,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/storage-file/aws.s3/setup-guide',
             'connectors/catalog/storage-file/aws.s3/action-reference',
+            'connectors/catalog/storage-file/aws.s3/example',
           ],
         },
         {
@@ -395,6 +398,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/security-identity/aws.secretmanager/setup-guide',
             'connectors/catalog/security-identity/aws.secretmanager/action-reference',
+            'connectors/catalog/security-identity/aws.secretmanager/example',
           ],
         },
         {
@@ -415,6 +419,7 @@ const sidebars: SidebarsConfig = {
             'connectors/catalog/messaging/aws.sqs/setup-guide',
             'connectors/catalog/messaging/aws.sqs/action-reference',
             'connectors/catalog/messaging/aws.sqs/trigger-reference',
+            'connectors/catalog/messaging/aws.sqs/example',
           ],
         },
         {
@@ -543,6 +548,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/productivity-collaboration/docusign.dsadmin/setup-guide',
             'connectors/catalog/productivity-collaboration/docusign.dsadmin/action-reference',
+            'connectors/catalog/productivity-collaboration/docusign.dsadmin/example',
           ],
         },
         {
@@ -552,6 +558,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/cloud-infrastructure/elastic.elasticcloud/setup-guide',
             'connectors/catalog/cloud-infrastructure/elastic.elasticcloud/action-reference',
+            'connectors/catalog/cloud-infrastructure/elastic.elasticcloud/example',
           ],
         },
         {
@@ -580,6 +587,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/developer-tools/github/setup-guide',
             'connectors/catalog/developer-tools/github/action-reference',
+            'connectors/catalog/developer-tools/github/example',
           ],
         },
         {
@@ -599,6 +607,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/productivity-collaboration/googleapis.calendar/setup-guide',
             'connectors/catalog/productivity-collaboration/googleapis.calendar/action-reference',
+            'connectors/catalog/productivity-collaboration/googleapis.calendar/example',
           ],
         },
         {
@@ -627,6 +636,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/productivity-collaboration/googleapis.sheets/setup-guide',
             'connectors/catalog/productivity-collaboration/googleapis.sheets/action-reference',
+            'connectors/catalog/productivity-collaboration/googleapis.sheets/example',
           ],
         },
         {
@@ -942,6 +952,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/hubspot.marketing.campaigns/setup-guide',
             'connectors/catalog/marketing-social/hubspot.marketing.campaigns/action-reference',
+            'connectors/catalog/marketing-social/hubspot.marketing.campaigns/example',
           ],
         },
         {
@@ -951,6 +962,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/hubspot.marketing.emails/setup-guide',
             'connectors/catalog/marketing-social/hubspot.marketing.emails/action-reference',
+            'connectors/catalog/marketing-social/hubspot.marketing.emails/example',
           ],
         },
         {
@@ -960,6 +972,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/hubspot.marketing.events/setup-guide',
             'connectors/catalog/marketing-social/hubspot.marketing.events/action-reference',
+            'connectors/catalog/marketing-social/hubspot.marketing.events/example',
           ],
         },
         {
@@ -969,6 +982,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/hubspot.marketing.forms/setup-guide',
             'connectors/catalog/marketing-social/hubspot.marketing.forms/action-reference',
+            'connectors/catalog/marketing-social/hubspot.marketing.forms/example',
           ],
         },
         {
@@ -978,6 +992,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/hubspot.marketing.subscriptions/setup-guide',
             'connectors/catalog/marketing-social/hubspot.marketing.subscriptions/action-reference',
+            'connectors/catalog/marketing-social/hubspot.marketing.subscriptions/example',
           ],
         },
         {
@@ -1034,6 +1049,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/productivity-collaboration/jira/setup-guide',
             'connectors/catalog/productivity-collaboration/jira/action-reference',
+            'connectors/catalog/productivity-collaboration/jira/example',
           ],
         },
         {
@@ -1054,6 +1070,7 @@ const sidebars: SidebarsConfig = {
             'connectors/catalog/messaging/kafka/setup-guide',
             'connectors/catalog/messaging/kafka/action-reference',
             'connectors/catalog/messaging/kafka/trigger-reference',
+            'connectors/catalog/messaging/kafka/example',
           ],
         },
         {
@@ -1063,6 +1080,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/mailchimp.marketing/setup-guide',
             'connectors/catalog/marketing-social/mailchimp.marketing/action-reference',
+            'connectors/catalog/marketing-social/mailchimp.marketing/example',
           ],
         },
         {
@@ -1090,6 +1108,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/storage-file/microsoft.onedrive/setup-guide',
             'connectors/catalog/storage-file/microsoft.onedrive/action-reference',
+            'connectors/catalog/productivity-collaboration/microsoft.onedrive/example',
           ],
         },
         {
@@ -1249,6 +1268,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/finance-accounting/paypal.invoices/setup-guide',
             'connectors/catalog/finance-accounting/paypal.invoices/action-reference',
+            'connectors/catalog/finance-accounting/paypal.invoices/example',
           ],
         },
         {
@@ -1258,6 +1278,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/finance-accounting/paypal.orders/setup-guide',
             'connectors/catalog/finance-accounting/paypal.orders/action-reference',
+            'connectors/catalog/finance-accounting/paypal.orders/example',
           ],
         },
         {
@@ -1267,6 +1288,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/finance-accounting/paypal.payments/setup-guide',
             'connectors/catalog/finance-accounting/paypal.payments/action-reference',
+            'connectors/catalog/finance-accounting/paypal.payments/example',
           ],
         },
         {
@@ -1276,6 +1298,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/finance-accounting/paypal.subscriptions/setup-guide',
             'connectors/catalog/finance-accounting/paypal.subscriptions/action-reference',
+            'connectors/catalog/finance-accounting/paypal.subscriptions/example',
           ],
         },
         {
@@ -1285,6 +1308,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/hrms/peoplehr/setup-guide',
             'connectors/catalog/hrms/peoplehr/action-reference',
+            'connectors/catalog/hrms/peoplehr/example',
           ],
         },
         {
@@ -1352,6 +1376,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ecommerce/sap.commerce.webservices/setup-guide',
             'connectors/catalog/ecommerce/sap.commerce.webservices/action-reference',
+            'connectors/catalog/ecommerce/sap.commerce.webservices/example',
           ],
         },
         {
@@ -1461,6 +1486,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/salesforce.marketingcloud/setup-guide',
             'connectors/catalog/marketing-social/salesforce.marketingcloud/action-reference',
+            'connectors/catalog/marketing-social/salesforce.marketingcloud/example',
           ],
         },
         {
@@ -1470,6 +1496,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/security-identity/scim/setup-guide',
             'connectors/catalog/security-identity/scim/action-reference',
+            'connectors/catalog/security-identity/scim/example',
           ],
         },
         {
@@ -1479,6 +1506,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ecommerce/shopify.admin/setup-guide',
             'connectors/catalog/ecommerce/shopify.admin/action-reference',
+            'connectors/catalog/ecommerce/shopify.admin/example',
           ],
         },
         {
@@ -1498,6 +1526,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/productivity-collaboration/smartsheet/setup-guide',
             'connectors/catalog/productivity-collaboration/smartsheet/action-reference',
+            'connectors/catalog/productivity-collaboration/smartsheet/example',
           ],
         },
         {
@@ -1527,6 +1556,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/finance-accounting/stripe/setup-guide',
             'connectors/catalog/finance-accounting/stripe/action-reference',
+            'connectors/catalog/finance-accounting/stripe/example',
           ],
         },
         {
@@ -1545,6 +1575,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/productivity-collaboration/trello/setup-guide',
             'connectors/catalog/productivity-collaboration/trello/action-reference',
+            'connectors/catalog/productivity-collaboration/trello/example',
           ],
         },
         {
@@ -1565,6 +1596,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/marketing-social/twitter/setup-guide',
             'connectors/catalog/marketing-social/twitter/action-reference',
+            'connectors/catalog/marketing-social/twitter/example',
           ],
         },
         {
@@ -1592,6 +1624,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/developer-tools/wso2.apim.catalog/setup-guide',
             'connectors/catalog/developer-tools/wso2.apim.catalog/action-reference',
+            'connectors/catalog/developer-tools/wso2.apim.catalog/example',
           ],
         },
         {

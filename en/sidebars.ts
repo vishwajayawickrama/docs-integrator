@@ -1399,6 +1399,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/erp-business/sap.s4hana.api_salesdistrict_srv/setup-guide',
             'connectors/catalog/erp-business/sap.s4hana.api_salesdistrict_srv/action-reference',
+            'connectors/catalog/erp-business/sap.s4hana.api-salesdistrict-srv/example',
           ],
         },
         {

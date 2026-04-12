@@ -49,8 +49,36 @@ function extractFrontmatter(content) {
 }
 
 function removeImports(content) {
-  // Remove all import statements
-  return content.replace(/^import\s+[\s\S]*?from\s+['"][^'"]+['"];?\s*$/gm, '');
+  // Remove only top-level MDX import statements, preserving imports inside code fences
+  const lines = content.split('\n');
+  let insideCodeFence = false;
+  const fenceRegex = /^(```|~~~)/;
+  const importRegex = /^import\s+[\s\S]*?from\s+['"][^'"]+['"];?\s*$/;
+
+  const result = lines
+    .map((line) => {
+      // Toggle code fence state on ``` or ~~~
+      if (fenceRegex.test(line)) {
+        insideCodeFence = !insideCodeFence;
+        return line;
+      }
+
+      // If inside a code fence, keep the line as-is (don't remove imports)
+      if (insideCodeFence) {
+        return line;
+      }
+
+      // If not in a code fence and the line is an import, remove it (return empty)
+      if (importRegex.test(line)) {
+        return '';
+      }
+
+      // Otherwise, keep the line
+      return line;
+    })
+    .join('\n');
+
+  return result;
 }
 
 function stripJSX(content) {
@@ -75,8 +103,14 @@ function stripJSX(content) {
   // Remove div/span tags with classNames but keep content
   result = result.replace(/<(div|span)[^>]*>([\s\S]*?)<\/\1>/g, '$2');
 
-  // Final pass to remove any remaining custom JSX tags that look like components
-  result = result.replace(/<[A-Z][a-zA-Z0-9]*[^>]*>([\s\S]*?)<\/[A-Z][a-zA-Z0-9]*>/g, '$1');
+  // Final pass to remove any remaining custom JSX tags with matching closing tags
+  // Use backreference to enforce matching opening and closing tag names
+  // Run in a loop to handle nested custom components
+  let prevResult;
+  do {
+    prevResult = result;
+    result = result.replace(/<([A-Z][a-zA-Z0-9]*)[^>]*>([\s\S]*?)<\/\1>/g, '$2');
+  } while (result !== prevResult);
 
   // Remove HTML comments
   result = result.replace(/<!--[\s\S]*?-->/g, '');

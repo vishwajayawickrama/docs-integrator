@@ -14,6 +14,9 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 ## Prerequisites
 
 - [WSO2 Integrator extension installed](install.md)
+- Optional: An API key for your LLM provider (recommended to avoid provider API restrictions)
+
+If you use an API key, configure it before running the integration, either in `Config.toml` or through environment variables.
 
 ## Architecture
 

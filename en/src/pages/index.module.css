@@ -19,9 +19,33 @@
 .sidebarCol {
   width: var(--doc-sidebar-width, 300px);
   flex-shrink: 0;
-  margin-top: calc(-1 * var(--ifm-navbar-height));
-  border-right: 1px solid var(--ifm-toc-border-color);
-  clip-path: inset(0);
+  position: sticky;
+  top: var(--ifm-navbar-height);
+  height: calc(100vh - var(--ifm-navbar-height));
+  background-color: var(--wso2-sidebar-bg);
+  border-right: 1px solid var(--wso2-surface-border);
+  z-index: 10;
+  overflow-y: auto;
+}
+
+/* Add a small top padding for a premium, balanced look */
+.sidebarCol > :global(div) {
+  padding-top: 1rem !important;
+}
+
+/* Remove redundant top padding from the internal menu component */
+.sidebarCol :global(.menu) {
+  padding-top: 0;
+}
+
+/* Reset list padding/margin */
+.sidebarCol :global(.menu__list) {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.sidebarCol :global(.menu__list-item:first-child) {
+  margin-top: 0;
 }
 
 .mainContent {

@@ -496,7 +496,7 @@ export default function Home(): ReactNode {
         <aside className={styles.sidebarCol}>
           <DocSidebar
             sidebar={homeSidebarItems}
-            path="/"
+            path="/none"
             onCollapse={() => {}}
             isHidden={false}
           />

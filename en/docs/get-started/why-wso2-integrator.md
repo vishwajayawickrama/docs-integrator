@@ -49,4 +49,4 @@ Gain centralized control and observability to monitor integrations and agents co
 ## What's next
 
 - [Key concepts](key-concepts.md): Learn the product vocabulary.
-- [Install WSO2 Integrator](install.md): Install and start buidling in minutes.
+- [Install WSO2 Integrator](install.md): Install and start building in minutes.

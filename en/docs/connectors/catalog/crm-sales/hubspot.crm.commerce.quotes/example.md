@@ -90,6 +90,6 @@ Try this sample in WSO2 Integration Platform.
 
 ## More code examples
 
-The `HubSpot CRM Commerce Quotes` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/module-ballerinax-hubspot.crm.commerce.quotes/tree/main/examples/), covering the following use cases:
+The `HubSpot CRM Commerce Quotes` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/tree/main/examples/), covering the following use cases:
 
 1. [Sales Analytics System](https://github.com/ballerina-platform/module-ballerinax-hubspot.crm.commerce.quotes/tree/main/examples/sales-analytics) - A store can insert their quotes to the system, and system record and analyses the details on the quotes.

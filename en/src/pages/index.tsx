@@ -27,7 +27,7 @@ const homeSidebarItems: PropSidebarItem[] = [
       { type: 'link', label: 'Key Concepts', href: '/docs/get-started/key-concepts' },
       {
         type: 'category',
-        label: 'Set Up',
+        label: 'Set up',
         collapsed: true,
         collapsible: true,
         items: [
@@ -43,12 +43,11 @@ const homeSidebarItems: PropSidebarItem[] = [
         collapsed: false,
         collapsible: true,
         items: [
-          { type: 'link', label: 'Quick Start: API', href: '/docs/get-started/quick-start-api' },
-          { type: 'link', label: 'Quick Start: Event', href: '/docs/get-started/quick-start-event' },
-          { type: 'link', label: 'Quick Start: File', href: '/docs/get-started/quick-start-file' },
           { type: 'link', label: 'Quick Start: Automation', href: '/docs/get-started/quick-start-automation' },
-          { type: 'link', label: 'Quick Start: Data Service', href: '/docs/get-started/quick-start-data-service' },
           { type: 'link', label: 'Quick Start: AI Agent', href: '/docs/get-started/quick-start-ai-agent' },
+          { type: 'link', label: 'Quick Start: Integration as API', href: '/docs/get-started/quick-start-api' },
+          { type: 'link', label: 'Quick Start: Event-Driven Integration', href: '/docs/get-started/quick-start-event' },
+          { type: 'link', label: 'Quick Start: File-Driven Integration', href: '/docs/get-started/quick-start-file' },
         ],
       },
     ],
@@ -280,10 +279,10 @@ const sections: SectionCard[] = [
 /*  Quick-links shown when the search input is focused but empty       */
 /* ------------------------------------------------------------------ */
 const quickLinks = [
-  {label: 'Quick start: Automation', to: '/docs/get-started/quick-start-automation'},
-  {label: 'Build an AI agent', to: '/docs/get-started/quick-start-ai-agent'},
-  {label: 'Quick start: REST API', to: '/docs/get-started/quick-start-api'},
-  {label: 'Connector catalog', to: '/docs/connectors'},
+  { label: 'Quick start: Automation', to: '/docs/get-started/quick-start-automation' },
+  { label: 'Build an AI agent', to: '/docs/get-started/quick-start-ai-agent' },
+  { label: 'Quick start: REST API', to: '/docs/get-started/quick-start-api' },
+  { label: 'Connector catalog', to: '/docs/connectors' },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -499,7 +498,7 @@ export default function Home(): ReactNode {
           <DocSidebar
             sidebar={homeSidebarItems}
             path="/none"
-            onCollapse={() => {}}
+            onCollapse={() => { }}
             isHidden={false}
           />
         </aside>

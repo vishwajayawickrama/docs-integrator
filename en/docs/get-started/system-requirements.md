@@ -25,18 +25,13 @@ Before you install WSO2 Integrator, make sure your development environment meets
 | **Red Hat Enterprise Linux** | RHEL 9 |
 | **macOS** | macOS 14.6 (Sonoma) or later |
 
-ARM architectures are supported, including Apple Silicon (M1/M2/M3/M4) and ARM-based Linux.
+## ARM compatibility
 
-## Software requirements
-
-| Software | Version | Notes |
-|----------|---------|-------|
-| **Visual Studio Code** | Latest stable | Primary IDE -- download from [code.visualstudio.com](https://code.visualstudio.com/download) |
-| **Java Runtime (JRE)** | 21 | Required for the Ballerina runtime |
-| **Docker** | 20.10+ | Optional -- for containerized deployment |
+WSO2 Integrator is compatible with ARM processors. It can run on ARM-based systems, such as those with Apple Silicon or ARM-based Linux distributions.
 
 ### Supported Java distributions
 
+A compatible JRE version will be automatically installed during the WSO2 Integrator installation process.
 Any JRE 21 distribution works. Tested distributions:
 
 | Distribution | Version |
@@ -81,13 +76,11 @@ export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 
 The development environment needs internet access for:
 
-- Downloading the Ballerina distribution and updates
+- Downloading the WSO2 Integrator and updates
 - Pulling packages from [Ballerina Central](https://central.ballerina.io)
-- Pulling connector dependencies
-- VS Code extension marketplace access
 
 If you're behind a corporate proxy, configure proxy settings in VS Code and in your terminal environment.
 
 ## Next steps
 
-- [Install WSO2 Integrator](install.md) -- Install the VS Code extension and set up Ballerina
+- [Install WSO2 Integrator](install.md)

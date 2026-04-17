@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from '@docusaurus/Link';
 import { useHistory } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import DocSidebar from '@theme/DocSidebar';
@@ -291,6 +292,7 @@ const quickLinks = [
 /* ------------------------------------------------------------------ */
 function SearchBar(): ReactNode {
   const history = useHistory();
+  const searchPath = useBaseUrl('/search');
   const [query, setQuery] = useState('');
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -331,7 +333,7 @@ function SearchBar(): ReactNode {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (query.trim()) {
-        history.push(`/search?q=${encodeURIComponent(query.trim())}`);
+        history.push(`${searchPath}?q=${encodeURIComponent(query.trim())}`);
         setFocused(false);
       }
     },

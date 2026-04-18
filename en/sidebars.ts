@@ -1221,6 +1221,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/openai.audio/setup-guide',
             'connectors/catalog/ai-ml/openai.audio/action-reference',
+            'connectors/catalog/ai-ml/openai.audio/example',
           ],
         },
         {

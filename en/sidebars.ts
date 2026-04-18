@@ -1230,6 +1230,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/openai.finetunes/setup-guide',
             'connectors/catalog/ai-ml/openai.finetunes/action-reference',
+            'connectors/catalog/ai-ml/openai.finetunes/example',
           ],
         },
         {

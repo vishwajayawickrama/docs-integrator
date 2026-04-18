@@ -1125,6 +1125,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/mistral/setup-guide',
             'connectors/catalog/ai-ml/mistral/action-reference',
+            'connectors/catalog/ai-ml/mistral/example',
           ],
         },
         {

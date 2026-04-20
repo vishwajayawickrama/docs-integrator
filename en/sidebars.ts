@@ -1177,6 +1177,16 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'MQTT',
+          link: { type: 'doc', id: 'connectors/catalog/built-in/mqtt/overview' },
+          items: [
+            'connectors/catalog/built-in/mqtt/setup-guide',
+            'connectors/catalog/built-in/mqtt/action-reference',
+            'connectors/catalog/built-in/mqtt/trigger-reference',
+          ],
+        },
+        {
+          type: 'category',
           label: 'MSSQL',
           link: { type: 'doc', id: 'connectors/catalog/database/mssql/overview' },
           items: [

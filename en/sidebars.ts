@@ -507,6 +507,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/messaging/confluent.cregistry/setup-guide',
             'connectors/catalog/messaging/confluent.cregistry/action-reference',
+            'connectors/catalog/messaging/confluent.cregistry/example',
           ],
         },
         {

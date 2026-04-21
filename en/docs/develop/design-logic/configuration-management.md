@@ -51,7 +51,7 @@ configurable decimal requestTimeoutSeconds = 30.0d;
 configurable boolean enableCaching = true;
 ```
 
-Config values must be provided in `Config.toml` for all variables with no default values (initialized with `?`); otherwise, the program fails with a runtime error at startup.
+Config values must be provided through a supported configuration source (`Config.toml`, `BAL_CONFIG_VAR_*` env vars, `BAL_CONFIG_DATA`, or `-C` CLI args) for all variables with no default values (initialized with `?`); otherwise, the program fails with a runtime error at startup.
 
 </TabItem>
 </Tabs>

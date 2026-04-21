@@ -1690,6 +1690,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/built-in/websocket/action-reference',
             'connectors/catalog/built-in/websocket/trigger-reference',
+            'connectors/catalog/built-in/websocket/example',
           ],
         },
         {

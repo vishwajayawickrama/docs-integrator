@@ -1103,6 +1103,7 @@ const sidebars: SidebarsConfig = {
             'connectors/catalog/messaging/java.jms/setup-guide',
             'connectors/catalog/messaging/java.jms/action-reference',
             'connectors/catalog/messaging/java.jms/trigger-reference',
+            'connectors/catalog/messaging/java.jms/example',
           ],
         },
         {

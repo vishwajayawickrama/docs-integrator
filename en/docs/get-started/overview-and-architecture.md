@@ -6,11 +6,9 @@ description: What WSO2 Integrator is and how it works at a high level.
 
 # Overview and Architecture
 
-[WSO2 Integrator](https://wso2.com/integration-platform/integrator/) is a low-code integration platform that helps you connect systems, build workflows, and expose services across cloud, on-premises, and hybrid environments.
+WSO2 Integrator is a Ballerina-powered integration platform that allows you to connect anything and solve any integration challenge. It combines low-code simplicity with pro-code power, enabling you to build AI agents, APIs, data, and events across cloud, on-premises, and hybrid environments.
 
-It combines a visual design experience with code-level flexibility, allowing you to design integrations visually or implement them directly in code. The platform also includes AI-assisted development, built-in connectors, and support for common integration patterns such as APIs, events, and automations.
-
-WSO2 Integrator can be used to build and manage a wide range of integration solutions, from simple service orchestration to complex, enterprise-scale workflows. Whether you are modernizing existing systems or building new digital services, it provides a scalable and productive approach to integration.
+You design integrations visually in the [WSO2 Integrator IDE](https://wso2.com/integration-platform/integrator/), and the platform generates production-ready Ballerina code or you write code directly and see it reflected in the visual designer.
 
 ## High-level architecture
 

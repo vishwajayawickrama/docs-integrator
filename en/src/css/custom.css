@@ -144,7 +144,6 @@
 
   /* === Navbar === */
   --ifm-navbar-background-color: rgba(11, 17, 32, 0.6);
-  --wso2-sidebar-bg: #151E31;
   --ifm-navbar-shadow: none;
 
   /* === Sidebar === */
@@ -836,6 +835,7 @@ hr {
 }
 
 [data-theme='dark'] .theme-doc-sidebar-container {
+  --wso2-sidebar-bg: #151E31;
   border-right-color: rgba(255, 255, 255, 0.06);
 }
 

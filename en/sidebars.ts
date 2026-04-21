@@ -615,6 +615,7 @@ const sidebars: SidebarsConfig = {
             'connectors/catalog/messaging/gcloud.pubsub/setup-guide',
             'connectors/catalog/messaging/gcloud.pubsub/action-reference',
             'connectors/catalog/messaging/gcloud.pubsub/trigger-reference',
+            'connectors/catalog/messaging/gcloud.pubsub/example',
           ],
         },
         {

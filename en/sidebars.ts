@@ -1621,6 +1621,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/built-in/tcp/action-reference',
             'connectors/catalog/built-in/tcp/trigger-reference',
+            'connectors/catalog/built-in/tcp/example',
           ],
         },
         {

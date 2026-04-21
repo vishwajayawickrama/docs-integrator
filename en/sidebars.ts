@@ -578,6 +578,7 @@ const sidebars: SidebarsConfig = {
             'connectors/catalog/built-in/email/setup-guide',
             'connectors/catalog/built-in/email/action-reference',
             'connectors/catalog/built-in/email/trigger-reference',
+            'connectors/catalog/built-in/email/example',
           ],
         },
         {

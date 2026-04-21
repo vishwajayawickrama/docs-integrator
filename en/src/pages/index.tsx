@@ -336,7 +336,7 @@ function SearchBar(): ReactNode {
         setFocused(false);
       }
     },
-    [query, history],
+    [query, history, searchPath],
   );
 
   return (
@@ -368,7 +368,6 @@ function SearchBar(): ReactNode {
           aria-label="Search documentation"
         />
         <kbd className={styles.searchKbd}>/</kbd>
-        <button type="submit" className="visually-hidden">Search</button>
       </form>
 
       {/* Quick-links dropdown when focused and empty query */}

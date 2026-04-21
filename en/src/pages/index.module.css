@@ -29,24 +29,32 @@
 }
 
 /* Add a small top padding for a premium, balanced look */
+/* stylelint-disable selector-pseudo-class-no-unknown */
 .sidebarCol> :global(div) {
   padding-top: 1rem !important;
 }
+/* stylelint-enable selector-pseudo-class-no-unknown */
 
 /* Remove redundant top padding from the internal menu component */
+/* stylelint-disable selector-pseudo-class-no-unknown */
 .sidebarCol :global(.menu) {
   padding-top: 0;
 }
+/* stylelint-enable selector-pseudo-class-no-unknown */
 
 /* Reset list padding/margin */
+/* stylelint-disable selector-pseudo-class-no-unknown */
 .sidebarCol :global(.menu__list) {
   padding-top: 0;
   margin-top: 0;
 }
+/* stylelint-enable selector-pseudo-class-no-unknown */
 
+/* stylelint-disable selector-pseudo-class-no-unknown */
 .sidebarCol :global(.menu__list-item:first-child) {
   margin-top: 0;
 }
+/* stylelint-enable selector-pseudo-class-no-unknown */
 
 .mainContent {
   flex: 1;

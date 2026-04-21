@@ -1299,6 +1299,14 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          label: 'PDF',
+          link: { type: 'doc', id: 'connectors/catalog/built-in/pdf/overview' },
+          items: [
+            'connectors/catalog/built-in/pdf/action-reference',
+          ],
+        },
+        {
+          type: 'category',
           label: 'PayPal Invoices',
           link: { type: 'doc', id: 'connectors/catalog/finance-accounting/paypal.invoices/overview' },
           items: [
@@ -1965,6 +1973,7 @@ const sidebars: SidebarsConfig = {
             'tutorials/salesforce-db-sync',
             'tutorials/kafka-event-pipeline',
             'tutorials/rest-api-aggregation',
+            'tutorials/pdf-generation-service',
             'tutorials/walkthroughs/content-based-routing',
             'tutorials/walkthroughs/data-transformation-pipeline',
             'tutorials/file-batch-etl',
@@ -2193,6 +2202,18 @@ const sidebars: SidebarsConfig = {
             'reference/api/management-api',
             'reference/api/icp-api',
             'reference/api/ballerina-api-docs',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Deploying ICP',
+          link: { type: 'doc', id: 'reference/icp/index' },
+          items: [
+            'reference/icp/server-configuration',
+            'reference/icp/database',
+            'reference/icp/authentication',
+            'reference/icp/runtime-connection',
+            'reference/icp/deployment',
           ],
         },
         'reference/protocols',

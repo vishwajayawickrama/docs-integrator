@@ -230,7 +230,7 @@ bal openapi [OPTIONS] <openapi-file|bal-file>
 | `--nullable` | Enable nullable field generation |
 | `-o <output>`, `--output <output>` | Output directory |
 
-### `bal GraphQL`
+### `bal graphql`
 
 Generates Ballerina client code from a GraphQL schema or config, or generates a schema from a Ballerina service.
 
@@ -238,7 +238,7 @@ Generates Ballerina client code from a GraphQL schema or config, or generates a 
 bal graphql [OPTIONS] <graphql-schema|bal-file>
 ```
 
-### `bal gRPC`
+### `bal grpc`
 
 Generates Ballerina stub/skeleton code from a Protocol Buffer definition.
 

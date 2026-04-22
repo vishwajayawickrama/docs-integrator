@@ -293,5 +293,5 @@ service /api on new http:Listener(servicePort) {
 ## What's next
 
 - [Functions](functions.md) — Organize configurable logic into reusable functions
-- [Connections](connections.md) — Use configurable variables to parameterize connections
+- [Connections](managing-connections.md) — Use configurable variables to parameterize connections
 - [Error Handling](error-handling.md) — Handle missing or invalid configuration gracefully

@@ -276,5 +276,5 @@ true
 ## What's Next
 
 - [Remote Debugging](remote-debugging.md) -- Debug services running in containers or remote servers
-- [Strand Dump Analysis](strand-dumps.md) -- Diagnose concurrency issues
+- [Strand Dump Analysis](strand-dump-analysis.md) -- Diagnose concurrency issues
 - [Performance Profiling](performance-profiling.md) -- Find performance bottlenecks

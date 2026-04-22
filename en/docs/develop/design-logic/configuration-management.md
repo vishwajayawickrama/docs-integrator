@@ -286,7 +286,7 @@ final http:Client crmClient = check new (crmBaseUrl, {
     httpVersion: http:HTTP_1_1
 });
 
-listener http:Listener httpListener = check new http:Listener(servicePort);
+listener http:Listener httpListener = new (servicePort);
 
 service /api on httpListener {
 

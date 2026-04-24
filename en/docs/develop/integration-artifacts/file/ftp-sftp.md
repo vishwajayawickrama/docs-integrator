@@ -323,11 +323,13 @@ listener ftp:Listener sftpListener = check new ({
 
 A file handler is a `remote function` that WSO2 Integrator calls each time the listener's polling cycle detects a file event in the monitored directory. A service can declare any combination of the three handler types:
 
-| Handler | Trigger | Required |
-|---|---|---|
-| **onCreate** (`onFileText` / `onFileJson` / `onFileXml` / `onFileCsv` / `onFile`) | A new file matching the service's `fileNamePattern` appears on the remote server. The function name depends on the content type — one variant per file format. | No |
-| **onFileDelete** | A previously seen file is no longer present on the remote server. | No |
-| **onError** | The runtime could not map incoming content to a typed onCreate handler — for example, a JSON handler received malformed JSON. | No |
+| Handler | Trigger |
+|---|---|
+| **onCreate** (`onFileText` / `onFileJson` / `onFileXml` / `onFileCsv` / `onFile`) | A new file matching the service's `fileNamePattern` appears on the remote server. The function name depends on the content type — one variant per file format. |
+| **onFileDelete** | A previously seen file is no longer present on the remote server. |
+| **onError** | The runtime could not map incoming content to a typed onCreate handler — for example, a JSON handler received malformed JSON. |
+
+At least one **onCreate** or **onFileDelete** handler is required — a service with only an `onError` handler is not valid.
 
 `onFileDeleted` is also supported as a legacy/deprecated delete callback. Prefer `onFileDelete` for new services.
 
@@ -464,8 +466,7 @@ The form writes an `@ftp:FunctionConfig` annotation on the handler. Each of `aft
 ```ballerina
 @ftp:FunctionConfig {
     afterProcess: {
-        moveTo: string `/processed`,
-        preserveSubDirs: true
+        moveTo: string `/processed`
     },
     afterError: ftp:DELETE
 }
@@ -479,7 +480,7 @@ remote function onFileText(string content, ftp:FileInfo fileInfo) returns error?
 | Field | Type | Description |
 |---|---|---|
 | `fileNamePattern` | `string?` | Regex to filter which files this handler processes. Overrides the service-level pattern for this handler. |
-| `afterProcess` | `ftp:MOVE\|ftp:DELETE?` | Action to take when the handler returns without error. Omit the field to leave the file in place. For move, use `{ moveTo: <path>, preserveSubDirs: <boolean>? }`. |
+| `afterProcess` | `ftp:MOVE\|ftp:DELETE?` | Action to take when the handler returns without error. Omit the field to leave the file in place. For move, use `{ moveTo: <path> }`. |
 | `afterError` | `ftp:MOVE\|ftp:DELETE?` | Action to take when the handler returns an error. Same shape as `afterProcess`. |
 
 </TabItem>

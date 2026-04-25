@@ -94,18 +94,6 @@ service on ftpListener {
 
 :::warning[Each instance needs a unique Member ID]
 The runtime trusts the Member ID you provide — it does **not** check that the value is unique across your cluster. If two pods come up with the same Member ID in the same Coordination Group, **both become active and process every file twice**.
-
-Wire a distinct value into each pod from your deployment template. In Kubernetes, the pod name from the downward API works well:
-
-```yaml
-env:
-  - name: MEMBER_ID
-    valueFrom:
-      fieldRef:
-        fieldPath: metadata.name
-```
-
-Read it with `configurable string memberId = ?;` and pass it to the listener.
 :::
 
 ### Database schema

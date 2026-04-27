@@ -4,63 +4,54 @@ title: High Availability and Coordination
 
 # High Availability and Coordination
 
-When you deploy multiple instances of an FTP/SFTP listener (for example, in a Kubernetes cluster), each instance polls the same remote directory independently. Without coordination, every instance detects the same files and processes them — causing duplicate processing, race conditions, and inconsistent state.
+When you deploy several instances of the same FTP/SFTP integration — for example, one per pod in a Kubernetes cluster — every instance would normally connect to the same remote directory and pick up every file. That causes duplicate processing, race conditions, and inconsistent downstream state.
 
-Distributed coordination ensures that **only one instance actively polls** at any time. The other instances act as warm standby nodes and automatically take over if the active node fails.
+Turning on **Coordination** fixes this. One instance is elected as the active node and polls the server; the others stay as warm standbys and take over automatically if the active one goes down. You only need one extra thing — a shared database the nodes use to elect a leader and exchange heartbeats.
 
 ## How it works
 
-The coordination mechanism uses a **database-backed leader election** pattern:
+| Step | What happens |
+|---|---|
+| **1. Leader election** | On startup, every node in the same `coordinationGroup` registers with the shared database. One node is elected active. |
+| **2. Heartbeat** | Every node in the group — active and standby — writes its own heartbeat row at the `heartbeatFrequency` interval. This advertises liveness so any node can be promoted when needed. |
+| **3. Liveness check** | Standby nodes periodically check the active node's heartbeat. If the heartbeat goes stale, the active node is considered dead. |
+| **4. Failover** | A standby is promoted to active and starts polling immediately — no manual intervention. |
+| **5. Polling behaviour** | Only the active node polls the FTP server. Standby nodes skip polling entirely, consuming no FTP server resources. |
 
-1. **Leader election** — All listener instances in the same coordination group register with a shared database. One instance is elected as the active node.
-2. **Heartbeat** — The active node updates a heartbeat record in the database at a regular interval, proving it is alive.
-3. **Liveness check** — Standby nodes periodically check the active node's heartbeat. If the heartbeat is stale (not updated within the liveness check interval), the active node is considered failed.
-4. **Failover** — A standby node is promoted to active and begins polling. No manual intervention is required.
-5. **Polling behaviour** — Only the active node executes polling. Standby nodes skip polling cycles entirely, consuming no FTP server resources.
-
-```text
-┌──────────────┐     heartbeat      ┌──────────────────┐
-│  Node A      │ ────────────────── │                  │
-│  (active)    │                    │  Coordination DB │
-│  polls FTP   │                    │  (MySQL/PostgreSQL)
-└──────────────┘                    │                  │
-                                    │                  │
-┌──────────────┐     liveness check │                  │
-│  Node B      │ ────────────────── │                  │
-│  (standby)   │                    └──────────────────┘
-│  skips polls │
-└──────────────┘
-        │
-        │  Node A heartbeat goes stale
-        ▼
-┌──────────────┐
-│  Node B      │
-│  (active)    │  ← promoted automatically
-│  polls FTP   │
-└──────────────┘
-```
+The pattern is **active-passive**: at most one node polls at a time. Per-file locking across multiple active pollers isn't supported.
 
 ## Enabling coordination
 
-Add a `coordination` record to the listener configuration. Each node in the cluster must have a unique `memberId`, and all nodes that coordinate together must share the same `coordinationGroup`.
+1. Open the listener by clicking its name under **Listeners** in the sidebar, or under **Attached Listeners** in the **FTP Integration Configuration** panel.
+2. Scroll to the **Coordination** field and click **Record** to open the builder.
+3. Fill in the three required fields:
 
-In the **FTP Integration Configuration** panel, expand **Advanced Configurations** and enable **Coordination**. Configure the database connection, member ID, and coordination group name.
+   | Field | What to enter |
+   |---|---|
+   | **Member Id** | A unique name for this instance of the integration. Every pod/instance must have a different value. Typically sourced from a `configurable` so each deployment can set its own. |
+   | **Coordination Group** | A shared name that all instances of the same listener use. Instances with matching group names coordinate; instances with different group names are independent. |
+   | **Database Config** | Connection details (host, port, user, password, database) for the shared MySQL or PostgreSQL database used to track leader election. |
+
+4. Save the listener. Deploy each instance with a different **Member Id**.
+
+Add a `coordination` record to the `ftp:Listener` configuration. Source `memberId` from a `configurable` so each deployment sets its own value; keep `coordinationGroup` identical across instances you want to coordinate.
 
 ```ballerina
 import ballerina/ftp;
+import ballerina/task;
+// The driver import is required at runtime even though it isn't referenced
+// directly. Use `ballerinax/postgresql.driver as _` for PostgreSQL.
+import ballerinax/mysql.driver as _;
 
-configurable string memberId = ?;  // unique per deployment node
+configurable string memberId = ?;
 
 listener ftp:Listener ftpListener = new ({
     host: "ftp.example.com",
     port: 21,
-    auth: {
-        credentials: {username: "user", password: "pass"}
-    },
-    path: "/incoming",
+    auth: {credentials: {username: "user", password: "pass"}},
     pollingInterval: 30,
     coordination: {
-        databaseConfig: {
+        databaseConfig: <task:MysqlConfig>{
             host: "mysql.example.com",
             user: "coordinator",
             password: "secret",
@@ -73,103 +64,73 @@ listener ftp:Listener ftpListener = new ({
 
 service on ftpListener {
     remote function onFileText(string content, ftp:FileInfo fileInfo) returns error? {
-        // Only one node in the cluster executes this
+        // Only one instance in the cluster executes this handler per file.
     }
 }
 ```
 
-### CoordinationConfig fields
+`ftp:CoordinationConfig` fields:
 
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `databaseConfig` | `task:DatabaseConfig` | — | Connection details for the coordination database. Accepts `MysqlConfig` or `PostgresqlConfig`. Required. |
 | `memberId` | `string` | — | Unique identifier for this node. Must be distinct across all nodes in the coordination group. Required. |
-| `coordinationGroup` | `string` | — | Name of the coordination group. All listeners with the same group coordinate together. Use a unique name per logical listener. Required. |
-| `livenessCheckInterval` | `int` | `30` | Interval in seconds for standby nodes to check the active node's heartbeat. |
-| `heartbeatFrequency` | `int` | `1` | Interval in seconds for the active node to update its heartbeat record. |
+| `coordinationGroup` | `string` | — | Name of the coordination group. All listeners with the same group coordinate together. Required. |
+| `livenessCheckInterval` | `int` | `30` | Seconds between heartbeat checks by standby nodes. |
+| `heartbeatFrequency` | `int` | `1` | Seconds between heartbeat writes by the active node. |
 
-### Database configuration
+:::warning[Each instance needs a unique Member ID]
+The runtime trusts the Member ID you provide — it does **not** check that the value is unique across your cluster. If two pods come up with the same Member ID in the same Coordination Group, **both become active and process every file twice**.
 
-The coordination database stores leader election state and heartbeat records. The schema is managed automatically — you only need to provide a database and credentials.
+### Database schema
 
-**MySQL:**
+Create the coordination tables in your MySQL or PostgreSQL database **before starting the first instance** — the runtime does not create them for you. Both dialects are supported; use whichever your ops team already runs.
 
-```ballerina
-coordination: {
-    databaseConfig: {
-        host: "mysql.example.com",
-        port: 3306,
-        user: "coordinator",
-        password: "secret",
-        database: "ftp_coordination"
-    },
-    memberId: "node-1",
-    coordinationGroup: "order-files"
-}
+```sql
+CREATE TABLE token_holder (
+    group_id   VARCHAR(128) NOT NULL PRIMARY KEY,
+    task_id    VARCHAR(128) NOT NULL,
+    term       BIGINT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE health_check (
+    task_id        VARCHAR(128) NOT NULL,
+    group_id       VARCHAR(128) NOT NULL,
+    last_heartbeat DATETIME NOT NULL,
+    PRIMARY KEY (task_id, group_id)
+);
 ```
 
-**PostgreSQL:**
+```sql
+CREATE TABLE token_holder (
+    group_id   VARCHAR(128) NOT NULL PRIMARY KEY,
+    task_id    VARCHAR(128) NOT NULL,
+    term       BIGINT NOT NULL DEFAULT 1
+);
 
-```ballerina
-coordination: {
-    databaseConfig: {
-        host: "postgres.example.com",
-        port: 5432,
-        user: "coordinator",
-        password: "secret",
-        database: "ftp_coordination"
-    },
-    memberId: "node-1",
-    coordinationGroup: "order-files"
-}
+CREATE TABLE health_check (
+    task_id        VARCHAR(128) NOT NULL,
+    group_id       VARCHAR(128) NOT NULL,
+    last_heartbeat TIMESTAMP NOT NULL,
+    PRIMARY KEY (task_id, group_id)
+);
 ```
 
-### Making memberId unique per node
-
-Use a configurable value and set it per deployment via `Config.toml` or environment variables:
-
-```ballerina
-configurable string memberId = ?;
-```
-
-**Config.toml (per node):**
-
-```toml
-memberId = "node-1"   # "node-2" on the second instance, etc.
-```
-
-**Environment variable:**
-
-```bash
-BAL_CONFIG_VAR_MEMBER_ID=node-1 bal run
-```
-
-In Kubernetes, use the pod name or a unique identifier from the downward API.
-
-## Design considerations
-
-### Active-passive only
-
-Coordination uses an **active-passive** (warm standby) model. Only one node polls at a time. Active-active coordination (multiple nodes processing different files simultaneously) is not supported, as it requires per-file locking that may not be compatible with all FTP server configurations.
-
-### Coordination group isolation
-
-Listeners with different `coordinationGroup` values coordinate independently. This lets you run separate groups for different directories or file types on the same cluster, each with its own active/standby election.
-
-### Clock synchronization
-
-Heartbeat-based coordination assumes reasonably synchronized clocks across nodes. Significant clock skew may cause premature failover or delayed detection. Use NTP or a similar time synchronization service in your deployment.
+Every node in a `coordinationGroup` shares the same two tables. The runtime writes heartbeats to `health_check`, elects a leader by upserting `token_holder`, and compares `last_heartbeat` against the database's own `CURRENT_TIMESTAMP` for liveness. You don't need to pre-seed any rows — creating the tables is enough.
 
 ### Database availability
 
-If the coordination database is temporarily unavailable:
+Coordination depends on the shared database being reachable. If the database goes down:
 
-- The **active node** continues polling (it already holds the lease).
-- **Standby nodes** cannot check liveness or participate in failover until the database is reachable again.
-- Ensure the coordination database has its own availability guarantees (replicas, backups).
+- The **active node** stops polling — its heartbeat writes fail, and file dispatch halts until the database comes back. Files that arrive on the FTP server during the outage are processed only after the database is restored and polling resumes.
+- **Standby nodes** also cannot take over until the database is reachable again. On recovery, a standby promotes itself within one liveness-check interval and begins polling.
+
+Treat the coordination database as critical infrastructure on the data path: plan replicas, backups, and failover to the same standard as your FTP/SFTP source.
+
+:::warning[Monitor the coordination database directly]
+The coordination database sits on the file-processing data path: its availability directly determines whether files are picked up. Add it to your infrastructure monitoring (uptime checks, query latency, connection counts) alongside the FTP/SFTP source itself, so your operators are alerted by the database, not by files piling up at the source.
 
 ## What's next
 
-- [FTP / SFTP](ftp-sftp.md) — service configuration, authentication, and file handlers
-- [Resiliency](resiliency.md) — automatic retry and circuit breaker for FTP client operations
+- [FTP / SFTP](ftp-sftp.md) — service, listener, and file-handler reference
 - [Scaling and high availability](../../../../deploy-operate/deploy/scaling-ha.md) — deployment-level scaling and HA strategies

@@ -6,13 +6,11 @@ title: File Dependency and Trigger Conditions
 
 By default, an FTP/SFTP listener triggers as soon as it detects a new file. In production, you often need more control: process only `.csv` files, skip files that are still being uploaded, or wait for a companion file (like a `.done` marker) before processing.
 
-These trigger conditions are configured at the service level with `@ftp:ServiceConfig`.
-
 ## File name pattern
 
 The `fileNamePattern` field accepts a regex that filters which files trigger the handler. Files that don't match are ignored.
 
-In the **FTP Integration Configuration** panel, expand **Advanced Configurations** and set the **File Name Pattern** field to a regex (for example, `.*\.csv`).
+On the **FTP Integration Configuration** panel, open the **Record Configuration** builder for the **Service Configuration** field, tick **fileNamePattern**, and enter a regex (for example, `.*\.csv`).
 
 ```ballerina
 @ftp:ServiceConfig {
@@ -37,7 +35,7 @@ Common patterns:
 
 The `fileAgeFilter` field prevents processing files that are too new (still being uploaded) or too old (stale). Both bounds are optional.
 
-In the **FTP Integration Configuration** panel, expand **Advanced Configurations** and configure the **File Age Filter** with minimum and maximum age values in seconds.
+On the **FTP Integration Configuration** panel, open the **Record Configuration** builder for the **Service Configuration** field, tick **fileAgeFilter**, and set **minAge** and/or **maxAge** in seconds.
 
 ```ballerina
 @ftp:ServiceConfig {
@@ -64,7 +62,7 @@ service on ftpListener {
 
 The `fileDependencyConditions` field blocks processing until one or more related files exist in the same directory. This is useful when an upstream system uploads a data file first and a marker file second to signal that the upload is complete.
 
-In the **FTP Integration Configuration** panel, expand **Advanced Configurations** and configure **File Dependency Conditions**. Set the target pattern to match the data file, and add required files that must be present before processing triggers.
+On the **FTP Integration Configuration** panel, open the **Record Configuration** builder for the **Service Configuration** field, tick **fileDependencyConditions**, and add an entry. Set the target pattern to match the data file, and list the required files that must be present before processing triggers.
 
 ```ballerina
 @ftp:ServiceConfig {

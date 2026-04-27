@@ -6,7 +6,7 @@ title: Create Your First Project
 
 Create a new WSO2 Integrator project and understand what gets generated.
 
-## Create the Project
+## Create a project
 
 1. Open VS Code
 2. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
@@ -26,13 +26,13 @@ my-integration/
 └── resources/              # Static resources (schemas, configs)
 ```
 
-## Run the Empty Project
+## Run the project
 
-1. Click the **Run** button in the VS Code toolbar, or
+1. Select the **Run** button in the VS Code toolbar, or
 2. Open a terminal and run: `bal run`
 3. You should see the service start successfully
 
-## What's Next
+## Next steps
 
 - [Understand the IDE](understand-the-ide.md) — Learn the visual designer layout
-- [Build an API Integration](quick-start-api.md) — Your first real integration
+- [Build an API integration](quick-start-api.md) — Your first real integration

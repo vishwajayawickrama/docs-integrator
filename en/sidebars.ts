@@ -421,6 +421,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/azure.ai.search/setup-guide',
             'connectors/catalog/ai-ml/azure.ai.search/action-reference',
+            'connectors/catalog/ai-ml/azure.ai.search/example',
           ],
         },
         {
@@ -430,6 +431,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/azure.ai.search.index/setup-guide',
             'connectors/catalog/ai-ml/azure.ai.search.index/action-reference',
+            'connectors/catalog/cloud-infrastructure/azure.ai.search.index/example',
           ],
         },
         {
@@ -1118,6 +1120,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/milvus/setup-guide',
             'connectors/catalog/ai-ml/milvus/action-reference',
+            'connectors/catalog/ai-ml/milvus/example',
           ],
         },
         {
@@ -1127,6 +1130,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/mistral/setup-guide',
             'connectors/catalog/ai-ml/mistral/action-reference',
+            'connectors/catalog/ai-ml/mistral/example',
           ],
         },
         {
@@ -1188,6 +1192,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/openai/setup-guide',
             'connectors/catalog/ai-ml/openai/action-reference',
+            'connectors/catalog/ai-ml/openai/example',
           ],
         },
         {
@@ -1197,6 +1202,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/openai.audio/setup-guide',
             'connectors/catalog/ai-ml/openai.audio/action-reference',
+            'connectors/catalog/ai-ml/openai.audio/example',
           ],
         },
         {
@@ -1206,6 +1212,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/openai.finetunes/setup-guide',
             'connectors/catalog/ai-ml/openai.finetunes/action-reference',
+            'connectors/catalog/ai-ml/openai.finetunes/example',
           ],
         },
         {

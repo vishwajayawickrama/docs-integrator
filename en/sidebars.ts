@@ -1036,6 +1036,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/communication/intercom/setup-guide',
             'connectors/catalog/communication/intercom/action-reference',
+            'connectors/catalog/communication/intercom/example',
           ],
         },
         {

@@ -108,6 +108,8 @@ Click **Save**. The execute node is placed on the canvas.
 
 [![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/integrator-default-profile/connectors/postgresql_connector_sample)
 
+[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/integrator-default-profile/connectors/postgresql_connector_sample)
+
 
 ---
 ## PostgreSQL Trigger Example
@@ -164,7 +166,7 @@ Select **Configurations** in the left panel of WSO2 Integrator to verify that al
 
 - **postgresHost** (string) : Hostname or IP address of the PostgreSQL server
 - **postgresPort** (int) : Port on which PostgreSQL is listening (default `5432`)
-- **postgresUsername** (string) : PostgreSQL user with replication privileges
+- **postgresUser** (string) : PostgreSQL user with replication privileges
 - **postgresPassword** (string) : Password for the PostgreSQL user
 - **postgresDatabase** (string) : Name of the database that contains the monitored table
 - **postgresTable** (string) : Fully-qualified table name to watch for CDC events (e.g. `public.orders`)

@@ -324,7 +324,7 @@ To fire a test event, use one of the following approaches:
 
 After a message is sent, the console prints output similar to:
 
-```
+```bash
 time = 2024-01-15T10:30:00.000Z level = INFO message = {"body":"Hello, ASB!","messageId":"abc123",...}
 ```
 

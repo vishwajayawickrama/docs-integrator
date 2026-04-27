@@ -179,8 +179,8 @@ Run the integration from the WSO2 Integrator panel by selecting **Run Integratio
 Once the service starts and listens on the configured port, use one of the following methods to fire a test event:
 
 - **Use `nc` (netcat):** Connect a TCP client to the listener port—for example, `nc <host> <port>`—to trigger the `onConnect` handler immediately on connection.
-- **Use `telnet`:** Open a telnet session to the listener address and port to establish a TCP connection and fire the `onConnect` handler.
-- **Use the WSO2 Integrator built-in Try It tool:** If a built-in TCP client template is available in the WSO2 Integrator panel, select it to send a test connection without a separate tool.
+- **`telnet`:** Open a telnet session to the listener address and port to establish a TCP connection and trigger the `onConnect` handler.
+- **WSO2 Integrator built-in Try It tool:** If available, select the WSO2 Integrator built-in Try It TCP client template to send a test connection without an external tool.
 
 When the connection is established, the `onConnect` handler fires and logs the caller information to the console output in WSO2 Integrator.
 

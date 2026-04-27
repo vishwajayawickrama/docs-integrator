@@ -93,9 +93,9 @@ The design canvas opens showing a bare flow: **Start → Error Handler**.
 
 Try this sample in WSO2 Integration Platform.
 
-[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/connectors/asb_message_sender_connector_sample)
+[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/integrator-default-profile/connectors/asb_message_sender_connector_sample)
 
-[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/connectors/asb_message_sender_connector_sample)
+[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/integrator-default-profile/connectors/asb_message_sender_connector_sample)
 
 ### More code examples
 
@@ -205,9 +205,9 @@ Select **Save** to add the node to the canvas.
 
 Try this sample in WSO2 Integration Platform.
 
-[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/connectors/asb_message_receiver_sample)
+[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/integrator-default-profile/connectors/asb_message_receiver_sample)
 
-[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/connectors/asb_message_receiver_sample)
+[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/integrator-default-profile/connectors/asb_message_receiver_sample)
 
 ### More code examples
 
@@ -332,6 +332,6 @@ time = 2024-01-15T10:30:00.000Z level = INFO message = {"body":"Hello, ASB!","me
 
 Try this sample in WSO2 Integration Platform.
 
-[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/connectors/asb_trigger_sample)
+[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/integrator-default-profile/connectors/asb_trigger_sample)
 
-[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/connectors/asb_trigger_sample)
+[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/integrator-default-profile/connectors/asb_trigger_sample)

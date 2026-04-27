@@ -106,7 +106,7 @@ Click **Save**. The execute node is placed on the canvas.
 
 ### Try it yourself
 
-[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/connectors/postgresql_connector_sample)
+[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/integrator-default-profile/connectors/postgresql_connector_sample)
 
 
 ---
@@ -217,6 +217,6 @@ When an insert is detected, the `onCreate` handler fires and the serialized `Pos
 
 Try this sample in WSO2 Integration Platform.
 
-[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/connectors/postgresql_trigger_sample)
+[![Deploy to Devant](https://openindevant.choreoapps.dev/images/DeployDevant-White.svg)](https://console.devant.dev/new?gh=wso2/integration-samples/tree/main/integrator-default-profile/connectors/postgresql_trigger_sample)
 
-[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/connectors/postgresql_trigger_sample)
+[View source on GitHub](https://github.com/wso2/integration-samples/tree/main/integrator-default-profile/connectors/postgresql_trigger_sample)

@@ -1120,7 +1120,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/storage-file/microsoft.onedrive/setup-guide',
             'connectors/catalog/storage-file/microsoft.onedrive/actions',
-            'connectors/catalog/productivity-collaboration/microsoft.onedrive/example',
+            'connectors/catalog/storage-file/microsoft.onedrive/example',
           ],
         },
         {

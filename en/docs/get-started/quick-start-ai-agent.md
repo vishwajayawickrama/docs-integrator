@@ -32,12 +32,12 @@ sequenceDiagram
     Agent-->>User: Chat reply
 ```
 
-## Step 1: Create the Project
+## Step 1: Create the project
 
 1. Open WSO2 Integrator.
 2. Select **Create**.
-3. Set **Integration Name** to `AI Agent`.
-4. Set **Project Name** to `Quick_Start`.
+3. Set **Integration Name** to `AIAgent`.
+4. Set **Project Name** to `QuickStart`.
 5. Select **Browse**.
 6. Select the project location and select **Open**.
 7. Select **Create Integration**.
@@ -50,9 +50,9 @@ sequenceDiagram
     }}
 />
 
-## Step 2: Add an AI Chat Agent
+## Step 2: Add an AI chat agent
 
-1. Select **AI Agent**.
+1. Select **AIAgent**.
 2. In the design view, select **+ Add Artifact**.
 3. Scroll down and select **AI Chat Agent** under **AI Integration**.
 4. Set **Name** to `Wso2 Integrator Assistant`.
@@ -66,9 +66,9 @@ sequenceDiagram
     }}
 />
 
-## Step 3: Configure the AI Agent
+## Step 3: Configure the AI agent
 
-1. Select **AI Agent**.
+1. Select **AIAgent**.
 2. Set **Instructions** to `You are a highly skilled WSO2 Integration Architect. Your goal is to assist developers in building, debugging, and optimizing integration flows.`.
 3. Select **Save**.
 
@@ -94,10 +94,10 @@ sequenceDiagram
     }}
 />
 
-## Next steps
+## What's next
 
 - [Quick start: Automation](quick-start-automation.md) -- Build a scheduled job
-- [Quick start: Integration as API](quick-start-api.md) -- Build an HTTP service
-- [Quick start: Event-driven integration](quick-start-event.md) -- React to messages from brokers
-- [Quick start: File-driven integration](quick-start-file.md) -- Process files from FTP or local directories
+- [Quick start: Integration as API](quick-start-integration-as-api.md) -- Build an HTTP service
+- [Quick start: Event-driven integration](quick-start-event-driven-integration.md) -- React to messages from brokers
+- [Quick start: File-driven integration](quick-start-file-driven-integration.md) -- Process files from FTP or local directories
 - [GenAI overview](/docs/genai/overview) -- Full guide to AI capabilities

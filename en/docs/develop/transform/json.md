@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 
 Work with JSON data -- the most common format in modern integrations. Ballerina treats `json` as a built-in union type (`()|boolean|int|float|decimal|string|json[]|map<json>`) with first-class language support for construction, access, and transformation.
 
-## Creating JSON Values
+## Creating JSON values
 
 Construct JSON directly using Ballerina literals. The `json` type accepts null, booleans, numbers, strings, arrays, and maps.
 
@@ -64,7 +64,7 @@ public function main() {
 </TabItem>
 </Tabs>
 
-## Accessing JSON Values
+## Accessing JSON values
 
 Access JSON fields with field access or index notation. Since `json` is dynamically shaped, most access operations return `json` and may require type narrowing.
 
@@ -112,7 +112,7 @@ public function main() returns error? {
 </TabItem>
 </Tabs>
 
-## Parsing JSON from Strings
+## Parsing JSON from strings
 
 Parse external JSON payloads received as strings, bytes, or streams using `value:fromJsonString()` or the `ballerina/data.jsondata` module.
 
@@ -253,7 +253,7 @@ type ApiResponse record {|
 </TabItem>
 </Tabs>
 
-## Common Transformations
+## Common transformations
 
 Restructure JSON data by converting to records, transforming, and converting back.
 
@@ -264,7 +264,7 @@ Restructure JSON data by converting to records, transforming, and converting bac
 
 2. **Add a Variable step for parsing** — In the flow designer, add a **Variable** step, set the type to `SourceContact`, and set the expression to `check jsondata:parseAsType(input)`.
 
-3. **Map fields visually** — To transform the parsed record into the target type, use the [Visual Data Mapper](data-mapper.md). Map `first_name` and `last_name` to `fullName` (with concatenation), and `email_address` to `email`.
+3. **Map fields visually** — To transform the parsed record into the target type, use the [Visual Data Mapper](visual-data-mapper.md). Map `first_name` and `last_name` to `fullName` (with concatenation), and `email_address` to `email`.
 
    ![Flow designer showing the jsondata parseAsType variable step and data mapper transformation](/img/develop/transform/json/json-transform-flow.png)
 
@@ -300,7 +300,7 @@ public function transform(json input) returns json|error {
 </TabItem>
 </Tabs>
 
-## Merging JSON Objects
+## Merging JSON objects
 
 Combine multiple JSON objects using the spread operator or map merge.
 
@@ -330,7 +330,7 @@ public function main() {
 </TabItem>
 </Tabs>
 
-## Edge Cases
+## Edge cases
 
 ### Null handling
 
@@ -367,7 +367,7 @@ public function main() returns error? {
 
 For large payloads, use `jsondata:parseStream()` to process byte streams without loading the entire content into memory.
 
-## What's Next
+## What's next
 
-- [XML Processing](xml.md) -- Work with XML data
-- [Type System & Records](type-system.md) -- Type-safe data handling
+- [XML Processing](xml-processing.md) -- Work with XML data
+- [Type System & Records](type-system-records.md) -- Type-safe data handling

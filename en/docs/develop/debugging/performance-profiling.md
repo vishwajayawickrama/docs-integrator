@@ -4,7 +4,7 @@ title: Performance Profiling
 description: Profile integrations to identify performance bottlenecks using the Ballerina profiler.
 ---
 
-# Performance profiling
+# Performance Profiling
 
 Identify and eliminate performance bottlenecks in your integrations using the Ballerina profiler. The profiler monitors runtime operations and function calls, then generates an interactive flame graph that shows where execution time is spent — so you can optimize what actually matters.
 
@@ -181,5 +181,5 @@ Use this checklist when profiling reveals performance issues:
 
 ## What's next
 
-- [Strand Dump Analysis](strand-dumps.md) — Diagnose concurrency issues
-- [Editor Debugging](editor-debugging.md) — Step through slow code paths
+- [Strand Dump Analysis](strand-dump-analysis.md) — Diagnose concurrency issues
+- [Editor Debugging](editor.md) — Step through slow code paths

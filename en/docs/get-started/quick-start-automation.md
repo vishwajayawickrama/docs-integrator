@@ -21,8 +21,8 @@ Automations are ideal for data synchronization, report generation, and routine m
 
 1. Open WSO2 Integrator.
 2. Select **Create**.
-3. Set **Integration Name** to `Hello_World`.
-4. Set **Project Name** to `Quick_Start`.
+3. Set **Integration Name** to `HelloWorld`.
+4. Set **Project Name** to `QuickStart`.
 5. Select **Browse**.
 6. Select the project location and select **Open**.
 7. Select **Create Integration**.
@@ -37,7 +37,7 @@ Automations are ideal for data synchronization, report generation, and routine m
 
 ## Step 2: Add an automation artifact
 
-1. Select **Hello_World**.
+1. Select **HelloWorld**.
 2. In the design view, select **Add Artifact**.
 3. Select **Automation** artifact.
 4. Select **Create**.
@@ -80,7 +80,7 @@ Automations are ideal for data synchronization, report generation, and routine m
     }}
 />
 
-## Scheduling Automations
+## Scheduling automations
 
 For production use, configure a cron schedule to trigger the automation periodically:
 
@@ -98,9 +98,9 @@ service on timer {
 }
 ```
 
-## Next steps
+## What's next
 
 - [Quick start: AI agent](quick-start-ai-agent.md) -- Build an intelligent agent
-- [Quick start: Integration as API](quick-start-api.md) -- Build an HTTP service
-- [Quick start: Event-driven integration](quick-start-event.md) -- React to messages from brokers
-- [Quick start: File-driven integration](quick-start-file.md) -- Process files from FTP or local directories
+- [Quick start: Integration as API](quick-start-integration-as-api.md) -- Build an HTTP service
+- [Quick start: Event-driven integration](quick-start-event-driven-integration.md) -- React to messages from brokers
+- [Quick start: File-driven integration](quick-start-file-driven-integration.md) -- Process files from FTP or local directories

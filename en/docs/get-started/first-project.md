@@ -16,7 +16,7 @@ Create a new WSO2 Integrator project and understand what gets generated.
 4. Choose a directory and project name
 5. The extension generates the project structure
 
-## Project Structure
+## Project structure
 
 ```
 my-integration/
@@ -34,7 +34,7 @@ my-integration/
 2. Open a terminal and run: `bal run`
 3. You should see the service start successfully
 
-## Next steps
+## What's next
 
 - [Understand the IDE](understand-the-ide.md) — Learn the visual designer layout
 - [Build an API integration](quick-start-api.md) — Your first real integration

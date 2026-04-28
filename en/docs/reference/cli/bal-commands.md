@@ -12,7 +12,7 @@ bal <command> [args]
 bal help <command>
 ```
 
-## Core Commands
+## Core commands
 
 ### `bal new`
 
@@ -144,7 +144,7 @@ bal pack [OPTIONS]
 | `--sticky` | Stick to dependency versions in Dependencies.toml |
 | `-o <output>`, `--output <output>` | Set the output directory |
 
-## Package Management Commands
+## Package management commands
 
 ### `bal push`
 
@@ -211,7 +211,7 @@ Validates semantic versioning compatibility of local changes against published v
 bal semver
 ```
 
-## Code Generation Commands
+## Code generation commands
 
 ### `bal openapi`
 
@@ -291,7 +291,7 @@ bal bindgen [OPTIONS] <class-names...>
 | `--public` | Make generated functions public |
 | `-m <module>`, `--modules <module>` | Target module for the bindings |
 
-## Formatting and Quality
+## Formatting and quality
 
 ### `bal format`
 
@@ -305,7 +305,7 @@ bal format [OPTIONS] [<module-name>]
 |------|-------------|
 | `--dry-run` | Show formatting changes without applying them |
 
-## Interactive and Diagnostic Commands
+## Interactive and diagnostic commands
 
 ### `bal shell`
 
@@ -323,7 +323,7 @@ Profiles a Ballerina program and generates flame graphs for performance analysis
 bal profile [OPTIONS] [<package>|<.bal file>]
 ```
 
-## Tool Management
+## Tool management
 
 ### `bal tool`
 
@@ -342,7 +342,7 @@ bal tool <subcommand>
 | `list` | List all locally installed tools |
 | `search <keyword>` | Search for tools in Ballerina Central |
 
-## Distribution Management
+## Distribution management
 
 ### `bal dist`
 
@@ -368,7 +368,7 @@ Updates the Ballerina update tool itself to the latest version.
 bal update
 ```
 
-## Informational Commands
+## Informational commands
 
 ### `bal version`
 
@@ -386,7 +386,7 @@ Displays usage details for any command.
 bal help [<command>]
 ```
 
-## Global Flags
+## Global flags
 
 The following flags are available across most commands:
 

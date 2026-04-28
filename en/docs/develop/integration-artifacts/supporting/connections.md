@@ -34,7 +34,7 @@ Connection artifacts centralize the configuration for external systems. Define c
 
    **Pre-built Connectors**
 
-   Browse the connector library using the **All**, **Standard**, or **Organization** tabs. Available connectors include HTTP, GraphQL, WebSocket, TCP, UDP, FTP, and many more. Use the search box to filter by name. For the full list, see the [Connector Catalog](../../../connectors/overview.md).
+   Browse the connector library using the **All**, **Standard**, or **Organization** tabs. Available connectors include HTTP, GraphQL, WebSocket, TCP, UDP, FTP, and many more. Use the search box to filter by name. For the full list, see the [Connector Catalog](/docs/connectors/overview).
 
 4. Select a connector type. A configuration form appears with fields specific to that connector (for example, base URL and authentication for HTTP, or host, port, and credentials for a database).
 
@@ -45,7 +45,7 @@ Connection artifacts centralize the configuration for external systems. Define c
 </TabItem>
 <TabItem value="code" label="Ballerina Code">
 
-Import the appropriate connector module and declare the client as a module-level `final` variable. For the complete list of available modules, see the [Connector Catalog](../../../connectors/overview.md).
+Import the appropriate connector module and declare the client as a module-level `final` variable. For the complete list of available modules, see the [Connector Catalog](/docs/connectors/overview).
 
 ```ballerina
 // connections.bal
@@ -121,7 +121,7 @@ Select an already-published connector from the connector library. The panel prov
 | **Standard** | Connectors maintained as part of the Ballerina platform and its extended library for popular third-party systems. | `ballerina/*` (for example, `ballerina/http`, `ballerina/graphql`, `ballerina/tcp`)<br/>`ballerinax/*` (for example, `ballerinax/mysql`, `ballerinax/kafka`, `ballerinax/rabbitmq`, `ballerinax/ftp`) |
 | **Organization** | Connectors published by WSO2 and connectors developed in-house by your organization and published to your private registry. | `wso2/*`, `<your-org>/*` |
 
-For the complete list of available connectors, see the [Connector Catalog](../../../connectors/overview.md).
+For the complete list of available connectors, see the [Connector Catalog](/docs/connectors/overview).
 
 </TabItem>
 <TabItem value="code" label="Ballerina Code">
@@ -135,7 +135,7 @@ Connector modules are distributed under different organizations on [Ballerina Ce
 | **WSO2** | `wso2/*` | Connectors published by WSO2 for enterprise systems and WSO2 products. |
 | **Organization** | `<your-org>/*` | Connectors developed in-house and published to your organization's registry, or generated from an OpenAPI or WSDL spec. |
 
-For the complete list of modules and their APIs, see the [Connector Catalog](../../../connectors/overview.md). To build and publish your own, see [Build your own connector](../../../connectors/build-your-own/index.md).
+For the complete list of modules and their APIs, see the [Connector Catalog](/docs/connectors/overview). To build and publish your own, see [Build your own connector](../../../connectors/build-your-own/index.md).
 
 </TabItem>
 </Tabs>

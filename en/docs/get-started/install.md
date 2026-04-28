@@ -72,4 +72,4 @@ After launching WSO2 Integrator:
 
 - [Create your first project](create-project.md): Generate a project structure.
 - [Understand the IDE](understand-ide.md): Learn the visual designer.
-- [Quick start: Integration as API](quick-start-integration-as-api.md): Build your first API integration.
+- [Build an API integration](build-api-integration.md): Build your first API integration.

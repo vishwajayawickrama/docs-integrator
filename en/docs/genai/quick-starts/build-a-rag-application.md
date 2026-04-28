@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-title: "Quick Start: Build a RAG Application"
+title: "Build a RAG Application"
 description: Build a retrieval-augmented generation application with vector search in under 15 minutes.
 ---
 

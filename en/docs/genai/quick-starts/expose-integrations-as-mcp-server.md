@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: "Quick Start: Expose Integrations as an MCP Server"
+title: "Expose Integrations as an MCP Server"
 description: Turn your existing integrations into an MCP server that AI assistants can use.
 ---
 

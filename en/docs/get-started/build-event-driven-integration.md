@@ -1,6 +1,6 @@
 ---
 sidebar_position: 8
-title: "Quick Start: Event-Driven Integration"
+title: "Build an Event-Driven Integration"
 description: Build an event-driven integration that reacts to messages from a message broker.
 ---
 import ThemedImage from '@theme/ThemedImage';
@@ -30,8 +30,8 @@ Event integrations are ideal for reactive workflows triggered by messages from K
 <ThemedImage
     alt="Create a New Integration Project"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-event/create-a-new-integration-project-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-event/create-a-new-integration-project-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-event-driven-integration/create-a-new-integration-project-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-event-driven-integration/create-a-new-integration-project-dark.gif'),
     }}
 />
 
@@ -44,8 +44,8 @@ Event integrations are ideal for reactive workflows triggered by messages from K
 <ThemedImage
     alt="Add a RabbitMQ Event Integration Artifact"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-event/add-a-rabbitmq-event-integration-artifact-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-event/add-a-rabbitmq-event-integration-artifact-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-event-driven-integration/add-a-rabbitmq-event-integration-artifact-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-event-driven-integration/add-a-rabbitmq-event-integration-artifact-dark.gif'),
     }}
 />
 
@@ -59,8 +59,8 @@ Event integrations are ideal for reactive workflows triggered by messages from K
 <ThemedImage
     alt="Configure the RabbitMQ Connection"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-event/configure-the-rabbitmq-connection-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-event/configure-the-rabbitmq-connection-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-event-driven-integration/configure-the-rabbitmq-connection-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-event-driven-integration/configure-the-rabbitmq-connection-dark.gif'),
     }}
 />
 
@@ -78,8 +78,8 @@ Event integrations are ideal for reactive workflows triggered by messages from K
 <ThemedImage
     alt="Add Message Processing Logic"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-event/add-message-processing-logic-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-event/add-message-processing-logic-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-event-driven-integration/add-message-processing-logic-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-event-driven-integration/add-message-processing-logic-dark.gif'),
     }}
 />
 
@@ -92,8 +92,8 @@ Event integrations are ideal for reactive workflows triggered by messages from K
 <ThemedImage
     alt="Run and Test the Integration"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-event/run-and-test-the-integration-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-event/run-and-test-the-integration-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-event-driven-integration/run-and-test-the-integration-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-event-driven-integration/run-and-test-the-integration-dark.gif'),
     }}
 />
 
@@ -110,7 +110,7 @@ Event integrations are ideal for reactive workflows triggered by messages from K
 
 ## What's next
 
-- [Quick start: Automation](quick-start-automation.md) -- Build a scheduled job
-- [Quick start: AI agent](quick-start-ai-agent.md) -- Build an intelligent agent
-- [Quick start: Integration as API](quick-start-integration-as-api.md) -- Build an HTTP service
-- [Quick start: File-driven integration](quick-start-file-driven-integration.md) -- Process files from FTP or local directories
+- [Automation](build-automation.md) -- Build a scheduled job
+- [AI agent](build-ai-agent.md) -- Build an intelligent agent
+- [Integration as API](build-api-integration.md) -- Build an HTTP service
+- [File-driven integration](build-file-driven-integration.md) -- Process files from FTP or local directories

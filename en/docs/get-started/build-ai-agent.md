@@ -1,6 +1,6 @@
 ---
 sidebar_position: 11
-title: "Quick Start: AI Agent"
+title: "Build an AI Agent"
 description: Build an intelligent agent using LLMs and tools.
 ---
 
@@ -45,8 +45,8 @@ sequenceDiagram
 <ThemedImage
     alt="Create the Project"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-ai-agent/create-the-project-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-ai-agent/create-the-project-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-ai-agent/create-the-project-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-ai-agent/create-the-project-dark.gif'),
     }}
 />
 
@@ -61,8 +61,8 @@ sequenceDiagram
 <ThemedImage
     alt="Add an AI Chat Agent"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-ai-agent/add-a-file-integration-artifact-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-ai-agent/add-a-file-integration-artifact-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-ai-agent/add-a-file-integration-artifact-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-ai-agent/add-a-file-integration-artifact-dark.gif'),
     }}
 />
 
@@ -75,8 +75,8 @@ sequenceDiagram
 <ThemedImage
     alt="Configure the AI Agent"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-ai-agent/configure-the-ai-agent-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-ai-agent/configure-the-ai-agent-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-ai-agent/configure-the-ai-agent-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-ai-agent/configure-the-ai-agent-dark.gif'),
     }}
 />
 
@@ -89,15 +89,15 @@ sequenceDiagram
 <ThemedImage
     alt="Run and test"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-ai-agent/run-and-test-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-ai-agent/run-and-test-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-ai-agent/run-and-test-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-ai-agent/run-and-test-dark.gif'),
     }}
 />
 
 ## What's next
 
-- [Quick start: Automation](quick-start-automation.md) -- Build a scheduled job
-- [Quick start: Integration as API](quick-start-integration-as-api.md) -- Build an HTTP service
-- [Quick start: Event-driven integration](quick-start-event-driven-integration.md) -- React to messages from brokers
-- [Quick start: File-driven integration](quick-start-file-driven-integration.md) -- Process files from FTP or local directories
+- [Automation](build-automation.md) -- Build a scheduled job
+- [Integration as API](build-api-integration.md) -- Build an HTTP service
+- [Event-driven integration](build-event-driven-integration.md) -- React to messages from brokers
+- [File-driven integration](build-file-driven-integration.md) -- Process files from FTP or local directories
 - [GenAI overview](/docs/genai/overview) -- Full guide to AI capabilities

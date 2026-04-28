@@ -1,6 +1,6 @@
 ---
 sidebar_position: 9
-title: "Quick Start: File-Driven Integration"
+title: "Build a File-Driven Integration"
 description: Process files from FTP, SFTP, or local directories.
 ---
 
@@ -30,8 +30,8 @@ File integrations are ideal for batch uploads, scheduled file processing, and ET
 <ThemedImage
     alt="Create the Project"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-file/create-the-project-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-file/create-the-project-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-file-driven-integration/create-the-project-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-file-driven-integration/create-the-project-dark.gif'),
     }}
 />
 
@@ -46,8 +46,8 @@ File integrations are ideal for batch uploads, scheduled file processing, and ET
 <ThemedImage
     alt="Add a File Integration Artifact"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-file/add-a-file-integration-artifact-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-file/add-a-file-integration-artifact-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-file-driven-integration/add-a-file-integration-artifact-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-file-driven-integration/add-a-file-integration-artifact-dark.gif'),
     }}
 />
 
@@ -64,8 +64,8 @@ File integrations are ideal for batch uploads, scheduled file processing, and ET
 <ThemedImage
     alt="Tracking modified files"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-file/tracking-modified-files-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-file/tracking-modified-files-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-file-driven-integration/tracking-modified-files-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-file-driven-integration/tracking-modified-files-dark.gif'),
     }}
 />
 
@@ -77,8 +77,8 @@ File integrations are ideal for batch uploads, scheduled file processing, and ET
 <ThemedImage
     alt="Run and Test"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-file/run-and-test-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-file/run-and-test-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-file-driven-integration/run-and-test-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-file-driven-integration/run-and-test-dark.gif'),
     }}
 />
 
@@ -93,7 +93,7 @@ File integrations are ideal for batch uploads, scheduled file processing, and ET
 
 ## Next steps
 
-- [Quick start: Automation](quick-start-automation.md) -- Build a scheduled job
-- [Quick start: AI agent](quick-start-ai-agent.md) -- Build an intelligent agent
-- [Quick start: Integration as API](quick-start-integration-as-api.md) -- Build an HTTP service
-- [Quick start: Event-driven integration](quick-start-event-driven-integration.md) -- React to messages from brokers
+- [Automation](build-automation.md) -- Build a scheduled job
+- [AI agent](build-ai-agent.md) -- Build an intelligent agent
+- [Integration as API](build-api-integration.md) -- Build an HTTP service
+- [Event-driven integration](build-event-driven-integration.md) -- React to messages from brokers

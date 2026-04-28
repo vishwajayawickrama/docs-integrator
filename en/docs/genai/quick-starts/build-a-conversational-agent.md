@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: "Quick Start: Build a Conversational Agent"
+title: "Build a Conversational Agent"
 description: Create a conversational AI agent with tool calling and memory in under 15 minutes.
 ---
 

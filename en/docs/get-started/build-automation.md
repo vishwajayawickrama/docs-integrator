@@ -1,6 +1,6 @@
 ---
 sidebar_position: 10
-title: "Quick Start: Automation"
+title: "Build an Automation"
 description: Create a scheduled automation that runs tasks on a timer.
 ---
 
@@ -30,8 +30,8 @@ Automations are ideal for data synchronization, report generation, and routine m
 <ThemedImage
     alt="Create the project"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-automation/create-the-project-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-automation/create-the-project-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-automation/create-the-project-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-automation/create-the-project-dark.gif'),
     }}
 />
 
@@ -45,8 +45,8 @@ Automations are ideal for data synchronization, report generation, and routine m
 <ThemedImage
     alt="Add an automation artifact"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-automation/add-an-automation-artifact-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-automation/add-an-automation-artifact-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-automation/add-an-automation-artifact-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-automation/add-an-automation-artifact-dark.gif'),
     }}
 />
 
@@ -61,8 +61,8 @@ Automations are ideal for data synchronization, report generation, and routine m
 <ThemedImage
     alt="Add logic"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-automation/add-logic-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-automation/add-logic-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-automation/add-logic-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-automation/add-logic-dark.gif'),
     }}
 />
 
@@ -75,8 +75,8 @@ Automations are ideal for data synchronization, report generation, and routine m
 <ThemedImage
     alt="Run and test"
     sources={{
-        light: useBaseUrl('/img/get-started/quick-start-automation/run-and-test-light.gif'),
-        dark: useBaseUrl('/img/get-started/quick-start-automation/run-and-test-dark.gif'),
+        light: useBaseUrl('/img/get-started/build-automation/run-and-test-light.gif'),
+        dark: useBaseUrl('/img/get-started/build-automation/run-and-test-dark.gif'),
     }}
 />
 
@@ -100,7 +100,7 @@ service on timer {
 
 ## What's next
 
-- [Quick start: AI agent](quick-start-ai-agent.md) -- Build an intelligent agent
-- [Quick start: Integration as API](quick-start-integration-as-api.md) -- Build an HTTP service
-- [Quick start: Event-driven integration](quick-start-event-driven-integration.md) -- React to messages from brokers
-- [Quick start: File-driven integration](quick-start-file-driven-integration.md) -- Process files from FTP or local directories
+- [AI agent](build-ai-agent.md) -- Build an intelligent agent
+- [Integration as API](build-api-integration.md) -- Build an HTTP service
+- [Event-driven integration](build-event-driven-integration.md) -- React to messages from brokers
+- [File-driven integration](build-file-driven-integration.md) -- Process files from FTP or local directories

@@ -3,6 +3,8 @@ sidebar_position: 5
 title: Create Your First Project
 description: Generate a new integration project and understand the project structure.
 ---
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 # Create Your First Project
 
@@ -10,31 +12,58 @@ Create a new WSO2 Integrator project and understand what gets generated.
 
 ## Create a project
 
-1. Open VS Code
-2. Open the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
-3. Select **WSO2 Integrator: Create New Project**
-4. Choose a directory and project name
-5. The extension generates the project structure
+1. Open WSO2 Integrator.
+2. Select **Create**.
+3. Set **Integration Name** to `MyNewProject`.
+4. Set **Project Name** to `FirstProject`.
+5. Select **Browse**.
+6. Select the project location and select **Open**.
+7. Select **Create Integration**.
+
+<ThemedImage
+    alt="Create the Project"
+    sources={{
+        light: useBaseUrl('/img/get-started/first-project/create-the-project-light.gif'),
+        dark: useBaseUrl('/img/get-started/first-project/create-the-project-dark.gif'),
+    }}
+/>
 
 ## Project structure
 
+WSO2 Integrator generates a structured project that organizes your integration logic, configurations, and resources.
+
 ```
-my-integration/
-├── Ballerina.toml          # Project metadata and dependencies
-├── Config.toml             # Environment-specific configuration
-├── main.bal                # Main integration file
-├── modules/                # Additional modules
-├── tests/                  # Test files
-└── resources/              # Static resources (schemas, configs)
+FirstProject/
+├── .choreo/
+│   └── context.yaml
+├── .vscode/
+│   └── settings.json
+├── MyNewProject/
+│   ├── .vscode/
+│   │   ├── launch.json
+│   │   └── settings.json
+│   ├── .gitignore
+│   ├── agents.bal              # AI agent definitions
+│   ├── automation.bal          # Scheduled and manual automations
+│   ├── Ballerina.toml          # Integration metadata and dependencies
+│   ├── config.bal              # Configuration variables
+│   ├── connections.bal          # Connection configurations
+│   ├── data_mappings.bal       # Data transformation mappings
+│   ├── functions.bal           # Reusable functions
+│   ├── main.bal                # Entry point / service definition
+│   └── types.bal               # Shared type definitions
+└── Ballerina.toml              # Project-level metadata
 ```
+
 
 ## Run the project
 
-1. Select the **Run** button in the VS Code toolbar, or
-2. Open a terminal and run: `bal run`
-3. You should see the service start successfully
+1. Select the **Run** button in the IDE toolbar.
+2. The project will compile and start running locally.
+3. Use the **Try-It** tool or a terminal to verify the service.
 
 ## What's next
 
 - [Understand the IDE](understand-the-ide.md) — Learn the visual designer layout
 - [Build an API integration](quick-start-api.md) — Your first real integration
+

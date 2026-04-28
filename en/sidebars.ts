@@ -433,7 +433,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'connectors/catalog/ai-ml/azure.ai.search.index/setup-guide',
             'connectors/catalog/ai-ml/azure.ai.search.index/actions',
-            'connectors/catalog/cloud-infrastructure/azure.ai.search.index/example',
+            'connectors/catalog/ai-ml/azure.ai.search.index/example',
           ],
         },
         {

@@ -33,7 +33,7 @@ Search for and add the Azure AI Search Index connector to your integration proje
 
 Select **+ Add Connection** to open the connector palette and view all available connectors before searching.
 
-![Azure AI Search Index connector palette open with search field before any selection](/img/connectors/catalog/cloud-infrastructure/azure.ai.search.index/azure_ai_search_index_screenshot_01_palette.png)
+![Azure AI Search Index connector palette open with search field before any selection](/img/connectors/catalog/ai-ml/azure.ai.search.index/azure_ai_search_index_screenshot_01_palette.png)
 
 ### Step 2: Search for and select the Index connector
 
@@ -51,13 +51,13 @@ Bind each connection field to a configurable variable so credentials aren't hard
 
 > **Note:** The `ConnectionConfig` record for this connector is an HTTP transport-level config only and has no `auth` field. Pass the Azure AI Search API key as the `api-key` request header in individual operation calls, not in the connection config.
 
-![Azure AI Search Index connection form fully filled with all parameters before saving](/img/connectors/catalog/cloud-infrastructure/azure.ai.search.index/azure_ai_search_index_screenshot_02_connection_form.png)
+![Azure AI Search Index connection form fully filled with all parameters before saving](/img/connectors/catalog/ai-ml/azure.ai.search.index/azure_ai_search_index_screenshot_02_connection_form.png)
 
 ### Step 4: Save the connection
 
 Select **Save Connection** to persist the connection. The canvas updates and `indexClient` appears under **Connections**.
 
-![Azure AI Search Index Connections panel showing indexClient entry after saving](/img/connectors/catalog/cloud-infrastructure/azure.ai.search.index/azure_ai_search_index_screenshot_03_connection_saved.png)
+![Azure AI Search Index Connections panel showing indexClient entry after saving](/img/connectors/catalog/ai-ml/azure.ai.search.index/azure_ai_search_index_screenshot_03_connection_saved.png)
 
 ### Step 5: Set actual values for your configurables
 
@@ -82,7 +82,7 @@ The automation flow canvas opens, showing `Start → Error Handler → End`.
 1. Select the **+** node between **Start** and **Error Handler** to open the node panel.
 2. Under **Connections**, expand **indexClient** to view its available operations.
 
-![Azure AI Search Index connection node expanded showing all available operations before selection](/img/connectors/catalog/cloud-infrastructure/azure.ai.search.index/azure_ai_search_index_screenshot_04_operations_panel.png)
+![Azure AI Search Index connection node expanded showing all available operations before selection](/img/connectors/catalog/ai-ml/azure.ai.search.index/azure_ai_search_index_screenshot_04_operations_panel.png)
 
 3. Select **Documents Index** to open the operation configuration panel.
 4. Fill in the operation fields:
@@ -91,11 +91,11 @@ The automation flow canvas opens, showing `Start → Error Handler → End`.
 - **Api-version** : The Azure AI Search REST API version, for example `2024-07-01`
 - **Result** : Variable name for the operation result
 
-![Azure AI Search Index Documents Index operation configuration filled with all values](/img/connectors/catalog/cloud-infrastructure/azure.ai.search.index/azure_ai_search_index_screenshot_05_operation_fields.png)
+![Azure AI Search Index Documents Index operation configuration filled with all values](/img/connectors/catalog/ai-ml/azure.ai.search.index/azure_ai_search_index_screenshot_05_operation_fields.png)
 
 Select **Save** to add the node to the flow.
 
-![Completed Azure AI Search Index automation flow](/img/connectors/catalog/cloud-infrastructure/azure.ai.search.index/azure_ai_search_index_screenshot_06_completed_flow.png)
+![Completed Azure AI Search Index automation flow](/img/connectors/catalog/ai-ml/azure.ai.search.index/azure_ai_search_index_screenshot_06_completed_flow.png)
 
 ## Try it yourself
 

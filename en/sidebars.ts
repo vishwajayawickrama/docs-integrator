@@ -422,7 +422,7 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/ai-ml/azure.ai.search/azure-ai-search-connector-overview' },
           items: [
             'connectors/catalog/ai-ml/azure.ai.search/setup-guide',
-            'connectors/catalog/ai-ml/azure.ai.search/action-reference',
+            'connectors/catalog/ai-ml/azure.ai.search/actions',
             'connectors/catalog/ai-ml/azure.ai.search/example',
           ],
         },
@@ -432,7 +432,7 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/ai-ml/azure.ai.search.index/azure-ai-search-index-connector-overview' },
           items: [
             'connectors/catalog/ai-ml/azure.ai.search.index/setup-guide',
-            'connectors/catalog/ai-ml/azure.ai.search.index/action-reference',
+            'connectors/catalog/ai-ml/azure.ai.search.index/actions',
             'connectors/catalog/cloud-infrastructure/azure.ai.search.index/example',
           ],
         },
@@ -443,8 +443,8 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/messaging/asb/azure-service-bus-connector-overview' },
           items: [
             'connectors/catalog/messaging/asb/setup-guide',
-            'connectors/catalog/messaging/asb/action-reference',
-            'connectors/catalog/messaging/asb/trigger-reference',
+            'connectors/catalog/messaging/asb/actions',
+            'connectors/catalog/messaging/asb/triggers',
             'connectors/catalog/messaging/asb/example',
           ],
         },
@@ -490,7 +490,7 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/messaging/confluent.cregistry/confluent-schema-registry-connector-overview' },
           items: [
             'connectors/catalog/messaging/confluent.cregistry/setup-guide',
-            'connectors/catalog/messaging/confluent.cregistry/action-reference',
+            'connectors/catalog/messaging/confluent.cregistry/actions',
             'connectors/catalog/messaging/confluent.cregistry/example',
           ],
         },
@@ -591,8 +591,8 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/messaging/gcloud.pubsub/google-cloud-pubsub-connector-overview' },
           items: [
             'connectors/catalog/messaging/gcloud.pubsub/setup-guide',
-            'connectors/catalog/messaging/gcloud.pubsub/action-reference',
-            'connectors/catalog/messaging/gcloud.pubsub/trigger-reference',
+            'connectors/catalog/messaging/gcloud.pubsub/actions',
+            'connectors/catalog/messaging/gcloud.pubsub/triggers',
             'connectors/catalog/messaging/gcloud.pubsub/example',
           ],
         },
@@ -1069,8 +1069,8 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/messaging/java.jms/jms-connector-overview' },
           items: [
             'connectors/catalog/messaging/java.jms/setup-guide',
-            'connectors/catalog/messaging/java.jms/action-reference',
-            'connectors/catalog/messaging/java.jms/trigger-reference',
+            'connectors/catalog/messaging/java.jms/actions',
+            'connectors/catalog/messaging/java.jms/triggers',
             'connectors/catalog/messaging/java.jms/example',
           ],
         },
@@ -1129,7 +1129,7 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/ai-ml/milvus/connector-overview' },
           items: [
             'connectors/catalog/ai-ml/milvus/setup-guide',
-            'connectors/catalog/ai-ml/milvus/action-reference',
+            'connectors/catalog/ai-ml/milvus/actions',
             'connectors/catalog/ai-ml/milvus/example',
           ],
         },
@@ -1139,7 +1139,7 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/ai-ml/mistral/connector-overview' },
           items: [
             'connectors/catalog/ai-ml/mistral/setup-guide',
-            'connectors/catalog/ai-ml/mistral/action-reference',
+            'connectors/catalog/ai-ml/mistral/actions',
             'connectors/catalog/ai-ml/mistral/example',
           ],
         },
@@ -1193,7 +1193,7 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/messaging/nats/connector-overview' },
           items: [
             'connectors/catalog/messaging/nats/setup-guide',
-            'connectors/catalog/messaging/nats/action-reference',
+            'connectors/catalog/messaging/nats/actions',
             'connectors/catalog/messaging/nats/example',
           ],
         },
@@ -1204,7 +1204,7 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/ai-ml/openai/connector-overview' },
           items: [
             'connectors/catalog/ai-ml/openai/setup-guide',
-            'connectors/catalog/ai-ml/openai/action-reference',
+            'connectors/catalog/ai-ml/openai/actions',
             'connectors/catalog/ai-ml/openai/example',
           ],
         },
@@ -1215,7 +1215,7 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/ai-ml/openai.audio/openai-audio-connector-overview' },
           items: [
             'connectors/catalog/ai-ml/openai.audio/setup-guide',
-            'connectors/catalog/ai-ml/openai.audio/action-reference',
+            'connectors/catalog/ai-ml/openai.audio/actions',
             'connectors/catalog/ai-ml/openai.audio/example',
           ],
         },
@@ -1225,7 +1225,7 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/ai-ml/openai.finetunes/openai-fine-tunes-connector-overview' },
           items: [
             'connectors/catalog/ai-ml/openai.finetunes/setup-guide',
-            'connectors/catalog/ai-ml/openai.finetunes/action-reference',
+            'connectors/catalog/ai-ml/openai.finetunes/actions',
             'connectors/catalog/ai-ml/openai.finetunes/example',
           ],
         },
@@ -1315,8 +1315,8 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/messaging/rabbitmq/connector-overview' },
           items: [
             'connectors/catalog/messaging/rabbitmq/setup-guide',
-            'connectors/catalog/messaging/rabbitmq/action-reference',
-            'connectors/catalog/messaging/rabbitmq/trigger-reference',
+            'connectors/catalog/messaging/rabbitmq/actions',
+            'connectors/catalog/messaging/rabbitmq/triggers',
             'connectors/catalog/messaging/rabbitmq/example',
           ],
         },
@@ -1526,8 +1526,8 @@ const sidebars: SidebarsConfig = {
           link: { type: 'doc', id: 'connectors/catalog/messaging/solace/connector-overview' },
           items: [
             'connectors/catalog/messaging/solace/setup-guide',
-            'connectors/catalog/messaging/solace/action-reference',
-            'connectors/catalog/messaging/solace/trigger-reference',
+            'connectors/catalog/messaging/solace/actions',
+            'connectors/catalog/messaging/solace/triggers',
             'connectors/catalog/messaging/solace/example',
           ],
         },

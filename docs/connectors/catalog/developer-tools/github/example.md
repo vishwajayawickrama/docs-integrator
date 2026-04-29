@@ -29,11 +29,11 @@ flowchart LR
 
 ### Setting up the GitHub integration
 
-> **New to WSO2 Integrator?** Follow the [Create a New Integration](../../../../develop/create-integrations/create-new-integration.md) guide to set up your integration first, then return here to add the connector.
+> **New to WSO2 Integrator?** Follow the [Create a New Integration](../../../../develop/create-integrations/create-a-new-integration.md) guide to set up your integration first, then return here to add the connector.
 
 ### Adding the GitHub connector
 
-#### Step 1: Open the Add Connection palette
+### Step 1: Open the add connection palette
 
 Select **+ Add Artifact** on the Integration Design canvas. In the **Artifacts** panel, scroll to **Other Artifacts** and select **Connection**. The connector search palette appears with a search box and a grid of pre-built connectors.
 
@@ -63,8 +63,8 @@ Select **Save Connection**. The form closes and the canvas reloads, showing the 
 
 - **githubAuthToken** (string) : Your GitHub personal access token with `repo` scope
 
-### Configuring the GitHub Create an issue operation
-#### Step 5: Add an Automation entry point
+## Configuring the GitHub create an issue operation
+### Step 5: Add an automation entry point
 
 1. Select **+ Add Artifact** on the Integration Design canvas.
 2. In the **Artifacts** panel, select **Automation**.
@@ -72,13 +72,13 @@ Select **Save Connection**. The form closes and the canvas reloads, showing the 
 
 WSO2 Integrator creates a `main` automation under **Entry Points** and opens the Automation flow canvas.
 
-#### Step 6: Select the Create an issue operation
+### Step 6: Select the create an issue operation
 
 On the Automation canvas, select the **+** between **Start** and **Error Handler** to open the node panel. Under the **Connections** section, expand `githubClient` to reveal all available operations.
 
 ![GitHub connection node expanded showing all available operations before selection](/img/connectors/catalog/developer-tools/github/github_screenshot_04_operations_panel.png)
 
-#### Step 7: Configure the Create an issue operation
+### Step 7: Configure the create an issue operation
 
 Select **Create an issue** from the operations list and fill in all required fields in the configuration form:
 

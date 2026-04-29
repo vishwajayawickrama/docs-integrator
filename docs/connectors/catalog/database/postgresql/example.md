@@ -29,7 +29,7 @@ flowchart LR
 
 ### Setting up the PostgreSQL integration
 
-> **New to WSO2 Integrator?** Follow the [Create a New Integration](../../../../develop/create-integrations/create-new-integration.md) guide to set up your integration first, then return here to add the connector.
+> **New to WSO2 Integrator?** Follow the [Create a New Integration](../../../../develop/create-integrations/create-a-new-integration.md) guide to set up your integration first, then return here to add the connector.
 
 ### Adding the PostgreSQL connector
 
@@ -89,7 +89,7 @@ On the Automation canvas, click the **+** drop zone between **Start** and **Erro
 
 ![Automation flow with operations panel showing PostgreSQL operations](/img/connectors/catalog/database/postgresql/postgresql_screenshot_04_operations_panel.png)
 
-#### Step 8: Select and configure the Execute operation
+### Step 8: Select and configure the execute operation
 
 Select **Execute** to open the configuration form, then fill in the operation fields:
 

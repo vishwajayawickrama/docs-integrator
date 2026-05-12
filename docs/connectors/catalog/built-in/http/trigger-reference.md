@@ -1,6 +1,6 @@
 # Triggers
 
-The `ballerina/http` module supports inbound HTTP request handling through its listener and service model. When HTTP requests arrive, the `http:Listener` dispatches them to matching service resource methods automatically — your service reacts to each request by HTTP method and path.
+The `ballerina/http` module supports inbound HTTP request handling through its listener and service model. When HTTP requests arrive, the `http:Listener` dispatches them to matching service resource methods automatically: your service reacts to each request by HTTP method and path.
 
 Three components work together:
 
@@ -73,6 +73,21 @@ listener http:Listener secureListener = new (9443, {
 });
 ```
 
+**Attaching a service to multiple listeners:**
+
+```ballerina
+import ballerina/http;
+
+listener http:Listener httpListener = new (9090);
+listener http:Listener httpsListener = new (9443, {
+    secureSocket: {key: {certFile: "server.crt", keyFile: "server.key"}}
+});
+
+service /api on httpListener, httpsListener {
+    // service handles both HTTP and HTTPS traffic
+}
+```
+
 ---
 
 ## Service
@@ -100,13 +115,13 @@ Resource methods can accept the following parameter types:
 
 | Annotation | Type | Description |
 |------------|------|-------------|
-| (path segment) | `string`, `int`, `float`, `boolean`, `decimal` | Path parameters extracted from the URL. |
+| (path segment) | `string`, `int`, `float`, `boolean`, `decimal` | Path parameters extracted from the URL. Use `[string... path]` to capture remaining segments as a rest parameter. |
 | `@http:Payload` | `json`, `xml`, `string`, `byte[]`, `record` | Request body payload. If request body is a structural type then the annotation is optional. |
 | `@http:Header` | `string`, `string[]` | Specific request header values. |
 | `@http:Query` | `string`, `int`, `float`, `boolean` | Query parameter values. |
-| — | `http:Caller` | Client connection for sending responses manually. |
-| — | `http:Request` | Full request object for advanced access. |
-| — | `http:Headers` | Request header accessor. |
+| N/A | `http:Caller` | Client connection for sending responses manually. |
+| N/A | `http:Request` | Full request object for advanced access. |
+| N/A | `http:Headers` | Request header accessor. |
 
 ### Return types
 

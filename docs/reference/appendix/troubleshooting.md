@@ -61,6 +61,31 @@ ERROR: incompatible types: expected 'string', found 'string?'
 | Insufficient memory | Increase JVM heap: `export BAL_JAVA_OPTS="-Xmx2g"` |
 | Cold cache | First build is slower; subsequent builds reuse cached artifacts |
 
+### Version conflicts
+
+**Symptom:** Build fails due to incompatible transitive dependency versions.
+
+```
+ERROR: version conflict for 'ballerina/io': required '1.6.0' by 'ballerinax/kafka' but '1.5.0' by 'ballerinax/rabbitmq'
+```
+
+**Solutions:**
+
+| Approach | Steps |
+|----------|-------|
+| Update all dependencies | Delete `Dependencies.toml`; run `bal build --sticky=false` |
+| Pin a specific version | Add explicit dependency in `Ballerina.toml` with the required version |
+| Check compatibility | Ensure all dependencies target the same Ballerina distribution version |
+| Use dependency override | Add `[[dependency]]` section in `Ballerina.toml` to force a version |
+
+```toml
+# Ballerina.toml - Force a specific dependency version
+[[dependency]]
+org = "ballerina"
+name = "io"
+version = "1.6.0"
+```
+
 ## Runtime errors
 
 ### Port conflicts
@@ -145,139 +170,6 @@ http:Client client = check new ("https://api.example.com", {
 });
 ```
 
-## Diagnostic tools
-
-### Strand dump tool
-
-The strand dump tool captures the state of all active strands in a running Ballerina application, similar to a thread dump in Java. It is useful for diagnosing deadlocks, stuck operations, and concurrency issues.
-
-#### Generating a strand dump
-
-```bash
-# Find the PID of the running Ballerina process
-ps aux | grep ballerina
-
-# Send SIGTRAP signal to trigger strand dump (macOS/Linux)
-kill -SIGTRAP
-
-# Alternative: Use bal command
-bal strand-dump
-```
-
-#### Strand dump output
-
-The dump shows each strand's status, current function, and call stack:
-
-```
-=== Strand Dump ===
-Timestamp: 2024-01-15T10:30:00.000Z
-
-Strand [1] "main" [RUNNABLE]
-    at mypackage:mainFunction(main.bal:25)
-    at mypackage:init(main.bal:10)
-
-Strand [2] "worker-1" [WAITING]
-    at ballerina/http:Client.get(client.bal:150)
-    at mypackage:fetchData(service.bal:45)
-    Waiting for: HTTP response from https://api.example.com/data
-
-Strand [3] "worker-2" [BLOCKED]
-    at mypackage:processRecords(processor.bal:30)
-    Blocked on: lock at processor.bal:28
-
-=== Summary ===
-Total strands: 3
-Runnable: 1
-Waiting: 1
-Blocked: 1
-```
-
-#### Strand states
-
-| State | Description |
-|-------|-------------|
-| `RUNNABLE` | Strand is actively executing or ready to execute |
-| `WAITING` | Strand is waiting for an I/O operation or external event |
-| `BLOCKED` | Strand is blocked on a lock or another strand |
-| `COMPLETED` | Strand has finished execution |
-| `FAILED` | Strand terminated with an error |
-
-### Ballerina profiler
-
-The Ballerina profiler identifies performance bottlenecks by recording CPU and memory usage during execution.
-
-#### Running with profiler
-
-```bash
-# Profile a Ballerina program
-bal profile <ballerina-file-or-package>
-
-# Profile with specific options
-bal profile --cpu --memory myservice.bal
-```
-
-#### Profiler output
-
-The profiler generates an HTML report at `target/profiler/index.html` containing:
-
-| Section | Information |
-|---------|-------------|
-| CPU Hotspots | Functions consuming the most CPU time |
-| Memory Allocation | Objects and records with highest allocation rates |
-| Call Graph | Visual representation of call relationships and timing |
-| Strand Activity | Timeline of strand creation, execution, and completion |
-| I/O Wait Times | Time spent waiting for network and file I/O |
-
-### Debug logging
-
-Enable detailed debug logging to diagnose issues:
-
-```bash
-# Enable debug logging for all modules
-bal run -- -Cballerina.log.level=DEBUG
-
-# Enable debug logging for specific modules
-bal run -- -Cballerina.http.log.level=DEBUG
-```
-
-#### Log levels
-
-| Level | Description | Use Case |
-|-------|-------------|----------|
-| `OFF` | No logging | Production (minimal overhead) |
-| `ERROR` | Error conditions only | Production default |
-| `WARN` | Warnings and errors | Production with alerts |
-| `INFO` | Informational messages | General operations |
-| `DEBUG` | Detailed debug information | Development troubleshooting |
-| `TRACE` | Very detailed trace output | Deep debugging (high overhead) |
-
-## Dependency issues
-
-### Version conflicts
-
-**Symptom:** Build fails due to incompatible transitive dependency versions.
-
-```
-ERROR: version conflict for 'ballerina/io': required '1.6.0' by 'ballerinax/kafka' but '1.5.0' by 'ballerinax/rabbitmq'
-```
-
-**Solutions:**
-
-| Approach | Steps |
-|----------|-------|
-| Update all dependencies | Delete `Dependencies.toml`; run `bal build --sticky=false` |
-| Pin a specific version | Add explicit dependency in `Ballerina.toml` with the required version |
-| Check compatibility | Ensure all dependencies target the same Ballerina distribution version |
-| Use dependency override | Add `[[dependency]]` section in `Ballerina.toml` to force a version |
-
-```toml
-# Ballerina.toml - Force a specific dependency version
-[[dependency]]
-org = "ballerina"
-name = "io"
-version = "1.6.0"
-```
-
 ### Missing platform dependencies
 
 **Symptom:** Runtime error about missing Java classes or native libraries.
@@ -296,19 +188,56 @@ artifactId = "mysql-connector-java"
 version = "8.0.33"
 ```
 
-## VS code extension issues
+## Diagnostic tools
+
+### Strand dump tool
+
+A strand dump captures the state of all active strands in a running Ballerina application, similar to a thread dump in Java. It is useful for diagnosing deadlocks, stuck operations, and concurrency issues. The strand dump tool uses the `SIGTRAP` POSIX signal and is not available on Windows.
+
+For the full capture and analysis workflow, see [Strand Dump Analysis](../../develop/debugging/strand-dump-analysis.md).
+
+### Ballerina profiler
+
+The Ballerina profiler identifies performance bottlenecks by recording function call timings during execution and generating an interactive flame graph.
+
+To run the profiler against your project, see [Performance Profiling](../../develop/debugging/performance-profiling.md).
+
+### Debug logging
+
+Enable detailed debug logging to diagnose issues:
+
+```bash
+# Enable debug logging for all modules
+bal run -- -Cballerina.log.level=DEBUG
+
+# Enable debug logging for specific modules
+bal run -- -Cballerina.http.log.level=DEBUG
+```
+
+Available log levels:
+
+| Level | Description | Use Case |
+|-------|-------------|----------|
+| `OFF` | No logging | Production (minimal overhead) |
+| `ERROR` | Error conditions only | Production default |
+| `WARN` | Warnings and errors | Production with alerts |
+| `INFO` | Informational messages | General operations |
+| `DEBUG` | Detailed debug information | Development troubleshooting |
+| `TRACE` | Very detailed trace output | Deep debugging (high overhead) |
+
+## WSO2 Integrator IDE issues
 
 ### Language server not starting
 
-**Symptom:** VS Code shows "Ballerina Language Server: Not Running" in the status bar.
+**Symptom:** The IDE shows "Ballerina Language Server: Not Running" in the status bar.
 
 | Cause | Solution |
 |-------|----------|
 | Ballerina not installed | Install Ballerina or verify `bal` is in `PATH` |
-| Wrong Ballerina path | Set `ballerina.home` in VS Code settings |
+| Wrong Ballerina path | Set `ballerina.home` in the IDE settings |
 | Java not found | Ensure JDK 17+ is installed and `JAVA_HOME` is set |
 | Extension conflict | Disable other Ballerina-related extensions |
-| Corrupted cache | Delete `~/.ballerina/` and restart VS Code |
+| Corrupted cache | Delete `~/.ballerina/` and restart the IDE |
 
 ### IntelliSense not working
 
@@ -316,7 +245,7 @@ version = "8.0.33"
 
 ```bash
 # Restart the language server
-# VS Code: Ctrl+Shift+P > "Ballerina: Restart Language Server"
+# In the IDE: Ctrl+Shift+P > "Ballerina: Restart Language Server"
 
 # Clear the language server cache
 rm -rf ~/.ballerina/ballerina-language-server/
@@ -353,7 +282,6 @@ bal clean && bal build
 
 | Resource | URL |
 |----------|-----|
-| WSO2 Integrator Documentation | This documentation site |
 | Ballerina Discord | [discord.gg/ballerinalang](https://discord.gg/ballerinalang) |
 | Ballerina GitHub Issues | [github.com/ballerina-platform/ballerina-lang/issues](https://github.com/ballerina-platform/ballerina-lang/issues) |
 | Stack Overflow | [stackoverflow.com/questions/tagged/ballerina](https://stackoverflow.com/questions/tagged/ballerina) |

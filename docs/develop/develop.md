@@ -18,7 +18,6 @@ Tools that help **you** code faster (Copilot, AI test generation, AI-assisted da
 |---|---|
 | **[Create integrations](create-integrations/create-a-new-integration.md)** | Start new projects from the WSO2 Integrator IDE or `bal new`, explore samples, build libraries, or migrate from MuleSoft, TIBCO, and WSO2 MI |
 | **[Understand the IDE](understand-ide/understand-ide.md)** | Get to know the Integrator app, its views, and its editors |
-| **[Organize code](organize-code/packages-modules.md)** | Packages, modules, package references, dependencies, workspaces, code style, and generated documentation |
 
 ## Build
 
@@ -40,7 +39,7 @@ Tools that help **you** code faster (Copilot, AI test generation, AI-assisted da
 | | |
 |---|---|
 | **[Integration tools](tools/integration-tools/openapi-tool.md)** | OpenAPI, GraphQL, AsyncAPI, gRPC, WSDL, XSD, EDI, and Health tools |
-| **[Persist tool](tools/other/persist-tool.md)** | `bal persist` — type-safe CRUD for MySQL, PostgreSQL, MSSQL, and more |
+| **[Persist tool](tools/integration-tools/persist-tool.md)** | `bal persist` — type-safe CRUD for MySQL, PostgreSQL, MSSQL, and more |
 | **[Migration tools](tools/migration-tools/migration-tools.md)** | Migrate from WSO2 MI, MuleSoft, TIBCO, or Azure Logic Apps |
 | **[Scan tool](tools/other/scan-tool.md)** | Static analysis rules for code quality |
 

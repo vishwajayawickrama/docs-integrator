@@ -2,17 +2,9 @@
 title: OpenAPI Tool
 ---
 
-# OpenAPI tool
+# OpenAPI Tool
 
 The `bal openapi` tool bridges OpenAPI specifications and Ballerina code. It generates type-safe Ballerina service stubs and client connectors from OpenAPI (Swagger) YAML or JSON files, and can also export an OpenAPI specification from an existing Ballerina service. This ensures your integrations conform to API contracts and eliminates boilerplate.
-
-## Prerequisites
-
-The OpenAPI tool is included with the Ballerina distribution. Verify it is available:
-
-```bash
-bal openapi --help
-```
 
 ## Generating a Ballerina service from OpenAPI
 
@@ -115,8 +107,8 @@ Create a type-safe HTTP client that wraps all API operations defined in the spec
 
 4. In the **Create Connection** step, configure the connection details. Expand **Advanced Configurations** to set the following optional fields:
 
-   - **Config** — The configurations to use when initializing the connector.
-   - **Service Url** — URL of the target service.
+   - **Config**: The configurations to use when initializing the connector.
+   - **Service Url**: URL of the target service.
 
    ![Connection details configuration](/img/develop/tools/openapi-tool/step-connection-details.png)
 
@@ -263,7 +255,7 @@ bal openapi -i openapi.yaml --nullable
 
 **Connecting to an external API**
 
-If the API provider supplies an OpenAPI spec, generate a type-safe client from it — no need to manually configure endpoints, methods, or request/response types. Everything is inferred from the spec. Without this, you would fall back to a generic HTTP connector and handle all of that yourself.
+If the API provider supplies an OpenAPI spec, generate a type-safe client from it. You don't need to manually configure endpoints, methods, or request/response types. Everything is inferred from the spec. Without this, you would fall back to a generic HTTP connector and handle all of that yourself.
 
 1. Obtain the OpenAPI spec from the API provider.
 2. Generate the client: `bal openapi -i partner-api.yaml --mode client`
@@ -307,4 +299,4 @@ Once your service is built, export its OpenAPI specification and share it with c
 
 - [GraphQL Tool](graphql-tool.md) — Generate GraphQL services from SDL schemas
 - [gRPC Tool](grpc-tool.md) — Generate gRPC services from Protocol Buffer definitions
-- [Visual flow designer](/docs/develop/design-logic/visual-flow-designer) — Build logic visually on top of generated stubs
+- [Flow Diagram editor](../../understand-ide/editors/flow-diagram-editor/flow-diagram-editor.md) — Build logic visually on top of generated stubs

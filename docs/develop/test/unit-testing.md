@@ -1,8 +1,8 @@
 ---
-title: Write unit tests
+title: Write Unit Tests
 ---
 
-# Write unit tests
+# Write Unit Tests
 
 WSO2 Integrator uses the Ballerina test framework for automated testing. Test functions are placed in a dedicated `tests/` folder inside your module and discovered automatically when you run `bal test`. This page covers how to structure the test directory, how to use assertions to verify behavior, and how to supply test-only configuration values.
 
@@ -27,7 +27,7 @@ Two scoping rules apply:
 
 ## Assertions
 
-Assertions compare what your code produced against what you expected. When they do not match, the test fails with a descriptive message pointing to the exact difference. The optional `message` parameter appears in the failure output — use it to explain the intent of the assertion so failures are easy to diagnose.
+Assertions compare what your code produced against what you expected. When they do not match, the test fails with a descriptive message pointing to the exact difference. The optional `message` parameter appears in the failure output. Use it to explain the intent of the assertion so failures are easy to diagnose.
 
 | Function | What it checks |
 |---|---|

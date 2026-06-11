@@ -1,10 +1,10 @@
 ---
-title: Integrator app
+title: Integrator App
 ---
 
-# Integrator app
+# Integrator App
 
-The WSO2 Integrator IDE is the application you install to build integrations. Every view you open (Project view, Integrator view, Library view, and so on) renders inside the same window chrome: a top menu bar, an activity bar on the far-left edge, an editor tab area, and the side panels for the project explorer and deployment options. This page describes the parts of that chrome that stay the same across views, so the view-specific pages do not need to repeat them.
+The WSO2 Integrator IDE is the application you install to build integrations. Every view you open ([Project view](views/project-view.md), [Integrator view](views/integration-view.md), [Library view](views/library-view.md), and so on) renders inside the same window chrome: a top menu bar, an activity bar on the far-left edge, an editor tab area, and the side panels for the project explorer and deployment options. This page describes the parts of that chrome that stay the same across views, so the view-specific pages do not need to repeat them.
 
 ## Top menu bar
 
@@ -35,11 +35,13 @@ The activity bar is the narrow vertical strip on the far-left edge of the IDE. E
 
 | Name | Description |
 |---|---|
-| **Explorer** | Opens the file explorer for browsing project files on disk. |
+| **Explorer** | Opens the file explorer to browse the raw project files on disk, such as `.bal` source files and `.toml` configuration files. |
 | **WSO2 Integrator** | Opens the project explorer for the current view. This is the entry point to the Integrator app. |
 | **Source Control** | Opens the Git source control panel for staging, committing, and reviewing changes. |
 | **Run and Debug** | Opens the debug panel for setting breakpoints, launching the integration with the debugger, and inspecting variables. |
 | **Test Explorer** | Opens the test explorer to view, run, and debug the test cases defined for your integration. |
+| **Accounts** | Shows the signed-in WSO2 Integrator account and provides actions to manage extension account preferences and language model access. |
+| **Manage** | Opens the IDE management menu with access to the Command Palette, Profiles, Settings, Keyboard Shortcuts, Snippets, Tasks, and Themes. |
 
 Select the **WSO2 Integrator** icon at any time to return to the project explorer and the current view.
 
@@ -56,15 +58,15 @@ When an integration or library is open, the project explorer groups its artifact
 
 | Section | What it shows |
 |---|---|
-| **Entry points** | HTTP services, GraphQL services, automations, and event listeners that trigger your integration. |
+| **Entry Points** | HTTP services, GraphQL services, automations, and event listeners that trigger your integration. |
 | **Listeners** | Protocol-specific configurations (host, port) that entry points bind to. |
 | **Connections** | Configured links to external systems such as databases, HTTP APIs, and message brokers. |
 | **Types** | Custom records, enums, arrays, service classes, and unions used in your integration. |
 | **Functions** | Reusable logic blocks callable from entry points or other functions. |
-| **Data mappers** | Visual transformations between source and target types. |
+| **Data Mappers** | Visual transformations between source and target types. |
 | **Configurations** | Variables sourced from `Config.toml` at runtime. |
 
-For details on each artifact type, see [Integration artifacts](/docs/develop/integration-artifacts).
+For details on each artifact type, see [Integration artifacts](../integration-artifacts/integration-artifacts.md).
 
 ## Editor tab area
 
@@ -80,17 +82,31 @@ The editor toolbar appears on the right side of the editor tab bar and provides 
 
 | Action | Description |
 |---|---|
-| **WSO2 Integrator Copilot** | Opens the WSO2 Integrator Copilot chat panel for AI-powered assistance with building and troubleshooting your integration. |
+| **WSO2 Integrator Copilot** | Opens the [WSO2 Integrator Copilot](../copilot/overview.md) chat panel for AI-powered assistance with building and troubleshooting your integration. |
 | **Run** | Builds and runs the integration locally, starting all services and streaming output to the terminal. |
 | **Debug** | Launches the integration with the debugger attached so you can set breakpoints and inspect variables. |
 | **Show Source** | Switches the editor from the visual designer to the Ballerina source for the current artifact. |
 | **Split editor** | Opens the active editor in a second column so you can view two surfaces side by side. |
 | **More** (**⋯**) | Reveals additional editor actions, such as reopening recently closed editors and pinning the tab. |
 
-The toolbar is the same across the Project view, Integrator view, and Library view, so the view-specific pages refer back to this section instead of repeating it.
+The toolbar is the same across the [Project view](views/project-view.md), [Integrator view](views/integration-view.md), and [Library view](views/library-view.md), so the view-specific pages refer back to this section instead of repeating it.
+
+## Status bar
+
+The status bar runs across the bottom edge of the IDE and shows the current state of your project, runtime, and tooling at a glance. Select an item to open the related panel or action.
+
+![Status bar](/img/develop/understand-ide/integrator-app/status-bar.png)
+
+| Item | Description |
+|---|---|
+| **Branch indicator** (for example, `main*`) | Shows the active Git branch for the project. An asterisk indicates uncommitted changes. Select it to switch or manage branches. |
+| **Problems** (error and warning counts) | Shows the number of errors and warnings detected in the current project. Select it to open the Problems panel. |
+| **Ballerina version** | Shows the Ballerina distribution version that the IDE is using to build and run your integration (for example, `Ballerina 2201.13.4 (Swan Lake Update 13)`). |
+| **ICP** | Shows the status of the [Integration Control Plane](../../manage/icp/integration-control-plane.md) connection (for example, `ICP: Stopped`). Select it to start, stop, or configure ICP for the project. |
+| **Notifications** | Opens the notifications panel for messages from the IDE and its extensions. |
 
 ## What's next
 
-- [Project view](views/project-view.md): work with multiple integrations and libraries.
-- [Integrator view](views/integration-view.md): build and manage a single integration.
-- [Library view](views/library-view.md): build reusable libraries.
+- [Project view](views/project-view.md) — Work with multiple integrations and libraries.
+- [Integrator view](views/integration-view.md) — Build and manage a single integration.
+- [Library view](views/library-view.md) — Build reusable libraries.
